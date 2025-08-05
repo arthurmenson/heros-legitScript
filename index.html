@@ -1344,28 +1344,45 @@ margin: 0rem !important;
     { text: "Hair Regrowth", color: "#9B7E60" },
     { text: "Skin Care", color: "#D76C6C" }
   ];
+
   const typedElement = document.querySelector(".typed-words");
   let currentIndex = 0;
+  let isAnimating = false;
+
   function changeWord() {
-    // 1. Почати fade-out
+    if (isAnimating) return;
+    isAnimating = true;
+
+    // Start fade-out
     typedElement.classList.remove("fade-in");
     typedElement.classList.add("fade-out");
-    // 2. Змінити текст і колір після затухання
+
+    // Change text and color after fade-out
     setTimeout(() => {
       currentIndex = (currentIndex + 1) % words.length;
       typedElement.textContent = words[currentIndex].text;
       typedElement.style.color = words[currentIndex].color;
-      // fade-in
+
+      // Start fade-in
       typedElement.classList.remove("fade-out");
       typedElement.classList.add("fade-in");
-    }, 600);
+
+      // Reset animation flag
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }, 500);
   }
-  // Початкове слово
-  typedElement.textContent = words[currentIndex].text;
-  typedElement.style.color = words[currentIndex].color;
-  typedElement.classList.add("fade-in");
-  // Змінювати слова кожні 3 секунди
-  setInterval(changeWord, 3000);
+
+  // Initialize with first word
+  if (typedElement) {
+    typedElement.textContent = words[currentIndex].text;
+    typedElement.style.color = words[currentIndex].color;
+    typedElement.classList.add("fade-in");
+
+    // Start animation cycle
+    setInterval(changeWord, 3000);
+  }
 </script>
 </body>
 </html>
