@@ -1482,6 +1482,90 @@ margin: 0rem !important;
     // Start animation cycle
     setInterval(changeWord, 3000);
   }
+
+  // Two-row animation for health services
+  const healthServices = [
+    {
+      service: "Weight Loss",
+      description: "Personalized weight management plans with expert guidance and proven results",
+      color: "#9B7E60",
+      iconColor: "#9B7E60"
+    },
+    {
+      service: "Hair Regrowth",
+      description: "Advanced hair restoration treatments to help you regain confidence",
+      color: "#70978F",
+      iconColor: "#70978F"
+    },
+    {
+      service: "Skin Care",
+      description: "Professional dermatology solutions for healthy, radiant skin",
+      color: "#D76C6C",
+      iconColor: "#D76C6C"
+    },
+    {
+      service: "Men's Health",
+      description: "Comprehensive healthcare solutions designed specifically for men",
+      color: "#8B5A91",
+      iconColor: "#8B5A91"
+    },
+    {
+      service: "Mental Health",
+      description: "Professional support for your mental wellness and emotional health",
+      color: "#4A90B8",
+      iconColor: "#4A90B8"
+    }
+  ];
+
+  const serviceTextElement = document.querySelector(".animated-service-text");
+  const descriptionElement = document.querySelector(".animation-description");
+  const iconElement = document.querySelector(".animation-icon");
+  const containerElement = document.querySelector(".two-row-animation-container");
+
+  let currentServiceIndex = 0;
+  let isServiceAnimating = false;
+
+  function changeService() {
+    if (isServiceAnimating || !serviceTextElement || !descriptionElement) return;
+    isServiceAnimating = true;
+
+    // Add fade-out class
+    containerElement.classList.add("service-fade-out");
+
+    setTimeout(() => {
+      // Update content
+      currentServiceIndex = (currentServiceIndex + 1) % healthServices.length;
+      const currentService = healthServices[currentServiceIndex];
+
+      serviceTextElement.textContent = currentService.service;
+      serviceTextElement.style.color = currentService.color;
+      descriptionElement.textContent = currentService.description;
+
+      // Update icon colors
+      iconElement.style.background = `linear-gradient(135deg, ${currentService.iconColor}, ${currentService.color})`;
+
+      // Add fade-in class
+      containerElement.classList.remove("service-fade-out");
+      containerElement.classList.add("service-fade-in");
+
+      setTimeout(() => {
+        containerElement.classList.remove("service-fade-in");
+        isServiceAnimating = false;
+      }, 500);
+    }, 500);
+  }
+
+  // Initialize two-row animation
+  if (serviceTextElement && descriptionElement) {
+    const initialService = healthServices[currentServiceIndex];
+    serviceTextElement.textContent = initialService.service;
+    serviceTextElement.style.color = initialService.color;
+    descriptionElement.textContent = initialService.description;
+    iconElement.style.background = `linear-gradient(135deg, ${initialService.iconColor}, ${initialService.color})`;
+
+    // Start service animation cycle (every 4 seconds)
+    setInterval(changeService, 4000);
+  }
 </script>
 </body>
 </html>
