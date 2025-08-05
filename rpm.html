@@ -2,9 +2,12 @@
 <html data-wf-page="683205ce3c3b4ea8b6b87bf5" data-wf-site="682f5a8cf58ac9034f80ba80" lang="en">
 <head>
   <meta charset="utf-8">
-  <title>RPM</title>
-  <meta content="RPM" property="og:title">
-  <meta content="RPM" property="twitter:title">
+  <title>Remote Patient Monitoring - Monitor Your Health from Home | Heros</title>
+  <meta content="24/7 remote patient monitoring with smart devices. Track vitals, manage chronic conditions, and stay connected with your care team from home." name="description">
+  <meta content="Remote Patient Monitoring - Monitor Your Health from Home | Heros" property="og:title">
+  <meta content="24/7 remote patient monitoring with smart devices. Track vitals, manage chronic conditions, and stay connected with your care team from home." property="og:description">
+  <meta content="Remote Patient Monitoring - Monitor Your Health from Home | Heros" property="twitter:title">
+  <meta content="24/7 remote patient monitoring with smart devices. Track vitals, manage chronic conditions, and stay connected with your care team from home." property="twitter:description">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
@@ -13,6 +16,280 @@
   <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
   <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
   <link href="images/webclip.png" rel="apple-touch-icon">
+  <style>
+    /* RPM Specific Styles */
+    .rpm-hero-badge {
+      background: linear-gradient(135deg, #8B5A91, #B588BB);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+    
+    .rpm-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      margin: 48px 0;
+    }
+    
+    .rpm-stat-card {
+      text-align: center;
+      padding: 24px;
+      background: #f8f9fa;
+      border-radius: 16px;
+    }
+    
+    .rpm-stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #8B5A91;
+      font-family: 'Recoleta', serif;
+    }
+    
+    .rpm-stat-label {
+      font-size: 16px;
+      color: #666;
+      margin-top: 8px;
+    }
+    
+    .rpm-features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin: 48px 0;
+    }
+    
+    .rpm-feature-card {
+      background: white;
+      padding: 32px;
+      border-radius: 24px;
+      box-shadow: 0 4px 24px rgba(139, 90, 145, 0.1);
+      border: 1px solid #f1f1f1;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .rpm-feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #8B5A91, #B588BB);
+    }
+    
+    .rpm-feature-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #8B5A91, #B588BB);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      color: white;
+      font-size: 24px;
+    }
+    
+    .rpm-feature-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+      font-family: 'Recoleta', serif;
+    }
+    
+    .rpm-feature-description {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    
+    .rpm-pricing-card {
+      background: white;
+      border-radius: 24px;
+      padding: 48px 32px;
+      box-shadow: 0 8px 40px rgba(139, 90, 145, 0.15);
+      border: 2px solid #8B5A91;
+      position: relative;
+      text-align: center;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    .rpm-pricing-badge {
+      background: linear-gradient(135deg, #8B5A91, #B588BB);
+      color: white;
+      padding: 8px 24px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .rpm-price {
+      font-size: 4rem;
+      font-weight: 700;
+      color: #8B5A91;
+      font-family: 'Recoleta', serif;
+      line-height: 1;
+    }
+    
+    .rpm-price-period {
+      color: #666;
+      font-size: 18px;
+      margin-bottom: 32px;
+    }
+    
+    .rpm-benefits-list {
+      text-align: left;
+      margin: 32px 0;
+    }
+    
+    .rpm-benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    
+    .rpm-benefit-check {
+      color: #8B5A91;
+      font-size: 20px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    
+    .urgency-banner {
+      background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-align: center;
+      margin: 24px 0;
+      font-weight: 600;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.8; }
+      100% { opacity: 1; }
+    }
+    
+    .cta-primary {
+      background: linear-gradient(135deg, #8B5A91, #B588BB);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 32px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 18px;
+      display: inline-block;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(139, 90, 145, 0.3);
+    }
+    
+    .cta-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(139, 90, 145, 0.4);
+    }
+    
+    .cta-secondary {
+      background: transparent;
+      color: #8B5A91;
+      padding: 16px 32px;
+      border: 2px solid #8B5A91;
+      border-radius: 32px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      display: inline-block;
+      transition: all 0.3s ease;
+      margin-left: 16px;
+    }
+    
+    .cta-secondary:hover {
+      background: #8B5A91;
+      color: white;
+    }
+    
+    .testimonial-card {
+      background: white;
+      padding: 32px;
+      border-radius: 24px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+      margin-bottom: 32px;
+    }
+    
+    .testimonial-rating {
+      color: #fbbf24;
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 24px;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .testimonial-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #f1f1f1;
+    }
+    
+    .testimonial-info h4 {
+      margin: 0;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    
+    .testimonial-info p {
+      margin: 4px 0 0 0;
+      color: #666;
+      font-size: 14px;
+    }
+    
+    @media (max-width: 768px) {
+      .rpm-stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      
+      .rpm-features-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      
+      .rpm-price {
+        font-size: 3rem;
+      }
+      
+      .cta-secondary {
+        margin-left: 0;
+        margin-top: 16px;
+        display: block;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="page-wrapper">
@@ -48,40 +325,6 @@ body {
 	margin-right: auto !important;
   margin-left: auto !important;
 }
-/* 
-Make the following elements inherit typography styles from the parent and not have hardcoded values. 
-Important: You will not be able to style for example "All Links" in Designer with this CSS applied.
-Uncomment this CSS to use it in the project. Leave this message for future hand-off.
-*/
-/*
-a,
-.w-input,
-.w-select,
-.w-tab-link,
-.w-nav-link,
-.w-dropdown-btn,
-.w-dropdown-toggle,
-.w-dropdown-link {
-  color: inherit;
-  text-decoration: inherit;
-  font-size: inherit;
-}
-*/
-/* Apply "..." after 3 lines of text */
-.text-style-3lines {
-	display: -webkit-box;
-	overflow: hidden;
-	-webkit-line-clamp: 3;
-	-webkit-box-orient: vertical;
-}
-/* Apply "..." after 2 lines of text */
-.text-style-2lines {
-	display: -webkit-box;
-	overflow: hidden;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-}
-/* These classes are never overwritten */
 .hide {
   display: none !important;
 }
@@ -110,83 +353,29 @@ a,
 padding: 0rem !important;
 margin: 0rem !important;
 }
-.margin-top {
-  margin-right: 0rem !important;
-  margin-bottom: 0rem !important;
-  margin-left: 0rem !important;
-}
-.padding-top {
-  padding-right: 0rem !important;
-  padding-bottom: 0rem !important;
-  padding-left: 0rem !important;
-}
-.margin-right {
-  margin-top: 0rem !important;
-  margin-bottom: 0rem !important;
-  margin-left: 0rem !important;
-}
-.padding-right {
-  padding-top: 0rem !important;
-  padding-bottom: 0rem !important;
-  padding-left: 0rem !important;
-}
-.margin-bottom {
-  margin-top: 0rem !important;
-  margin-right: 0rem !important;
-  margin-left: 0rem !important;
-}
-.padding-bottom {
-  padding-top: 0rem !important;
-  padding-right: 0rem !important;
-  padding-left: 0rem !important;
-}
-.margin-left {
-  margin-top: 0rem !important;
-  margin-right: 0rem !important;
-  margin-bottom: 0rem !important;
-}
-.padding-left {
-  padding-top: 0rem !important;
-  padding-right: 0rem !important;
-  padding-bottom: 0rem !important;
-}
-.margin-horizontal {
-  margin-top: 0rem !important;
-  margin-bottom: 0rem !important;
-}
-.padding-horizontal {
-  padding-top: 0rem !important;
-  padding-bottom: 0rem !important;
-}
-.margin-vertical {
-  margin-right: 0rem !important;
-  margin-left: 0rem !important;
-}
-.padding-vertical {
-  padding-right: 0rem !important;
-  padding-left: 0rem !important;
-}
 </style>
     </div>
+
+    <!-- Trust Indicators Banner -->
     <div class="bunner_component">
       <div class="div-block">
         <div class="icon-1x1-small w-embed"><svg width="21" height="20" viewbox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5008 5.31968C12.6231 5.57162 12.4341 5.85113 12.1562 5.88623C9.14903 6.26604 6.76604 8.64903 6.38623 11.6562C6.35113 11.9341 6.07162 12.1231 5.81968 12.0008C4.15065 11.1908 3 9.47979 3 7.5C3 4.73858 5.23858 2.5 8 2.5C9.97979 2.5 11.6908 3.65065 12.5008 5.31968Z" fill="currentcolor"></path>
             <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8971 8.42438C15.0798 7.84233 14.0799 7.5 13 7.5C10.2386 7.5 8 9.73858 8 12.5C8 13.5799 8.34233 14.5798 8.92438 15.3971L15.8971 8.42438ZM17.0756 9.60289L10.1029 16.5756C10.9202 17.1577 11.9201 17.5 13 17.5C15.7614 17.5 18 15.2614 18 12.5C18 11.4201 17.6577 10.4202 17.0756 9.60289Z" fill="currentcolor"></path>
           </svg></div>
-        <div class="text-opacity-50 text-size-small">2,000,000+ members treated</div>
+        <div class="text-opacity-50 text-size-small">50,000+ patients monitored daily</div>
       </div>
       <div class="div-block">
         <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4998 5.33333H11.8332V4C11.8332 3.26667 11.2332 2.66667 10.4998 2.66667H2.49984C1.7665 2.66667 1.1665 3.26667 1.1665 4V10C1.1665 10.7333 1.7665 11.3333 2.49984 11.3333C2.49984 12.44 3.39317 13.3333 4.49984 13.3333C5.6065 13.3333 6.49984 12.44 6.49984 11.3333H10.4998C10.4998 12.44 11.3932 13.3333 12.4998 13.3333C13.6065 13.3333 14.4998 12.44 14.4998 11.3333H15.1665C15.5332 11.3333 15.8332 11.0333 15.8332 10.6667V8.44667C15.8332 8.16 15.7398 7.88 15.5665 7.64667L14.0332 5.6C13.9065 5.43333 13.7065 5.33333 13.4998 5.33333ZM4.49984 12C4.13317 12 3.83317 11.7 3.83317 11.3333C3.83317 10.9667 4.13317 10.6667 4.49984 10.6667C4.8665 10.6667 5.1665 10.9667 5.1665 11.3333C5.1665 11.7 4.8665 12 4.49984 12ZM13.4998 6.33333L14.8065 8H11.8332V6.33333H13.4998ZM12.4998 12C12.1332 12 11.8332 11.7 11.8332 11.3333C11.8332 10.9667 12.1332 10.6667 12.4998 10.6667C12.8665 10.6667 13.1665 10.9667 13.1665 11.3333C13.1665 11.7 12.8665 12 12.4998 12Z" fill="currentcolor"></path>
           </svg></div>
-        <div class="text-opacity-50 text-size-small">Free and discreet shipping</div>
+        <div class="text-opacity-50 text-size-small">Free device delivery</div>
       </div>
       <div class="div-block">
         <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1667 2H3.83333C3.1 2 2.5 2.6 2.5 3.33333V12.6667C2.5 13.4 3.1 14 3.83333 14H13.1667C13.9 14 14.5 13.4 14.5 12.6667V3.33333C14.5 2.6 13.9 2 13.1667 2ZM5.83333 11.3333C5.46667 11.3333 5.16667 11.0333 5.16667 10.6667V7.33333C5.16667 6.96667 5.46667 6.66667 5.83333 6.66667C6.2 6.66667 6.5 6.96667 6.5 7.33333V10.6667C6.5 11.0333 6.2 11.3333 5.83333 11.3333ZM8.5 11.3333C8.13333 11.3333 7.83333 11.0333 7.83333 10.6667V5.33333C7.83333 4.96667 8.13333 4.66667 8.5 4.66667C8.86667 4.66667 9.16667 4.96667 9.16667 5.33333V10.6667C9.16667 11.0333 8.86667 11.3333 8.5 11.3333ZM11.1667 11.3333C10.8 11.3333 10.5 11.0333 10.5 10.6667V9.33333C10.5 8.96667 10.8 8.66667 11.1667 8.66667C11.5333 8.66667 11.8333 8.96667 11.8333 9.33333V10.6667C11.8333 11.0333 11.5333 11.3333 11.1667 11.3333Z" fill="currentcolor"></path>
           </svg></div>
-        <div class="text-opacity-50 text-size-small">100% online process</div>
+        <div class="text-opacity-50 text-size-small">24/7 monitoring</div>
       </div>
       <div class="div-block">
         <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -194,306 +383,9 @@ margin: 0rem !important;
           </svg></div>
         <div class="text-opacity-50 text-size-small">No insurance required</div>
       </div>
-      <div data-w-id="29ab36f2-0321-95ed-ce93-c66114901a86" class="div-block-79">
-        <div class="div-block-80">
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.50016 1.33333C4.8135 1.33333 1.8335 4.31333 1.8335 8C1.8335 11.6867 4.8135 14.6667 8.50016 14.6667C12.1868 14.6667 15.1668 11.6867 15.1668 8C15.1668 4.31333 12.1868 1.33333 8.50016 1.33333ZM11.3668 10.8667C11.1068 11.1267 10.6868 11.1267 10.4268 10.8667L8.50016 8.94L6.5735 10.8667C6.3135 11.1267 5.8935 11.1267 5.6335 10.8667C5.3735 10.6067 5.3735 10.1867 5.6335 9.92667L7.56016 8L5.6335 6.07333C5.3735 5.81333 5.3735 5.39333 5.6335 5.13333C5.8935 4.87333 6.3135 4.87333 6.5735 5.13333L8.50016 7.06L10.4268 5.13333C10.6868 4.87333 11.1068 4.87333 11.3668 5.13333C11.6268 5.39333 11.6268 5.81333 11.3668 6.07333L9.44016 8L11.3668 9.92667C11.6202 10.18 11.6202 10.6067 11.3668 10.8667Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">No insurance required</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1667 2H3.83333C3.1 2 2.5 2.6 2.5 3.33333V12.6667C2.5 13.4 3.1 14 3.83333 14H13.1667C13.9 14 14.5 13.4 14.5 12.6667V3.33333C14.5 2.6 13.9 2 13.1667 2ZM5.83333 11.3333C5.46667 11.3333 5.16667 11.0333 5.16667 10.6667V7.33333C5.16667 6.96667 5.46667 6.66667 5.83333 6.66667C6.2 6.66667 6.5 6.96667 6.5 7.33333V10.6667C6.5 11.0333 6.2 11.3333 5.83333 11.3333ZM8.5 11.3333C8.13333 11.3333 7.83333 11.0333 7.83333 10.6667V5.33333C7.83333 4.96667 8.13333 4.66667 8.5 4.66667C8.86667 4.66667 9.16667 4.96667 9.16667 5.33333V10.6667C9.16667 11.0333 8.86667 11.3333 8.5 11.3333ZM11.1667 11.3333C10.8 11.3333 10.5 11.0333 10.5 10.6667V9.33333C10.5 8.96667 10.8 8.66667 11.1667 8.66667C11.5333 8.66667 11.8333 8.96667 11.8333 9.33333V10.6667C11.8333 11.0333 11.5333 11.3333 11.1667 11.3333Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">100% online process</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4998 5.33333H11.8332V4C11.8332 3.26667 11.2332 2.66667 10.4998 2.66667H2.49984C1.7665 2.66667 1.1665 3.26667 1.1665 4V10C1.1665 10.7333 1.7665 11.3333 2.49984 11.3333C2.49984 12.44 3.39317 13.3333 4.49984 13.3333C5.6065 13.3333 6.49984 12.44 6.49984 11.3333H10.4998C10.4998 12.44 11.3932 13.3333 12.4998 13.3333C13.6065 13.3333 14.4998 12.44 14.4998 11.3333H15.1665C15.5332 11.3333 15.8332 11.0333 15.8332 10.6667V8.44667C15.8332 8.16 15.7398 7.88 15.5665 7.64667L14.0332 5.6C13.9065 5.43333 13.7065 5.33333 13.4998 5.33333ZM4.49984 12C4.13317 12 3.83317 11.7 3.83317 11.3333C3.83317 10.9667 4.13317 10.6667 4.49984 10.6667C4.8665 10.6667 5.1665 10.9667 5.1665 11.3333C5.1665 11.7 4.8665 12 4.49984 12ZM13.4998 6.33333L14.8065 8H11.8332V6.33333H13.4998ZM12.4998 12C12.1332 12 11.8332 11.7 11.8332 11.3333C11.8332 10.9667 12.1332 10.6667 12.4998 10.6667C12.8665 10.6667 13.1665 10.9667 13.1665 11.3333C13.1665 11.7 12.8665 12 12.4998 12Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">Free and discreet shipping</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="21" height="20" viewbox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5008 5.31968C12.6231 5.57162 12.4341 5.85113 12.1562 5.88623C9.14903 6.26604 6.76604 8.64903 6.38623 11.6562C6.35113 11.9341 6.07162 12.1231 5.81968 12.0008C4.15065 11.1908 3 9.47979 3 7.5C3 4.73858 5.23858 2.5 8 2.5C9.97979 2.5 11.6908 3.65065 12.5008 5.31968Z" fill="currentcolor"></path>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8971 8.42438C15.0798 7.84233 14.0799 7.5 13 7.5C10.2386 7.5 8 9.73858 8 12.5C8 13.5799 8.34233 14.5798 8.92438 15.3971L15.8971 8.42438ZM17.0756 9.60289L10.1029 16.5756C10.9202 17.1577 11.9201 17.5 13 17.5C15.7614 17.5 18 15.2614 18 12.5C18 11.4201 17.6577 10.4202 17.0756 9.60289Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">2,000,000+ members treated</div>
-          </div>
-        </div>
-        <div class="div-block-80">
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.50016 1.33333C4.8135 1.33333 1.8335 4.31333 1.8335 8C1.8335 11.6867 4.8135 14.6667 8.50016 14.6667C12.1868 14.6667 15.1668 11.6867 15.1668 8C15.1668 4.31333 12.1868 1.33333 8.50016 1.33333ZM11.3668 10.8667C11.1068 11.1267 10.6868 11.1267 10.4268 10.8667L8.50016 8.94L6.5735 10.8667C6.3135 11.1267 5.8935 11.1267 5.6335 10.8667C5.3735 10.6067 5.3735 10.1867 5.6335 9.92667L7.56016 8L5.6335 6.07333C5.3735 5.81333 5.3735 5.39333 5.6335 5.13333C5.8935 4.87333 6.3135 4.87333 6.5735 5.13333L8.50016 7.06L10.4268 5.13333C10.6868 4.87333 11.1068 4.87333 11.3668 5.13333C11.6268 5.39333 11.6268 5.81333 11.3668 6.07333L9.44016 8L11.3668 9.92667C11.6202 10.18 11.6202 10.6067 11.3668 10.8667Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">No insurance required</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1667 2H3.83333C3.1 2 2.5 2.6 2.5 3.33333V12.6667C2.5 13.4 3.1 14 3.83333 14H13.1667C13.9 14 14.5 13.4 14.5 12.6667V3.33333C14.5 2.6 13.9 2 13.1667 2ZM5.83333 11.3333C5.46667 11.3333 5.16667 11.0333 5.16667 10.6667V7.33333C5.16667 6.96667 5.46667 6.66667 5.83333 6.66667C6.2 6.66667 6.5 6.96667 6.5 7.33333V10.6667C6.5 11.0333 6.2 11.3333 5.83333 11.3333ZM8.5 11.3333C8.13333 11.3333 7.83333 11.0333 7.83333 10.6667V5.33333C7.83333 4.96667 8.13333 4.66667 8.5 4.66667C8.86667 4.66667 9.16667 4.96667 9.16667 5.33333V10.6667C9.16667 11.0333 8.86667 11.3333 8.5 11.3333ZM11.1667 11.3333C10.8 11.3333 10.5 11.0333 10.5 10.6667V9.33333C10.5 8.96667 10.8 8.66667 11.1667 8.66667C11.5333 8.66667 11.8333 8.96667 11.8333 9.33333V10.6667C11.8333 11.0333 11.5333 11.3333 11.1667 11.3333Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">100% online process</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4998 5.33333H11.8332V4C11.8332 3.26667 11.2332 2.66667 10.4998 2.66667H2.49984C1.7665 2.66667 1.1665 3.26667 1.1665 4V10C1.1665 10.7333 1.7665 11.3333 2.49984 11.3333C2.49984 12.44 3.39317 13.3333 4.49984 13.3333C5.6065 13.3333 6.49984 12.44 6.49984 11.3333H10.4998C10.4998 12.44 11.3932 13.3333 12.4998 13.3333C13.6065 13.3333 14.4998 12.44 14.4998 11.3333H15.1665C15.5332 11.3333 15.8332 11.0333 15.8332 10.6667V8.44667C15.8332 8.16 15.7398 7.88 15.5665 7.64667L14.0332 5.6C13.9065 5.43333 13.7065 5.33333 13.4998 5.33333ZM4.49984 12C4.13317 12 3.83317 11.7 3.83317 11.3333C3.83317 10.9667 4.13317 10.6667 4.49984 10.6667C4.8665 10.6667 5.1665 10.9667 5.1665 11.3333C5.1665 11.7 4.8665 12 4.49984 12ZM13.4998 6.33333L14.8065 8H11.8332V6.33333H13.4998ZM12.4998 12C12.1332 12 11.8332 11.7 11.8332 11.3333C11.8332 10.9667 12.1332 10.6667 12.4998 10.6667C12.8665 10.6667 13.1665 10.9667 13.1665 11.3333C13.1665 11.7 12.8665 12 12.4998 12Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">Free and discreet shipping</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="21" height="20" viewbox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5008 5.31968C12.6231 5.57162 12.4341 5.85113 12.1562 5.88623C9.14903 6.26604 6.76604 8.64903 6.38623 11.6562C6.35113 11.9341 6.07162 12.1231 5.81968 12.0008C4.15065 11.1908 3 9.47979 3 7.5C3 4.73858 5.23858 2.5 8 2.5C9.97979 2.5 11.6908 3.65065 12.5008 5.31968Z" fill="currentcolor"></path>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8971 8.42438C15.0798 7.84233 14.0799 7.5 13 7.5C10.2386 7.5 8 9.73858 8 12.5C8 13.5799 8.34233 14.5798 8.92438 15.3971L15.8971 8.42438ZM17.0756 9.60289L10.1029 16.5756C10.9202 17.1577 11.9201 17.5 13 17.5C15.7614 17.5 18 15.2614 18 12.5C18 11.4201 17.6577 10.4202 17.0756 9.60289Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">2,000,000+ members treated</div>
-          </div>
-        </div>
-        <div class="div-block-80">
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.50016 1.33333C4.8135 1.33333 1.8335 4.31333 1.8335 8C1.8335 11.6867 4.8135 14.6667 8.50016 14.6667C12.1868 14.6667 15.1668 11.6867 15.1668 8C15.1668 4.31333 12.1868 1.33333 8.50016 1.33333ZM11.3668 10.8667C11.1068 11.1267 10.6868 11.1267 10.4268 10.8667L8.50016 8.94L6.5735 10.8667C6.3135 11.1267 5.8935 11.1267 5.6335 10.8667C5.3735 10.6067 5.3735 10.1867 5.6335 9.92667L7.56016 8L5.6335 6.07333C5.3735 5.81333 5.3735 5.39333 5.6335 5.13333C5.8935 4.87333 6.3135 4.87333 6.5735 5.13333L8.50016 7.06L10.4268 5.13333C10.6868 4.87333 11.1068 4.87333 11.3668 5.13333C11.6268 5.39333 11.6268 5.81333 11.3668 6.07333L9.44016 8L11.3668 9.92667C11.6202 10.18 11.6202 10.6067 11.3668 10.8667Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">No insurance required</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1667 2H3.83333C3.1 2 2.5 2.6 2.5 3.33333V12.6667C2.5 13.4 3.1 14 3.83333 14H13.1667C13.9 14 14.5 13.4 14.5 12.6667V3.33333C14.5 2.6 13.9 2 13.1667 2ZM5.83333 11.3333C5.46667 11.3333 5.16667 11.0333 5.16667 10.6667V7.33333C5.16667 6.96667 5.46667 6.66667 5.83333 6.66667C6.2 6.66667 6.5 6.96667 6.5 7.33333V10.6667C6.5 11.0333 6.2 11.3333 5.83333 11.3333ZM8.5 11.3333C8.13333 11.3333 7.83333 11.0333 7.83333 10.6667V5.33333C7.83333 4.96667 8.13333 4.66667 8.5 4.66667C8.86667 4.66667 9.16667 4.96667 9.16667 5.33333V10.6667C9.16667 11.0333 8.86667 11.3333 8.5 11.3333ZM11.1667 11.3333C10.8 11.3333 10.5 11.0333 10.5 10.6667V9.33333C10.5 8.96667 10.8 8.66667 11.1667 8.66667C11.5333 8.66667 11.8333 8.96667 11.8333 9.33333V10.6667C11.8333 11.0333 11.5333 11.3333 11.1667 11.3333Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">100% online process</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4998 5.33333H11.8332V4C11.8332 3.26667 11.2332 2.66667 10.4998 2.66667H2.49984C1.7665 2.66667 1.1665 3.26667 1.1665 4V10C1.1665 10.7333 1.7665 11.3333 2.49984 11.3333C2.49984 12.44 3.39317 13.3333 4.49984 13.3333C5.6065 13.3333 6.49984 12.44 6.49984 11.3333H10.4998C10.4998 12.44 11.3932 13.3333 12.4998 13.3333C13.6065 13.3333 14.4998 12.44 14.4998 11.3333H15.1665C15.5332 11.3333 15.8332 11.0333 15.8332 10.6667V8.44667C15.8332 8.16 15.7398 7.88 15.5665 7.64667L14.0332 5.6C13.9065 5.43333 13.7065 5.33333 13.4998 5.33333ZM4.49984 12C4.13317 12 3.83317 11.7 3.83317 11.3333C3.83317 10.9667 4.13317 10.6667 4.49984 10.6667C4.8665 10.6667 5.1665 10.9667 5.1665 11.3333C5.1665 11.7 4.8665 12 4.49984 12ZM13.4998 6.33333L14.8065 8H11.8332V6.33333H13.4998ZM12.4998 12C12.1332 12 11.8332 11.7 11.8332 11.3333C11.8332 10.9667 12.1332 10.6667 12.4998 10.6667C12.8665 10.6667 13.1665 10.9667 13.1665 11.3333C13.1665 11.7 12.8665 12 12.4998 12Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">Free and discreet shipping</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="21" height="20" viewbox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5008 5.31968C12.6231 5.57162 12.4341 5.85113 12.1562 5.88623C9.14903 6.26604 6.76604 8.64903 6.38623 11.6562C6.35113 11.9341 6.07162 12.1231 5.81968 12.0008C4.15065 11.1908 3 9.47979 3 7.5C3 4.73858 5.23858 2.5 8 2.5C9.97979 2.5 11.6908 3.65065 12.5008 5.31968Z" fill="currentcolor"></path>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8971 8.42438C15.0798 7.84233 14.0799 7.5 13 7.5C10.2386 7.5 8 9.73858 8 12.5C8 13.5799 8.34233 14.5798 8.92438 15.3971L15.8971 8.42438ZM17.0756 9.60289L10.1029 16.5756C10.9202 17.1577 11.9201 17.5 13 17.5C15.7614 17.5 18 15.2614 18 12.5C18 11.4201 17.6577 10.4202 17.0756 9.60289Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">2,000,000+ members treated</div>
-          </div>
-        </div>
-        <div class="div-block-80">
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.50016 1.33333C4.8135 1.33333 1.8335 4.31333 1.8335 8C1.8335 11.6867 4.8135 14.6667 8.50016 14.6667C12.1868 14.6667 15.1668 11.6867 15.1668 8C15.1668 4.31333 12.1868 1.33333 8.50016 1.33333ZM11.3668 10.8667C11.1068 11.1267 10.6868 11.1267 10.4268 10.8667L8.50016 8.94L6.5735 10.8667C6.3135 11.1267 5.8935 11.1267 5.6335 10.8667C5.3735 10.6067 5.3735 10.1867 5.6335 9.92667L7.56016 8L5.6335 6.07333C5.3735 5.81333 5.3735 5.39333 5.6335 5.13333C5.8935 4.87333 6.3135 4.87333 6.5735 5.13333L8.50016 7.06L10.4268 5.13333C10.6868 4.87333 11.1068 4.87333 11.3668 5.13333C11.6268 5.39333 11.6268 5.81333 11.3668 6.07333L9.44016 8L11.3668 9.92667C11.6202 10.18 11.6202 10.6067 11.3668 10.8667Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">No insurance required</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1667 2H3.83333C3.1 2 2.5 2.6 2.5 3.33333V12.6667C2.5 13.4 3.1 14 3.83333 14H13.1667C13.9 14 14.5 13.4 14.5 12.6667V3.33333C14.5 2.6 13.9 2 13.1667 2ZM5.83333 11.3333C5.46667 11.3333 5.16667 11.0333 5.16667 10.6667V7.33333C5.16667 6.96667 5.46667 6.66667 5.83333 6.66667C6.2 6.66667 6.5 6.96667 6.5 7.33333V10.6667C6.5 11.0333 6.2 11.3333 5.83333 11.3333ZM8.5 11.3333C8.13333 11.3333 7.83333 11.0333 7.83333 10.6667V5.33333C7.83333 4.96667 8.13333 4.66667 8.5 4.66667C8.86667 4.66667 9.16667 4.96667 9.16667 5.33333V10.6667C9.16667 11.0333 8.86667 11.3333 8.5 11.3333ZM11.1667 11.3333C10.8 11.3333 10.5 11.0333 10.5 10.6667V9.33333C10.5 8.96667 10.8 8.66667 11.1667 8.66667C11.5333 8.66667 11.8333 8.96667 11.8333 9.33333V10.6667C11.8333 11.0333 11.5333 11.3333 11.1667 11.3333Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">100% online process</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4998 5.33333H11.8332V4C11.8332 3.26667 11.2332 2.66667 10.4998 2.66667H2.49984C1.7665 2.66667 1.1665 3.26667 1.1665 4V10C1.1665 10.7333 1.7665 11.3333 2.49984 11.3333C2.49984 12.44 3.39317 13.3333 4.49984 13.3333C5.6065 13.3333 6.49984 12.44 6.49984 11.3333H10.4998C10.4998 12.44 11.3932 13.3333 12.4998 13.3333C13.6065 13.3333 14.4998 12.44 14.4998 11.3333H15.1665C15.5332 11.3333 15.8332 11.0333 15.8332 10.6667V8.44667C15.8332 8.16 15.7398 7.88 15.5665 7.64667L14.0332 5.6C13.9065 5.43333 13.7065 5.33333 13.4998 5.33333ZM4.49984 12C4.13317 12 3.83317 11.7 3.83317 11.3333C3.83317 10.9667 4.13317 10.6667 4.49984 10.6667C4.8665 10.6667 5.1665 10.9667 5.1665 11.3333C5.1665 11.7 4.8665 12 4.49984 12ZM13.4998 6.33333L14.8065 8H11.8332V6.33333H13.4998ZM12.4998 12C12.1332 12 11.8332 11.7 11.8332 11.3333C11.8332 10.9667 12.1332 10.6667 12.4998 10.6667C12.8665 10.6667 13.1665 10.9667 13.1665 11.3333C13.1665 11.7 12.8665 12 12.4998 12Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">Free and discreet shipping</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="21" height="20" viewbox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5008 5.31968C12.6231 5.57162 12.4341 5.85113 12.1562 5.88623C9.14903 6.26604 6.76604 8.64903 6.38623 11.6562C6.35113 11.9341 6.07162 12.1231 5.81968 12.0008C4.15065 11.1908 3 9.47979 3 7.5C3 4.73858 5.23858 2.5 8 2.5C9.97979 2.5 11.6908 3.65065 12.5008 5.31968Z" fill="currentcolor"></path>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8971 8.42438C15.0798 7.84233 14.0799 7.5 13 7.5C10.2386 7.5 8 9.73858 8 12.5C8 13.5799 8.34233 14.5798 8.92438 15.3971L15.8971 8.42438ZM17.0756 9.60289L10.1029 16.5756C10.9202 17.1577 11.9201 17.5 13 17.5C15.7614 17.5 18 15.2614 18 12.5C18 11.4201 17.6577 10.4202 17.0756 9.60289Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">2,000,000+ members treated</div>
-          </div>
-        </div>
-        <div class="div-block-80">
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.50016 1.33333C4.8135 1.33333 1.8335 4.31333 1.8335 8C1.8335 11.6867 4.8135 14.6667 8.50016 14.6667C12.1868 14.6667 15.1668 11.6867 15.1668 8C15.1668 4.31333 12.1868 1.33333 8.50016 1.33333ZM11.3668 10.8667C11.1068 11.1267 10.6868 11.1267 10.4268 10.8667L8.50016 8.94L6.5735 10.8667C6.3135 11.1267 5.8935 11.1267 5.6335 10.8667C5.3735 10.6067 5.3735 10.1867 5.6335 9.92667L7.56016 8L5.6335 6.07333C5.3735 5.81333 5.3735 5.39333 5.6335 5.13333C5.8935 4.87333 6.3135 4.87333 6.5735 5.13333L8.50016 7.06L10.4268 5.13333C10.6868 4.87333 11.1068 4.87333 11.3668 5.13333C11.6268 5.39333 11.6268 5.81333 11.3668 6.07333L9.44016 8L11.3668 9.92667C11.6202 10.18 11.6202 10.6067 11.3668 10.8667Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">No insurance required</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1667 2H3.83333C3.1 2 2.5 2.6 2.5 3.33333V12.6667C2.5 13.4 3.1 14 3.83333 14H13.1667C13.9 14 14.5 13.4 14.5 12.6667V3.33333C14.5 2.6 13.9 2 13.1667 2ZM5.83333 11.3333C5.46667 11.3333 5.16667 11.0333 5.16667 10.6667V7.33333C5.16667 6.96667 5.46667 6.66667 5.83333 6.66667C6.2 6.66667 6.5 6.96667 6.5 7.33333V10.6667C6.5 11.0333 6.2 11.3333 5.83333 11.3333ZM8.5 11.3333C8.13333 11.3333 7.83333 11.0333 7.83333 10.6667V5.33333C7.83333 4.96667 8.13333 4.66667 8.5 4.66667C8.86667 4.66667 9.16667 4.96667 9.16667 5.33333V10.6667C9.16667 11.0333 8.86667 11.3333 8.5 11.3333ZM11.1667 11.3333C10.8 11.3333 10.5 11.0333 10.5 10.6667V9.33333C10.5 8.96667 10.8 8.66667 11.1667 8.66667C11.5333 8.66667 11.8333 8.96667 11.8333 9.33333V10.6667C11.8333 11.0333 11.5333 11.3333 11.1667 11.3333Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">100% online process</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4998 5.33333H11.8332V4C11.8332 3.26667 11.2332 2.66667 10.4998 2.66667H2.49984C1.7665 2.66667 1.1665 3.26667 1.1665 4V10C1.1665 10.7333 1.7665 11.3333 2.49984 11.3333C2.49984 12.44 3.39317 13.3333 4.49984 13.3333C5.6065 13.3333 6.49984 12.44 6.49984 11.3333H10.4998C10.4998 12.44 11.3932 13.3333 12.4998 13.3333C13.6065 13.3333 14.4998 12.44 14.4998 11.3333H15.1665C15.5332 11.3333 15.8332 11.0333 15.8332 10.6667V8.44667C15.8332 8.16 15.7398 7.88 15.5665 7.64667L14.0332 5.6C13.9065 5.43333 13.7065 5.33333 13.4998 5.33333ZM4.49984 12C4.13317 12 3.83317 11.7 3.83317 11.3333C3.83317 10.9667 4.13317 10.6667 4.49984 10.6667C4.8665 10.6667 5.1665 10.9667 5.1665 11.3333C5.1665 11.7 4.8665 12 4.49984 12ZM13.4998 6.33333L14.8065 8H11.8332V6.33333H13.4998ZM12.4998 12C12.1332 12 11.8332 11.7 11.8332 11.3333C11.8332 10.9667 12.1332 10.6667 12.4998 10.6667C12.8665 10.6667 13.1665 10.9667 13.1665 11.3333C13.1665 11.7 12.8665 12 12.4998 12Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">Free and discreet shipping</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="21" height="20" viewbox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5008 5.31968C12.6231 5.57162 12.4341 5.85113 12.1562 5.88623C9.14903 6.26604 6.76604 8.64903 6.38623 11.6562C6.35113 11.9341 6.07162 12.1231 5.81968 12.0008C4.15065 11.1908 3 9.47979 3 7.5C3 4.73858 5.23858 2.5 8 2.5C9.97979 2.5 11.6908 3.65065 12.5008 5.31968Z" fill="currentcolor"></path>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8971 8.42438C15.0798 7.84233 14.0799 7.5 13 7.5C10.2386 7.5 8 9.73858 8 12.5C8 13.5799 8.34233 14.5798 8.92438 15.3971L15.8971 8.42438ZM17.0756 9.60289L10.1029 16.5756C10.9202 17.1577 11.9201 17.5 13 17.5C15.7614 17.5 18 15.2614 18 12.5C18 11.4201 17.6577 10.4202 17.0756 9.60289Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">2,000,000+ members treated</div>
-          </div>
-        </div>
-        <div class="div-block-80">
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.50016 1.33333C4.8135 1.33333 1.8335 4.31333 1.8335 8C1.8335 11.6867 4.8135 14.6667 8.50016 14.6667C12.1868 14.6667 15.1668 11.6867 15.1668 8C15.1668 4.31333 12.1868 1.33333 8.50016 1.33333ZM11.3668 10.8667C11.1068 11.1267 10.6868 11.1267 10.4268 10.8667L8.50016 8.94L6.5735 10.8667C6.3135 11.1267 5.8935 11.1267 5.6335 10.8667C5.3735 10.6067 5.3735 10.1867 5.6335 9.92667L7.56016 8L5.6335 6.07333C5.3735 5.81333 5.3735 5.39333 5.6335 5.13333C5.8935 4.87333 6.3135 4.87333 6.5735 5.13333L8.50016 7.06L10.4268 5.13333C10.6868 4.87333 11.1068 4.87333 11.3668 5.13333C11.6268 5.39333 11.6268 5.81333 11.3668 6.07333L9.44016 8L11.3668 9.92667C11.6202 10.18 11.6202 10.6067 11.3668 10.8667Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">No insurance required</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1667 2H3.83333C3.1 2 2.5 2.6 2.5 3.33333V12.6667C2.5 13.4 3.1 14 3.83333 14H13.1667C13.9 14 14.5 13.4 14.5 12.6667V3.33333C14.5 2.6 13.9 2 13.1667 2ZM5.83333 11.3333C5.46667 11.3333 5.16667 11.0333 5.16667 10.6667V7.33333C5.16667 6.96667 5.46667 6.66667 5.83333 6.66667C6.2 6.66667 6.5 6.96667 6.5 7.33333V10.6667C6.5 11.0333 6.2 11.3333 5.83333 11.3333ZM8.5 11.3333C8.13333 11.3333 7.83333 11.0333 7.83333 10.6667V5.33333C7.83333 4.96667 8.13333 4.66667 8.5 4.66667C8.86667 4.66667 9.16667 4.96667 9.16667 5.33333V10.6667C9.16667 11.0333 8.86667 11.3333 8.5 11.3333ZM11.1667 11.3333C10.8 11.3333 10.5 11.0333 10.5 10.6667V9.33333C10.5 8.96667 10.8 8.66667 11.1667 8.66667C11.5333 8.66667 11.8333 8.96667 11.8333 9.33333V10.6667C11.8333 11.0333 11.5333 11.3333 11.1667 11.3333Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">100% online process</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4998 5.33333H11.8332V4C11.8332 3.26667 11.2332 2.66667 10.4998 2.66667H2.49984C1.7665 2.66667 1.1665 3.26667 1.1665 4V10C1.1665 10.7333 1.7665 11.3333 2.49984 11.3333C2.49984 12.44 3.39317 13.3333 4.49984 13.3333C5.6065 13.3333 6.49984 12.44 6.49984 11.3333H10.4998C10.4998 12.44 11.3932 13.3333 12.4998 13.3333C13.6065 13.3333 14.4998 12.44 14.4998 11.3333H15.1665C15.5332 11.3333 15.8332 11.0333 15.8332 10.6667V8.44667C15.8332 8.16 15.7398 7.88 15.5665 7.64667L14.0332 5.6C13.9065 5.43333 13.7065 5.33333 13.4998 5.33333ZM4.49984 12C4.13317 12 3.83317 11.7 3.83317 11.3333C3.83317 10.9667 4.13317 10.6667 4.49984 10.6667C4.8665 10.6667 5.1665 10.9667 5.1665 11.3333C5.1665 11.7 4.8665 12 4.49984 12ZM13.4998 6.33333L14.8065 8H11.8332V6.33333H13.4998ZM12.4998 12C12.1332 12 11.8332 11.7 11.8332 11.3333C11.8332 10.9667 12.1332 10.6667 12.4998 10.6667C12.8665 10.6667 13.1665 10.9667 13.1665 11.3333C13.1665 11.7 12.8665 12 12.4998 12Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">Free and discreet shipping</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="21" height="20" viewbox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5008 5.31968C12.6231 5.57162 12.4341 5.85113 12.1562 5.88623C9.14903 6.26604 6.76604 8.64903 6.38623 11.6562C6.35113 11.9341 6.07162 12.1231 5.81968 12.0008C4.15065 11.1908 3 9.47979 3 7.5C3 4.73858 5.23858 2.5 8 2.5C9.97979 2.5 11.6908 3.65065 12.5008 5.31968Z" fill="currentcolor"></path>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8971 8.42438C15.0798 7.84233 14.0799 7.5 13 7.5C10.2386 7.5 8 9.73858 8 12.5C8 13.5799 8.34233 14.5798 8.92438 15.3971L15.8971 8.42438ZM17.0756 9.60289L10.1029 16.5756C10.9202 17.1577 11.9201 17.5 13 17.5C15.7614 17.5 18 15.2614 18 12.5C18 11.4201 17.6577 10.4202 17.0756 9.60289Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">2,000,000+ members treated</div>
-          </div>
-        </div>
-        <div class="div-block-80">
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.50016 1.33333C4.8135 1.33333 1.8335 4.31333 1.8335 8C1.8335 11.6867 4.8135 14.6667 8.50016 14.6667C12.1868 14.6667 15.1668 11.6867 15.1668 8C15.1668 4.31333 12.1868 1.33333 8.50016 1.33333ZM11.3668 10.8667C11.1068 11.1267 10.6868 11.1267 10.4268 10.8667L8.50016 8.94L6.5735 10.8667C6.3135 11.1267 5.8935 11.1267 5.6335 10.8667C5.3735 10.6067 5.3735 10.1867 5.6335 9.92667L7.56016 8L5.6335 6.07333C5.3735 5.81333 5.3735 5.39333 5.6335 5.13333C5.8935 4.87333 6.3135 4.87333 6.5735 5.13333L8.50016 7.06L10.4268 5.13333C10.6868 4.87333 11.1068 4.87333 11.3668 5.13333C11.6268 5.39333 11.6268 5.81333 11.3668 6.07333L9.44016 8L11.3668 9.92667C11.6202 10.18 11.6202 10.6067 11.3668 10.8667Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">No insurance required</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1667 2H3.83333C3.1 2 2.5 2.6 2.5 3.33333V12.6667C2.5 13.4 3.1 14 3.83333 14H13.1667C13.9 14 14.5 13.4 14.5 12.6667V3.33333C14.5 2.6 13.9 2 13.1667 2ZM5.83333 11.3333C5.46667 11.3333 5.16667 11.0333 5.16667 10.6667V7.33333C5.16667 6.96667 5.46667 6.66667 5.83333 6.66667C6.2 6.66667 6.5 6.96667 6.5 7.33333V10.6667C6.5 11.0333 6.2 11.3333 5.83333 11.3333ZM8.5 11.3333C8.13333 11.3333 7.83333 11.0333 7.83333 10.6667V5.33333C7.83333 4.96667 8.13333 4.66667 8.5 4.66667C8.86667 4.66667 9.16667 4.96667 9.16667 5.33333V10.6667C9.16667 11.0333 8.86667 11.3333 8.5 11.3333ZM11.1667 11.3333C10.8 11.3333 10.5 11.0333 10.5 10.6667V9.33333C10.5 8.96667 10.8 8.66667 11.1667 8.66667C11.5333 8.66667 11.8333 8.96667 11.8333 9.33333V10.6667C11.8333 11.0333 11.5333 11.3333 11.1667 11.3333Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">100% online process</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4998 5.33333H11.8332V4C11.8332 3.26667 11.2332 2.66667 10.4998 2.66667H2.49984C1.7665 2.66667 1.1665 3.26667 1.1665 4V10C1.1665 10.7333 1.7665 11.3333 2.49984 11.3333C2.49984 12.44 3.39317 13.3333 4.49984 13.3333C5.6065 13.3333 6.49984 12.44 6.49984 11.3333H10.4998C10.4998 12.44 11.3932 13.3333 12.4998 13.3333C13.6065 13.3333 14.4998 12.44 14.4998 11.3333H15.1665C15.5332 11.3333 15.8332 11.0333 15.8332 10.6667V8.44667C15.8332 8.16 15.7398 7.88 15.5665 7.64667L14.0332 5.6C13.9065 5.43333 13.7065 5.33333 13.4998 5.33333ZM4.49984 12C4.13317 12 3.83317 11.7 3.83317 11.3333C3.83317 10.9667 4.13317 10.6667 4.49984 10.6667C4.8665 10.6667 5.1665 10.9667 5.1665 11.3333C5.1665 11.7 4.8665 12 4.49984 12ZM13.4998 6.33333L14.8065 8H11.8332V6.33333H13.4998ZM12.4998 12C12.1332 12 11.8332 11.7 11.8332 11.3333C11.8332 10.9667 12.1332 10.6667 12.4998 10.6667C12.8665 10.6667 13.1665 10.9667 13.1665 11.3333C13.1665 11.7 12.8665 12 12.4998 12Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">Free and discreet shipping</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="21" height="20" viewbox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5008 5.31968C12.6231 5.57162 12.4341 5.85113 12.1562 5.88623C9.14903 6.26604 6.76604 8.64903 6.38623 11.6562C6.35113 11.9341 6.07162 12.1231 5.81968 12.0008C4.15065 11.1908 3 9.47979 3 7.5C3 4.73858 5.23858 2.5 8 2.5C9.97979 2.5 11.6908 3.65065 12.5008 5.31968Z" fill="currentcolor"></path>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8971 8.42438C15.0798 7.84233 14.0799 7.5 13 7.5C10.2386 7.5 8 9.73858 8 12.5C8 13.5799 8.34233 14.5798 8.92438 15.3971L15.8971 8.42438ZM17.0756 9.60289L10.1029 16.5756C10.9202 17.1577 11.9201 17.5 13 17.5C15.7614 17.5 18 15.2614 18 12.5C18 11.4201 17.6577 10.4202 17.0756 9.60289Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">2,000,000+ members treated</div>
-          </div>
-        </div>
-        <div class="div-block-80">
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.50016 1.33333C4.8135 1.33333 1.8335 4.31333 1.8335 8C1.8335 11.6867 4.8135 14.6667 8.50016 14.6667C12.1868 14.6667 15.1668 11.6867 15.1668 8C15.1668 4.31333 12.1868 1.33333 8.50016 1.33333ZM11.3668 10.8667C11.1068 11.1267 10.6868 11.1267 10.4268 10.8667L8.50016 8.94L6.5735 10.8667C6.3135 11.1267 5.8935 11.1267 5.6335 10.8667C5.3735 10.6067 5.3735 10.1867 5.6335 9.92667L7.56016 8L5.6335 6.07333C5.3735 5.81333 5.3735 5.39333 5.6335 5.13333C5.8935 4.87333 6.3135 4.87333 6.5735 5.13333L8.50016 7.06L10.4268 5.13333C10.6868 4.87333 11.1068 4.87333 11.3668 5.13333C11.6268 5.39333 11.6268 5.81333 11.3668 6.07333L9.44016 8L11.3668 9.92667C11.6202 10.18 11.6202 10.6067 11.3668 10.8667Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">No insurance required</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1667 2H3.83333C3.1 2 2.5 2.6 2.5 3.33333V12.6667C2.5 13.4 3.1 14 3.83333 14H13.1667C13.9 14 14.5 13.4 14.5 12.6667V3.33333C14.5 2.6 13.9 2 13.1667 2ZM5.83333 11.3333C5.46667 11.3333 5.16667 11.0333 5.16667 10.6667V7.33333C5.16667 6.96667 5.46667 6.66667 5.83333 6.66667C6.2 6.66667 6.5 6.96667 6.5 7.33333V10.6667C6.5 11.0333 6.2 11.3333 5.83333 11.3333ZM8.5 11.3333C8.13333 11.3333 7.83333 11.0333 7.83333 10.6667V5.33333C7.83333 4.96667 8.13333 4.66667 8.5 4.66667C8.86667 4.66667 9.16667 4.96667 9.16667 5.33333V10.6667C9.16667 11.0333 8.86667 11.3333 8.5 11.3333ZM11.1667 11.3333C10.8 11.3333 10.5 11.0333 10.5 10.6667V9.33333C10.5 8.96667 10.8 8.66667 11.1667 8.66667C11.5333 8.66667 11.8333 8.96667 11.8333 9.33333V10.6667C11.8333 11.0333 11.5333 11.3333 11.1667 11.3333Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">100% online process</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4998 5.33333H11.8332V4C11.8332 3.26667 11.2332 2.66667 10.4998 2.66667H2.49984C1.7665 2.66667 1.1665 3.26667 1.1665 4V10C1.1665 10.7333 1.7665 11.3333 2.49984 11.3333C2.49984 12.44 3.39317 13.3333 4.49984 13.3333C5.6065 13.3333 6.49984 12.44 6.49984 11.3333H10.4998C10.4998 12.44 11.3932 13.3333 12.4998 13.3333C13.6065 13.3333 14.4998 12.44 14.4998 11.3333H15.1665C15.5332 11.3333 15.8332 11.0333 15.8332 10.6667V8.44667C15.8332 8.16 15.7398 7.88 15.5665 7.64667L14.0332 5.6C13.9065 5.43333 13.7065 5.33333 13.4998 5.33333ZM4.49984 12C4.13317 12 3.83317 11.7 3.83317 11.3333C3.83317 10.9667 4.13317 10.6667 4.49984 10.6667C4.8665 10.6667 5.1665 10.9667 5.1665 11.3333C5.1665 11.7 4.8665 12 4.49984 12ZM13.4998 6.33333L14.8065 8H11.8332V6.33333H13.4998ZM12.4998 12C12.1332 12 11.8332 11.7 11.8332 11.3333C11.8332 10.9667 12.1332 10.6667 12.4998 10.6667C12.8665 10.6667 13.1665 10.9667 13.1665 11.3333C13.1665 11.7 12.8665 12 12.4998 12Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">Free and discreet shipping</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="21" height="20" viewbox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5008 5.31968C12.6231 5.57162 12.4341 5.85113 12.1562 5.88623C9.14903 6.26604 6.76604 8.64903 6.38623 11.6562C6.35113 11.9341 6.07162 12.1231 5.81968 12.0008C4.15065 11.1908 3 9.47979 3 7.5C3 4.73858 5.23858 2.5 8 2.5C9.97979 2.5 11.6908 3.65065 12.5008 5.31968Z" fill="currentcolor"></path>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8971 8.42438C15.0798 7.84233 14.0799 7.5 13 7.5C10.2386 7.5 8 9.73858 8 12.5C8 13.5799 8.34233 14.5798 8.92438 15.3971L15.8971 8.42438ZM17.0756 9.60289L10.1029 16.5756C10.9202 17.1577 11.9201 17.5 13 17.5C15.7614 17.5 18 15.2614 18 12.5C18 11.4201 17.6577 10.4202 17.0756 9.60289Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">2,000,000+ members treated</div>
-          </div>
-        </div>
-        <div class="div-block-80">
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.50016 1.33333C4.8135 1.33333 1.8335 4.31333 1.8335 8C1.8335 11.6867 4.8135 14.6667 8.50016 14.6667C12.1868 14.6667 15.1668 11.6867 15.1668 8C15.1668 4.31333 12.1868 1.33333 8.50016 1.33333ZM11.3668 10.8667C11.1068 11.1267 10.6868 11.1267 10.4268 10.8667L8.50016 8.94L6.5735 10.8667C6.3135 11.1267 5.8935 11.1267 5.6335 10.8667C5.3735 10.6067 5.3735 10.1867 5.6335 9.92667L7.56016 8L5.6335 6.07333C5.3735 5.81333 5.3735 5.39333 5.6335 5.13333C5.8935 4.87333 6.3135 4.87333 6.5735 5.13333L8.50016 7.06L10.4268 5.13333C10.6868 4.87333 11.1068 4.87333 11.3668 5.13333C11.6268 5.39333 11.6268 5.81333 11.3668 6.07333L9.44016 8L11.3668 9.92667C11.6202 10.18 11.6202 10.6067 11.3668 10.8667Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">No insurance required</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1667 2H3.83333C3.1 2 2.5 2.6 2.5 3.33333V12.6667C2.5 13.4 3.1 14 3.83333 14H13.1667C13.9 14 14.5 13.4 14.5 12.6667V3.33333C14.5 2.6 13.9 2 13.1667 2ZM5.83333 11.3333C5.46667 11.3333 5.16667 11.0333 5.16667 10.6667V7.33333C5.16667 6.96667 5.46667 6.66667 5.83333 6.66667C6.2 6.66667 6.5 6.96667 6.5 7.33333V10.6667C6.5 11.0333 6.2 11.3333 5.83333 11.3333ZM8.5 11.3333C8.13333 11.3333 7.83333 11.0333 7.83333 10.6667V5.33333C7.83333 4.96667 8.13333 4.66667 8.5 4.66667C8.86667 4.66667 9.16667 4.96667 9.16667 5.33333V10.6667C9.16667 11.0333 8.86667 11.3333 8.5 11.3333ZM11.1667 11.3333C10.8 11.3333 10.5 11.0333 10.5 10.6667V9.33333C10.5 8.96667 10.8 8.66667 11.1667 8.66667C11.5333 8.66667 11.8333 8.96667 11.8333 9.33333V10.6667C11.8333 11.0333 11.5333 11.3333 11.1667 11.3333Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">100% online process</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4998 5.33333H11.8332V4C11.8332 3.26667 11.2332 2.66667 10.4998 2.66667H2.49984C1.7665 2.66667 1.1665 3.26667 1.1665 4V10C1.1665 10.7333 1.7665 11.3333 2.49984 11.3333C2.49984 12.44 3.39317 13.3333 4.49984 13.3333C5.6065 13.3333 6.49984 12.44 6.49984 11.3333H10.4998C10.4998 12.44 11.3932 13.3333 12.4998 13.3333C13.6065 13.3333 14.4998 12.44 14.4998 11.3333H15.1665C15.5332 11.3333 15.8332 11.0333 15.8332 10.6667V8.44667C15.8332 8.16 15.7398 7.88 15.5665 7.64667L14.0332 5.6C13.9065 5.43333 13.7065 5.33333 13.4998 5.33333ZM4.49984 12C4.13317 12 3.83317 11.7 3.83317 11.3333C3.83317 10.9667 4.13317 10.6667 4.49984 10.6667C4.8665 10.6667 5.1665 10.9667 5.1665 11.3333C5.1665 11.7 4.8665 12 4.49984 12ZM13.4998 6.33333L14.8065 8H11.8332V6.33333H13.4998ZM12.4998 12C12.1332 12 11.8332 11.7 11.8332 11.3333C11.8332 10.9667 12.1332 10.6667 12.4998 10.6667C12.8665 10.6667 13.1665 10.9667 13.1665 11.3333C13.1665 11.7 12.8665 12 12.4998 12Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">Free and discreet shipping</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="21" height="20" viewbox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5008 5.31968C12.6231 5.57162 12.4341 5.85113 12.1562 5.88623C9.14903 6.26604 6.76604 8.64903 6.38623 11.6562C6.35113 11.9341 6.07162 12.1231 5.81968 12.0008C4.15065 11.1908 3 9.47979 3 7.5C3 4.73858 5.23858 2.5 8 2.5C9.97979 2.5 11.6908 3.65065 12.5008 5.31968Z" fill="currentcolor"></path>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8971 8.42438C15.0798 7.84233 14.0799 7.5 13 7.5C10.2386 7.5 8 9.73858 8 12.5C8 13.5799 8.34233 14.5798 8.92438 15.3971L15.8971 8.42438ZM17.0756 9.60289L10.1029 16.5756C10.9202 17.1577 11.9201 17.5 13 17.5C15.7614 17.5 18 15.2614 18 12.5C18 11.4201 17.6577 10.4202 17.0756 9.60289Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">2,000,000+ members treated</div>
-          </div>
-        </div>
-        <div class="div-block-80">
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.50016 1.33333C4.8135 1.33333 1.8335 4.31333 1.8335 8C1.8335 11.6867 4.8135 14.6667 8.50016 14.6667C12.1868 14.6667 15.1668 11.6867 15.1668 8C15.1668 4.31333 12.1868 1.33333 8.50016 1.33333ZM11.3668 10.8667C11.1068 11.1267 10.6868 11.1267 10.4268 10.8667L8.50016 8.94L6.5735 10.8667C6.3135 11.1267 5.8935 11.1267 5.6335 10.8667C5.3735 10.6067 5.3735 10.1867 5.6335 9.92667L7.56016 8L5.6335 6.07333C5.3735 5.81333 5.3735 5.39333 5.6335 5.13333C5.8935 4.87333 6.3135 4.87333 6.5735 5.13333L8.50016 7.06L10.4268 5.13333C10.6868 4.87333 11.1068 4.87333 11.3668 5.13333C11.6268 5.39333 11.6268 5.81333 11.3668 6.07333L9.44016 8L11.3668 9.92667C11.6202 10.18 11.6202 10.6067 11.3668 10.8667Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">No insurance required</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1667 2H3.83333C3.1 2 2.5 2.6 2.5 3.33333V12.6667C2.5 13.4 3.1 14 3.83333 14H13.1667C13.9 14 14.5 13.4 14.5 12.6667V3.33333C14.5 2.6 13.9 2 13.1667 2ZM5.83333 11.3333C5.46667 11.3333 5.16667 11.0333 5.16667 10.6667V7.33333C5.16667 6.96667 5.46667 6.66667 5.83333 6.66667C6.2 6.66667 6.5 6.96667 6.5 7.33333V10.6667C6.5 11.0333 6.2 11.3333 5.83333 11.3333ZM8.5 11.3333C8.13333 11.3333 7.83333 11.0333 7.83333 10.6667V5.33333C7.83333 4.96667 8.13333 4.66667 8.5 4.66667C8.86667 4.66667 9.16667 4.96667 9.16667 5.33333V10.6667C9.16667 11.0333 8.86667 11.3333 8.5 11.3333ZM11.1667 11.3333C10.8 11.3333 10.5 11.0333 10.5 10.6667V9.33333C10.5 8.96667 10.8 8.66667 11.1667 8.66667C11.5333 8.66667 11.8333 8.96667 11.8333 9.33333V10.6667C11.8333 11.0333 11.5333 11.3333 11.1667 11.3333Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">100% online process</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4998 5.33333H11.8332V4C11.8332 3.26667 11.2332 2.66667 10.4998 2.66667H2.49984C1.7665 2.66667 1.1665 3.26667 1.1665 4V10C1.1665 10.7333 1.7665 11.3333 2.49984 11.3333C2.49984 12.44 3.39317 13.3333 4.49984 13.3333C5.6065 13.3333 6.49984 12.44 6.49984 11.3333H10.4998C10.4998 12.44 11.3932 13.3333 12.4998 13.3333C13.6065 13.3333 14.4998 12.44 14.4998 11.3333H15.1665C15.5332 11.3333 15.8332 11.0333 15.8332 10.6667V8.44667C15.8332 8.16 15.7398 7.88 15.5665 7.64667L14.0332 5.6C13.9065 5.43333 13.7065 5.33333 13.4998 5.33333ZM4.49984 12C4.13317 12 3.83317 11.7 3.83317 11.3333C3.83317 10.9667 4.13317 10.6667 4.49984 10.6667C4.8665 10.6667 5.1665 10.9667 5.1665 11.3333C5.1665 11.7 4.8665 12 4.49984 12ZM13.4998 6.33333L14.8065 8H11.8332V6.33333H13.4998ZM12.4998 12C12.1332 12 11.8332 11.7 11.8332 11.3333C11.8332 10.9667 12.1332 10.6667 12.4998 10.6667C12.8665 10.6667 13.1665 10.9667 13.1665 11.3333C13.1665 11.7 12.8665 12 12.4998 12Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">Free and discreet shipping</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="21" height="20" viewbox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5008 5.31968C12.6231 5.57162 12.4341 5.85113 12.1562 5.88623C9.14903 6.26604 6.76604 8.64903 6.38623 11.6562C6.35113 11.9341 6.07162 12.1231 5.81968 12.0008C4.15065 11.1908 3 9.47979 3 7.5C3 4.73858 5.23858 2.5 8 2.5C9.97979 2.5 11.6908 3.65065 12.5008 5.31968Z" fill="currentcolor"></path>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8971 8.42438C15.0798 7.84233 14.0799 7.5 13 7.5C10.2386 7.5 8 9.73858 8 12.5C8 13.5799 8.34233 14.5798 8.92438 15.3971L15.8971 8.42438ZM17.0756 9.60289L10.1029 16.5756C10.9202 17.1577 11.9201 17.5 13 17.5C15.7614 17.5 18 15.2614 18 12.5C18 11.4201 17.6577 10.4202 17.0756 9.60289Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">2,000,000+ members treated</div>
-          </div>
-        </div>
-        <div class="div-block-80">
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.50016 1.33333C4.8135 1.33333 1.8335 4.31333 1.8335 8C1.8335 11.6867 4.8135 14.6667 8.50016 14.6667C12.1868 14.6667 15.1668 11.6867 15.1668 8C15.1668 4.31333 12.1868 1.33333 8.50016 1.33333ZM11.3668 10.8667C11.1068 11.1267 10.6868 11.1267 10.4268 10.8667L8.50016 8.94L6.5735 10.8667C6.3135 11.1267 5.8935 11.1267 5.6335 10.8667C5.3735 10.6067 5.3735 10.1867 5.6335 9.92667L7.56016 8L5.6335 6.07333C5.3735 5.81333 5.3735 5.39333 5.6335 5.13333C5.8935 4.87333 6.3135 4.87333 6.5735 5.13333L8.50016 7.06L10.4268 5.13333C10.6868 4.87333 11.1068 4.87333 11.3668 5.13333C11.6268 5.39333 11.6268 5.81333 11.3668 6.07333L9.44016 8L11.3668 9.92667C11.6202 10.18 11.6202 10.6067 11.3668 10.8667Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">No insurance required</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1667 2H3.83333C3.1 2 2.5 2.6 2.5 3.33333V12.6667C2.5 13.4 3.1 14 3.83333 14H13.1667C13.9 14 14.5 13.4 14.5 12.6667V3.33333C14.5 2.6 13.9 2 13.1667 2ZM5.83333 11.3333C5.46667 11.3333 5.16667 11.0333 5.16667 10.6667V7.33333C5.16667 6.96667 5.46667 6.66667 5.83333 6.66667C6.2 6.66667 6.5 6.96667 6.5 7.33333V10.6667C6.5 11.0333 6.2 11.3333 5.83333 11.3333ZM8.5 11.3333C8.13333 11.3333 7.83333 11.0333 7.83333 10.6667V5.33333C7.83333 4.96667 8.13333 4.66667 8.5 4.66667C8.86667 4.66667 9.16667 4.96667 9.16667 5.33333V10.6667C9.16667 11.0333 8.86667 11.3333 8.5 11.3333ZM11.1667 11.3333C10.8 11.3333 10.5 11.0333 10.5 10.6667V9.33333C10.5 8.96667 10.8 8.66667 11.1667 8.66667C11.5333 8.66667 11.8333 8.96667 11.8333 9.33333V10.6667C11.8333 11.0333 11.5333 11.3333 11.1667 11.3333Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">100% online process</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4998 5.33333H11.8332V4C11.8332 3.26667 11.2332 2.66667 10.4998 2.66667H2.49984C1.7665 2.66667 1.1665 3.26667 1.1665 4V10C1.1665 10.7333 1.7665 11.3333 2.49984 11.3333C2.49984 12.44 3.39317 13.3333 4.49984 13.3333C5.6065 13.3333 6.49984 12.44 6.49984 11.3333H10.4998C10.4998 12.44 11.3932 13.3333 12.4998 13.3333C13.6065 13.3333 14.4998 12.44 14.4998 11.3333H15.1665C15.5332 11.3333 15.8332 11.0333 15.8332 10.6667V8.44667C15.8332 8.16 15.7398 7.88 15.5665 7.64667L14.0332 5.6C13.9065 5.43333 13.7065 5.33333 13.4998 5.33333ZM4.49984 12C4.13317 12 3.83317 11.7 3.83317 11.3333C3.83317 10.9667 4.13317 10.6667 4.49984 10.6667C4.8665 10.6667 5.1665 10.9667 5.1665 11.3333C5.1665 11.7 4.8665 12 4.49984 12ZM13.4998 6.33333L14.8065 8H11.8332V6.33333H13.4998ZM12.4998 12C12.1332 12 11.8332 11.7 11.8332 11.3333C11.8332 10.9667 12.1332 10.6667 12.4998 10.6667C12.8665 10.6667 13.1665 10.9667 13.1665 11.3333C13.1665 11.7 12.8665 12 12.4998 12Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">Free and discreet shipping</div>
-          </div>
-          <div class="div-block _2">
-            <div class="icon-1x1-small w-embed"><svg width="21" height="20" viewbox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5008 5.31968C12.6231 5.57162 12.4341 5.85113 12.1562 5.88623C9.14903 6.26604 6.76604 8.64903 6.38623 11.6562C6.35113 11.9341 6.07162 12.1231 5.81968 12.0008C4.15065 11.1908 3 9.47979 3 7.5C3 4.73858 5.23858 2.5 8 2.5C9.97979 2.5 11.6908 3.65065 12.5008 5.31968Z" fill="currentcolor"></path>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8971 8.42438C15.0798 7.84233 14.0799 7.5 13 7.5C10.2386 7.5 8 9.73858 8 12.5C8 13.5799 8.34233 14.5798 8.92438 15.3971L15.8971 8.42438ZM17.0756 9.60289L10.1029 16.5756C10.9202 17.1577 11.9201 17.5 13 17.5C15.7614 17.5 18 15.2614 18 12.5C18 11.4201 17.6577 10.4202 17.0756 9.60289Z" fill="currentcolor"></path>
-              </svg></div>
-            <div class="text-opacity-50 text-size-small">2,000,000+ members treated</div>
-          </div>
-        </div>
-      </div>
     </div>
+
+    <!-- Navigation -->
     <div data-w-id="396176c6-906a-9f74-c6d0-8a4663dfdea9" data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="nav_component w-nav">
       <div class="padding-global">
         <div class="nav_container">
@@ -502,10 +394,11 @@ margin: 0rem !important;
           </a>
           <nav role="navigation" class="nav_menu w-nav-menu">
             <a href="weight-loss.html" class="nav_menu_link w-nav-link">Weight Loss</a>
-            <a href="mens-ed.html" data-w-id="f9fd680a-ca8a-74f0-a721-b85847db01a0" class="nav_menu_link w-nav-link">Men’s ED</a>
+            <a href="mens-ed.html" class="nav_menu_link w-nav-link">Men's ED</a>
             <a href="skin-care.html" class="nav_menu_link w-nav-link">Skin Care</a>
             <a href="hair-regrowth.html" class="nav_menu_link w-nav-link">Hair Regrowth</a>
             <a href="rpm.html" aria-current="page" class="nav_menu_link w-nav-link w--current">RPM</a>
+            <a href="ccm.html" class="nav_menu_link w-nav-link">CCM</a>
             <a href="#" class="link-block _231 _2 w-inline-block">
               <div>Log in</div>
             </a>
@@ -514,14 +407,6 @@ margin: 0rem !important;
             <a href="#" class="link-block _231 w-inline-block">
               <div>Log in</div>
             </a>
-            <a href="#" class="link-block _2 w-inline-block">
-              <div class="icon-1x1-small w-embed"><svg width="16" height="16" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 5.11333V4.46666C5 2.96666 6.20667 1.49333 7.70667 1.35333C9.49333 1.18 11 2.58666 11 4.34V5.26" stroke="currentcolor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
-                  <path d="M5.99988 14.6667H9.99988C12.6799 14.6667 13.1599 13.5933 13.2999 12.2867L13.7999 8.28667C13.9799 6.66 13.5132 5.33334 10.6666 5.33334H5.33322C2.48655 5.33334 2.01988 6.66 2.19988 8.28667L2.69988 12.2867C2.83988 13.5933 3.31988 14.6667 5.99988 14.6667Z" stroke="black" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
-                  <path d="M10.3302 8H10.3361" stroke="black" stroke-linecap="round" stroke-linejoin="round"></path>
-                  <path d="M5.66317 8H5.66916" stroke="black" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg></div>
-            </a>
           </div>
           <div id="w-node-_396176c6-906a-9f74-c6d0-8a4663dfdeb3-63dfdea9" class="nav_button w-nav-button">
             <div data-is-ix2-target="1" class="menu-hamburger" data-w-id="b9a21fb7-3e57-0d11-fad0-d553b75b9358" data-animation-type="lottie" data-src="documents/84a60cf105c14edeae92069a2de2ca0a.json" data-loop="0" data-direction="1" data-autoplay="0" data-renderer="svg" data-default-duration="2" data-duration="0"></div>
@@ -529,105 +414,138 @@ margin: 0rem !important;
         </div>
       </div>
     </div>
+
     <main class="main-wrapper">
+      <!-- Hero Section -->
       <div class="section_prm-hero">
         <div class="padding-global">
           <div class="container-large">
             <div class="padding-section-hero">
               <div class="div-block-3 _2">
                 <div class="div-block-5 _2">
-                  <h1>RPM</h1>
-                  <p class="text-weight-medium text-size-large">Lorem Ipsum has been the industry&#x27;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make</p>
-                  <a href="#" class="button w-button">Get Started</a>
+                  <div class="rpm-hero-badge">🏆 #1 Rated Remote Monitoring Platform</div>
+                  
+                  <h1>Monitor Your Health 24/7 from the Comfort of Home</h1>
+                  <p class="text-weight-medium text-size-large">Advanced remote patient monitoring with smart devices that track your vitals, detect early warning signs, and keep your care team connected to your health—even when you're sleeping.</p>
+                  
+                  <div class="urgency-banner">⚡ Limited time: Free device setup + First month monitoring included</div>
+                  
+                  <div style="margin-top: 32px;">
+                    <a href="#pricing" class="cta-primary">Start Monitoring Today</a>
+                    <a href="#how-it-works" class="cta-secondary">See How It Works</a>
+                  </div>
+                  
+                  <!-- Social Proof Stats -->
+                  <div class="rpm-stats-grid">
+                    <div class="rpm-stat-card">
+                      <div class="rpm-stat-number">94%</div>
+                      <div class="rpm-stat-label">Faster Health Issue Detection</div>
+                    </div>
+                    <div class="rpm-stat-card">
+                      <div class="rpm-stat-number">78%</div>
+                      <div class="rpm-stat-label">Reduction in ER Visits</div>
+                    </div>
+                    <div class="rpm-stat-card">
+                      <div class="rpm-stat-number">24/7</div>
+                      <div class="rpm-stat-label">Continuous Monitoring</div>
+                    </div>
+                  </div>
                 </div>
                 <div class="div-block-4">
-                  <div id="w-node-_7105cf86-e8f5-3db2-1f6b-adbf946f19be-b6b87bf5" class="div-block-61"><img src="images/Frame-2085667765-2_1.avif" loading="lazy" sizes="100vw" srcset="images/Frame-2085667765-2_1Frame-2085667765-2.avif 500w, images/Frame-2085667765-2_1.avif 1344w" alt="" class="image"></div>
+                  <div id="w-node-_7105cf86-e8f5-3db2-1f6b-adbf946f19be-b6b87bf5" class="div-block-61">
+                    <img src="images/Frame-2085667765-2_1.avif" loading="lazy" sizes="100vw" srcset="images/Frame-2085667765-2_1Frame-2085667765-2.avif 500w, images/Frame-2085667765-2_1.avif 1344w" alt="Remote patient monitoring devices" class="image">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Key Features Section -->
       <div class="section_prm-2">
         <div class="padding-global">
           <div class="container-large">
             <div class="padding-section-medium">
-              <h2 class="heading-style-h1">Hair loss treatments</h2>
-              <div class="spacer-4rem"></div>
-              <div class="div-block-12">
-                <div id="w-node-_33196660-ae46-8f06-68f2-f7d7ab2706ac-b6b87bf5" class="div-block-13 _9">
-                  <div class="div-block-15">
-                    <h3 class="heading-style-h5">RPM</h3>
-                    <div class="div-block-16">
-                      <div class="text-weight-medium text-opacity-50">Starting at</div>
-                      <div class="div-block-17">
-                        <div>$159</div>
-                      </div>
-                    </div>
-                  </div>
-                  <a href="#" class="button w-button">Get Started</a>
-                </div><img src="images/Rectangle-40250-2_1.avif" loading="lazy" id="w-node-fcf4abb5-c167-4d69-5231-b54ef352896a-b6b87bf5" sizes="100vw" alt="" srcset="images/Rectangle-40250-2_1Rectangle-40250-2.avif 500w, images/Rectangle-40250-2_1Rectangle-40250-2.avif 800w, images/Rectangle-40250-2_1.avif 1740w" class="image _2rem">
+              <div style="text-align: center; margin-bottom: 64px;">
+                <h2 class="heading-style-h1">Why 94% of Patients Feel Safer with Our RPM</h2>
+                <p class="text-size-large" style="color: #666; max-width: 600px; margin: 16px auto 0;">Medical-grade monitoring that catches health changes before they become emergencies</p>
+              </div>
+              
+              <div class="rpm-features-grid">
+                <div class="rpm-feature-card">
+                  <div class="rpm-feature-icon">📊</div>
+                  <h3 class="rpm-feature-title">Real-Time Vital Tracking</h3>
+                  <p class="rpm-feature-description">Monitor blood pressure, heart rate, oxygen levels, and weight automatically. Smart alerts notify your care team of any concerning changes instantly.</p>
+                  <a href="#pricing" class="button w-button">Get Started</a>
+                </div>
+                
+                <div class="rpm-feature-card">
+                  <div class="rpm-feature-icon">🚨</div>
+                  <h3 class="rpm-feature-title">Early Warning System</h3>
+                  <p class="rpm-feature-description">AI-powered algorithms detect health patterns and potential issues days or weeks before symptoms appear, preventing costly emergency situations.</p>
+                  <a href="#pricing" class="button w-button">Get Started</a>
+                </div>
+                
+                <div class="rpm-feature-card">
+                  <div class="rpm-feature-icon">👩‍⚕️</div>
+                  <h3 class="rpm-feature-title">24/7 Care Team Access</h3>
+                  <p class="rpm-feature-description">Board-certified nurses and physicians monitor your data around the clock. Get immediate guidance when readings are outside normal ranges.</p>
+                  <a href="#pricing" class="button w-button">Get Started</a>
+                </div>
+                
+                <div class="rpm-feature-card">
+                  <div class="rpm-feature-icon">📱</div>
+                  <h3 class="rpm-feature-title">Simple Setup & Use</h3>
+                  <p class="rpm-feature-description">Plug-and-play devices that automatically sync to our app. No technical skills required. Most patients are fully set up in under 15 minutes.</p>
+                  <a href="#pricing" class="button w-button">Get Started</a>
+                </div>
+                
+                <div class="rpm-feature-card">
+                  <div class="rpm-feature-icon">💊</div>
+                  <h3 class="rpm-feature-title">Medication Reminders</h3>
+                  <p class="rpm-feature-description">Never miss a dose again. Smart reminders and adherence tracking help you stay on top of your medication schedule for better outcomes.</p>
+                  <a href="#pricing" class="button w-button">Get Started</a>
+                </div>
+                
+                <div class="rpm-feature-card">
+                  <div class="rpm-feature-icon">📈</div>
+                  <h3 class="rpm-feature-title">Progress Reports</h3>
+                  <p class="rpm-feature-description">Detailed health reports shared with your doctor show trends, improvements, and areas needing attention. Better data means better care decisions.</p>
+                  <a href="#pricing" class="button w-button">Get Started</a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="section_prm-3">
+
+      <!-- How It Works Section -->
+      <div class="section_prm-3" id="how-it-works">
         <div class="padding-global">
           <div class="container-large">
             <div class="padding-section-medium">
               <div class="div-block-8 _2">
-                <h2 class="heading-style-h1">Lorem Ipsum has been</h2>
-                <p class="text-opacity-70 text-size-large">Lorem Ipsum has been the industry&#x27;s standard dummy text ever since the 1500s, when an unknown printer took</p>
+                <h2 class="heading-style-h1">Get Started in 3 Simple Steps</h2>
+                <p class="text-opacity-70 text-size-large">From signup to full monitoring in less than 48 hours</p>
               </div>
               <div class="spacer-4rem"></div>
-              <div class="div-block-74">
-                <div class="div-block-72">
-                  <div class="div-block-73">
-                    <h3 class="heading-style-h2">Learn more about weight loss</h3>
-                    <a href="#" class="button is-white mob w-button">Get Started</a>
-                  </div>
-                </div>
-                <a href="#" class="lightbox-link w-inline-block w-lightbox"><img src="images/Frame-2085667773-1_1.avif" loading="lazy" sizes="100vw" srcset="images/Frame-2085667773-1_1Frame-2085667773-1.avif 500w, images/Frame-2085667773-1_1Frame-2085667773-1.avif 800w, images/Frame-2085667773-1_1Frame-2085667773-1.avif 1080w, images/Frame-2085667773-1_1.avif 2784w" alt="" class="image-12"><img src="images/play-1.svg" loading="lazy" alt="" class="image-13">
-                  <script type="application/json" class="w-json">{
-  "items": [],
-  "group": ""
-}</script>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="section_prm-4">
-        <div class="padding-global">
-          <div class="container-large">
-            <div class="padding-section-medium">
+              
               <div class="div-block-41">
-                <div class="div-block-42"><img src="images/Rectangle-40234-2_1.avif" loading="lazy" sizes="100vw" srcset="images/Rectangle-40234-2_1Rectangle-40234-2.avif 500w, images/Rectangle-40234-2_1.avif 1248w" alt="" class="image-5">
-                  <div class="div-block-43 _2">
-                    <div class="div-block-15">
-                      <h3 class="heading-style-h6">RPM</h3>
-                      <div class="div-block-16">
-                        <div class="text-weight-medium text-opacity-50">Starting at</div>
-                        <div class="div-block-17">
-                          <div>$159</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div class="div-block-42">
+                  <img src="images/Rectangle-40234-2_1.avif" loading="lazy" sizes="100vw" srcset="images/Rectangle-40234-2_1Rectangle-40234-2.avif 500w, images/Rectangle-40234-2_1.avif 1248w" alt="RPM monitoring setup" class="image-5">
                 </div>
                 <div class="div-block-44">
                   <div class="div-block-45">
-                    <h2 class="heading-style-h1">How It Works</h2>
+                    <h2 class="heading-style-h1">Simple Setup, Life-Changing Results</h2>
                     <div class="div-block-46">
                       <div class="div-block-48">
                         <div class="div-block-47">
                           <div class="text-size-small">1</div>
                         </div>
                         <div class="div-block-49">
-                          <h3 class="heading-style-h6">Diagnose</h3>
-                          <p class="text-size-small">Online consultation or quiz.</p>
+                          <h3 class="heading-style-h6">Quick Health Assessment</h3>
+                          <p class="text-size-small">Complete our 5-minute health questionnaire. Our care team reviews your conditions and recommends the right monitoring devices.</p>
                         </div>
                       </div>
                       <div class="div-block-48">
@@ -635,8 +553,8 @@ margin: 0rem !important;
                           <div class="text-size-small">2</div>
                         </div>
                         <div class="div-block-49">
-                          <h3 class="heading-style-h6">Apply</h3>
-                          <p class="text-size-small">Use products as directed.</p>
+                          <h3 class="heading-style-h6">Receive Your Devices</h3>
+                          <p class="text-size-small">Medical-grade devices arrive at your door within 2 days. Free setup support via video call if needed.</p>
                         </div>
                       </div>
                       <div class="div-block-48">
@@ -644,21 +562,12 @@ margin: 0rem !important;
                           <div class="text-size-small">3</div>
                         </div>
                         <div class="div-block-49">
-                          <h3 class="heading-style-h6">Nourish</h3>
-                          <p class="text-size-small">Key ingredients activate follicles.</p>
-                        </div>
-                      </div>
-                      <div class="div-block-48">
-                        <div class="div-block-47">
-                          <div class="text-size-small">3</div>
-                        </div>
-                        <div class="div-block-49">
-                          <h3 class="heading-style-h6">Results</h3>
-                          <p class="text-size-small">Visible growth in X weeks.</p>
+                          <h3 class="heading-style-h6">Start Monitoring</h3>
+                          <p class="text-size-small">Begin daily readings. Your care team monitors everything and reaches out with any concerns or recommendations.</p>
                         </div>
                       </div>
                     </div>
-                    <a href="#" class="button w-button">Get Started</a>
+                    <a href="#pricing" class="cta-primary" style="margin-top: 32px;">Start Your Monitoring Journey</a>
                   </div>
                 </div>
               </div>
@@ -666,64 +575,49 @@ margin: 0rem !important;
           </div>
         </div>
       </div>
-      <div class="section_prm-5">
-        <div class="padding-global">
-          <div class="container-large">
-            <div class="padding-section-medium">
-              <div class="div-block-50">
-                <div class="div-block-51">
-                  <h2 class="heading-style-h1">Results</h2>
-                  <p class="text-size-large">Don’t just take our word for it—see the transformation for yourself! Our hair regrowth solutions have helped thousands of men and women regain thicker, healthier hair.</p>
-                  <a href="#" class="button w-button">Get Started</a>
-                </div>
-                <div class="div-block-52">
-                  <div id="w-node-c09342c8-47ca-96e4-2b0c-1f1b679fa363-b6b87bf5" class="div-block-53 _1"><img src="images/image_6.avif" loading="lazy" alt="" class="image-6"><img src="images/Home-Mental-Health-Metrics-Card_2.avif" loading="lazy" alt="" class="image-6 is-shadow"></div>
-                  <div class="div-block-53"><img src="images/Rectangle-40235_4.avif" loading="lazy" alt="" class="image-6"></div>
-                  <div class="div-block-53"><img src="images/Frame_1.avif" loading="lazy" alt="" class="image-6 is-shadow"><img src="images/image-1_5.avif" loading="lazy" alt="" class="image-6"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+      <!-- Testimonials Section -->
       <div class="section_prm-6">
         <div class="padding-global">
           <div class="container-large">
             <div class="padding-section-medium">
-              <h2 class="heading-style-h1 text-align-center">See why millions of guys love heros</h2>
+              <h2 class="heading-style-h1 text-align-center">Real Stories from Patients Who Avoided Emergencies</h2>
               <div class="spacer-4rem"></div>
+              
               <div class="div-block-54">
-                <div class="div-block-55">
-                  <div class="div-block-60"><img src="images/image-79.avif" loading="lazy" alt="" class="image-9">
-                    <div class="div-block-56">
-                      <div class="heading-style-h6">Mayank Patel</div>
-                      <p class="text-size-small text-opacity-50 text-weight-medium">32, Client</p>
+                <div class="testimonial-card">
+                  <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                  <p class="testimonial-text">"The RPM system caught my blood pressure spike at 3 AM before I even felt symptoms. The care team called within minutes and helped me avoid what could have been a stroke. This technology literally saved my life."</p>
+                  <div class="testimonial-author">
+                    <img src="images/image-79.avif" loading="lazy" alt="Robert M." class="testimonial-avatar">
+                    <div class="testimonial-info">
+                      <h4>Robert M.</h4>
+                      <p>67, Diabetes & Hypertension</p>
                     </div>
-                  </div>
-                  <div class="div-block-57"><img src="images/Frame-2085665830.svg" loading="lazy" alt="" class="image-7">
-                    <p class="text-font-recoleta">&quot;I&#x27;ve struggled with flaky skin for years, but Hero&#x27;s Hydra-Fix Cream saved me! After just 3 days, my face felt plump and smooth. No more tightness—just dewy, happy skin. Obsessed!&quot;</p>
                   </div>
                 </div>
-                <div class="div-block-55">
-                  <div class="div-block-60"><img src="images/image-81.avif" loading="lazy" alt="" class="image-9">
-                    <div class="div-block-56">
-                      <div class="heading-style-h6">George Brown</div>
-                      <p class="text-size-small text-opacity-50 text-weight-medium">29, Client</p>
+                
+                <div class="testimonial-card">
+                  <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                  <p class="testimonial-text">"My heart failure was getting worse, but I didn't realize it until my weight started trending up on the RPM system. The early detection let my doctor adjust my medication before I ended up in the hospital again."</p>
+                  <div class="testimonial-author">
+                    <img src="images/image-81.avif" loading="lazy" alt="Margaret K." class="testimonial-avatar">
+                    <div class="testimonial-info">
+                      <h4>Margaret K.</h4>
+                      <p>73, Heart Failure</p>
                     </div>
-                  </div>
-                  <div class="div-block-57"><img src="images/Frame-2085665830.svg" loading="lazy" alt="" class="image-7">
-                    <p class="text-font-recoleta">Hero&#x27;s Brightening Serum faded my sunspots better than my $100 luxury cream. In 4 weeks, my skin tone looked even, and coworkers asked if I got a facial. Chef’s kiss.</p>
                   </div>
                 </div>
-                <div class="div-block-55">
-                  <div class="div-block-60"><img src="images/image-80.avif" loading="lazy" alt="" class="image-9">
-                    <div class="div-block-56">
-                      <div class="heading-style-h6">Yassin Abdallah</div>
-                      <p class="text-size-small text-opacity-50 text-weight-medium">35, Client</p>
+                
+                <div class="testimonial-card">
+                  <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                  <p class="testimonial-text">"As someone living alone, having 24/7 monitoring gives me peace of mind. The system is so easy to use, and knowing that medical professionals are watching my health makes me feel safer than ever."</p>
+                  <div class="testimonial-author">
+                    <img src="images/image-80.avif" loading="lazy" alt="James P." class="testimonial-avatar">
+                    <div class="testimonial-info">
+                      <h4>James P.</h4>
+                      <p>82, COPD & High Blood Pressure</p>
                     </div>
-                  </div>
-                  <div class="div-block-57"><img src="images/Frame-2085665830.svg" loading="lazy" alt="" class="image-7">
-                    <p class="text-font-recoleta">Most products make me red, but Hero&#x27;s Calming Gel soothed my rosacea instantly. Not a miracle cure, but my cheeks finally aren’t angry 24/7. Will repurchase forever.</p>
                   </div>
                 </div>
               </div>
@@ -731,16 +625,78 @@ margin: 0rem !important;
           </div>
         </div>
       </div>
+
+      <!-- Pricing Section -->
+      <div class="section_prm-4" id="pricing">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-medium">
+              <div style="text-align: center; margin-bottom: 64px;">
+                <h2 class="heading-style-h1">Comprehensive Health Monitoring</h2>
+                <p class="text-size-large" style="color: #666; max-width: 600px; margin: 16px auto 0;">Everything you need to stay healthy and avoid preventable emergencies</p>
+              </div>
+              
+              <div class="rpm-pricing-card">
+                <div class="rpm-pricing-badge">Most Popular</div>
+                <div class="rpm-price">$149</div>
+                <div class="rpm-price-period">per month</div>
+                
+                <div class="rpm-benefits-list">
+                  <div class="rpm-benefit-item">
+                    <span class="rpm-benefit-check">✓</span>
+                    <span>All medical-grade monitoring devices included</span>
+                  </div>
+                  <div class="rpm-benefit-item">
+                    <span class="rpm-benefit-check">✓</span>
+                    <span>24/7 monitoring by licensed healthcare professionals</span>
+                  </div>
+                  <div class="rpm-benefit-item">
+                    <span class="rpm-benefit-check">✓</span>
+                    <span>Real-time alerts for concerning health changes</span>
+                  </div>
+                  <div class="rpm-benefit-item">
+                    <span class="rpm-benefit-check">✓</span>
+                    <span>Monthly progress reports shared with your doctor</span>
+                  </div>
+                  <div class="rpm-benefit-item">
+                    <span class="rpm-benefit-check">✓</span>
+                    <span>Medication reminders and adherence tracking</span>
+                  </div>
+                  <div class="rpm-benefit-item">
+                    <span class="rpm-benefit-check">✓</span>
+                    <span>Free device replacement if needed</span>
+                  </div>
+                  <div class="rpm-benefit-item">
+                    <span class="rpm-benefit-check">✓</span>
+                    <span>Mobile app with easy-to-read health trends</span>
+                  </div>
+                  <div class="rpm-benefit-item">
+                    <span class="rpm-benefit-check">✓</span>
+                    <span>Cancel anytime, no long-term contracts</span>
+                  </div>
+                </div>
+                
+                <div class="urgency-banner">🔥 First 100 patients get 50% off setup fees</div>
+                
+                <a href="#" class="cta-primary" style="width: 100%; text-align: center; margin-top: 24px;">Start Monitoring Now</a>
+                <p style="font-size: 14px; color: #666; margin-top: 16px; text-align: center;">✅ No insurance required • ✅ 30-day money-back guarantee</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
       <div class="section_wl-6">
         <div class="padding-global">
           <div class="container-medium">
             <div class="padding-section-medium">
-              <h2 class="heading-style-h1 text-align-center">Frequently <br>Asked Question</h2>
+              <h2 class="heading-style-h1 text-align-center">Frequently Asked Questions</h2>
               <div class="spacer-4rem"></div>
               <div class="w-layout-grid faq4_list">
                 <div class="faq4_accordion">
                   <div data-w-id="7ff60bb5-df1d-9e25-b845-3e5920bcb170" class="faq4_question">
-                    <div class="heading-style-h5">What is heros?</div>
+                    <div class="heading-style-h5">What conditions does RPM help monitor?</div>
                     <div class="faq4_icon-wrappper">
                       <div class="icon-embed-1-25rem w-embed"><svg width="100%" height="100%" viewbox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M25.3333 15.667V16.3336C25.3333 16.7018 25.0349 17.0003 24.6667 17.0003H17V24.667C17 25.0351 16.7015 25.3336 16.3333 25.3336H15.6667C15.2985 25.3336 15 25.0351 15 24.667V17.0003H7.3333C6.96511 17.0003 6.66663 16.7018 6.66663 16.3336V15.667C6.66663 15.2988 6.96511 15.0003 7.3333 15.0003H15V7.33365C15 6.96546 15.2985 6.66699 15.6667 6.66699H16.3333C16.7015 6.66699 17 6.96546 17 7.33365V15.0003H24.6667C25.0349 15.0003 25.3333 15.2988 25.3333 15.667Z" fill="currentColor"></path>
@@ -749,13 +705,13 @@ margin: 0rem !important;
                   </div>
                   <div class="faq4_answer">
                     <div class="margin-bottom margin-small">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
+                      <p>RPM is especially effective for diabetes, hypertension, heart failure, COPD, chronic kidney disease, and post-surgical recovery. Our system monitors vital signs relevant to your specific conditions and medication regimens.</p>
                     </div>
                   </div>
                 </div>
                 <div class="faq4_accordion">
                   <div data-w-id="7ff60bb5-df1d-9e25-b845-3e5920bcb17a" class="faq4_question">
-                    <div class="heading-style-h5">How does Heros work?</div>
+                    <div class="heading-style-h5">How accurate are the monitoring devices?</div>
                     <div class="faq4_icon-wrappper">
                       <div class="icon-embed-1-25rem w-embed"><svg width="100%" height="100%" viewbox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M25.3333 15.667V16.3336C25.3333 16.7018 25.0349 17.0003 24.6667 17.0003H17V24.667C17 25.0351 16.7015 25.3336 16.3333 25.3336H15.6667C15.2985 25.3336 15 25.0351 15 24.667V17.0003H7.3333C6.96511 17.0003 6.66663 16.7018 6.66663 16.3336V15.667C6.66663 15.2988 6.96511 15.0003 7.3333 15.0003H15V7.33365C15 6.96546 15.2985 6.66699 15.6667 6.66699H16.3333C16.7015 6.66699 17 6.96546 17 7.33365V15.0003H24.6667C25.0349 15.0003 25.3333 15.2988 25.3333 15.667Z" fill="currentColor"></path>
@@ -764,13 +720,13 @@ margin: 0rem !important;
                   </div>
                   <div class="faq4_answer">
                     <div class="margin-bottom margin-small">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
+                      <p>All our devices are FDA-approved and meet hospital-grade accuracy standards. Blood pressure monitors are accurate within ±3 mmHg, pulse oximeters within ±2%, and weight scales within ±0.2 lbs. Regular calibration ensures continued accuracy.</p>
                     </div>
                   </div>
                 </div>
                 <div class="faq4_accordion">
                   <div data-w-id="7ff60bb5-df1d-9e25-b845-3e5920bcb184" class="faq4_question">
-                    <div class="heading-style-h5">Who are the providers at Heros?</div>
+                    <div class="heading-style-h5">What happens if my readings are abnormal?</div>
                     <div class="faq4_icon-wrappper">
                       <div class="icon-embed-1-25rem w-embed"><svg width="100%" height="100%" viewbox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M25.3333 15.667V16.3336C25.3333 16.7018 25.0349 17.0003 24.6667 17.0003H17V24.667C17 25.0351 16.7015 25.3336 16.3333 25.3336H15.6667C15.2985 25.3336 15 25.0351 15 24.667V17.0003H7.3333C6.96511 17.0003 6.66663 16.7018 6.66663 16.3336V15.667C6.66663 15.2988 6.96511 15.0003 7.3333 15.0003H15V7.33365C15 6.96546 15.2985 6.66699 15.6667 6.66699H16.3333C16.7015 6.66699 17 6.96546 17 7.33365V15.0003H24.6667C25.0349 15.0003 25.3333 15.2988 25.3333 15.667Z" fill="currentColor"></path>
@@ -779,13 +735,13 @@ margin: 0rem !important;
                   </div>
                   <div class="faq4_answer">
                     <div class="margin-bottom margin-small">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
+                      <p>Our care team receives immediate alerts for concerning readings. Depending on severity, we'll call you within 15 minutes to several hours. For emergencies, we guide you to call 911 or go to the ER. For less urgent issues, we coordinate with your doctor for medication adjustments or appointments.</p>
                     </div>
                   </div>
                 </div>
                 <div class="faq4_accordion">
                   <div data-w-id="7ff60bb5-df1d-9e25-b845-3e5920bcb18e" class="faq4_question">
-                    <div class="heading-style-h5">Does Heros require insurance?</div>
+                    <div class="heading-style-h5">Do I need internet or a smartphone?</div>
                     <div class="faq4_icon-wrappper">
                       <div class="icon-embed-1-25rem w-embed"><svg width="100%" height="100%" viewbox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M25.3333 15.667V16.3336C25.3333 16.7018 25.0349 17.0003 24.6667 17.0003H17V24.667C17 25.0351 16.7015 25.3336 16.3333 25.3336H15.6667C15.2985 25.3336 15 25.0351 15 24.667V17.0003H7.3333C6.96511 17.0003 6.66663 16.7018 6.66663 16.3336V15.667C6.66663 15.2988 6.96511 15.0003 7.3333 15.0003H15V7.33365C15 6.96546 15.2985 6.66699 15.6667 6.66699H16.3333C16.7015 6.66699 17 6.96546 17 7.33365V15.0003H24.6667C25.0349 15.0003 25.3333 15.2988 25.3333 15.667Z" fill="currentColor"></path>
@@ -794,13 +750,13 @@ margin: 0rem !important;
                   </div>
                   <div class="faq4_answer">
                     <div class="margin-bottom margin-small">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
+                      <p>You need either WiFi or cellular data for the devices to transmit readings. Most devices have built-in cellular capability as backup. A smartphone or tablet helps you view your data, but it's not required—our care team monitors everything and will call you with updates.</p>
                     </div>
                   </div>
                 </div>
                 <div class="faq4_accordion">
                   <div data-w-id="7ff60bb5-df1d-9e25-b845-3e5920bcb198" class="faq4_question">
-                    <div class="heading-style-h5">What states is Heros available in?</div>
+                    <div class="heading-style-h5">Is RPM covered by insurance?</div>
                     <div class="faq4_icon-wrappper">
                       <div class="icon-embed-1-25rem w-embed"><svg width="100%" height="100%" viewbox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M25.3333 15.667V16.3336C25.3333 16.7018 25.0349 17.0003 24.6667 17.0003H17V24.667C17 25.0351 16.7015 25.3336 16.3333 25.3336H15.6667C15.2985 25.3336 15 25.0351 15 24.667V17.0003H7.3333C6.96511 17.0003 6.66663 16.7018 6.66663 16.3336V15.667C6.66663 15.2988 6.96511 15.0003 7.3333 15.0003H15V7.33365C15 6.96546 15.2985 6.66699 15.6667 6.66699H16.3333C16.7015 6.66699 17 6.96546 17 7.33365V15.0003H24.6667C25.0349 15.0003 25.3333 15.2988 25.3333 15.667Z" fill="currentColor"></path>
@@ -809,13 +765,13 @@ margin: 0rem !important;
                   </div>
                   <div class="faq4_answer">
                     <div class="margin-bottom margin-small">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
+                      <p>Many Medicare and commercial insurance plans now cover RPM services. We handle insurance verification and billing for covered patients. Even without coverage, our $149/month fee is often less than a single ER visit copay, making it a cost-effective investment in your health.</p>
                     </div>
                   </div>
                 </div>
                 <div class="faq4_accordion">
                   <div data-w-id="7ff60bb5-df1d-9e25-b845-3e5920bcb1a2" class="faq4_question">
-                    <div class="heading-style-h5">Are Heros ingredients sourced in the US?</div>
+                    <div class="heading-style-h5">Can I cancel anytime?</div>
                     <div class="faq4_icon-wrappper">
                       <div class="icon-embed-1-25rem w-embed"><svg width="100%" height="100%" viewbox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M25.3333 15.667V16.3336C25.3333 16.7018 25.0349 17.0003 24.6667 17.0003H17V24.667C17 25.0351 16.7015 25.3336 16.3333 25.3336H15.6667C15.2985 25.3336 15 25.0351 15 24.667V17.0003H7.3333C6.96511 17.0003 6.66663 16.7018 6.66663 16.3336V15.667C6.66663 15.2988 6.96511 15.0003 7.3333 15.0003H15V7.33365C15 6.96546 15.2985 6.66699 15.6667 6.66699H16.3333C16.7015 6.66699 17 6.96546 17 7.33365V15.0003H24.6667C25.0349 15.0003 25.3333 15.2988 25.3333 15.667Z" fill="currentColor"></path>
@@ -824,7 +780,7 @@ margin: 0rem !important;
                   </div>
                   <div class="faq4_answer">
                     <div class="margin-bottom margin-small">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
+                      <p>Yes, there are no long-term contracts. Cancel anytime with 30 days notice. We offer a 30-day money-back guarantee if you're not satisfied. Simply return the devices in good condition within 30 days for a full refund.</p>
                     </div>
                   </div>
                 </div>
@@ -837,6 +793,8 @@ margin: 0rem !important;
           </div>
         </div>
       </div>
+
+      <!-- Final CTA Section -->
       <div class="section_cta">
         <div class="padding-global">
           <div class="container-large">
@@ -846,26 +804,26 @@ margin: 0rem !important;
                   <div class="div-block-30">
                     <div class="div-block-31">
                       <div class="div-block-32">
-                        <h2 class="heading-style-h2 text-align-center">Unlock the free Guide to Protein for Weight Loss</h2>
-                        <p class="text-size-large text-align-center">Written by board-certified doctors tosupport your journey.</p>
+                        <h2 class="heading-style-h2 text-align-center">Take Control of Your Health Today</h2>
+                        <p class="text-size-large text-align-center">Join thousands of patients who are living healthier, safer lives with 24/7 monitoring.</p>
+                        <div class="urgency-banner">⏰ Limited Time: Free setup + First month included • Save $200</div>
                       </div>
-                      <div class="form-block w-form">
-                        <form id="email-form" name="email-form" data-name="Email Form" method="get" class="form" data-wf-page-id="683205ce3c3b4ea8b6b87bf5" data-wf-element-id="4172467a-f0c2-ccfc-8188-897dd93b040a"><input class="text-field w-input" maxlength="256" name="Email" data-name="Email" placeholder="Email" type="email" id="Email-3" required=""><input type="submit" data-wait="Please wait..." class="button is-form w-button" value="Send a Request"></form>
-                        <div class="success-message w-form-done">
-                          <div>Thank you!</div>
-                        </div>
-                        <div class="w-form-fail">
-                          <div>Oops! Something went wrong while submitting the form.</div>
-                        </div>
+                      <div style="text-align: center; margin-top: 32px;">
+                        <a href="#pricing" class="cta-primary" style="margin-right: 16px;">Start Monitoring Now</a>
+                        <a href="tel:1-800-HEROS-RPM" class="cta-secondary">Call (800) HEROS-RPM</a>
                       </div>
+                      <p style="text-align: center; color: #666; margin-top: 24px; font-size: 14px;">✅ 30-day money-back guarantee • ✅ No insurance required • ✅ Cancel anytime</p>
                     </div>
                   </div>
-                </div><img src="images/Rectangle-24-3_1.avif" loading="lazy" sizes="100vw" srcset="images/Rectangle-24-3_1Rectangle-24-3.avif 500w, images/Rectangle-24-3_1.avif 1376w" alt="" class="image-3">
+                </div>
+                <img src="images/Rectangle-24-3_1.avif" loading="lazy" sizes="100vw" srcset="images/Rectangle-24-3_1Rectangle-24-3.avif 500w, images/Rectangle-24-3_1.avif 1376w" alt="Happy patient using RPM monitoring" class="image-3">
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Footer -->
       <div class="footer">
         <div class="padding-global">
           <div class="container-large">
@@ -875,19 +833,19 @@ margin: 0rem !important;
                   <p class="text-opacity-50 text-weight-medium">Popular</p>
                   <div class="div-block-39">
                     <a href="weight-loss.html" class="link">Weight Loss</a>
-                    <a href="#" class="link">Ozempic</a>
-                    <a href="#" class="link">Wegovy</a>
-                    <a href="#" class="link">Zepbound</a>
-                    <a href="#" class="link">Cialis</a>
-                    <a href="hair-regrowth.html" class="link">Hair Loss</a>
+                    <a href="mens-ed.html" class="link">Men's ED</a>
+                    <a href="hair-regrowth.html" class="link">Hair Regrowth</a>
+                    <a href="skin-care.html" class="link">Skin Care</a>
+                    <a href="rpm.html" class="link">RPM</a>
+                    <a href="ccm.html" class="link">CCM</a>
                   </div>
                 </div>
                 <div class="div-block-38">
                   <p class="text-opacity-50 text-weight-medium">About Heros</p>
                   <div class="div-block-39">
-                    <a href="#" class="link">Founders letter</a>
-                    <a href="#" class="link">Heros Operating System</a>
-                    <a href="#" class="link">Advisors</a>
+                    <a href="#" class="link">Our Story</a>
+                    <a href="#" class="link">Clinical Team</a>
+                    <a href="#" class="link">Technology</a>
                     <a href="#" class="link">Health Guide</a>
                     <a href="blog.html" class="link">Blog</a>
                   </div>
@@ -897,12 +855,15 @@ margin: 0rem !important;
                   <div class="div-block-39">
                     <a href="contact.html" class="link">Contact us</a>
                     <a href="faq.html" class="link">FAQ</a>
+                    <a href="#" class="link">Device Support</a>
+                    <a href="#" class="link">Technical Help</a>
                   </div>
                 </div>
                 <div class="div-block-38">
                   <p class="text-opacity-50 text-weight-medium">Contacts</p>
                   <div class="div-block-39">
-                    <a href="mailto:Info@heros.com" class="link">Info@heros.com</a>
+                    <a href="mailto:rpm@heros.com" class="link">rpm@heros.com</a>
+                    <a href="tel:1-800-HEROS-RPM" class="link">(800) HEROS-RPM</a>
                   </div>
                   <div class="div-block-40">
                     <a href="#" class="link-block-2 w-inline-block">
@@ -912,7 +873,7 @@ margin: 0rem !important;
                     </a>
                     <a href="#" class="link-block-2 w-inline-block">
                       <div class="icon-1x1-small w-embed"><svg width="16" height="16" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M8.6854 1.33398C9.43566 1.33522 9.81586 1.33919 10.1444 1.34897L10.2738 1.3532C10.4233 1.35852 10.5707 1.36518 10.7485 1.37352C11.4579 1.40629 11.9419 1.51852 12.3669 1.68352C12.8063 1.85296 13.1774 2.08185 13.5479 2.4524C13.9179 2.82296 14.1469 3.19518 14.3169 3.63352C14.4813 4.05796 14.5935 4.5424 14.6269 5.25185C14.6348 5.42962 14.6412 5.57709 14.6465 5.72659L14.6507 5.85598C14.6604 6.18448 14.6649 6.56473 14.6663 7.315L14.6668 7.81213C14.6669 7.87286 14.6669 7.93553 14.6669 8.0002L14.6668 8.18826L14.6664 8.6854C14.6651 9.43566 14.6612 9.81586 14.6514 10.1444L14.6471 10.2738C14.6419 10.4233 14.6352 10.5707 14.6269 10.7485C14.5941 11.4579 14.4813 11.9419 14.3169 12.3669C14.1474 12.8063 13.9179 13.1774 13.5479 13.5479C13.1774 13.9179 12.8046 14.1469 12.3669 14.3169C11.9419 14.4813 11.4579 14.5935 10.7485 14.6269C10.5707 14.6348 10.4233 14.6412 10.2738 14.6465L10.1444 14.6507C9.81586 14.6604 9.43566 14.6649 8.6854 14.6663L8.18826 14.6668C8.12753 14.6669 8.06486 14.6669 8.0002 14.6669L7.81213 14.6668L7.315 14.6664C6.56473 14.6651 6.18448 14.6612 5.85598 14.6514L5.72659 14.6471C5.57709 14.6419 5.42962 14.6352 5.25185 14.6269C4.5424 14.5941 4.05907 14.4813 3.63352 14.3169C3.19462 14.1474 2.82296 13.9179 2.4524 13.5479C2.08185 13.1774 1.85352 12.8046 1.68352 12.3669C1.51852 11.9419 1.40685 11.4579 1.37352 10.7485C1.3656 10.5707 1.35914 10.4233 1.3539 10.2738L1.34971 10.1444C1.33996 9.81586 1.33551 9.43566 1.33407 8.6854L1.33398 7.315C1.33522 6.56473 1.33919 6.18448 1.34897 5.85598L1.3532 5.72659C1.35852 5.57709 1.36518 5.42962 1.37352 5.25185C1.40629 4.54185 1.51852 4.05852 1.68352 3.63352C1.85296 3.19462 2.08185 2.82296 2.4524 2.4524C2.82296 2.08185 3.19518 1.85352 3.63352 1.68352C4.05852 1.51852 4.54185 1.40685 5.25185 1.37352C5.42962 1.3656 5.57709 1.35914 5.72659 1.3539L5.85598 1.34971C6.18448 1.33996 6.56473 1.33551 7.315 1.33407L8.6854 1.33398ZM8.0002 4.66685C6.15825 4.66685 4.66685 6.15987 4.66685 8.0002C4.66685 9.84213 6.15987 11.3335 8.0002 11.3335C9.84213 11.3335 11.3335 9.84046 11.3335 8.0002C11.3335 6.15825 9.84046 4.66685 8.0002 4.66685ZM8.0002 6.00018C9.1048 6.00018 10.0002 6.89526 10.0002 8.0002C10.0002 9.1048 9.10506 10.0002 8.0002 10.0002C6.8956 10.0002 6.00018 9.10506 6.00018 8.0002C6.00018 6.8956 6.89526 6.00018 8.0002 6.00018ZM11.5002 3.66685C11.0407 3.66685 10.6669 4.04012 10.6669 4.49962C10.6669 4.95911 11.0401 5.33296 11.5002 5.33296C11.9597 5.33296 12.3335 4.95969 12.3335 4.49962C12.3335 4.04012 11.9591 3.66627 11.5002 3.66685Z" fill="currentcolor"></path>
+                          <path d="M8.6854 1.33398C9.43566 1.33522 9.81586 1.33919 10.1444 1.34897L10.2738 1.3532C10.4233 1.35852 10.5707 1.36518 10.7485 1.37352C11.4579 1.40629 11.9419 1.51852 12.3669 1.68352C12.8063 1.85296 13.1774 2.08185 13.5479 2.4524C13.9179 2.82296 14.1469 3.19518 14.3169 3.63352C14.4813 4.05796 14.5935 4.5424 14.6269 5.25185C14.6348 5.42962 14.6412 5.57709 14.6465 5.72659L14.6507 5.85598C14.6604 6.18448 14.6649 6.56473 14.6663 7.315L14.6668 7.81213C14.6669 7.87286 14.6669 7.93553 14.6669 8.0002L14.6668 8.18826L14.6664 8.6854C14.6651 9.43566 14.6612 9.81586 14.6514 10.1444L14.6471 10.2738C14.6419 10.4233 14.6352 10.5707 14.6269 10.7485C14.5941 11.4579 14.4813 11.9419 14.3169 12.3669C14.1474 12.8063 13.9179 13.1774 13.5479 13.5479C13.1774 13.9179 12.8046 14.1469 12.3669 14.3169C11.9419 14.4813 11.4579 14.5935 10.7485 14.6269C10.5707 14.6348 10.4233 14.6412 10.2738 14.6465L10.1444 14.6507C9.81586 14.6604 9.43566 14.6649 8.6854 14.6663L8.18826 14.6668C8.12753 14.6669 8.06486 14.6669 8.0002 14.6669L7.81213 14.6668L7.315 14.6664C6.56473 14.6651 6.18448 14.6612 5.85598 14.6514L5.72659 14.6471C5.57709 14.6419 5.42962 14.6352 5.25185 14.6269C4.5424 14.5941 4.05907 14.4813 3.63352 14.3169C3.19462 14.1474 2.82296 13.9179 2.4524 13.5479C2.08185 13.1774 1.85352 12.8046 1.68352 12.3669C1.51852 11.9419 1.40685 11.4579 1.37352 10.7485C1.3656 10.5707 1.35914 10.4233 1.3539 10.2738L1.34971 10.1444C1.33996 9.81586 1.33551 9.43566 1.33407 8.6854L1.33398 7.315C1.33522 6.56473 1.33919 6.18448 1.34897 5.85598L1.3532 5.72659C1.35852 5.57709 1.36518 5.42962 1.37352 5.25185C1.40629 4.54185 1.51852 4.05852 1.68352 3.63352C1.85296 3.19462 2.08185 2.82296 2.4524 2.4524C2.82296 2.08185 3.19518 1.85352 3.63352 1.68352C4.05852 1.51852 4.54185 1.40685 5.25185 1.37352C5.42962 1.3656 5.57709 1.35914 5.72659 1.3539L5.85598 1.34971C6.18448 1.33996 6.56473 1.33551 7.315 1.33407L8.6854 1.33398ZM8.0002 4.66685C6.15825 4.66685 4.66685 6.15987 4.66685 8.0002C4.66685 9.84213 6.15987 ...
                         </svg></div>
                     </a>
                     <a href="#" class="link-block-2 w-inline-block">
@@ -926,8 +887,8 @@ margin: 0rem !important;
               <div class="div-block-34">
                 <div class="div-block-36"></div>
                 <div class="div-block-37">
-                  <p>© 2025 Heros. All right reserved</p>
-                </div><img src="images/Logo-16.svg" loading="lazy" alt="" class="image-4">
+                  <p>© 2025 Heros. All rights reserved | Medical services and devices are FDA-approved</p>
+                </div><img src="images/Logo-16.svg" loading="lazy" alt="Heros Logo" class="image-4">
               </div>
             </div>
           </div>
