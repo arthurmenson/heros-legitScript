@@ -173,6 +173,45 @@ margin: 0rem !important;
 }
 </style>
     </div>
+    <!-- Animated Banner Styles -->
+    <style>
+      .bunner_component {
+        overflow: hidden;
+        background: #f8f9fa;
+        padding: 12px 0;
+        white-space: nowrap;
+        position: relative;
+      }
+
+      .scrolling-banner {
+        display: flex;
+        animation: scroll-left 30s linear infinite;
+        gap: 48px;
+        align-items: center;
+      }
+
+      .banner-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      @keyframes scroll-left {
+        0% {
+          transform: translateX(100%);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+      .bunner_component:hover .scrolling-banner {
+        animation-play-state: paused;
+      }
+    </style>
+
     <div class="bunner_component">
       <div class="div-block">
         <div class="icon-1x1-small w-embed"><svg width="21" height="20" viewbox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
