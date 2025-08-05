@@ -246,6 +246,66 @@
     pointer-events: auto;
   }
 
+  /* ED Meds Section */
+  .ed-meds-section {
+    position: relative;
+    padding: 40px 0 75px;
+    pointer-events: auto;
+  }
+
+  .ed-meds-grid {
+    display: grid;
+    grid-template: auto / 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 40px;
+    pointer-events: auto;
+  }
+
+  .ed-meds-content {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 24px;
+    justify-content: center;
+    max-width: 486px;
+    pointer-events: auto;
+  }
+
+  .ed-meds-images {
+    display: grid;
+    gap: 16px;
+    grid-template: auto auto / 1fr 1fr;
+    grid-template-rows: auto auto;
+    pointer-events: auto;
+  }
+
+  .ed-meds-img-right {
+    border-radius: 16px;
+    grid-area: 1 / 2 / 2 / 3;
+    grid-row: 1 / 2;
+    min-width: 100%;
+    object-fit: cover;
+    pointer-events: auto;
+  }
+
+  .ed-meds-img-left {
+    border-radius: 16px;
+    grid-area: span 2 / span 1 / span 2 / span 1;
+    grid-row: span 2 / span 2;
+    min-width: 100%;
+    object-fit: cover;
+    pointer-events: auto;
+  }
+
+  .ed-meds-img-bottom {
+    border-radius: 16px;
+    grid-area: 2 / 2 / 3 / 3;
+    grid-row: 2 / 3;
+    min-width: 100%;
+    object-fit: cover;
+    pointer-events: auto;
+  }
+
   /* Responsive */
   @media (max-width: 768px) {
     .animated-service-text {
