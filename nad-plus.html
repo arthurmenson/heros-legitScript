@@ -32,9 +32,15 @@
     
     .nad-stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 32px;
       margin: 48px 0;
+    }
+
+    @media (max-width: 768px) {
+      .nad-stats-grid {
+        gap: 16px;
+      }
     }
 
     .nad-stat-card {
