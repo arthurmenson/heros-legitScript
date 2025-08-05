@@ -1534,15 +1534,15 @@ margin: 0rem !important;
 
     setTimeout(() => {
       // Update content
-      currentServiceIndex = (currentServiceIndex + 1) % healthServices.length;
-      const currentService = healthServices[currentServiceIndex];
+      currentServiceIndex = (currentServiceIndex + 1) % heroMessages.length;
+      const currentMessage = heroMessages[currentServiceIndex];
 
-      serviceTextElement.textContent = currentService.service;
-      serviceTextElement.style.color = currentService.color;
-      descriptionElement.textContent = currentService.description;
+      serviceTextElement.textContent = currentMessage.service;
+      serviceTextElement.style.color = currentMessage.color;
+      descriptionElement.textContent = currentMessage.description;
 
       // Update icon colors
-      iconElement.style.background = `linear-gradient(135deg, ${currentService.iconColor}, ${currentService.color})`;
+      iconElement.style.background = `linear-gradient(135deg, ${currentMessage.iconColor}, ${currentMessage.color})`;
 
       // Add fade-in class
       containerElement.classList.remove("service-fade-out");
@@ -1557,13 +1557,13 @@ margin: 0rem !important;
 
   // Initialize two-row animation
   if (serviceTextElement && descriptionElement) {
-    const initialService = healthServices[currentServiceIndex];
-    serviceTextElement.textContent = initialService.service;
-    serviceTextElement.style.color = initialService.color;
-    descriptionElement.textContent = initialService.description;
-    iconElement.style.background = `linear-gradient(135deg, ${initialService.iconColor}, ${initialService.color})`;
+    const initialMessage = heroMessages[currentServiceIndex];
+    serviceTextElement.textContent = initialMessage.service;
+    serviceTextElement.style.color = initialMessage.color;
+    descriptionElement.textContent = initialMessage.description;
+    iconElement.style.background = `linear-gradient(135deg, ${initialMessage.iconColor}, ${initialMessage.color})`;
 
-    // Start service animation cycle (every 4 seconds)
+    // Start message animation cycle (every 4 seconds)
     setInterval(changeService, 4000);
   }
 </script>
