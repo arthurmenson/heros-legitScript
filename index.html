@@ -169,6 +169,19 @@
     pointer-events: auto;
   }
 
+  /* Glowing Halo Animation */
+  @keyframes pulse-glow {
+    0% {
+      box-shadow: 0 0 0 0 rgba(225, 229, 233, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(225, 229, 233, 0.1), 0 0 20px rgba(225, 229, 233, 0.3);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(225, 229, 233, 0.5);
+    }
+  }
+
   .weight-loss-grid {
     display: grid;
     grid-template: auto / 1fr 1fr;
