@@ -1361,12 +1361,67 @@ margin: 0rem !important;
 
                     </div>
                   </div>
-                  <div class="hero-video-section" style="height: 100%; display: flex; align-items: stretch;">
+                  <div class="hero-video-section" style="height: 100%; display: flex; align-items: stretch; position: relative; border-radius: 24px; overflow: hidden;">
                     <img src="images/Rectangle-20-1.png" loading="lazy" alt="" class="hero-video-bg" style="width: 100%; height: 100%; object-fit: cover;">
-                    <div class="hero-video-overlay">
-                      <a href="#" class="hero-video-btn">Learn More</a>
+
+                    <!-- Gradient overlay for better text readability -->
+                    <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.5) 100%);"></div>
+
+                    <!-- Content overlay -->
+                    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 40px;">
+                      <!-- Top content -->
+                      <div>
+                        <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; padding: 16px 20px; display: inline-flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+                          <div style="width: 12px; height: 12px; background: #2ecc71; border-radius: 50%; animation: pulse 2s infinite;"></div>
+                          <span style="color: white; font-size: 14px; font-weight: 600;">Live Health Assessment</span>
+                        </div>
+
+                        <h2 style="color: white; font-size: 2.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 16px; text-shadow: 0 2px 8px rgba(0,0,0,0.3);">Transform Your<br>Health Today</h2>
+                        <p style="color: rgba(255,255,255,0.9); font-size: 18px; line-height: 1.5; margin-bottom: 32px; max-width: 400px;">Join thousands who've achieved lasting weight loss with our personalized, doctor-supervised programs.</p>
+                      </div>
+
+                      <!-- Bottom CTAs -->
+                      <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <a href="weight-loss.html" style="background: white; color: #1a1a1a; padding: 16px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; font-size: 16px; text-align: center; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.2);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 30px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.2)'">
+                          🎯 Start Your Weight Loss Journey
+                        </a>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                          <a href="#" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); color: white; padding: 12px 20px; border-radius: 25px; font-weight: 600; text-decoration: none; font-size: 14px; text-align: center; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3);" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+                            📊 View Results
+                          </a>
+                          <a href="#" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); color: white; padding: 12px 20px; border-radius: 25px; font-weight: 600; text-decoration: none; font-size: 14px; text-align: center; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3);" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+                            💬 Get Support
+                          </a>
+                        </div>
+
+                        <!-- Trust indicators -->
+                        <div style="display: flex; align-items: center; gap: 24px; margin-top: 16px;">
+                          <div style="display: flex; align-items: center; gap: 8px;">
+                            <div style="display: flex; gap: 2px;">
+                              <span style="color: #ffd700; font-size: 16px;">★</span>
+                              <span style="color: #ffd700; font-size: 16px;">★</span>
+                              <span style="color: #ffd700; font-size: 16px;">★</span>
+                              <span style="color: #ffd700; font-size: 16px;">★</span>
+                              <span style="color: #ffd700; font-size: 16px;">★</span>
+                            </div>
+                            <span style="color: rgba(255,255,255,0.8); font-size: 12px; font-weight: 500;">4.9/5 Rating</span>
+                          </div>
+                          <div style="display: flex; align-items: center; gap: 8px;">
+                            <div style="width: 8px; height: 8px; background: #2ecc71; border-radius: 50%;"></div>
+                            <span style="color: rgba(255,255,255,0.8); font-size: 12px; font-weight: 500;">2M+ Success Stories</span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
+
+                  <style>
+                    @keyframes pulse {
+                      0%, 100% { opacity: 1; transform: scale(1); }
+                      50% { opacity: 0.7; transform: scale(1.1); }
+                    }
+                  </style>
                 </div>
               </div>
             </div>
@@ -1712,7 +1767,7 @@ margin: 0rem !important;
                   <div class="div-block-130"><img src="images/Icon-Wrapper-3.svg" loading="lazy" alt="" class="image-23 _2"><img src="images/Line-48.svg" loading="lazy" alt="" class="image-31"></div>
                   <div class="div-block-131">
                     <h3 class="heading-style-h5">4. Discreet Delivery</h3>
-                    <p class="text-size-medium text-color-grey">Your meds arrive at your door��hassle-free.</p>
+                    <p class="text-size-medium text-color-grey">Your meds arrive at your door—hassle-free.</p>
                   </div>
                 </div>
               </div>
