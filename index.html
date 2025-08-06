@@ -1278,9 +1278,67 @@ margin: 0rem !important;
                 <div class="spacer-4rem"></div>
                 <div class="bmi-grid">
                   <div class="bmi-sidebar">
-                    <div class="bmi-card">
-                      <h3 class="heading-style-h3">Check Your BMI <br>to get started</h3>
-                      <img src="images/Frame-2085667751_1.avif" loading="lazy" alt="">
+                    <div class="bmi-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 32px; border-radius: 24px; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2); color: white;">
+                      <h3 style="font-size: 28px; font-weight: 700; margin-bottom: 24px; text-align: center; color: white;">BMI Calculator</h3>
+
+                      <!-- BMI Input Form -->
+                      <div style="margin-bottom: 24px;">
+                        <div style="margin-bottom: 20px;">
+                          <label style="display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; color: rgba(255,255,255,0.9);">Height</label>
+                          <div style="display: flex; gap: 12px;">
+                            <input type="number" id="feet" placeholder="5" min="1" max="8" style="flex: 1; padding: 12px 16px; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; background: rgba(255,255,255,0.2); color: white; backdrop-filter: blur(10px);" oninput="calculateBMI()">
+                            <span style="color: rgba(255,255,255,0.8); font-size: 14px; padding: 12px 0;">ft</span>
+                            <input type="number" id="inches" placeholder="6" min="0" max="11" style="flex: 1; padding: 12px 16px; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; background: rgba(255,255,255,0.2); color: white; backdrop-filter: blur(10px);" oninput="calculateBMI()">
+                            <span style="color: rgba(255,255,255,0.8); font-size: 14px; padding: 12px 0;">in</span>
+                          </div>
+                        </div>
+
+                        <div style="margin-bottom: 24px;">
+                          <label style="display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; color: rgba(255,255,255,0.9);">Weight</label>
+                          <div style="display: flex; gap: 12px; align-items: center;">
+                            <input type="number" id="weight" placeholder="150" min="50" max="500" style="flex: 1; padding: 12px 16px; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; background: rgba(255,255,255,0.2); color: white; backdrop-filter: blur(10px);" oninput="calculateBMI()">
+                            <span style="color: rgba(255,255,255,0.8); font-size: 14px; padding: 12px 0;">lbs</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- BMI Result Display -->
+                      <div id="bmi-result" style="background: rgba(255,255,255,0.15); border-radius: 16px; padding: 24px; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                        <div style="font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 8px;">Your BMI</div>
+                        <div id="bmi-value" style="font-size: 48px; font-weight: 800; color: white; margin-bottom: 8px;">--</div>
+                        <div id="bmi-category" style="font-size: 16px; font-weight: 600; padding: 8px 16px; border-radius: 20px; display: inline-block; margin-bottom: 16px;">Enter your details</div>
+                        <div id="bmi-description" style="font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.4;">Fill in your height and weight to see your BMI calculation</div>
+                      </div>
+
+                      <!-- BMI Scale Visualization -->
+                      <div style="margin-top: 24px;">
+                        <div style="font-size: 14px; color: rgba(255,255,255,0.9); margin-bottom: 12px; font-weight: 600;">BMI Categories</div>
+                        <div style="display: grid; gap: 8px;">
+                          <div style="display: flex; align-items: center; gap: 12px; padding: 8px; border-radius: 8px; background: rgba(255,255,255,0.1);">
+                            <div style="width: 16px; height: 16px; background: #3498db; border-radius: 50%;"></div>
+                            <span style="font-size: 12px; color: white;">Underweight: Below 18.5</span>
+                          </div>
+                          <div style="display: flex; align-items: center; gap: 12px; padding: 8px; border-radius: 8px; background: rgba(255,255,255,0.1);">
+                            <div style="width: 16px; height: 16px; background: #2ecc71; border-radius: 50%;"></div>
+                            <span style="font-size: 12px; color: white;">Normal: 18.5 - 24.9</span>
+                          </div>
+                          <div style="display: flex; align-items: center; gap: 12px; padding: 8px; border-radius: 8px; background: rgba(255,255,255,0.1);">
+                            <div style="width: 16px; height: 16px; background: #f39c12; border-radius: 50%;"></div>
+                            <span style="font-size: 12px; color: white;">Overweight: 25.0 - 29.9</span>
+                          </div>
+                          <div style="display: flex; align-items: center; gap: 12px; padding: 8px; border-radius: 8px; background: rgba(255,255,255,0.1);">
+                            <div style="width: 16px; height: 16px; background: #e74c3c; border-radius: 50%;"></div>
+                            <span style="font-size: 12px; color: white;">Obese: 30.0 and above</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Action Button -->
+                      <div style="margin-top: 24px; text-align: center;">
+                        <a href="weight-loss.html" style="display: inline-block; background: rgba(255,255,255,0.9); color: #667eea; padding: 14px 28px; border-radius: 25px; font-weight: 700; text-decoration: none; font-size: 16px; transition: all 0.3s ease; backdrop-filter: blur(10px);" onmouseover="this.style.background='white'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.15)'" onmouseout="this.style.background='rgba(255,255,255,0.9)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                          Get Personalized Plan
+                        </a>
+                      </div>
                     </div>
                   </div>
                   <div class="hero-video-section">
