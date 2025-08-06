@@ -1557,15 +1557,6 @@ margin: 0rem !important;
             document.getElementById('bubble-3').style.opacity = '0';
           }
 
-          function animateSection(elementId) {
-            const element = document.getElementById(elementId);
-            element.style.transition = 'all 0.3s ease';
-            element.style.filter = 'drop-shadow(0 0 8px currentColor)';
-
-            setTimeout(() => {
-              element.style.filter = 'none';
-            }, 1000);
-          }
 
           // Add smooth transitions
           document.addEventListener('DOMContentLoaded', function() {
