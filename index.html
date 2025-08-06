@@ -1453,7 +1453,77 @@ margin: 0rem !important;
               document.getElementById('bmi-category').textContent = 'Enter your details';
               document.getElementById('bmi-category').style.background = 'rgba(255,255,255,0.2)';
               document.getElementById('bmi-description').textContent = 'Fill in your height and weight to see your BMI calculation';
+              resetBMIChart();
             }
+          }
+
+          function updateBMIChart(bmi) {
+            // Reset all sections to low opacity
+            document.getElementById('underweight-arc').style.opacity = '0.3';
+            document.getElementById('normal-arc').style.opacity = '0.3';
+            document.getElementById('overweight-arc').style.opacity = '0.3';
+            document.getElementById('obese-indicator').style.opacity = '0.3';
+
+            // Highlight the relevant section based on BMI
+            if (bmi < 18.5) {
+              document.getElementById('underweight-arc').style.opacity = '1';
+            } else if (bmi >= 18.5 && bmi < 25) {
+              document.getElementById('normal-arc').style.opacity = '1';
+            } else if (bmi >= 25 && bmi < 30) {
+              document.getElementById('overweight-arc').style.opacity = '1';
+            } else {
+              document.getElementById('obese-indicator').style.opacity = '1';
+            }
+
+            // Calculate needle position (BMI 15-40 mapped to 180 degrees)
+            let angle;
+            if (bmi <= 15) {
+              angle = 0;
+            } else if (bmi >= 40) {
+              angle = 180;
+            } else {
+              // Map BMI 15-40 to 0-180 degrees
+              angle = ((bmi - 15) / 25) * 180;
+            }
+
+            // Update needle position
+            const needle = document.getElementById('bmi-needle');
+            needle.style.transform = `rotate(${angle}deg)`;
+
+            // Add pulsing effect to the active section
+            setTimeout(() => {
+              if (bmi < 18.5) {
+                animateSection('underweight-arc');
+              } else if (bmi >= 18.5 && bmi < 25) {
+                animateSection('normal-arc');
+              } else if (bmi >= 25 && bmi < 30) {
+                animateSection('overweight-arc');
+              } else {
+                animateSection('obese-indicator');
+              }
+            }, 300);
+          }
+
+          function resetBMIChart() {
+            // Reset all sections to low opacity
+            document.getElementById('underweight-arc').style.opacity = '0.3';
+            document.getElementById('normal-arc').style.opacity = '0.3';
+            document.getElementById('overweight-arc').style.opacity = '0.3';
+            document.getElementById('obese-indicator').style.opacity = '0.3';
+
+            // Reset needle to center
+            const needle = document.getElementById('bmi-needle');
+            needle.style.transform = 'rotate(90deg)';
+          }
+
+          function animateSection(elementId) {
+            const element = document.getElementById(elementId);
+            element.style.transition = 'all 0.3s ease';
+            element.style.filter = 'drop-shadow(0 0 8px currentColor)';
+
+            setTimeout(() => {
+              element.style.filter = 'none';
+            }, 1000);
           }
 
           // Add smooth transitions
