@@ -1437,6 +1437,9 @@ margin: 0rem !important;
               // Update description
               document.getElementById('bmi-description').textContent = description;
 
+              // Update BMI chart visualization
+              updateBMIChart(bmi);
+
               // Add pulse animation for result
               const resultElement = document.getElementById('bmi-result');
               resultElement.style.transform = 'scale(1.02)';
