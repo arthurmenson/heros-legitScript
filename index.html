@@ -1395,31 +1395,31 @@ margin: 0rem !important;
               document.getElementById('bmi-value').textContent = bmi.toFixed(1);
 
               // Determine category and color
-              let category, color, description;
+            let category, color, description;
 
-              if (bmi < 18.5) {
-                category = 'Underweight';
-                color = '#3498db';
-                description = 'Consider consulting with a healthcare provider about healthy weight gain strategies.';
-              } else if (bmi >= 18.5 && bmi < 25) {
-                category = 'Normal Weight';
-                color = '#2ecc71';
-                description = 'Great! You have a healthy weight. Maintain it with balanced diet and regular exercise.';
-              } else if (bmi >= 25 && bmi < 30) {
-                category = 'Overweight';
-                color = '#f39c12';
-                description = 'Consider a weight loss plan with diet and exercise. Our program can help!';
-              } else {
-                category = 'Obese';
-                color = '#e74c3c';
-                description = 'Medical weight loss programs can provide safe, effective solutions. Get started today!';
-              }
+            if (bmi < 18.5) {
+              category = 'Underweight';
+              color = '#666';
+              description = 'Consider consulting with a healthcare provider about healthy weight gain strategies.';
+            } else if (bmi >= 18.5 && bmi < 25) {
+              category = 'Normal Weight';
+              color = '#1a1a1a';
+              description = 'Great! You have a healthy weight. Maintain it with balanced diet and regular exercise.';
+            } else if (bmi >= 25 && bmi < 30) {
+              category = 'Overweight';
+              color = '#333';
+              description = 'Consider a weight loss plan with diet and exercise. Our program can help!';
+            } else {
+              category = 'Obese';
+              color = '#1a1a1a';
+              description = 'Medical weight loss programs can provide safe, effective solutions. Get started today!';
+            }
 
-              // Update category display
-              const categoryElement = document.getElementById('bmi-category');
-              categoryElement.textContent = category;
-              categoryElement.style.background = color;
-              categoryElement.style.color = 'white';
+            // Update category display
+            const categoryElement = document.getElementById('bmi-category');
+            categoryElement.textContent = category;
+            categoryElement.style.background = color;
+            categoryElement.style.color = 'white';
 
               // Update description
               document.getElementById('bmi-description').textContent = description;
