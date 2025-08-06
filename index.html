@@ -1473,49 +1473,66 @@ margin: 0rem !important;
           }
 
           function updateBMIChart(bmi) {
-            // Reset all sections to low opacity
-            document.getElementById('underweight-arc').style.opacity = '0.3';
-            document.getElementById('normal-arc').style.opacity = '0.3';
-            document.getElementById('overweight-arc').style.opacity = '0.3';
-            document.getElementById('obese-indicator').style.opacity = '0.3';
-
-            // Highlight the relevant section based on BMI
-            if (bmi < 18.5) {
-              document.getElementById('underweight-arc').style.opacity = '1';
-            } else if (bmi >= 18.5 && bmi < 25) {
-              document.getElementById('normal-arc').style.opacity = '1';
-            } else if (bmi >= 25 && bmi < 30) {
-              document.getElementById('overweight-arc').style.opacity = '1';
-            } else {
-              document.getElementById('obese-indicator').style.opacity = '1';
-            }
-
-            // Calculate needle position (BMI 15-40 mapped to 180 degrees)
-            let angle;
+            // Calculate fill percentage based on BMI (15-40 range)
+            let fillPercentage;
             if (bmi <= 15) {
-              angle = 0;
+              fillPercentage = 0;
             } else if (bmi >= 40) {
-              angle = 180;
+              fillPercentage = 100;
             } else {
-              // Map BMI 15-40 to 0-180 degrees
-              angle = ((bmi - 15) / 25) * 180;
+              // Map BMI 15-40 to 0-100%
+              fillPercentage = ((bmi - 15) / 25) * 100;
             }
 
-            // Update needle position
-            const needle = document.getElementById('bmi-needle');
-            needle.style.transform = `rotate(${angle}deg)`;
+            // Determine color based on BMI category
+            let fillColor, bulbColor;
+            if (bmi < 18.5) {
+              fillColor = '#3498db'; // Blue for underweight
+              bulbColor = '#3498db';
+            } else if (bmi >= 18.5 && bmi < 25) {
+              fillColor = '#2ecc71'; // Green for normal
+              bulbColor = '#2ecc71';
+            } else if (bmi >= 25 && bmi < 30) {
+              fillColor = '#f39c12'; // Orange for overweight
+              bulbColor = '#f39c12';
+            } else {
+              fillColor = '#e74c3c'; // Red for obese
+              bulbColor = '#e74c3c';
+            }
 
-            // Add pulsing effect to the active section
+            // Update thermometer fill
+            const liquidFill = document.getElementById('liquid-fill');
+            const bulbFill = document.getElementById('bulb-fill');
+            const indicator = document.getElementById('bmi-indicator');
+
+            // Animate liquid fill
+            liquidFill.style.height = `${fillPercentage}%`;
+            liquidFill.style.background = fillColor;
+            liquidFill.style.animation = 'pulse-fill 2s infinite';
+
+            // Animate bulb fill
+            bulbFill.style.height = '100%';
+            bulbFill.style.background = bulbColor;
+
+            // Position and show indicator
+            const indicatorPosition = 100 - fillPercentage; // Invert for top-to-bottom positioning
+            indicator.style.top = `${Math.max(25, Math.min(165, 25 + (indicatorPosition * 1.4)))}px`;
+            indicator.style.opacity = '1';
+            indicator.style.background = fillColor;
+
+            // Animate bubbles when filling
+            if (fillPercentage > 0) {
+              document.getElementById('bubble-1').style.opacity = '1';
+              document.getElementById('bubble-2').style.opacity = '1';
+              document.getElementById('bubble-3').style.opacity = '1';
+            }
+
+            // Add pulse effect to thermometer
             setTimeout(() => {
-              if (bmi < 18.5) {
-                animateSection('underweight-arc');
-              } else if (bmi >= 18.5 && bmi < 25) {
-                animateSection('normal-arc');
-              } else if (bmi >= 25 && bmi < 30) {
-                animateSection('overweight-arc');
-              } else {
-                animateSection('obese-indicator');
-              }
+              liquidFill.style.transform = 'scaleY(1.02)';
+              setTimeout(() => {
+                liquidFill.style.transform = 'scaleY(1)';
+              }, 200);
             }, 300);
           }
 
