@@ -1537,15 +1537,24 @@ margin: 0rem !important;
           }
 
           function resetBMIChart() {
-            // Reset all sections to low opacity
-            document.getElementById('underweight-arc').style.opacity = '0.3';
-            document.getElementById('normal-arc').style.opacity = '0.3';
-            document.getElementById('overweight-arc').style.opacity = '0.3';
-            document.getElementById('obese-indicator').style.opacity = '0.3';
+            // Reset liquid fill
+            const liquidFill = document.getElementById('liquid-fill');
+            const bulbFill = document.getElementById('bulb-fill');
+            const indicator = document.getElementById('bmi-indicator');
 
-            // Reset needle to center
-            const needle = document.getElementById('bmi-needle');
-            needle.style.transform = 'rotate(90deg)';
+            liquidFill.style.height = '0%';
+            liquidFill.style.background = '#3498db';
+            liquidFill.style.animation = 'none';
+
+            bulbFill.style.height = '0%';
+            bulbFill.style.background = '#3498db';
+
+            indicator.style.opacity = '0';
+
+            // Hide bubbles
+            document.getElementById('bubble-1').style.opacity = '0';
+            document.getElementById('bubble-2').style.opacity = '0';
+            document.getElementById('bubble-3').style.opacity = '0';
           }
 
           function animateSection(elementId) {
