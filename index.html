@@ -1352,6 +1352,93 @@ margin: 0rem !important;
             </div>
           </div>
         </div>
+
+        <!-- BMI Calculator JavaScript -->
+        <script>
+          function calculateBMI() {
+            const feet = parseFloat(document.getElementById('feet').value) || 0;
+            const inches = parseFloat(document.getElementById('inches').value) || 0;
+            const weight = parseFloat(document.getElementById('weight').value) || 0;
+
+            if (feet > 0 && weight > 0) {
+              // Convert height to total inches, then to meters
+              const totalInches = (feet * 12) + inches;
+              const heightInMeters = totalInches * 0.0254;
+
+              // Convert weight from pounds to kilograms
+              const weightInKg = weight * 0.453592;
+
+              // Calculate BMI
+              const bmi = weightInKg / (heightInMeters * heightInMeters);
+
+              // Update display
+              document.getElementById('bmi-value').textContent = bmi.toFixed(1);
+
+              // Determine category and color
+              let category, color, description;
+
+              if (bmi < 18.5) {
+                category = 'Underweight';
+                color = '#3498db';
+                description = 'Consider consulting with a healthcare provider about healthy weight gain strategies.';
+              } else if (bmi >= 18.5 && bmi < 25) {
+                category = 'Normal Weight';
+                color = '#2ecc71';
+                description = 'Great! You have a healthy weight. Maintain it with balanced diet and regular exercise.';
+              } else if (bmi >= 25 && bmi < 30) {
+                category = 'Overweight';
+                color = '#f39c12';
+                description = 'Consider a weight loss plan with diet and exercise. Our program can help!';
+              } else {
+                category = 'Obese';
+                color = '#e74c3c';
+                description = 'Medical weight loss programs can provide safe, effective solutions. Get started today!';
+              }
+
+              // Update category display
+              const categoryElement = document.getElementById('bmi-category');
+              categoryElement.textContent = category;
+              categoryElement.style.background = color;
+              categoryElement.style.color = 'white';
+
+              // Update description
+              document.getElementById('bmi-description').textContent = description;
+
+              // Add pulse animation for result
+              const resultElement = document.getElementById('bmi-result');
+              resultElement.style.transform = 'scale(1.02)';
+              setTimeout(() => {
+                resultElement.style.transform = 'scale(1)';
+              }, 200);
+
+            } else {
+              // Reset display if inputs are invalid
+              document.getElementById('bmi-value').textContent = '--';
+              document.getElementById('bmi-category').textContent = 'Enter your details';
+              document.getElementById('bmi-category').style.background = 'rgba(255,255,255,0.2)';
+              document.getElementById('bmi-description').textContent = 'Fill in your height and weight to see your BMI calculation';
+            }
+          }
+
+          // Add smooth transitions
+          document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('#feet, #inches, #weight');
+            inputs.forEach(input => {
+              input.style.transition = 'all 0.3s ease';
+              input.addEventListener('focus', function() {
+                this.style.background = 'rgba(255,255,255,0.3)';
+                this.style.transform = 'scale(1.02)';
+              });
+              input.addEventListener('blur', function() {
+                this.style.background = 'rgba(255,255,255,0.2)';
+                this.style.transform = 'scale(1)';
+              });
+            });
+
+            // Add transition to result container
+            document.getElementById('bmi-result').style.transition = 'all 0.3s ease';
+          });
+        </script>
       </div>
       <!-- ED Meds Section moved below BMI -->
       <div class="ed-meds-section">
