@@ -1456,20 +1456,20 @@ margin: 0rem !important;
               fillPercentage = ((bmi - 15) / 25) * 100;
             }
 
-            // Determine color based on BMI category (monochromatic)
+            // Determine color based on BMI category
             let fillColor, bulbColor;
             if (bmi < 18.5) {
-              fillColor = '#666'; // Light gray for underweight
-              bulbColor = '#666';
+              fillColor = '#3498db'; // Blue for underweight
+              bulbColor = '#3498db';
             } else if (bmi >= 18.5 && bmi < 25) {
-              fillColor = '#1a1a1a'; // Dark for normal
-              bulbColor = '#1a1a1a';
+              fillColor = '#2ecc71'; // Green for normal
+              bulbColor = '#2ecc71';
             } else if (bmi >= 25 && bmi < 30) {
-              fillColor = '#333'; // Medium gray for overweight
-              bulbColor = '#333';
+              fillColor = '#f39c12'; // Orange for overweight
+              bulbColor = '#f39c12';
             } else {
-              fillColor = '#1a1a1a'; // Dark for obese
-              bulbColor = '#1a1a1a';
+              fillColor = '#e74c3c'; // Red for obese
+              bulbColor = '#e74c3c';
             }
 
             // Update thermometer fill
