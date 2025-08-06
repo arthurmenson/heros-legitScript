@@ -1307,37 +1307,52 @@ margin: 0rem !important;
                         <div style="font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 8px;">Your BMI</div>
                         <div id="bmi-value" style="font-size: 48px; font-weight: 800; color: white; margin-bottom: 16px;">--</div>
 
-                        <!-- Semi-Donut BMI Chart -->
+                        <!-- Liquid Fill Thermometer BMI Chart -->
                         <div style="margin: 20px 0; display: flex; justify-content: center;">
-                          <svg id="bmi-chart" width="200" height="120" viewBox="0 0 200 120" style="overflow: visible;">
-                            <!-- Background semi-circle -->
-                            <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="12" stroke-linecap="round"/>
+                          <div style="position: relative; width: 80px; height: 180px;">
+                            <!-- Thermometer container -->
+                            <div style="position: absolute; width: 50px; height: 140px; background: rgba(255,255,255,0.1); border: 3px solid rgba(255,255,255,0.3); border-radius: 25px 25px 0 0; left: 15px; top: 20px; overflow: hidden;">
+                              <!-- BMI liquid fill sections (bottom to top) -->
+                              <div id="liquid-fill" style="position: absolute; bottom: 0; left: 0; right: 0; border-radius: 22px 22px 0 0; transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); background: linear-gradient(to top, #3498db 0%, #3498db 25%, #2ecc71 25%, #2ecc71 50%, #f39c12 50%, #f39c12 75%, #e74c3c 75%, #e74c3c 100%); height: 0%; transform-origin: bottom;"></div>
 
-                            <!-- Underweight section (blue) -->
-                            <path id="underweight-arc" d="M 20 100 A 80 80 0 0 1 60 40" fill="none" stroke="#3498db" stroke-width="12" stroke-linecap="round" opacity="0.3"/>
+                              <!-- Animated bubbles for liquid effect -->
+                              <div id="bubble-1" style="position: absolute; width: 8px; height: 8px; background: rgba(255,255,255,0.4); border-radius: 50%; left: 8px; bottom: 20px; opacity: 0; animation: float 3s infinite ease-in-out;"></div>
+                              <div id="bubble-2" style="position: absolute; width: 6px; height: 6px; background: rgba(255,255,255,0.3); border-radius: 50%; left: 28px; bottom: 35px; opacity: 0; animation: float 4s infinite ease-in-out 1s;"></div>
+                              <div id="bubble-3" style="position: absolute; width: 5px; height: 5px; background: rgba(255,255,255,0.3); border-radius: 50%; left: 18px; bottom: 50px; opacity: 0; animation: float 3.5s infinite ease-in-out 2s;"></div>
+                            </div>
 
-                            <!-- Normal weight section (green) -->
-                            <path id="normal-arc" d="M 60 40 A 80 80 0 0 1 140 40" fill="none" stroke="#2ecc71" stroke-width="12" stroke-linecap="round" opacity="0.3"/>
-
-                            <!-- Overweight section (orange) -->
-                            <path id="overweight-arc" d="M 140 40 A 80 80 0 0 1 180 100" fill="none" stroke="#f39c12" stroke-width="12" stroke-linecap="round" opacity="0.3"/>
-
-                            <!-- Obese indicator (red dot at end) -->
-                            <circle id="obese-indicator" cx="185" cy="100" r="8" fill="#e74c3c" opacity="0.3"/>
-
-                            <!-- BMI indicator needle -->
-                            <g id="bmi-needle" style="transform-origin: 100px 100px; transition: transform 0.5s ease;">
-                              <line x1="100" y1="100" x2="100" y2="30" stroke="white" stroke-width="3" stroke-linecap="round"/>
-                              <circle cx="100" cy="100" r="6" fill="white"/>
-                              <circle cx="100" cy="26" r="4" fill="white"/>
-                            </g>
+                            <!-- Thermometer bulb -->
+                            <div style="position: absolute; width: 60px; height: 60px; background: rgba(255,255,255,0.2); border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; left: 10px; bottom: 0; overflow: hidden;">
+                              <div id="bulb-fill" style="position: absolute; bottom: 0; left: 0; right: 0; background: #3498db; border-radius: 50%; height: 0%; transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+                            </div>
 
                             <!-- BMI scale labels -->
-                            <text x="30" y="115" fill="rgba(255,255,255,0.8)" font-size="10" text-anchor="middle">15</text>
-                            <text x="100" y="25" fill="rgba(255,255,255,0.8)" font-size="10" text-anchor="middle">25</text>
-                            <text x="170" y="115" fill="rgba(255,255,255,0.8)" font-size="10" text-anchor="middle">35</text>
-                          </svg>
+                            <div style="position: absolute; right: -5px; top: 25px; height: 140px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start;">
+                              <span style="font-size: 10px; color: rgba(255,255,255,0.8); font-weight: 600;">40</span>
+                              <span style="font-size: 10px; color: rgba(255,255,255,0.8); font-weight: 600;">30</span>
+                              <span style="font-size: 10px; color: rgba(255,255,255,0.8); font-weight: 600;">25</span>
+                              <span style="font-size: 10px; color: rgba(255,255,255,0.8); font-weight: 600;">18.5</span>
+                              <span style="font-size: 10px; color: rgba(255,255,255,0.8); font-weight: 600;">15</span>
+                            </div>
+
+                            <!-- BMI value indicator -->
+                            <div id="bmi-indicator" style="position: absolute; left: -15px; top: 50%; width: 20px; height: 3px; background: white; border-radius: 2px; transform: translateY(-50%); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0;">
+                              <div style="position: absolute; right: -8px; top: -2px; width: 0; height: 0; border-left: 8px solid white; border-top: 4px solid transparent; border-bottom: 4px solid transparent;"></div>
+                            </div>
+                          </div>
                         </div>
+
+                        <style>
+                          @keyframes float {
+                            0%, 100% { transform: translateY(0px); opacity: 0; }
+                            50% { transform: translateY(-20px); opacity: 1; }
+                          }
+
+                          @keyframes pulse-fill {
+                            0%, 100% { transform: scaleY(1); }
+                            50% { transform: scaleY(1.02); }
+                          }
+                        </style>
 
                         <div id="bmi-category" style="font-size: 16px; font-weight: 600; padding: 8px 16px; border-radius: 20px; display: inline-block; margin-bottom: 16px;">Enter your details</div>
                         <div id="bmi-description" style="font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.4;">Fill in your height and weight to see your BMI calculation</div>
