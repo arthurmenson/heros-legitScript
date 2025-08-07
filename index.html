@@ -975,10 +975,13 @@
     filter: brightness(0) invert(1);
   }
 
-  /* New Service Cards Design - Preserve Original Layout */
+  /* New Service Cards Design - Strong Left Alignment */
   .new-service-cards {
     text-align: left;
     justify-content: flex-start;
+    align-items: flex-start;
+    margin-left: 0;
+    padding-left: 0;
   }
 
   .new-card {
@@ -987,6 +990,18 @@
     padding: 24px;
     text-decoration: none;
     color: inherit;
+    margin-left: 0;
+  }
+
+  .card-content-wrapper {
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .card-text-section {
+    text-align: left;
+    align-items: flex-start;
   }
 
   .card-content-wrapper {
