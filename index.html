@@ -1054,22 +1054,10 @@
     filter: brightness(0) invert(1);
   }
 
-  /* Reset hover effects for new cards */
-  .new-card::before {
-    display: none;
-  }
-
-  .new-card:hover h3,
-  .new-card:hover p {
-    color: inherit;
-  }
-
-  .new-card:hover .card-title {
-    color: #1a1a1a;
-  }
-
+  /* Enable original hover effects for new cards */
+  .new-card:hover .card-title,
   .new-card:hover .card-pricing {
-    color: #666;
+    color: white;
   }
 
   /* Responsive design */
