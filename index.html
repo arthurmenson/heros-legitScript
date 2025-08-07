@@ -909,6 +909,95 @@
     background: linear-gradient(90deg, #8B5A91, #B588BB);
   }
 
+  /* Hero Section Service Tiles Hover Effects */
+  .link-block-5 {
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .link-block-5::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    border-radius: 12px;
+  }
+
+  .link-block-5 > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Skin Care Hover - Professional Blue/Teal Theme */
+  .link-block-5[href="skin-care.html"]:hover::before {
+    background: linear-gradient(135deg, #4A90E2 0%, #6BB6FF 50%, #4ECDC4 100%);
+    opacity: 0.9;
+  }
+
+  .link-block-5[href="skin-care.html"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(74, 144, 226, 0.25);
+  }
+
+  .link-block-5[href="skin-care.html"]:hover h3,
+  .link-block-5[href="skin-care.html"]:hover p {
+    color: white;
+  }
+
+  /* Hair Regrowth Hover - Warm Growth Theme */
+  .link-block-5[href="hair-regrowth.html"]:hover::before {
+    background: linear-gradient(135deg, #E67E22 0%, #F39C12 50%, #D35400 100%);
+    opacity: 0.9;
+  }
+
+  .link-block-5[href="hair-regrowth.html"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(230, 126, 34, 0.25);
+  }
+
+  .link-block-5[href="hair-regrowth.html"]:hover h3,
+  .link-block-5[href="hair-regrowth.html"]:hover p {
+    color: white;
+  }
+
+  /* RPM Hover - Earth Tone Healthcare Theme */
+  .link-block-5[href="rpm.html"]:hover::before {
+    background: linear-gradient(135deg, #9B7E60 0%, #70978F 50%, #8B6F47 100%);
+    opacity: 0.9;
+  }
+
+  .link-block-5[href="rpm.html"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(155, 126, 96, 0.25);
+  }
+
+  .link-block-5[href="rpm.html"]:hover h3,
+  .link-block-5[href="rpm.html"]:hover p {
+    color: white;
+  }
+
+  /* Shared Hover Styles for Learn More Button */
+  .link-block-5:hover .link-block._231._423423 {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .link-block-5:hover .button._23423 {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .link-block-5:hover .image-17 {
+    filter: brightness(0) invert(1);
+  }
+
   .product-icon {
     display: flex;
     align-items: center;
