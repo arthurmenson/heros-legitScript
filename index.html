@@ -227,13 +227,20 @@
     animation-play-state: paused;
   }
 
-  /* Section-controlled overflow boundaries */
+  /* Section-controlled overflow boundaries matching section_home-6 */
   .section_home-7 {
     overflow: hidden; /* Primary overflow control at section level */
   }
 
-  .section_home-7 .padding-section-medium {
-    overflow: visible; /* Allow content to flow within section boundaries */
+  .section_home-7 .div-block-107 {
+    padding: 0; /* Reset any extra padding to match standard sections */
+  }
+
+  .section_home-7 .padding-global {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    max-width: 1280px; /* Standard container width like section_home-6 */
+    margin: 0 auto;
   }
 
   .section_home-7 .container-large {
@@ -243,6 +250,10 @@
 
   .section_home-7 .products-carousel {
     overflow: visible; /* Scrolling controlled by section borders */
+    margin-left: -2.5rem; /* Extend beyond padding to use full width */
+    margin-right: -2.5rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
   }
 
   /* Hide old card elements */
