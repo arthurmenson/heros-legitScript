@@ -92,8 +92,8 @@
   .products-carousel {
     display: flex;
     animation: scroll-carousel 35s linear infinite;
-    gap: 2rem;
-    width: calc(200% + 12rem); /* Width for 7 cards + duplicates */
+    gap: 0; /* No gaps between cards */
+    width: calc(200%); /* Width for 7 cards + duplicates without gap spacing */
   }
 
   .products-carousel .product-card {
@@ -103,6 +103,11 @@
     height: 250px; /* Reduced height by ~50% */
     display: flex;
     flex-direction: column;
+    border-right: 1px solid #f0f0f0; /* Subtle divider between cards */
+  }
+
+  .products-carousel .product-card:last-child {
+    border-right: none; /* Remove border from last card */
   }
 
   /* Optimize product card content layout */
