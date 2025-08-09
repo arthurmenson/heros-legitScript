@@ -227,9 +227,9 @@
     animation-play-state: paused;
   }
 
-  /* Section-controlled overflow boundaries matching section_home-6 */
+  /* Container-controlled overflow boundaries for precise animation cutoff */
   .section_home-7 {
-    overflow: hidden; /* Primary overflow control at section level */
+    overflow: visible; /* Allow content to flow to container level */
   }
 
   .section_home-7 .div-block-107 {
@@ -241,16 +241,18 @@
     padding-right: 2.5rem;
     max-width: 1280px; /* Standard container width like section_home-6 */
     margin: 0 auto;
+    overflow: visible; /* Pass control down to container */
   }
 
   .section_home-7 .container-large {
     max-width: 100%;
-    overflow: visible; /* Content controlled by section boundaries */
+    overflow: hidden; /* Primary cutoff control at container border */
+    position: relative; /* Establish clipping context */
   }
 
   .section_home-7 .products-carousel {
-    overflow: visible; /* Scrolling controlled by section borders */
-    margin-left: -2.5rem; /* Extend beyond padding to use full width */
+    overflow: visible; /* Animation controlled by container borders */
+    margin-left: -2.5rem; /* Extend beyond padding to container edges */
     margin-right: -2.5rem;
     padding-left: 2.5rem;
     padding-right: 2.5rem;
