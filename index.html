@@ -219,7 +219,7 @@
       transform: translateX(0);
     }
     100% {
-      transform: translateX(calc(-50% - 6rem)); /* Move exactly half the width */
+      transform: translateX(-50%); /* Move exactly half the width without gap compensation */
     }
   }
 
@@ -227,15 +227,22 @@
     animation-play-state: paused;
   }
 
-  /* Container to hide overflow */
-  .section_home-7 .padding-section-medium {
-    overflow: hidden;
+  /* Section-controlled overflow boundaries */
+  .section_home-7 {
+    overflow: hidden; /* Primary overflow control at section level */
   }
 
-  /* Ensure proper spacing and alignment */
+  .section_home-7 .padding-section-medium {
+    overflow: visible; /* Allow content to flow within section boundaries */
+  }
+
   .section_home-7 .container-large {
-    max-width: 100vw;
-    overflow: hidden;
+    max-width: 100%;
+    overflow: visible; /* Content controlled by section boundaries */
+  }
+
+  .section_home-7 .products-carousel {
+    overflow: visible; /* Scrolling controlled by section borders */
   }
 
   /* Hide old card elements */
