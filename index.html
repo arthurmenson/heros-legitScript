@@ -152,6 +152,26 @@
     height: 16px;
   }
 
+  /* Alignment for cards with icons */
+  .products-carousel .weight-loss-card {
+    padding-top: 0.5rem;
+  }
+
+  /* Consistent alignment for all cards */
+  .products-carousel .product-card .product-content {
+    padding-top: 0.5rem;
+  }
+
+  /* For cards without icons, add top padding to align with icon cards */
+  .products-carousel .hair-regrowth-card .product-content,
+  .products-carousel .mens-ed-card .product-content,
+  .products-carousel .skin-care-card .product-content,
+  .products-carousel .rpm-card .product-content,
+  .products-carousel .ccm-card .product-content,
+  .products-carousel .nad-card .product-content {
+    padding-top: 4rem; /* Compensate for missing icon height */
+  }
+
   .products-carousel .hidden-old-card {
     display: none;
   }
