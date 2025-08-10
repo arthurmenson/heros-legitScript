@@ -1,0 +1,28 @@
+{
+  "name": "heros-health-website",
+  "version": "1.0.0",
+  "description": "Heros Health - Telehealth and Medical Services Platform",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server . -p 3000",
+    "dev": "npx http-server . -p 3000 -o",
+    "build": "echo 'Static site - no build process needed'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "telehealth",
+    "healthcare",
+    "medical",
+    "webflow"
+  ],
+  "author": "Heros Health, Inc.",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroshealth/website"
+  },
+  "homepage": "https://heroshealth.com"
+}

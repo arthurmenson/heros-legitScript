@@ -232,6 +232,7 @@
       border-radius: 24px;
       box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
       margin-bottom: 32px;
+      display: none !important;
     }
     
     .testimonial-rating {
@@ -272,6 +273,47 @@
       font-size: 14px;
     }
     
+    .rpm-video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 32px;
+      margin: 48px 0;
+    }
+    
+    .rpm-video-item {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(155, 126, 96, 0.1);
+      border: 1px solid #f1f1f1;
+      position: relative;
+    }
+    
+    .rpm-video-item video {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .rpm-video-caption {
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .rpm-video-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+    
+    .rpm-video-description {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    
     @media (max-width: 768px) {
       .rpm-stats-grid {
         grid-template-columns: 1fr 1fr;
@@ -281,6 +323,15 @@
       .rpm-features-grid {
         grid-template-columns: 1fr;
         gap: 24px;
+      }
+      
+      .rpm-video-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      
+      .rpm-video-item video {
+        height: 250px;
       }
       
       .rpm-price {
@@ -586,43 +637,41 @@ margin: 0rem !important;
         <div class="padding-global">
           <div class="container-large">
             <div class="padding-section-medium">
-              <h2 class="heading-style-h1 text-align-center">Real Stories from Patients Who Avoided Emergencies</h2>
+              <h2 class="heading-style-h1 text-align-center">Patient Success Stories</h2>
+              <p class="text-size-large" style="color: #666; max-width: 600px; margin: 16px auto 0; text-align: center;">Watch real patients share how RPM monitoring helped them stay healthy and avoid emergency situations</p>
               <div class="spacer-4rem"></div>
               
-              <div class="div-block-54">
-                <div class="testimonial-card">
-                  <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                  <p class="testimonial-text">"The RPM system caught my blood pressure spike at 3 AM before I even felt symptoms. The care team called within minutes and helped me avoid what could have been a stroke. This technology literally saved my life."</p>
-                  <div class="testimonial-author">
-                    <img src="images/image-79.avif" loading="lazy" alt="Robert M." class="testimonial-avatar">
-                    <div class="testimonial-info">
-                      <h4>Robert M.</h4>
-                      <p>67, Diabetes & Hypertension</p>
-                    </div>
+              <div class="rpm-video-grid">
+                <div class="rpm-video-item">
+                  <video controls poster="https://images.pexels.com/photos/5327585/pexels-photo-5327585.jpeg?auto=compress&cs=tinysrgb&w=800">
+                    <source src="https://videos.pexels.com/video-files/5327585/5327585-uhd_2560_1440_25fps.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <div class="rpm-video-caption">
+                    <h3 class="rpm-video-title">Robert's Story</h3>
+                    <p class="rpm-video-description">How RPM monitoring detected a blood pressure spike at 3 AM and prevented a potential stroke</p>
                   </div>
                 </div>
                 
-                <div class="testimonial-card">
-                  <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                  <p class="testimonial-text">"My heart failure was getting worse, but I didn't realize it until my weight started trending up on the RPM system. The early detection let my doctor adjust my medication before I ended up in the hospital again."</p>
-                  <div class="testimonial-author">
-                    <img src="images/image-81.avif" loading="lazy" alt="Margaret K." class="testimonial-avatar">
-                    <div class="testimonial-info">
-                      <h4>Margaret K.</h4>
-                      <p>73, Heart Failure</p>
-                    </div>
+                <div class="rpm-video-item">
+                  <video controls poster="https://images.pexels.com/photos/5327921/pexels-photo-5327921.jpeg?auto=compress&cs=tinysrgb&w=800">
+                    <source src="https://videos.pexels.com/video-files/5327921/5327921-uhd_2560_1440_25fps.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <div class="rpm-video-caption">
+                    <h3 class="rpm-video-title">Margaret's Journey</h3>
+                    <p class="rpm-video-description">Early detection of heart failure symptoms through weight monitoring prevented hospitalization</p>
                   </div>
                 </div>
                 
-                <div class="testimonial-card">
-                  <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                  <p class="testimonial-text">"As someone living alone, having 24/7 monitoring gives me peace of mind. The system is so easy to use, and knowing that medical professionals are watching my health makes me feel safer than ever."</p>
-                  <div class="testimonial-author">
-                    <img src="images/image-80.avif" loading="lazy" alt="James P." class="testimonial-avatar">
-                    <div class="testimonial-info">
-                      <h4>James P.</h4>
-                      <p>82, COPD & High Blood Pressure</p>
-                    </div>
+                <div class="rpm-video-item">
+                  <video controls poster="https://images.pexels.com/photos/5327580/pexels-photo-5327580.jpeg?auto=compress&cs=tinysrgb&w=800">
+                    <source src="https://videos.pexels.com/video-files/5327580/5327580-uhd_2560_1440_25fps.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <div class="rpm-video-caption">
+                    <h3 class="rpm-video-title">James' Experience</h3>
+                    <p class="rpm-video-description">Living alone with COPD - how 24/7 monitoring provides peace of mind and safety</p>
                   </div>
                 </div>
               </div>
