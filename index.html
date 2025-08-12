@@ -397,19 +397,114 @@
     margin: 0;
   }
 
+  .hair-regrowth-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 16px 0;
+  }
+
+  .benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .benefit-icon {
+    color: #22c55e;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .hair-regrowth-social-proof {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+  }
+
+  .rating-stars {
+    font-size: 20px;
+  }
+
+  .rating-text {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+  }
+
+  .hair-regrowth-cta-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
   .hair-regrowth-cta {
-    background-color: rgb(0, 0, 0);
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
     border-radius: 32px;
     color: rgb(255, 255, 255);
     font-weight: 700;
     text-align: center;
-    transition: background-color 0.333s;
-    padding: 12px 24px;
+    transition: all 0.3s ease;
+    padding: 18px 32px;
     text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    box-shadow: 0 4px 16px rgba(5, 150, 105, 0.3);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hair-regrowth-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .hair-regrowth-cta:hover::before {
+    left: 100%;
   }
 
   .hair-regrowth-cta:hover {
-    background-color: rgb(40, 40, 40);
+    background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(5, 150, 105, 0.4);
+  }
+
+  .cta-text {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .cta-subtext {
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 0.9;
+  }
+
+  .urgency-text {
+    font-size: 12px;
+    color: #dc2626;
+    font-weight: 600;
+    text-align: center;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
   }
 
   .hair-regrowth-images {
@@ -458,6 +553,22 @@
     .hair-regrowth-description {
       font-size: 18px;
       line-height: 26px;
+    }
+
+    .hair-regrowth-benefits {
+      gap: 6px;
+    }
+
+    .benefit-item {
+      font-size: 14px;
+    }
+
+    .hair-regrowth-cta {
+      padding: 16px 24px;
+    }
+
+    .cta-text {
+      font-size: 16px;
     }
 
     .hair-regrowth-product-image {
@@ -3347,9 +3458,33 @@ margin: 0rem !important;
                     <p class="hair-regrowth-description">
                       <span>Clinically Proven Ingredients to Stop Hair Loss </span>
                       <br>
-                      <span>& Stimulate Growth</span>
+                      <span>& Stimulate Growth in Just 90 Days</span>
                     </p>
-                    <a href="#" class="hair-regrowth-cta">Get Started</a>
+                    <div class="hair-regrowth-benefits">
+                      <div class="benefit-item">
+                        <span class="benefit-icon">✓</span>
+                        <span>FDA-approved ingredients</span>
+                      </div>
+                      <div class="benefit-item">
+                        <span class="benefit-icon">✓</span>
+                        <span>90-day money-back guarantee</span>
+                      </div>
+                      <div class="benefit-item">
+                        <span class="benefit-icon">✓</span>
+                        <span>Telehealth consultation included</span>
+                      </div>
+                    </div>
+                    <div class="hair-regrowth-social-proof">
+                      <div class="rating-stars">⭐⭐⭐⭐⭐</div>
+                      <span class="rating-text">Trusted by 50,000+ patients</span>
+                    </div>
+                    <div class="hair-regrowth-cta-container">
+                      <a href="hair-regrowth.html" class="hair-regrowth-cta primary">
+                        <span class="cta-text">Start Your Hair Journey</span>
+                        <span class="cta-subtext">Free consultation • No commitment</span>
+                      </a>
+                      <div class="urgency-text">Limited spots available this week</div>
+                    </div>
                   </div>
                   <div class="hair-regrowth-images">
                     <div class="hair-regrowth-image-wrapper">
