@@ -3004,19 +3004,60 @@ margin: 0rem !important;
   }
 }
 
-/* ED Meds Section - Preserve Everything */
+/* ED Meds Section - Single Column Mobile Layout */
 @media (max-width: 768px) {
   .ed-meds-section {
     padding: 40px 0;
   }
 
-  /* Keep all internal layouts intact - just stack the main columns */
+  /* Convert to single column layout */
   .ed-meds-grid {
-    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 40px !important;
+    align-items: center !important;
   }
 
-  /* Preserve ratings, reviews, images, buttons exactly as designed */
+  /* Text content section - full width on mobile */
+  .ed-meds-column:first-child {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 20px !important;
+  }
+
+  .ed-meds-content {
+    text-align: center !important;
+    max-width: 100% !important;
+  }
+
+  /* Image section - full width on mobile */
+  .ed-meds-column.second {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    padding: 0 20px !important;
+  }
+
+  /* Preserve internal image grid but center it */
+  .ed-meds-inner-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+    max-width: 400px !important;
+    margin: 0 auto !important;
+  }
+
+  /* Optimize title for mobile */
+  .ed-meds-content .heading-style-h1 {
+    font-size: 2.5rem !important;
+    line-height: 1.1 !important;
+    margin-bottom: 24px !important;
+    text-align: center !important;
+  }
+
+  /* Center buttons and benefits */
   .ed-meds-content div[style*="display: flex"] {
+    justify-content: center !important;
     flex-wrap: wrap !important;
   }
 
@@ -3024,6 +3065,9 @@ margin: 0rem !important;
   .ed-meds-content a,
   .ed-meds-content button {
     min-height: 44px;
+    width: 100% !important;
+    max-width: 280px !important;
+    text-align: center !important;
   }
 }
 
@@ -4467,7 +4511,7 @@ margin: 0rem !important;
                       </div>
                     </div>
                     <div class="hair-regrowth-social-proof">
-                      <div class="rating-stars">⭐⭐⭐⭐⭐</div>
+                      <div class="rating-stars">⭐⭐��⭐⭐</div>
                       <span class="rating-text">Trusted by 50,000+ patients</span>
                     </div>
                     <div class="hair-regrowth-cta-container">
