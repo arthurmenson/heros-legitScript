@@ -2312,18 +2312,41 @@
     gap: 32px !important;
   }
 
-  /* Animated column (div-block-87) - Move up first */
+  /* Animated column (div-block-87) - Keep first */
   .div-block-87 {
-    order: -2 !important;
+    order: -3 !important;
     margin-top: -40px !important;
     padding: 0 20px !important;
     text-align: center !important;
   }
 
-  /* Fixed column (div-block-88) - Move up second */
-  .div-block-88 {
-    order: -1 !important;
+  /* Service cards (new-service-cards) - Move to second position */
+  .new-service-cards {
+    order: -2 !important;
     margin-top: -20px !important;
+    padding: 0 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    width: 100% !important;
+  }
+
+  /* Weight Loss/ED cards (div-block-89) - Move to third position */
+  .div-block-89 {
+    order: -1 !important;
+    margin-top: 0px !important;
+    padding: 0 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    width: 100% !important;
+  }
+
+  /* Fixed column container */
+  .div-block-88 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
     padding: 0 20px !important;
   }
 
@@ -2344,15 +2367,6 @@
     font-size: 18px !important;
     text-align: center !important;
     margin: 16px 0 !important;
-  }
-
-  /* Ensure service cards stack properly in mobile */
-  .div-block-89,
-  .new-service-cards {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 16px !important;
-    width: 100% !important;
   }
 }
 </style>
