@@ -2754,78 +2754,25 @@ margin: 0rem !important;
 }
 
 /* ===============================
-   ALL SECTIONS MOBILE SINGLE COLUMN
-   (Starting from Skincare)
+   MOBILE ONE ROW LAYOUT - PRESERVE SECTION INTEGRITY
    =============================== */
 
-/* Hair Regrowth Section Mobile */
+/* Main Grid Sections - Convert to Single Column but Keep Internal Structure */
 @media (max-width: 768px) {
-  .hair-regrowth-hero-grid {
-    display: block !important;
-    grid-template-columns: none !important;
-    gap: 24px;
-  }
-
-  .hair-regrowth-images {
-    display: block !important;
-    grid-template: none !important;
-    gap: 16px;
-  }
-
-  .hair-regrowth-images > * {
-    width: 100% !important;
-    margin-bottom: 16px;
-  }
-}
-
-/* Weight Loss Section Mobile */
-@media (max-width: 768px) {
-  .weight-loss-grid {
-    display: block !important;
-    grid-template: none !important;
-    gap: 24px;
-  }
-
-  .weight-loss-images {
-    display: block !important;
-    grid-template: none !important;
-    gap: 16px;
-  }
-
-  .weight-loss-images > * {
-    width: 100% !important;
-    margin-bottom: 16px;
-  }
-
-  .section_wl-hero div[style*="display: grid"] {
-    display: block !important;
-  }
-
-  .section_wl-hero div[style*="grid-template-columns: 1fr 1fr"] {
-    display: block !important;
-  }
-}
-
-/* ED Meds Section Mobile - Keep Original Layout */
-@media (max-width: 768px) {
-  .ed-meds-section {
-    padding: 40px 0;
-  }
-
-  /* Keep the ED Meds grid layout intact for mobile */
-  .ed-meds-grid {
+  /* Major section grids become single column */
+  .hair-regrowth-hero-grid,
+  .weight-loss-grid,
+  .ed-meds-grid,
+  .how-it-works-grid {
     display: grid !important;
     grid-template-columns: 1fr !important;
     gap: 32px;
     padding: 0 16px;
   }
 
-  .ed-meds-column {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  /* Keep images together in their original grid layout */
+  /* Keep internal image layouts intact */
+  .hair-regrowth-images,
+  .weight-loss-images,
   .ed-meds-images,
   .ed-meds-inner-grid {
     display: grid !important;
@@ -2833,144 +2780,102 @@ margin: 0rem !important;
     gap: 16px !important;
   }
 
-  .ed-meds-images > *,
-  .ed-meds-inner-grid > * {
+  /* Keep columns at full width but preserve their internal structure */
+  .hair-regrowth-column,
+  .weight-loss-column,
+  .ed-meds-column {
     width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Weight Loss Hero Section - Single Column */
+@media (max-width: 768px) {
+  .section_wl-hero div[style*="grid-template-columns: 1fr 1fr"] {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+    text-align: center;
   }
 
-  /* Keep button layouts intact */
+  /* Keep the 2x2 image grid intact */
+  .section_wl-hero div[style*="grid-template-columns: 1fr 1fr"]:last-child {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+/* ED Meds Section - Preserve Everything */
+@media (max-width: 768px) {
+  .ed-meds-section {
+    padding: 40px 0;
+  }
+
+  /* Keep all internal layouts intact - just stack the main columns */
+  .ed-meds-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Preserve ratings, reviews, images, buttons exactly as designed */
   .ed-meds-content div[style*="display: flex"] {
     flex-wrap: wrap !important;
-    gap: 12px !important;
   }
 
-  /* Ensure buttons are touch-friendly but keep original structure */
+  /* Keep buttons touch-friendly */
   .ed-meds-content a,
   .ed-meds-content button {
     min-height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 }
 
-/* How It Works Section Mobile */
+/* Trust and Testimonial Grids - Single Column */
 @media (max-width: 768px) {
-  .how-it-works-grid {
-    display: block !important;
-    grid-template-columns: none !important;
-    gap: 24px;
-  }
-
-  .how-it-works-grid > * {
-    width: 100% !important;
-    margin-bottom: 24px;
-  }
-}
-
-/* Trust Stats Grid Mobile */
-@media (max-width: 768px) {
-  .trust-stats-grid {
-    display: block !important;
-    grid-template-columns: none !important;
-    gap: 16px;
-  }
-
-  .trust-stats-grid > * {
-    width: 100% !important;
-    margin-bottom: 16px;
-    text-align: center;
-  }
-}
-
-/* Testimonials Grid Mobile */
-@media (max-width: 768px) {
-  .testimonial-cards-grid {
-    display: block !important;
-    grid-template-columns: none !important;
-    gap: 20px;
-  }
-
-  .testimonial-cards-grid > * {
-    width: 100% !important;
-    margin-bottom: 20px;
-  }
-}
-
-/* Products Carousel Mobile */
-@media (max-width: 768px) {
+  .trust-stats-grid,
+  .testimonial-cards-grid,
   .products-carousel {
-    display: block !important;
-    grid-template-columns: none !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
     gap: 20px;
-  }
-
-  .products-carousel > * {
-    width: 100% !important;
-    margin-bottom: 20px;
+    padding: 0 16px;
   }
 }
 
-/* Section Home 9 (CTA Section) Mobile */
+/* Section Home 9 - Single Column CTAs */
 @media (max-width: 768px) {
-  .section_home-9 div[style*="display: grid"] {
-    display: block !important;
-    grid-template-columns: none !important;
-  }
-
   .section_home-9 div[style*="grid-template-columns"] {
-    display: block !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
   }
 
   .section_home-9 div[style*="display: flex"] {
     flex-direction: column !important;
     gap: 16px !important;
   }
-
-  .section_home-9 a,
-  .section_home-9 button {
-    width: 100% !important;
-    margin-bottom: 12px;
-    text-align: center;
-  }
 }
 
-/* All Inline Grid Styles Mobile Override */
+/* Preserve Internal Structure - Only Convert Main Grids */
 @media (max-width: 768px) {
-  /* Target any inline grid styles */
-  div[style*="display: grid"],
-  div[style*="grid-template-columns: 1fr 1fr"],
-  div[style*="grid-template-columns: repeat"] {
-    display: block !important;
-    grid-template-columns: none !important;
+  /* Only target main section containers for single column */
+  .section_home-1 > * > * > div[style*="grid-template-columns: 1fr 1fr"],
+  .section_home-2 > * > * > div[style*="grid-template-columns: 1fr 1fr"],
+  .section_home-3 > * > * > div[style*="grid-template-columns: 1fr 1fr"],
+  .section_home-4 > * > * > div[style*="grid-template-columns: 1fr 1fr"],
+  .section_home-5 > * > * > div[style*="grid-template-columns: 1fr 1fr"],
+  .section_home-6 > * > * > div[style*="grid-template-columns: 1fr 1fr"],
+  .section_home-7 > * > * > div[style*="grid-template-columns: 1fr 1fr"],
+  .section_home-8 > * > * > div[style*="grid-template-columns: 1fr 1fr"] {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
   }
 
-  /* Target images in grid containers */
-  div[style*="display: grid"] > img,
-  div[style*="grid-template"] > img {
-    width: 100% !important;
-    margin-bottom: 16px;
-    display: block;
-  }
-
-  /* Target flex containers that should stack */
-  div[style*="display: flex; gap"] {
-    flex-direction: column !important;
+  /* Preserve internal image grids within sections */
+  div[style*="grid-template-columns: 1fr 1fr"] div[style*="grid-template-columns: 1fr 1fr"] {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
     gap: 16px !important;
-  }
-
-  /* Ensure all children take full width in mobile */
-  .section_home-1 > * > * > *,
-  .section_home-2 > * > * > *,
-  .section_home-3 > * > * > *,
-  .section_home-4 > * > * > *,
-  .section_home-5 > * > * > *,
-  .section_home-6 > * > * > *,
-  .section_home-7 > * > * > *,
-  .section_home-8 > * > * > *,
-  .section_home-9 > * > * > * {
-    width: 100% !important;
-    max-width: 100% !important;
   }
 }
 
@@ -4149,7 +4054,7 @@ margin: 0rem !important;
                 <div style="margin-bottom: 32px;">
                   <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
                     <div style="width: 20px; height: 20px; background: #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                      <span style="color: white; font-size: 12px; font-weight: 700;">���</span>
+                      <span style="color: white; font-size: 12px; font-weight: 700;">✓</span>
                     </div>
                     <span style="font-size: 16px; font-weight: 500; color: #1a1a1a;">Works in as little as 30 minutes</span>
                   </div>
