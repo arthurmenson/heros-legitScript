@@ -2332,19 +2332,25 @@
     margin: 16px 0 !important;
   }
 
-  /* Weight Loss Section - Single Column Mobile Layout */
+  /* Weight Loss Section - Images First, Text Second on Mobile */
   .section_wl-hero div[style*="grid-template-columns: 1fr 1fr"] {
-    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 40px !important;
   }
 
-  /* Keep all internal layouts intact - just stack the main columns */
+  /* Text section - order 2 (comes second) */
   .section_wl-hero div[style*="max-width: 500px"] {
+    order: 2 !important;
     max-width: 100% !important;
     padding: 0 20px !important;
   }
 
+  /* Image section - order 1 (comes first) */
   .section_wl-hero div[style*="justify-content: flex-end"] {
+    order: 1 !important;
     padding: 0 20px !important;
+    justify-content: center !important;
   }
 
   /* Make image grid single column on mobile */
