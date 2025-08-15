@@ -2,12 +2,12 @@
 <html data-wf-page="diabetes-care" data-wf-site="682f5a8cf58ac9034f80ba80" lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Diabetes Care - Living with Diabetes Means Care That Never Clocks Out | Heros Health</title>
-  <meta content="Comprehensive diabetes care with continuous monitoring, chronic care management, and 24/7 support from our dedicated healthcare team." name="description">
-  <meta content="Diabetes Care - Living with Diabetes Means Care That Never Clocks Out | Heros Health" property="og:title">
-  <meta content="Comprehensive diabetes care with continuous monitoring, chronic care management, and 24/7 support from our dedicated healthcare team." property="og:description">
-  <meta content="Diabetes Care - Living with Diabetes Means Care That Never Clocks Out | Heros Health" property="twitter:title">
-  <meta content="Comprehensive diabetes care with continuous monitoring, chronic care management, and 24/7 support from our dedicated healthcare team." property="twitter:description">
+  <title>Comprehensive Diabetes Care - Complete Management & Monitoring | Heros Health</title>
+  <meta content="Complete diabetes management with continuous monitoring, medication management, chronic care coordination, and 24/7 support from certified diabetes educators." name="description">
+  <meta content="Comprehensive Diabetes Care - Complete Management & Monitoring | Heros Health" property="og:title">
+  <meta content="Complete diabetes management with continuous monitoring, medication management, chronic care coordination, and 24/7 support from certified diabetes educators." property="og:description">
+  <meta content="Comprehensive Diabetes Care - Complete Management & Monitoring | Heros Health" property="twitter:title">
+  <meta content="Complete diabetes management with continuous monitoring, medication management, chronic care coordination, and 24/7 support from certified diabetes educators." property="twitter:description">
   <meta property="og:type" content="website">
   <meta content="summary_large_image" name="twitter:card">
   <meta content="width=device-width, initial-scale=1" name="viewport">
@@ -21,19 +21,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
-    /* Diabetes Care Page Specific Styles */
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.6;
       color: #1e293b;
     }
     
+    /* Hero Section */
     .diabetes-hero {
-      background: #ffffff;
+      background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
       padding: 80px 0 100px;
       min-height: 90vh;
       display: flex;
       align-items: center;
+      border-bottom: 1px solid #d1fae5;
     }
     
     .diabetes-hero-grid {
@@ -92,284 +93,159 @@
     }
     
     .diabetes-cta-primary {
-      background: #7c3aed;
+      background: #059669;
       color: white;
       padding: 18px 36px;
       border-radius: 32px;
       font-size: 18px;
       font-weight: 600;
       text-decoration: none;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-right: 16px;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+      box-shadow: 0 4px 16px rgba(5, 150, 105, 0.3);
     }
     
     .diabetes-cta-primary:hover {
-      background: #6d28d9;
+      background: #047857;
       transform: translateY(-2px);
-      box-shadow: 0 6px 30px rgba(124, 58, 237, 0.4);
-      color: white;
+      box-shadow: 0 8px 24px rgba(5, 150, 105, 0.4);
     }
     
-    .diabetes-hero-image {
-      position: relative;
-      border-radius: 24px;
-      overflow: hidden;
-    }
-    
-    .diabetes-hero-image img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 24px;
-    }
-    
-    /* Features Section */
-    .diabetes-features {
-      background: #f8fafc;
-      padding: 100px 0;
-    }
-    
-    .diabetes-features-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 40px;
-    }
-    
-    .diabetes-features-header {
-      text-align: center;
-      margin-bottom: 80px;
-    }
-    
-    .diabetes-features-header h2 {
-      font-size: 48px;
-      font-weight: 700;
-      color: #0f172a;
-      margin: 0 0 16px 0;
-    }
-    
-    .diabetes-features-header p {
-      font-size: 20px;
-      color: #64748b;
-      margin: 0;
-    }
-    
-    .diabetes-features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
-    }
-    
-    .diabetes-feature-card {
-      background: white;
-      padding: 40px 32px;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-      border: 1px solid #e2e8f0;
-      transition: all 0.3s ease;
-    }
-    
-    .diabetes-feature-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
-    }
-    
-    .diabetes-feature-icon {
-      width: 80px;
-      height: 80px;
-      background: #ede9fe;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 24px auto;
-      font-size: 32px;
-    }
-    
-    .diabetes-feature-card h3 {
-      font-size: 24px;
-      font-weight: 600;
-      color: #0f172a;
-      margin: 0 0 16px 0;
-    }
-    
-    .diabetes-feature-card p {
-      color: #64748b;
-      margin: 0;
-      line-height: 1.6;
-    }
-    
-    /* Services Section */
-    .diabetes-services {
-      background: white;
-      padding: 100px 0;
-    }
-    
-    .diabetes-services-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 40px;
-    }
-    
-    .diabetes-services-header {
-      text-align: center;
-      margin-bottom: 80px;
-    }
-    
-    .diabetes-services-header h2 {
-      font-size: 48px;
-      font-weight: 700;
-      color: #0f172a;
-      margin: 0 0 16px 0;
-    }
-    
-    .diabetes-services-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 40px;
-    }
-    
-    .diabetes-service-card {
-      background: white;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-      border: 1px solid #e2e8f0;
-      transition: all 0.3s ease;
-    }
-    
-    .diabetes-service-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
-    }
-    
-    .diabetes-service-image {
-      height: 240px;
-      overflow: hidden;
-      position: relative;
-    }
-    
-    .diabetes-service-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    
-    .diabetes-service-content {
-      padding: 32px;
-    }
-    
-    .diabetes-service-card h3 {
-      font-size: 24px;
-      font-weight: 600;
-      color: #0f172a;
-      margin: 0 0 16px 0;
-    }
-    
-    .diabetes-service-card p {
-      color: #64748b;
-      margin: 0 0 24px 0;
-      line-height: 1.6;
-    }
-    
-    .diabetes-service-cta {
-      color: #7c3aed;
+    .diabetes-cta-secondary {
+      background: transparent;
+      color: #059669;
+      padding: 18px 36px;
+      border: 2px solid #059669;
+      border-radius: 32px;
+      font-size: 18px;
       font-weight: 600;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
       transition: all 0.3s ease;
     }
     
-    .diabetes-service-cta:hover {
-      color: #6d28d9;
-      transform: translateX(4px);
+    .diabetes-cta-secondary:hover {
+      background: #059669;
+      color: white;
+      transform: translateY(-2px);
     }
     
-    /* How It Works Section */
-    .diabetes-how-it-works {
-      background: #f8fafc;
+    /* Services Grid */
+    .services-section {
       padding: 100px 0;
+      background: #ffffff;
     }
     
-    .diabetes-how-it-works-container {
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 40px;
     }
     
-    .diabetes-how-it-works-header {
+    .service-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 40px;
       text-align: center;
-      margin-bottom: 80px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
     }
     
-    .diabetes-how-it-works-header h2 {
-      font-size: 48px;
-      font-weight: 700;
-      color: #0f172a;
-      margin: 0 0 16px 0;
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+      border-color: #059669;
     }
     
-    .diabetes-steps-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
-    }
-    
-    .diabetes-step {
-      background: #fef7ed;
-      padding: 40px 32px;
+    .service-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #059669, #10b981);
       border-radius: 20px;
-      text-align: center;
-      position: relative;
-      border: 2px solid #fed7aa;
-    }
-    
-    .diabetes-step:nth-child(2) {
-      background: #fdf2f8;
-      border-color: #fbcfe8;
-    }
-    
-    .diabetes-step:nth-child(3) {
-      background: #ecfdf5;
-      border-color: #a7f3d0;
-    }
-    
-    .diabetes-step-number {
-      width: 60px;
-      height: 60px;
-      background: #7c3aed;
-      color: white;
-      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
-      font-weight: 700;
-      margin: 0 auto 24px auto;
+      margin: 0 auto 24px;
+      font-size: 32px;
     }
     
-    .diabetes-step h3 {
+    .service-title {
       font-size: 24px;
-      font-weight: 600;
+      font-weight: 700;
       color: #0f172a;
       margin: 0 0 16px 0;
     }
     
-    .diabetes-step p {
-      color: #64748b;
-      margin: 0;
+    .service-description {
+      color: #475569;
       line-height: 1.6;
+      margin-bottom: 24px;
     }
     
-    /* Mobile Responsive */
+    .service-features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+    
+    .service-features li {
+      padding: 8px 0;
+      color: #334155;
+      font-size: 14px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    
+    .service-features li:last-child {
+      border-bottom: none;
+    }
+    
+    /* Stats Section */
+    .stats-section {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      padding: 80px 0;
+      color: white;
+      text-align: center;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    
+    .stat-label {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+    
+    /* Responsive Design */
     @media (max-width: 768px) {
       .diabetes-hero-grid {
         grid-template-columns: 1fr;
         gap: 40px;
-        padding: 0 20px;
         text-align: center;
       }
       
@@ -377,307 +253,301 @@
         font-size: 42px;
       }
       
-      .diabetes-features-grid,
-      .diabetes-steps-grid {
+      .services-grid {
         grid-template-columns: 1fr;
-        gap: 24px;
-      }
-      
-      .diabetes-services-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
-      
-      .diabetes-features-container,
-      .diabetes-services-container,
-      .diabetes-how-it-works-container {
         padding: 0 20px;
       }
       
-      .diabetes-features-header h2,
-      .diabetes-services-header h2,
-      .diabetes-how-it-works-header h2 {
-        font-size: 36px;
-      }
-      
-      .diabetes-features,
-      .diabetes-services,
-      .diabetes-how-it-works {
-        padding: 60px 0;
-      }
-      
-      .diabetes-hero {
-        padding: 40px 0 60px;
-        min-height: auto;
-      }
-    }
-    
-    /* Navigation */
-    .navbar {
-      background: white;
-      padding: 16px 0;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-    }
-    
-    .navbar-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    
-    .navbar-logo {
-      font-size: 24px;
-      font-weight: 700;
-      color: #0f172a;
-      text-decoration: none;
-    }
-    
-    .navbar-nav {
-      display: flex;
-      gap: 32px;
-      align-items: center;
-    }
-    
-    .navbar-link {
-      color: #64748b;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-    
-    .navbar-link:hover {
-      color: #7c3aed;
-    }
-    
-    .navbar-cta {
-      background: #7c3aed;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 24px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    
-    .navbar-cta:hover {
-      background: #6d28d9;
-      color: white;
-    }
-    
-    @media (max-width: 768px) {
-      .navbar-container {
-        padding: 0 20px;
-      }
-      
-      .navbar-nav {
-        gap: 16px;
-      }
-      
-      .navbar-link {
-        font-size: 14px;
-      }
-      
-      .navbar-cta {
-        padding: 10px 20px;
-        font-size: 14px;
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   </style>
 </head>
 
 <body>
-  <!-- Navigation -->
-  <nav class="navbar">
-    <div class="navbar-container">
-      <a href="index.html" class="navbar-logo">Heros</a>
-      <div class="navbar-nav">
-        <a href="index.html" class="navbar-link">Home</a>
-        <a href="#services" class="navbar-link">Services</a>
-        <a href="#how-it-works" class="navbar-link">How It Works</a>
-        <a href="contact.html" class="navbar-link">Contact</a>
-        <a href="#" class="navbar-cta">Get Started</a>
+  <div class="page-wrapper">
+    
+    <!-- Navigation (same as index) -->
+    <div class="navbar_component">
+      <div class="padding-global">
+        <div class="container-large">
+          <div class="navbar_container">
+            <a href="index.html" aria-current="page" class="navbar_logo-link w-nav-brand w--current">
+              <img src="images/Logo-11.svg" loading="lazy" alt="Heros Logo" class="navbar_logo">
+            </a>
+            <nav role="navigation" class="nav_menu w-nav-menu">
+              <a href="weight-loss.html" class="nav_menu_link w-nav-link">Weight Loss</a>
+              <a href="mens-ed.html" class="nav_menu_link w-nav-link">Men's ED</a>
+              <a href="skin-care.html" class="nav_menu_link w-nav-link">Skin Care</a>
+              <a href="hair-regrowth.html" class="nav_menu_link w-nav-link">Hair Regrowth</a>
+              <a href="diabetes-care.html" aria-current="page" class="nav_menu_link w-nav-link w--current">Diabetes Care</a>
+              <a href="nad-plus.html" class="nav_menu_link w-nav-link">NAD+</a>
+              <a href="#" class="link-block _231 _2 w-inline-block">
+                <div>Log in</div>
+              </a>
+            </nav>
+          </div>
+        </div>
       </div>
     </div>
-  </nav>
 
-  <!-- Hero Section -->
-  <section class="diabetes-hero">
-    <div class="diabetes-hero-grid">
-      <div class="diabetes-hero-content">
-        <h1>Living with Diabetes Means Care That Never Clocks Out</h1>
-        <p class="diabetes-hero-subheadline">
-          Experience comprehensive diabetes management with 24/7 monitoring, expert care coordination, and personalized support that adapts to your lifestyle.
+    <!-- Hero Section -->
+    <section class="diabetes-hero">
+      <div class="diabetes-hero-grid">
+        <div class="diabetes-hero-content">
+          <h1>Complete Diabetes Care That Never Stops</h1>
+          <p class="diabetes-hero-subheadline">
+            Comprehensive diabetes management combining continuous monitoring, medication optimization, and 24/7 chronic care support from certified diabetes educators.
+          </p>
+          
+          <ul class="diabetes-hero-benefits">
+            <li>Continuous glucose monitoring & data analysis</li>
+            <li>Personalized medication management</li>
+            <li>24/7 access to certified diabetes educators</li>
+            <li>Remote patient monitoring & alerts</li>
+            <li>Chronic care coordination with your doctor</li>
+            <li>Insurance coverage assistance</li>
+          </ul>
+          
+          <div style="margin-top: 40px;">
+            <a href="#" class="diabetes-cta-primary">
+              Start Diabetes Care
+              <span>→</span>
+            </a>
+            <a href="#" class="diabetes-cta-secondary">
+              Free Consultation
+            </a>
+          </div>
+        </div>
+        
+        <div class="diabetes-hero-image">
+          <img src="https://images.pexels.com/photos/6823568/pexels-photo-6823568.jpeg" 
+               alt="Diabetes care and monitoring" 
+               style="width: 100%; height: 500px; object-fit: cover; border-radius: 16px; box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);">
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+      <div style="text-align: center; margin-bottom: 80px;">
+        <h2 style="font-size: 42px; font-weight: 700; color: #0f172a; margin: 0 0 16px 0;">
+          Comprehensive Diabetes Management
+        </h2>
+        <p style="font-size: 20px; color: #475569; max-width: 600px; margin: 0 auto;">
+          Everything you need for effective diabetes care, integrated into one seamless platform
         </p>
-        <ul class="diabetes-hero-benefits">
-          <li>Peace of mind with continuous glucose monitoring</li>
-          <li>Safeguarding your long-term health with expert guidance</li>
-          <li>Proactive management of complications before they escalate</li>
-        </ul>
-        <a href="#" class="diabetes-cta-primary">Get Continuous Care</a>
       </div>
-      <div class="diabetes-hero-image">
-        <img src="https://images.pexels.com/photos/5327664/pexels-photo-5327664.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Smiling African American man with continuous glucose monitor using tablet" loading="lazy">
-      </div>
-    </div>
-  </section>
-
-  <!-- Features Section -->
-  <section class="diabetes-features">
-    <div class="diabetes-features-container">
-      <div class="diabetes-features-header">
-        <h2>Care That Never Clocks Out</h2>
-        <p>Comprehensive diabetes support tailored to your unique needs</p>
-      </div>
-      <div class="diabetes-features-grid">
-        <div class="diabetes-feature-card">
-          <div class="diabetes-feature-icon">👥</div>
-          <h3>Geriatric-Focused Support</h3>
-          <p>Specialized care team trained in age-specific diabetes management, ensuring personalized treatment plans that consider mobility, cognitive health, and medication interactions.</p>
-        </div>
-        <div class="diabetes-feature-card">
-          <div class="diabetes-feature-icon">💜</div>
-          <h3>Chronic Care Management (CCM)</h3>
-          <p>Comprehensive care coordination with regular check-ins, medication management, and proactive health monitoring to prevent complications and optimize your quality of life.</p>
-        </div>
-        <div class="diabetes-feature-card">
-          <div class="diabetes-feature-icon">🦶</div>
-          <h3>Chronic Wound Care at Home</h3>
-          <p>Expert wound care services delivered in the comfort of your home, preventing infections and promoting faster healing with specialized diabetic foot care protocols.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services Section -->
-  <section id="services" class="diabetes-services">
-    <div class="diabetes-services-container">
-      <div class="diabetes-services-header">
-        <h2>Our Comprehensive Services</h2>
-      </div>
-      <div class="diabetes-services-grid">
-        <div class="diabetes-service-card">
-          <div class="diabetes-service-image">
-            <img src="https://images.pexels.com/photos/4386466/pexels-photo-4386466.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Continuous glucose monitoring device and blood pressure cuff" loading="lazy">
-          </div>
-          <div class="diabetes-service-content">
-            <h3>Continuous Physiological Monitoring</h3>
-            <p>Advanced remote monitoring technology tracks your vital signs, glucose levels, and other key health metrics 24/7, providing real-time insights to your care team.</p>
-            <a href="#" class="diabetes-service-cta">Learn More →</a>
-          </div>
-        </div>
+      
+      <div class="services-grid">
         
-        <div class="diabetes-service-card">
-          <div class="diabetes-service-image">
-            <img src="https://images.pexels.com/photos/6823443/pexels-photo-6823443.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Diabetes specialist reviewing glucose monitoring data and care plan on tablet" loading="lazy">
-          </div>
-          <div class="diabetes-service-content">
-            <h3>Chronic Care Management (CCM)</h3>
-            <p>Regular virtual consultations with diabetes specialists, medication adjustments, and care plan optimization based on your monitoring data and health goals.</p>
-            <a href="#" class="diabetes-service-cta">Learn More →</a>
-          </div>
-        </div>
-        
-        <div class="diabetes-service-card">
-          <div class="diabetes-service-image">
-            <img src="https://images.pexels.com/photos/5327921/pexels-photo-5327921.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Nurse providing foot care to patient at home" loading="lazy">
-          </div>
-          <div class="diabetes-service-content">
-            <h3>Chronic Wound Care at Home</h3>
-            <p>Professional wound care services in your home, including diabetic foot care, ulcer treatment, and infection prevention with specialized nursing expertise.</p>
-            <a href="#" class="diabetes-service-cta">Learn More →</a>
-          </div>
-        </div>
-        
-        <div class="diabetes-service-card">
-          <div class="diabetes-service-image">
-            <img src="https://images.pexels.com/photos/4397841/pexels-photo-4397841.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Woman preparing healthy vegetables in kitchen" loading="lazy">
-          </div>
-          <div class="diabetes-service-content">
-            <h3>Nutrition & Lifestyle Coaching</h3>
-            <p>Personalized nutrition plans, meal prep guidance, and lifestyle modifications designed specifically for diabetes management and long-term health optimization.</p>
-            <a href="#" class="diabetes-service-cta">Learn More →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- How It Works Section -->
-  <section id="how-it-works" class="diabetes-how-it-works">
-    <div class="diabetes-how-it-works-container">
-      <div class="diabetes-how-it-works-header">
-        <h2>How It Works</h2>
-        <p>Getting started with comprehensive diabetes care is simple</p>
-      </div>
-      <div class="diabetes-steps-grid">
-        <div class="diabetes-step">
-          <div class="diabetes-step-number">1</div>
-          <h3>Book Your Care Plan</h3>
-          <p>Complete a comprehensive health assessment and schedule your initial consultation with our diabetes care specialists.</p>
-        </div>
-        
-        <div class="diabetes-step">
-          <div class="diabetes-step-number">2</div>
-          <h3>Get Matched with a Care Team</h3>
-          <p>We'll assign you a dedicated team of diabetes specialists, nurses, and health coaches based on your specific needs and health goals.</p>
-        </div>
-        
-        <div class="diabetes-step">
-          <div class="diabetes-step-number">3</div>
-          <h3>Start Continuous Monitoring</h3>
-          <p>Begin your personalized care journey with 24/7 monitoring, regular check-ins, and ongoing support from your dedicated care team.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="diabetes-cta-section" style="background: #7c3aed; padding: 80px 0; text-align: center;">
-    <div style="max-width: 800px; margin: 0 auto; padding: 0 40px;">
-      <h2 style="color: white; font-size: 42px; font-weight: 700; margin: 0 0 16px 0;">Ready to Take Control of Your Diabetes?</h2>
-      <p style="color: rgba(255, 255, 255, 0.9); font-size: 20px; margin: 0 0 32px 0;">Join thousands of patients who trust us with their diabetes care. Get started today with a free consultation.</p>
-      <a href="#" style="background: white; color: #7c3aed; padding: 18px 36px; border-radius: 32px; font-size: 18px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s ease;">Start Your Care Journey</a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer style="background: #0f172a; color: white; padding: 60px 0 40px;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 40px;">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px;">
-        <div>
-          <h3 style="color: white; margin: 0 0 16px 0;">Heros Health</h3>
-          <p style="color: #94a3b8; margin: 0;">Comprehensive diabetes care that never clocks out. Your health, our priority.</p>
-        </div>
-        <div>
-          <h4 style="color: white; margin: 0 0 16px 0;">Services</h4>
-          <ul style="list-style: none; padding: 0; margin: 0;">
-            <li style="margin-bottom: 8px;"><a href="#" style="color: #94a3b8; text-decoration: none;">Continuous Monitoring</a></li>
-            <li style="margin-bottom: 8px;"><a href="#" style="color: #94a3b8; text-decoration: none;">Chronic Care Management</a></li>
-            <li style="margin-bottom: 8px;"><a href="#" style="color: #94a3b8; text-decoration: none;">Wound Care</a></li>
-            <li style="margin-bottom: 8px;"><a href="#" style="color: #94a3b8; text-decoration: none;">Nutrition Coaching</a></li>
+        <!-- Continuous Monitoring -->
+        <div class="service-card">
+          <div class="service-icon">📊</div>
+          <h3 class="service-title">Continuous Monitoring</h3>
+          <p class="service-description">
+            Advanced remote patient monitoring with real-time glucose tracking and automated alerts for concerning trends.
+          </p>
+          <ul class="service-features">
+            <li>Real-time glucose monitoring</li>
+            <li>Automated trend analysis</li>
+            <li>Emergency alert system</li>
+            <li>Data sharing with providers</li>
+            <li>Mobile app integration</li>
           </ul>
         </div>
-        <div>
-          <h4 style="color: white; margin: 0 0 16px 0;">Contact</h4>
-          <ul style="list-style: none; padding: 0; margin: 0;">
-            <li style="margin-bottom: 8px; color: #94a3b8;">1-800-HEROS-RX</li>
-            <li style="margin-bottom: 8px; color: #94a3b8;">support@heroshealth.com</li>
-            <li style="margin-bottom: 8px; color: #94a3b8;">24/7 Support Available</li>
+        
+        <!-- Medication Management -->
+        <div class="service-card">
+          <div class="service-icon">💊</div>
+          <h3 class="service-title">Medication Optimization</h3>
+          <p class="service-description">
+            Personalized medication management with dosage optimization based on your glucose patterns and lifestyle.
+          </p>
+          <ul class="service-features">
+            <li>Personalized medication plans</li>
+            <li>Dosage optimization</li>
+            <li>Drug interaction checking</li>
+            <li>Automatic refill reminders</li>
+            <li>Cost optimization strategies</li>
           </ul>
         </div>
+        
+        <!-- 24/7 Support -->
+        <div class="service-card">
+          <div class="service-icon">🩺</div>
+          <h3 class="service-title">24/7 Clinical Support</h3>
+          <p class="service-description">
+            Round-the-clock access to certified diabetes educators and chronic care coordinators for immediate support.
+          </p>
+          <ul class="service-features">
+            <li>24/7 educator availability</li>
+            <li>Emergency response protocol</li>
+            <li>Care plan adjustments</li>
+            <li>Educational resources</li>
+            <li>Family support guidance</li>
+          </ul>
+        </div>
+        
+        <!-- Care Coordination -->
+        <div class="service-card">
+          <div class="service-icon">🤝</div>
+          <h3 class="service-title">Care Coordination</h3>
+          <p class="service-description">
+            Seamless coordination with your existing healthcare team and specialists for comprehensive diabetes management.
+          </p>
+          <ul class="service-features">
+            <li>Provider communication</li>
+            <li>Specialist referrals</li>
+            <li>Insurance navigation</li>
+            <li>Appointment scheduling</li>
+            <li>Health record management</li>
+          </ul>
+        </div>
+        
+        <!-- Lifestyle Management -->
+        <div class="service-card">
+          <div class="service-icon">🍎</div>
+          <h3 class="service-title">Lifestyle Support</h3>
+          <p class="service-description">
+            Personalized nutrition and exercise guidance to help you manage diabetes through healthy lifestyle choices.
+          </p>
+          <ul class="service-features">
+            <li>Nutritional counseling</li>
+            <li>Exercise planning</li>
+            <li>Weight management</li>
+            <li>Stress reduction techniques</li>
+            <li>Sleep optimization</li>
+          </ul>
+        </div>
+        
+        <!-- Technology Integration -->
+        <div class="service-card">
+          <div class="service-icon">📱</div>
+          <h3 class="service-title">Smart Technology</h3>
+          <p class="service-description">
+            Cutting-edge technology integration including CGMs, smart insulin pens, and AI-powered insights.
+          </p>
+          <ul class="service-features">
+            <li>CGM integration</li>
+            <li>Smart insulin pen tracking</li>
+            <li>AI-powered predictions</li>
+            <li>Wearable device syncing</li>
+            <li>Automated reporting</li>
+          </ul>
+        </div>
+        
       </div>
-      <div style="border-top: 1px solid #334155; padding-top: 24px; text-align: center; color: #94a3b8;">
-        <p style="margin: 0;">&copy; 2024 Heros Health, Inc. All rights reserved.</p>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <div style="margin-bottom: 60px;">
+        <h2 style="font-size: 36px; font-weight: 700; margin: 0 0 16px 0;">
+          Proven Results in Diabetes Care
+        </h2>
+        <p style="font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto;">
+          Our comprehensive approach delivers measurable improvements in diabetes management
+        </p>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">1.2%</div>
+          <div class="stat-label">Average A1C Reduction</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Clinical Support</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">95%</div>
+          <div class="stat-label">Patient Satisfaction</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">40%</div>
+          <div class="stat-label">Reduced ER Visits</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section style="background: #ffffff; padding: 100px 0; text-align: center;">
+      <div style="max-width: 800px; margin: 0 auto; padding: 0 40px;">
+        <h2 style="font-size: 42px; font-weight: 700; color: #0f172a; margin: 0 0 24px 0;">
+          Take Control of Your Diabetes Today
+        </h2>
+        <p style="font-size: 20px; color: #475569; margin: 0 0 40px 0;">
+          Start your comprehensive diabetes care journey with our team of certified educators and advanced monitoring technology.
+        </p>
+        
+        <div style="margin-bottom: 40px;">
+          <a href="#" class="diabetes-cta-primary" style="margin-right: 20px;">
+            Get Started Now
+            <span>→</span>
+          </a>
+          <a href="#" class="diabetes-cta-secondary">
+            Schedule Consultation
+          </a>
+        </div>
+        
+        <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; opacity: 0.8;">
+          <div style="display: flex; align-items: center; gap: 8px; color: #059669;">
+            <span style="font-size: 18px;">✓</span>
+            <span>No Insurance Required</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; color: #059669;">
+            <span style="font-size: 18px;">✓</span>
+            <span>Same-Day Virtual Visits</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; color: #059669;">
+            <span style="font-size: 18px;">✓</span>
+            <span>30-Day Money Back</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer (same as index) -->
+    <div class="footer">
+      <div class="padding-global">
+        <div class="container-large">
+          <div class="div-block-33" style="position: relative;">
+            <img src="images/Logo-16.svg" loading="lazy" alt="Heros Logo Watermark" class="footer-logo-watermark" style="position: absolute; top: 300px; left: 50%; transform: translateX(-50%); opacity: 0.08; width: 288px; height: auto; z-index: 0; pointer-events: none;">
+            <div class="div-block-35" style="position: relative; z-index: 1;">
+              <div class="div-block-38">
+                <p class="text-opacity-50 text-weight-medium">Popular</p>
+                <div class="div-block-39">
+                  <a href="weight-loss.html" class="link">Weight Loss</a>
+                  <a href="diabetes-care.html" class="link">Diabetes Care</a>
+                  <a href="hair-regrowth.html" class="link">Hair Loss</a>
+                  <a href="mens-ed.html" class="link">Men's ED</a>
+                </div>
+              </div>
+              <div class="div-block-38">
+                <p class="text-opacity-50 text-weight-medium">About Heros</p>
+                <div class="div-block-39">
+                  <a href="#" class="link">Our Mission</a>
+                  <a href="#" class="link">How It Works</a>
+                  <a href="#" class="link">Safety</a>
+                  <a href="#" class="link">Careers</a>
+                </div>
+              </div>
+              <div class="div-block-38">
+                <p class="text-opacity-50 text-weight-medium">Support</p>
+                <div class="div-block-39">
+                  <a href="contact.html" class="link">Contact us</a>
+                  <a href="faq.html" class="link">FAQ</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </footer>
+
+  </div>
 
   <script src="js/webflow.js" type="text/javascript"></script>
 </body>
