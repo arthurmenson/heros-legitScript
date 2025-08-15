@@ -2806,31 +2806,31 @@ margin: 0rem !important;
   }
 }
 
-/* ED Meds Section Mobile */
+/* ED Meds Section Mobile - Keep Original Layout */
 @media (max-width: 768px) {
   .ed-meds-section {
     padding: 40px 0;
   }
 
+  /* Keep the ED Meds grid layout intact for mobile */
   .ed-meds-grid {
-    display: block !important;
-    grid-template-columns: none !important;
-    gap: 24px;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 32px;
+    padding: 0 16px;
   }
 
   .ed-meds-column {
     width: 100% !important;
     max-width: 100% !important;
-    margin-bottom: 24px;
   }
 
-  /* Keep images together in their grid layout */
+  /* Keep images together in their original grid layout */
   .ed-meds-images,
   .ed-meds-inner-grid {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: 16px !important;
-    margin-bottom: 24px;
   }
 
   .ed-meds-images > *,
@@ -2838,10 +2838,19 @@ margin: 0rem !important;
     width: 100% !important;
   }
 
-  /* Stack content and button sections */
+  /* Keep button layouts intact */
   .ed-meds-content div[style*="display: flex"] {
-    flex-direction: column !important;
+    flex-wrap: wrap !important;
     gap: 12px !important;
+  }
+
+  /* Ensure buttons are touch-friendly but keep original structure */
+  .ed-meds-content a,
+  .ed-meds-content button {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -4140,7 +4149,7 @@ margin: 0rem !important;
                 <div style="margin-bottom: 32px;">
                   <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
                     <div style="width: 20px; height: 20px; background: #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                      <span style="color: white; font-size: 12px; font-weight: 700;">✓</span>
+                      <span style="color: white; font-size: 12px; font-weight: 700;">���</span>
                     </div>
                     <span style="font-size: 16px; font-weight: 500; color: #1a1a1a;">Works in as little as 30 minutes</span>
                   </div>
