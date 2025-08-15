@@ -3048,7 +3048,7 @@ margin: 0rem !important;
                         <div style="display: flex; align-items: center; gap: 24px; margin-top: 16px;">
                           <div style="display: flex; align-items: center; gap: 8px;">
                             <div style="display: flex; gap: 2px;">
-                              <span style="color: #ffd700; font-size: 16px;">★</span>
+                              <span style="color: #ffd700; font-size: 16px;">��</span>
                               <span style="color: #ffd700; font-size: 16px;">★</span>
                               <span style="color: #ffd700; font-size: 16px;">★</span>
                               <span style="color: #ffd700; font-size: 16px;">★</span>
@@ -4045,6 +4045,28 @@ margin: 0rem !important;
           .trust-badge-watermark img {
             height: 40px !important;
           }
+        }
+
+        /* Performance optimizations */
+        .will-change-transform {
+          will-change: transform;
+        }
+
+        .contain-layout {
+          contain: layout;
+        }
+
+        /* Reduce animation complexity on mobile */
+        @media (max-width: 768px) {
+          .products-carousel,
+          .video-testimonials-grid {
+            animation-duration: 50s !important;
+          }
+        }
+
+        /* Optimize font loading */
+        .font-preload {
+          font-display: swap;
         }
       </style>
 
