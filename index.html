@@ -2483,27 +2483,33 @@ margin: 0rem !important;
   }
 }
 
-/* Service Cards Grid Mobile */
+/* Service Cards Grid Mobile - Single Column Stack */
 @media (max-width: 768px) {
   .new-service-cards,
   .services-grid {
-    flex-direction: column;
+    display: flex !important;
+    flex-direction: column !important;
     gap: 16px;
     padding: 0 16px;
+    width: 100%;
   }
 
   .new-card,
   .service-card {
-    min-width: 100%;
-    max-width: 100%;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
     margin-bottom: 0;
+    flex: none !important;
   }
 
   .card-content-wrapper {
+    display: flex;
     flex-direction: row;
     align-items: center;
     gap: 16px;
     padding: 16px;
+    width: 100%;
   }
 
   .card-image-section {
