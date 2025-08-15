@@ -2185,77 +2185,29 @@
     }
   }
 
-/* Remove All Animations and Transitions - Global Override */
-* {
+/* Products Section Only - Single Column Stack, No Animations */
+.products-carousel {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  animation: none !important;
+}
+
+.product-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  display: block !important;
   animation: none !important;
   transition: none !important;
   transform: none !important;
 }
 
-/* Force Single Column Layout for All Product Sections */
-.new-service-cards,
-.div-block-89,
-.div-block-88,
-.products-carousel,
-.hair-regrowth-hero-grid,
-.weight-loss-grid,
-.ed-meds-grid,
-.how-it-works-grid,
-.results-section div[style*="display: flex"][style*="gap: 140px"],
-.trust-stats-grid,
-.testimonial-cards-grid,
-.bmi-grid {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 20px !important;
-  width: 100% !important;
-  max-width: 100% !important;
-}
-
-/* Override any grid layouts to single column */
-[style*="grid-template-columns"] {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 20px !important;
-}
-
-/* Ensure all cards and sections stack vertically */
-.link-block-4,
-.link-block-5,
-.product-card,
-.step-card,
-.trust-stat-card,
-.testimonial-card,
-.video-testimonial-card {
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 !important;
-  display: block !important;
-}
-
-/* Remove hover effects and transforms */
-.product-card:hover,
-.step-card:hover,
-.trust-stat-card:hover,
-.testimonial-card:hover,
-.video-testimonial-card:hover {
+.product-card:hover {
   transform: none !important;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06) !important;
-}
-
-/* Stop all scrolling animations */
-.scrolling-banner,
-.products-carousel,
-.video-testimonials-grid,
-.trust-social-proof-logos {
-  animation: none !important;
-}
-
-/* Remove button hover animations */
-button:hover,
-a:hover,
-.button:hover {
-  transform: none !important;
 }
 </style>
 </head>
