@@ -2687,6 +2687,24 @@ margin: 0rem !important;
   }
 }
 
+/* Force Single Column Layout on Mobile */
+@media (max-width: 768px) {
+  /* Override any grid or flex layouts that might show multiple columns */
+  .new-service-cards > *,
+  .services-grid > * {
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Ensure container doesn't create multiple columns */
+  .new-service-cards {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    flex-direction: column !important;
+  }
+}
+
 /* Small Mobile Devices */
 @media (max-width: 480px) {
   .hero-title,
