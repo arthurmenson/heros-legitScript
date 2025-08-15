@@ -2337,8 +2337,41 @@ margin: 0rem !important;
   padding-right: 0rem !important;
   padding-left: 0rem !important;
 }
+/* Animated Banner Styles */
 .bunner_component {
-  display: none !important;
+  overflow: hidden;
+  background: #f8f9fa;
+  padding: 12px 0;
+  white-space: nowrap;
+  position: relative;
+}
+
+.scrolling-banner {
+  display: flex;
+  animation: scroll-left 30s linear infinite;
+  gap: 48px;
+  align-items: center;
+}
+
+.banner-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.bunner_component:hover .scrolling-banner {
+  animation-play-state: paused;
 }
 </style>
     </div>
