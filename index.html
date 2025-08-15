@@ -2831,6 +2831,51 @@ margin: 0rem !important;
   }
 }
 
+/* Skincare Results Section - Single Column with Intact Picture Layout */
+@media (max-width: 768px) {
+  .results-section {
+    padding: 40px 0;
+  }
+
+  /* Convert main flex layout to single column */
+  .results-section div[style*="display: flex"][style*="gap: 140px"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 40px !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  /* Preserve the 3-column image grid structure exactly */
+  .results-section div[style*="grid-template: auto / 1fr 1.5fr 1fr"] {
+    display: grid !important;
+    grid-template-columns: 1fr 1.5fr 1fr !important;
+    gap: 16px !important;
+    width: 100% !important;
+    max-width: 400px !important;
+  }
+
+  /* Keep the left and right column image stacks intact */
+  .results-section div[style*="grid-template: auto / 1fr 1.5fr 1fr"] > div {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  /* Ensure images scale properly on mobile */
+  .results-section img {
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 16px !important;
+  }
+
+  /* Content area optimization for mobile */
+  .results-section div[style*="max-width: 441px"] {
+    max-width: 100% !important;
+    padding: 0 20px !important;
+  }
+}
+
 /* Trust and Testimonial Grids - Single Column */
 @media (max-width: 768px) {
   .trust-stats-grid,
