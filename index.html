@@ -2753,6 +2753,233 @@ margin: 0rem !important;
   }
 }
 
+/* ===============================
+   ALL SECTIONS MOBILE SINGLE COLUMN
+   (Starting from Skincare)
+   =============================== */
+
+/* Hair Regrowth Section Mobile */
+@media (max-width: 768px) {
+  .hair-regrowth-hero-grid {
+    display: block !important;
+    grid-template-columns: none !important;
+    gap: 24px;
+  }
+
+  .hair-regrowth-images {
+    display: block !important;
+    grid-template: none !important;
+    gap: 16px;
+  }
+
+  .hair-regrowth-images > * {
+    width: 100% !important;
+    margin-bottom: 16px;
+  }
+}
+
+/* Weight Loss Section Mobile */
+@media (max-width: 768px) {
+  .weight-loss-grid {
+    display: block !important;
+    grid-template: none !important;
+    gap: 24px;
+  }
+
+  .weight-loss-images {
+    display: block !important;
+    grid-template: none !important;
+    gap: 16px;
+  }
+
+  .weight-loss-images > * {
+    width: 100% !important;
+    margin-bottom: 16px;
+  }
+
+  .section_wl-hero div[style*="display: grid"] {
+    display: block !important;
+  }
+
+  .section_wl-hero div[style*="grid-template-columns: 1fr 1fr"] {
+    display: block !important;
+  }
+}
+
+/* ED Meds Section Mobile */
+@media (max-width: 768px) {
+  .ed-meds-section {
+    padding: 40px 0;
+  }
+
+  .ed-meds-grid {
+    display: block !important;
+    grid-template-columns: none !important;
+    gap: 24px;
+  }
+
+  .ed-meds-column {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 24px;
+  }
+
+  .ed-meds-images,
+  .ed-meds-inner-grid {
+    display: block !important;
+    grid-template: none !important;
+    gap: 16px;
+  }
+
+  .ed-meds-images > *,
+  .ed-meds-inner-grid > * {
+    width: 100% !important;
+    margin-bottom: 16px;
+  }
+
+  .ed-meds-content div[style*="display: flex"] {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+}
+
+/* How It Works Section Mobile */
+@media (max-width: 768px) {
+  .how-it-works-grid {
+    display: block !important;
+    grid-template-columns: none !important;
+    gap: 24px;
+  }
+
+  .how-it-works-grid > * {
+    width: 100% !important;
+    margin-bottom: 24px;
+  }
+}
+
+/* Trust Stats Grid Mobile */
+@media (max-width: 768px) {
+  .trust-stats-grid {
+    display: block !important;
+    grid-template-columns: none !important;
+    gap: 16px;
+  }
+
+  .trust-stats-grid > * {
+    width: 100% !important;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+}
+
+/* Testimonials Grid Mobile */
+@media (max-width: 768px) {
+  .testimonial-cards-grid {
+    display: block !important;
+    grid-template-columns: none !important;
+    gap: 20px;
+  }
+
+  .testimonial-cards-grid > * {
+    width: 100% !important;
+    margin-bottom: 20px;
+  }
+}
+
+/* Products Carousel Mobile */
+@media (max-width: 768px) {
+  .products-carousel {
+    display: block !important;
+    grid-template-columns: none !important;
+    gap: 20px;
+  }
+
+  .products-carousel > * {
+    width: 100% !important;
+    margin-bottom: 20px;
+  }
+}
+
+/* Section Home 9 (CTA Section) Mobile */
+@media (max-width: 768px) {
+  .section_home-9 div[style*="display: grid"] {
+    display: block !important;
+    grid-template-columns: none !important;
+  }
+
+  .section_home-9 div[style*="grid-template-columns"] {
+    display: block !important;
+  }
+
+  .section_home-9 div[style*="display: flex"] {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .section_home-9 a,
+  .section_home-9 button {
+    width: 100% !important;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+}
+
+/* All Inline Grid Styles Mobile Override */
+@media (max-width: 768px) {
+  /* Target any inline grid styles */
+  div[style*="display: grid"],
+  div[style*="grid-template-columns: 1fr 1fr"],
+  div[style*="grid-template-columns: repeat"] {
+    display: block !important;
+    grid-template-columns: none !important;
+  }
+
+  /* Target images in grid containers */
+  div[style*="display: grid"] > img,
+  div[style*="grid-template"] > img {
+    width: 100% !important;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  /* Target flex containers that should stack */
+  div[style*="display: flex; gap"] {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  /* Ensure all children take full width in mobile */
+  .section_home-1 > * > * > *,
+  .section_home-2 > * > * > *,
+  .section_home-3 > * > * > *,
+  .section_home-4 > * > * > *,
+  .section_home-5 > * > * > *,
+  .section_home-6 > * > * > *,
+  .section_home-7 > * > * > *,
+  .section_home-8 > * > * > *,
+  .section_home-9 > * > * > * {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Form Elements Mobile */
+@media (max-width: 768px) {
+  input, select, textarea {
+    width: 100% !important;
+    font-size: 16px !important; /* Prevents zoom on iOS */
+    padding: 12px 16px !important;
+    margin-bottom: 16px;
+  }
+
+  button, .button, .link-block {
+    width: 100% !important;
+    margin-bottom: 12px;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
 /* Small Mobile Devices */
 @media (max-width: 480px) {
   .hero-title,
@@ -4166,7 +4393,7 @@ margin: 0rem !important;
 
                     <div class="product-card diabetes-care-card" style="border-top: 4px solid #059669;">
                       <div class="product-icon">
-                        <div style="width: 32px; height: 32px; background: #059669; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 16px;">����</div>
+                        <div style="width: 32px; height: 32px; background: #059669; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 16px;">�����</div>
                       </div>
                       <div class="product-content">
                         <h3 class="product-title">Comprehensive Diabetes Care</h3>
