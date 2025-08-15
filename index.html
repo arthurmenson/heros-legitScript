@@ -2824,19 +2824,21 @@ margin: 0rem !important;
     margin-bottom: 24px;
   }
 
+  /* Keep images together in their grid layout */
   .ed-meds-images,
   .ed-meds-inner-grid {
-    display: block !important;
-    grid-template: none !important;
-    gap: 16px;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+    margin-bottom: 24px;
   }
 
   .ed-meds-images > *,
   .ed-meds-inner-grid > * {
     width: 100% !important;
-    margin-bottom: 16px;
   }
 
+  /* Stack content and button sections */
   .ed-meds-content div[style*="display: flex"] {
     flex-direction: column !important;
     gap: 12px !important;
@@ -4393,7 +4395,7 @@ margin: 0rem !important;
 
                     <div class="product-card diabetes-care-card" style="border-top: 4px solid #059669;">
                       <div class="product-icon">
-                        <div style="width: 32px; height: 32px; background: #059669; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 16px;">�����</div>
+                        <div style="width: 32px; height: 32px; background: #059669; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 16px;">����</div>
                       </div>
                       <div class="product-content">
                         <h3 class="product-title">Comprehensive Diabetes Care</h3>
