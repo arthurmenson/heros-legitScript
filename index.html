@@ -2332,30 +2332,37 @@
     margin: 16px 0 !important;
   }
 
-  /* Weight Loss Section - Images First, Text Second on Mobile */
+  /* Weight Loss Section Mobile UI/UX - Proper Single Column */
   .section_wl-hero div[style*="grid-template-columns: 1fr 1fr"] {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 40px !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
   }
 
-  /* Text section - order 2 (comes second) */
+  /* Text section - full width */
   .section_wl-hero div[style*="max-width: 500px"] {
-    order: 2 !important;
     max-width: 100% !important;
     padding: 0 20px !important;
   }
 
-  /* Image section - order 1 (comes first) */
+  /* Image section - full width */
   .section_wl-hero div[style*="justify-content: flex-end"] {
-    order: 1 !important;
     padding: 0 20px !important;
     justify-content: center !important;
   }
 
-  /* Make image grid single column on mobile */
-  .section_wl-hero div[style*="grid-template-columns: 1fr 1fr"][style*="gap: 16px"] {
-    grid-template-columns: 1fr !important;
+  /* Images container - single column stack */
+  .section_wl-hero div[style*="max-width: 450px"] {
+    max-width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+
+  /* Convert nested image grid to single column */
+  .section_wl-hero div[style*="grid-template-columns: 1fr 1fr"] {
+    display: flex !important;
+    flex-direction: column !important;
     gap: 20px !important;
   }
 
