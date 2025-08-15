@@ -2,12 +2,12 @@
 <html data-wf-page="diabetes-care" data-wf-site="682f5a8cf58ac9034f80ba80" lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Advanced Diabetes Management | Precision Care That Works | Heros</title>
-  <meta content="Revolutionary diabetes care combining AI-powered monitoring, board-certified endocrinologists, and precision medicine. Average A1C reduction of 1.4% in 90 days." name="description">
-  <meta content="Advanced Diabetes Management | Precision Care That Works | Heros" property="og:title">
-  <meta content="Revolutionary diabetes care combining AI-powered monitoring, board-certified endocrinologists, and precision medicine. Average A1C reduction of 1.4% in 90 days." property="og:description">
-  <meta content="Advanced Diabetes Management | Precision Care That Works | Heros" property="twitter:title">
-  <meta content="Revolutionary diabetes care combining AI-powered monitoring, board-certified endocrinologists, and precision medicine. Average A1C reduction of 1.4% in 90 days." property="twitter:description">
+  <title>Insurance-Covered Diabetes Care | Billing & Eligibility | Heros</title>
+  <meta content="Comprehensive diabetes care covered by your insurance. Check your eligibility instantly and get seamless billing coordination with board-certified endocrinologists." name="description">
+  <meta content="Insurance-Covered Diabetes Care | Billing & Eligibility | Heros" property="og:title">
+  <meta content="Comprehensive diabetes care covered by your insurance. Check your eligibility instantly and get seamless billing coordination with board-certified endocrinologists." property="og:description">
+  <meta content="Insurance-Covered Diabetes Care | Billing & Eligibility | Heros" property="twitter:title">
+  <meta content="Comprehensive diabetes care covered by your insurance. Check your eligibility instantly and get seamless billing coordination with board-certified endocrinologists." property="twitter:description">
   <meta property="og:type" content="website">
   <meta content="summary_large_image" name="twitter:card">
   <meta content="width=device-width, initial-scale=1" name="viewport">
@@ -42,8 +42,10 @@
       --success-green: #00B74A;
       --warning-orange: #FF9500;
       --error-red: #FF3B30;
+      --insurance-blue: #2563EB;
       --gradient-primary: linear-gradient(135deg, #0066FF 0%, #00D4AA 100%);
       --gradient-surface: linear-gradient(135deg, #FFFFFF 0%, #F8FAFF 100%);
+      --gradient-insurance: linear-gradient(135deg, #2563EB 0%, #0066FF 100%);
       --shadow-sm: 0 1px 2px 0 rgba(10, 14, 39, 0.03);
       --shadow-md: 0 4px 6px -1px rgba(10, 14, 39, 0.04), 0 2px 4px -1px rgba(10, 14, 39, 0.03);
       --shadow-lg: 0 10px 15px -3px rgba(10, 14, 39, 0.05), 0 4px 6px -2px rgba(10, 14, 39, 0.02);
@@ -120,7 +122,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: var(--gradient-primary);
+      background: var(--gradient-insurance);
       color: white;
       padding: 8px 16px;
       border-radius: 100px;
@@ -146,7 +148,7 @@
     }
 
     .hero-title .highlight {
-      background: var(--gradient-primary);
+      background: var(--gradient-insurance);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -174,7 +176,7 @@
     .stat-number {
       font-size: 32px;
       font-weight: 800;
-      color: var(--primary-blue);
+      color: var(--insurance-blue);
       margin-bottom: 4px;
       line-height: 1;
     }
@@ -195,7 +197,7 @@
     }
 
     .btn-primary {
-      background: var(--gradient-primary);
+      background: var(--gradient-insurance);
       color: white;
       padding: 18px 32px;
       border-radius: 12px;
@@ -288,7 +290,7 @@
       align-items: center;
     }
 
-    .hero-dashboard {
+    .insurance-checker {
       background: white;
       border-radius: 24px;
       padding: 32px;
@@ -300,72 +302,100 @@
       z-index: 2;
     }
 
-    .dashboard-header {
-      display: flex;
-      align-items: center;
-      justify-content: between;
+    .checker-header {
+      text-align: center;
       margin-bottom: 24px;
       padding-bottom: 16px;
       border-bottom: 1px solid var(--neutral-200);
     }
 
-    .dashboard-title {
+    .checker-title {
       font-size: 18px;
       font-weight: 700;
       color: var(--neutral-900);
+      margin-bottom: 8px;
     }
 
-    .status-indicator {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: #E7F7EF;
-      color: var(--success-green);
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
+    .checker-subtitle {
+      font-size: 14px;
+      color: var(--neutral-600);
     }
 
-    .metric-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .metric-card {
-      background: var(--neutral-100);
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-    }
-
-    .metric-value {
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--primary-blue);
-      margin-bottom: 4px;
-    }
-
-    .metric-label {
-      font-size: 12px;
-      color: var(--neutral-500);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .chart-placeholder {
-      width: 100%;
-      height: 120px;
-      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-teal));
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 600;
+    .form-group {
       margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--neutral-700);
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--neutral-300);
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--insurance-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .form-select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--neutral-300);
+      border-radius: 8px;
+      font-size: 16px;
+      background: white;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-select:focus {
+      outline: none;
+      border-color: var(--insurance-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .insurance-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .insurance-badge {
+      background: #EBF4FF;
+      color: var(--insurance-blue);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .check-button {
+      width: 100%;
+      background: var(--gradient-insurance);
+      color: white;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .check-button:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-lg);
     }
 
     /* Services Section */
@@ -384,7 +414,7 @@
     .section-badge {
       display: inline-block;
       background: var(--neutral-100);
-      color: var(--primary-blue);
+      color: var(--insurance-blue);
       padding: 8px 16px;
       border-radius: 100px;
       font-size: 14px;
@@ -432,7 +462,7 @@
       left: 0;
       right: 0;
       height: 4px;
-      background: var(--gradient-primary);
+      background: var(--gradient-insurance);
       transform: scaleX(0);
       transform-origin: left;
       transition: transform 0.3s ease;
@@ -445,13 +475,13 @@
     .service-card:hover {
       transform: translateY(-8px);
       box-shadow: var(--shadow-xl);
-      border-color: var(--primary-blue);
+      border-color: var(--insurance-blue);
     }
 
     .service-icon {
       width: 64px;
       height: 64px;
-      background: var(--gradient-primary);
+      background: var(--gradient-insurance);
       border-radius: 16px;
       display: flex;
       align-items: center;
@@ -500,186 +530,101 @@
       font-size: 10px;
     }
 
-    /* Pricing Section */
-    .pricing-section {
+    /* Insurance Section */
+    .insurance-section {
       padding: 120px 0;
       background: var(--gradient-surface);
       position: relative;
     }
 
-    .pricing-grid {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 40px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 32px;
-    }
-
-    .pricing-card {
-      background: white;
-      border-radius: 24px;
-      padding: 40px;
-      box-shadow: var(--shadow-lg);
-      border: 1px solid var(--neutral-200);
-      position: relative;
-      transition: all 0.3s ease;
-    }
-
-    .pricing-card.featured {
-      border-color: var(--primary-blue);
-      transform: scale(1.05);
-      box-shadow: var(--shadow-xl);
-    }
-
-    .pricing-card.featured::before {
-      content: 'Most Popular';
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--gradient-primary);
-      color: white;
-      padding: 6px 20px;
-      border-radius: 100px;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .plan-name {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--neutral-900);
-      margin-bottom: 8px;
-    }
-
-    .plan-description {
-      color: var(--neutral-600);
-      margin-bottom: 24px;
-      font-size: 14px;
-    }
-
-    .plan-price {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      margin-bottom: 24px;
-    }
-
-    .price-amount {
-      font-size: 48px;
-      font-weight: 800;
-      color: var(--neutral-900);
-    }
-
-    .price-period {
-      color: var(--neutral-500);
-      font-size: 16px;
-    }
-
-    .plan-features {
-      list-style: none;
-      margin-bottom: 32px;
-    }
-
-    .plan-features li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
-      color: var(--neutral-600);
-    }
-
-    .plan-features li::before {
-      content: '✓';
-      color: var(--success-green);
-      font-weight: bold;
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #E7F7EF;
-      border-radius: 50%;
-      font-size: 12px;
-    }
-
-    /* Social Proof Section */
-    .social-proof-section {
-      padding: 80px 0;
-      background: white;
-    }
-
-    .testimonials-grid {
+    .insurance-grid {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 40px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 32px;
+      grid-template-columns: 2fr 1fr;
+      gap: 60px;
+      align-items: center;
     }
 
-    .testimonial-card {
+    .insurance-content {
+      max-width: 600px;
+    }
+
+    .insurance-logos {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin: 40px 0;
+    }
+
+    .insurance-logo {
       background: white;
       border: 1px solid var(--neutral-200);
-      border-radius: 20px;
-      padding: 32px;
-      box-shadow: var(--shadow-md);
-      transition: all 0.3s ease;
-    }
-
-    .testimonial-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .testimonial-content {
-      font-size: 16px;
-      line-height: 1.6;
-      color: var(--neutral-700);
-      margin-bottom: 24px;
-      font-style: italic;
-    }
-
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .author-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--gradient-primary);
+      border-radius: 12px;
+      padding: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      font-weight: 700;
-      font-size: 18px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--neutral-600);
+      text-align: center;
+      transition: all 0.2s ease;
     }
 
-    .author-info {
-      flex: 1;
+    .insurance-logo:hover {
+      border-color: var(--insurance-blue);
+      box-shadow: var(--shadow-md);
     }
 
-    .author-name {
+    .billing-features {
+      background: white;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--neutral-200);
+    }
+
+    .billing-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--neutral-200);
+    }
+
+    .billing-feature:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .billing-icon {
+      width: 48px;
+      height: 48px;
+      background: #EBF4FF;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--insurance-blue);
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .billing-info h4 {
+      font-size: 16px;
       font-weight: 600;
       color: var(--neutral-900);
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
 
-    .author-details {
+    .billing-info p {
       font-size: 14px;
-      color: var(--neutral-500);
-    }
-
-    .stars {
-      color: #FFD700;
-      margin-bottom: 16px;
+      color: var(--neutral-600);
+      line-height: 1.5;
     }
 
     /* CTA Section */
@@ -806,11 +751,19 @@
         justify-content: center;
       }
 
-      .services-grid,
-      .pricing-grid,
-      .testimonials-grid {
+      .services-grid {
         grid-template-columns: 1fr;
         padding: 0 20px;
+      }
+
+      .insurance-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 0 20px;
+      }
+
+      .insurance-logos {
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .section-header {
@@ -899,91 +852,108 @@
       <div class="hero-container">
         <div class="hero-content">
           <div class="hero-badge">
-            <span>🏆</span>
-            <span>Award-Winning Diabetes Care</span>
+            <span>🛡️</span>
+            <span>Most Insurance Plans Accepted</span>
           </div>
           
           <h1 class="hero-title">
-            Precision Diabetes Care<br/>
-            <span class="highlight">That Actually Works</span>
+            Insurance-Covered<br/>
+            <span class="highlight">Diabetes Care</span>
           </h1>
           
           <p class="hero-subtitle">
-            Revolutionary diabetes management combining AI-powered monitoring, board-certified endocrinologists, and precision medicine. See measurable improvements in 90 days or your money back.
+            Comprehensive diabetes management covered by your insurance. Get expert endocrinologist care with seamless billing coordination and instant eligibility verification.
           </p>
           
           <div class="hero-stats">
             <div class="stat-item">
-              <div class="stat-number">1.4%</div>
-              <div class="stat-label">Avg A1C Reduction</div>
+              <div class="stat-number">500+</div>
+              <div class="stat-label">Insurance Plans</div>
             </div>
             <div class="stat-item">
-              <div class="stat-number">24/7</div>
-              <div class="stat-label">Expert Support</div>
+              <div class="stat-number">$0</div>
+              <div class="stat-label">Billing Hassles</div>
             </div>
             <div class="stat-item">
-              <div class="stat-number">96%</div>
-              <div class="stat-label">Patient Success</div>
+              <div class="stat-number">98%</div>
+              <div class="stat-label">Claims Approved</div>
             </div>
           </div>
           
           <div class="hero-cta-group">
             <a href="#" class="btn-primary">
-              Start Your Assessment
+              Check Your Eligibility
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
             </a>
             <a href="#" class="btn-secondary">
-              Book Consultation
+              Learn About Coverage
             </a>
           </div>
           
           <div class="hero-guarantees">
             <div class="guarantee-item">
               <div class="guarantee-icon">✓</div>
-              <span>90-day money-back guarantee</span>
+              <span>Real-time eligibility verification</span>
             </div>
             <div class="guarantee-item">
               <div class="guarantee-icon">✓</div>
-              <span>Same-day virtual appointments</span>
+              <span>Direct insurance billing</span>
             </div>
             <div class="guarantee-item">
               <div class="guarantee-icon">✓</div>
-              <span>No insurance required</span>
+              <span>Medicare & Medicaid accepted</span>
             </div>
           </div>
         </div>
         
         <div class="hero-visual">
-          <div class="hero-dashboard">
-            <div class="dashboard-header">
-              <h3 class="dashboard-title">Diabetes Dashboard</h3>
-              <div class="status-indicator">
-                <span>●</span>
-                <span>Optimal</span>
-              </div>
+          <div class="insurance-checker">
+            <div class="checker-header">
+              <h3 class="checker-title">Check Your Coverage</h3>
+              <p class="checker-subtitle">Verify your insurance eligibility in under 60 seconds</p>
             </div>
             
-            <div class="metric-grid">
-              <div class="metric-card">
-                <div class="metric-value">6.8%</div>
-                <div class="metric-label">Current A1C</div>
+            <form>
+              <div class="form-group">
+                <label class="form-label">Insurance Provider</label>
+                <select class="form-select">
+                  <option>Select your insurance...</option>
+                  <option>Aetna</option>
+                  <option>Blue Cross Blue Shield</option>
+                  <option>Cigna</option>
+                  <option>Humana</option>
+                  <option>Medicare</option>
+                  <option>Medicaid</option>
+                  <option>UnitedHealth</option>
+                  <option>Other</option>
+                </select>
               </div>
-              <div class="metric-card">
-                <div class="metric-value">142</div>
-                <div class="metric-label">Avg Glucose</div>
+              
+              <div class="form-group">
+                <label class="form-label">Member ID</label>
+                <input type="text" class="form-input" placeholder="Enter your member ID">
               </div>
-            </div>
-            
-            <div class="chart-placeholder">
-              📊 Real-time glucose trends
-            </div>
-            
-            <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--neutral-500);">
-              <span>Last updated: 2 min ago</span>
-              <span>Next appointment: Tomorrow 2PM</span>
-            </div>
+              
+              <div class="form-group">
+                <label class="form-label">Date of Birth</label>
+                <input type="date" class="form-input">
+              </div>
+              
+              <div class="insurance-badges">
+                <div class="insurance-badge">Medicare</div>
+                <div class="insurance-badge">Medicaid</div>
+                <div class="insurance-badge">BCBS</div>
+                <div class="insurance-badge">Aetna</div>
+                <div class="insurance-badge">Cigna</div>
+                <div class="insurance-badge">+ 495 more</div>
+              </div>
+              
+              <button type="submit" class="check-button">
+                Check My Coverage
+              </button>
+            </form>
           </div>
         </div>
       </div>
@@ -992,224 +962,164 @@
     <!-- Services Section -->
     <section class="services-section">
       <div class="section-header">
-        <div class="section-badge">Advanced Technology</div>
-        <h2 class="section-title">Complete Diabetes Management</h2>
+        <div class="section-badge">Comprehensive Coverage</div>
+        <h2 class="section-title">Insurance-Covered Diabetes Services</h2>
         <p class="section-subtitle">
-          Everything you need for optimal diabetes control, powered by cutting-edge technology and expert care
+          Complete diabetes management services covered by most major insurance plans with zero billing complications
         </p>
       </div>
       
       <div class="services-grid">
         <div class="service-card">
-          <div class="service-icon">🤖</div>
-          <h3 class="service-title">AI-Powered Monitoring</h3>
+          <div class="service-icon">👨‍⚕️</div>
+          <h3 class="service-title">Endocrinologist Consultations</h3>
           <p class="service-description">
-            Advanced algorithms analyze your glucose patterns 24/7, predicting trends and preventing dangerous episodes before they happen.
+            Board-certified endocrinologists provide expert diabetes care covered under your specialist visit benefits.
           </p>
           <ul class="service-features">
-            <li>Real-time glucose tracking</li>
-            <li>Predictive analytics</li>
-            <li>Automated alerts</li>
-            <li>Trend analysis</li>
-            <li>Emergency protocols</li>
+            <li>In-network specialist rates</li>
+            <li>Covered under specialist visits</li>
+            <li>Medicare Part B eligible</li>
+            <li>Prior authorization handled</li>
+            <li>Billing code: 99213-99215</li>
           </ul>
         </div>
         
         <div class="service-card">
-          <div class="service-icon">👨‍⚕️</div>
-          <h3 class="service-title">Expert Endocrinologists</h3>
+          <div class="service-icon">📊</div>
+          <h3 class="service-title">Remote Patient Monitoring (RPM)</h3>
           <p class="service-description">
-            Board-certified diabetes specialists create personalized treatment plans and provide ongoing care through virtual consultations.
+            FDA-approved continuous glucose monitoring devices and data analysis covered under Medicare RPM benefits.
           </p>
           <ul class="service-features">
-            <li>Board-certified specialists</li>
-            <li>Personalized treatment plans</li>
-            <li>Virtual consultations</li>
-            <li>Medication optimization</li>
-            <li>Lifestyle coaching</li>
+            <li>Medicare CPT codes 99453-99458</li>
+            <li>30+ days monitoring coverage</li>
+            <li>Real-time data collection</li>
+            <li>Automated billing submission</li>
+            <li>Provider reimbursement</li>
+          </ul>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">💬</div>
+          <h3 class="service-title">Chronic Care Management (CCM)</h3>
+          <p class="service-description">
+            Comprehensive diabetes care coordination and management services under Medicare CCM program.
+          </p>
+          <ul class="service-features">
+            <li>Medicare CCM codes 99490-99491</li>
+            <li>Care plan development</li>
+            <li>24/7 access to care team</li>
+            <li>Medication management</li>
+            <li>Emergency care coordination</li>
+          </ul>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">🧪</div>
+          <h3 class="service-title">Diagnostic Testing</h3>
+          <p class="service-description">
+            Laboratory tests, A1C monitoring, and diagnostic procedures covered under your medical benefits.
+          </p>
+          <ul class="service-features">
+            <li>Quarterly A1C testing</li>
+            <li>Lipid panel coverage</li>
+            <li>Kidney function tests</li>
+            <li>Insurance pre-authorization</li>
+            <li>Lab network coordination</li>
           </ul>
         </div>
         
         <div class="service-card">
           <div class="service-icon">💊</div>
-          <h3 class="service-title">Precision Medicine</h3>
+          <h3 class="service-title">Medication Management</h3>
           <p class="service-description">
-            Cutting-edge medications and dosing strategies tailored to your unique physiology and lifestyle patterns.
+            Prescription optimization and prior authorization support for diabetes medications and supplies.
           </p>
           <ul class="service-features">
-            <li>Latest diabetes medications</li>
-            <li>Personalized dosing</li>
-            <li>Drug interaction monitoring</li>
-            <li>Side effect management</li>
-            <li>Insurance navigation</li>
+            <li>Prior authorization assistance</li>
+            <li>Formulary optimization</li>
+            <li>Generic alternatives</li>
+            <li>Patient assistance programs</li>
+            <li>Pharmacy benefit coordination</li>
           </ul>
         </div>
         
         <div class="service-card">
-          <div class="service-icon">📱</div>
-          <h3 class="service-title">Integrated Technology</h3>
+          <div class="service-icon">📋</div>
+          <h3 class="service-title">Billing & Claims Management</h3>
           <p class="service-description">
-            Seamless integration with CGMs, smart insulin pens, and health apps for comprehensive diabetes management.
+            Complete insurance billing coordination with dedicated claims specialists to ensure seamless coverage.
           </p>
           <ul class="service-features">
-            <li>CGM integration</li>
-            <li>Smart device connectivity</li>
-            <li>Mobile app suite</li>
-            <li>Data synchronization</li>
-            <li>Family sharing</li>
-          </ul>
-        </div>
-        
-        <div class="service-card">
-          <div class="service-icon">🎯</div>
-          <h3 class="service-title">Lifestyle Optimization</h3>
-          <p class="service-description">
-            Personalized nutrition, exercise, and lifestyle plans designed to work with your schedule and preferences.
-          </p>
-          <ul class="service-features">
-            <li>Nutrition planning</li>
-            <li>Exercise programs</li>
-            <li>Stress management</li>
-            <li>Sleep optimization</li>
-            <li>Behavioral support</li>
-          </ul>
-        </div>
-        
-        <div class="service-card">
-          <div class="service-icon">🏥</div>
-          <h3 class="service-title">Care Coordination</h3>
-          <p class="service-description">
-            Seamless coordination with your existing healthcare team and emergency protocols for peace of mind.
-          </p>
-          <ul class="service-features">
-            <li>Provider communication</li>
-            <li>Emergency protocols</li>
-            <li>Specialist referrals</li>
-            <li>Lab coordination</li>
-            <li>Insurance assistance</li>
+            <li>Direct insurance billing</li>
+            <li>Claims processing support</li>
+            <li>Appeal assistance</li>
+            <li>EOB explanation</li>
+            <li>Payment plan options</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section class="pricing-section">
-      <div class="section-header">
-        <div class="section-badge">Choose Your Plan</div>
-        <h2 class="section-title">Transparent Pricing</h2>
-        <p class="section-subtitle">
-          No hidden fees. No insurance hassles. Just comprehensive diabetes care that fits your budget.
-        </p>
-      </div>
-      
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <h3 class="plan-name">Essential</h3>
-          <p class="plan-description">Perfect for newly diagnosed patients</p>
-          <div class="plan-price">
-            <span class="price-amount">$149</span>
-            <span class="price-period">/month</span>
-          </div>
-          <ul class="plan-features">
-            <li>Monthly endocrinologist consultations</li>
-            <li>Basic glucose monitoring</li>
-            <li>Medication management</li>
-            <li>Educational resources</li>
-            <li>Email support</li>
-          </ul>
-          <a href="#" class="btn-secondary" style="width: 100%; justify-content: center;">Get Started</a>
-        </div>
-        
-        <div class="pricing-card featured">
-          <h3 class="plan-name">Comprehensive</h3>
-          <p class="plan-description">Our most popular plan for optimal care</p>
-          <div class="plan-price">
-            <span class="price-amount">$249</span>
-            <span class="price-period">/month</span>
-          </div>
-          <ul class="plan-features">
-            <li>Bi-weekly specialist consultations</li>
-            <li>AI-powered glucose monitoring</li>
-            <li>Advanced medication optimization</li>
-            <li>24/7 emergency support</li>
-            <li>Lifestyle coaching</li>
-            <li>Family education sessions</li>
-            <li>Lab coordination</li>
-          </ul>
-          <a href="#" class="btn-primary" style="width: 100%; justify-content: center;">Start Free Trial</a>
-        </div>
-        
-        <div class="pricing-card">
-          <h3 class="plan-name">Premium</h3>
-          <p class="plan-description">For complex cases requiring intensive care</p>
-          <div class="plan-price">
-            <span class="price-amount">$399</span>
-            <span class="price-period">/month</span>
-          </div>
-          <ul class="plan-features">
-            <li>Weekly specialist consultations</li>
-            <li>Continuous glucose monitoring</li>
-            <li>Precision medicine protocols</li>
-            <li>24/7 dedicated support team</li>
-            <li>Nutritionist and fitness coach</li>
-            <li>Advanced device integration</li>
-            <li>Priority emergency response</li>
-            <li>Quarterly in-person visits</li>
-          </ul>
-          <a href="#" class="btn-secondary" style="width: 100%; justify-content: center;">Contact Sales</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Social Proof Section -->
-    <section class="social-proof-section">
-      <div class="section-header">
-        <div class="section-badge">Patient Success Stories</div>
-        <h2 class="section-title">Real Results from Real Patients</h2>
-        <p class="section-subtitle">
-          See how our patients achieved better diabetes control and improved quality of life
-        </p>
-      </div>
-      
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p class="testimonial-content">
-            "After 15 years of struggling with diabetes, this is the first time I've felt truly in control. My A1C dropped from 9.2% to 6.8% in just 4 months. The AI monitoring caught my lows before I even felt them."
+    <!-- Insurance Section -->
+    <section class="insurance-section">
+      <div class="insurance-grid">
+        <div class="insurance-content">
+          <div class="section-badge">Accepted Insurance Plans</div>
+          <h2 class="section-title">We Work With Your Insurance</h2>
+          <p class="section-subtitle">
+            Over 500+ insurance plans accepted with real-time eligibility verification and direct billing to eliminate out-of-pocket surprises.
           </p>
-          <div class="testimonial-author">
-            <div class="author-avatar">MR</div>
-            <div class="author-info">
-              <div class="author-name">Maria Rodriguez</div>
-              <div class="author-details">Type 2 Diabetes • 8 months with Heros</div>
+          
+          <div class="insurance-logos">
+            <div class="insurance-logo">Medicare</div>
+            <div class="insurance-logo">Medicaid</div>
+            <div class="insurance-logo">Blue Cross<br>Blue Shield</div>
+            <div class="insurance-logo">Aetna</div>
+            <div class="insurance-logo">Cigna</div>
+            <div class="insurance-logo">Humana</div>
+            <div class="insurance-logo">UnitedHealth</div>
+            <div class="insurance-logo">+ 493 More</div>
+          </div>
+          
+          <p style="color: var(--neutral-600); font-size: 16px; line-height: 1.6;">
+            Don't see your insurance? Contact us for eligibility verification. We work with most major insurance providers and can often find coverage options even for plans not listed.
+          </p>
+        </div>
+        
+        <div class="billing-features">
+          <h3 style="font-size: 20px; font-weight: 700; color: var(--neutral-900); margin-bottom: 24px;">Seamless Billing Process</h3>
+          
+          <div class="billing-feature">
+            <div class="billing-icon">⚡</div>
+            <div class="billing-info">
+              <h4>Instant Eligibility Check</h4>
+              <p>Real-time verification of your benefits and coverage limits before your first appointment.</p>
             </div>
           </div>
-        </div>
-        
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p class="testimonial-content">
-            "The 24/7 support has been life-changing. When I had a severe low at 2 AM, they called me within minutes and talked me through it. I've never felt safer managing my diabetes."
-          </p>
-          <div class="testimonial-author">
-            <div class="author-avatar">JC</div>
-            <div class="author-info">
-              <div class="author-name">James Chen</div>
-              <div class="author-details">Type 1 Diabetes • 1 year with Heros</div>
+          
+          <div class="billing-feature">
+            <div class="billing-icon">🔄</div>
+            <div class="billing-info">
+              <h4>Direct Insurance Billing</h4>
+              <p>We bill your insurance directly for all covered services. No upfront payments or reimbursement hassles.</p>
             </div>
           </div>
-        </div>
-        
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p class="testimonial-content">
-            "The personalized approach made all the difference. Instead of generic advice, I got a plan that worked with my schedule and preferences. Lost 30 pounds and feel better than I have in years."
-          </p>
-          <div class="testimonial-author">
-            <div class="author-avatar">ST</div>
-            <div class="author-info">
-              <div class="author-name">Sarah Thompson</div>
-              <div class="author-details">Pre-diabetes • 6 months with Heros</div>
+          
+          <div class="billing-feature">
+            <div class="billing-icon">📋</div>
+            <div class="billing-info">
+              <h4>Prior Authorization Support</h4>
+              <p>Our team handles all prior authorizations for medications, devices, and procedures.</p>
+            </div>
+          </div>
+          
+          <div class="billing-feature">
+            <div class="billing-icon">💰</div>
+            <div class="billing-info">
+              <h4>Transparent Pricing</h4>
+              <p>Know your exact costs upfront. We provide detailed benefit explanations before treatment begins.</p>
             </div>
           </div>
         </div>
@@ -1219,35 +1129,35 @@
     <!-- CTA Section -->
     <section class="cta-section">
       <div class="cta-content">
-        <h2 class="cta-title">Ready to Transform Your Diabetes Care?</h2>
+        <h2 class="cta-title">Start Your Covered Diabetes Care Today</h2>
         <p class="cta-subtitle">
-          Join thousands of patients who've achieved better control and improved quality of life with our precision diabetes management.
+          Join thousands of patients who've improved their diabetes management with insurance-covered expert care.
         </p>
         
         <div class="cta-buttons">
           <a href="#" class="btn-white">
-            Start Your Free Assessment
+            Check My Insurance Coverage
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
           <a href="#" class="btn-outline-white">
-            Book Consultation
+            Schedule Consultation
           </a>
         </div>
         
         <div class="cta-guarantees">
           <div class="cta-guarantee">
             <span>⚡</span>
-            <span>Same-day appointments available</span>
+            <span>60-second eligibility check</span>
           </div>
           <div class="cta-guarantee">
             <span>🛡️</span>
-            <span>90-day money-back guarantee</span>
+            <span>No surprise billing</span>
           </div>
           <div class="cta-guarantee">
             <span>🏥</span>
-            <span>No insurance required</span>
+            <span>Medicare & Medicaid accepted</span>
           </div>
         </div>
       </div>
@@ -1257,8 +1167,36 @@
 
   <script src="js/webflow.js" type="text/javascript"></script>
   
-  <!-- Smooth scrolling for anchor links -->
+  <!-- Insurance eligibility form functionality -->
   <script>
+    document.querySelector('.check-button').addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const provider = document.querySelector('.form-select').value;
+      const memberId = document.querySelector('input[type="text"]').value;
+      const dob = document.querySelector('input[type="date"]').value;
+      
+      if (!provider || provider === 'Select your insurance...' || !memberId || !dob) {
+        alert('Please fill in all required fields to check your coverage.');
+        return;
+      }
+      
+      // Simulate eligibility check
+      this.innerHTML = 'Checking Coverage...';
+      this.disabled = true;
+      
+      setTimeout(() => {
+        this.innerHTML = '✓ Coverage Verified!';
+        this.style.background = 'var(--success-green)';
+        
+        setTimeout(() => {
+          alert('Great news! Your diabetes care is covered. A care coordinator will contact you within 24 hours to schedule your first appointment.');
+        }, 500);
+      }, 2000);
+    });
+    
+    // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -1286,8 +1224,8 @@
       });
     }, observerOptions);
     
-    // Observe all service cards and testimonials
-    document.querySelectorAll('.service-card, .testimonial-card, .pricing-card').forEach(card => {
+    // Observe all service cards and billing features
+    document.querySelectorAll('.service-card, .billing-feature').forEach(card => {
       observer.observe(card);
     });
   </script>
