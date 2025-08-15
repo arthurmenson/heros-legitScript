@@ -2303,6 +2303,58 @@
     display: none !important;
   }
 }
+
+/* Shift Hero Columns Up One Row on Mobile */
+@media (max-width: 768px) {
+  .div-block-86 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 32px !important;
+  }
+
+  /* Animated column (div-block-87) - Move up first */
+  .div-block-87 {
+    order: -2 !important;
+    margin-top: -40px !important;
+    padding: 0 20px !important;
+    text-align: center !important;
+  }
+
+  /* Fixed column (div-block-88) - Move up second */
+  .div-block-88 {
+    order: -1 !important;
+    margin-top: -20px !important;
+    padding: 0 20px !important;
+  }
+
+  /* Optimize typography for mobile */
+  .div-block-87 .heading-style-h1 {
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 16px !important;
+    text-align: center !important;
+  }
+
+  .div-block-87 .typed-container {
+    text-align: center !important;
+    margin-bottom: 24px !important;
+  }
+
+  .hero-tagline {
+    font-size: 18px !important;
+    text-align: center !important;
+    margin: 16px 0 !important;
+  }
+
+  /* Ensure service cards stack properly in mobile */
+  .div-block-89,
+  .new-service-cards {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    width: 100% !important;
+  }
+}
 </style>
 </head>
 <body>
