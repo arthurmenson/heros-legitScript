@@ -3806,7 +3806,7 @@ margin: 0rem !important;
                     <!-- Conversion Optimization CSS -->
                     <style>
                       .section_home-9 .heading-style-h1 {
-                        color: white !important;
+                        color: #2c2c2c !important;
                         text-align: center;
                         font-size: 48px;
                         margin-bottom: 20px;
@@ -3816,6 +3816,8 @@ margin: 0rem !important;
                         text-align: center;
                         max-width: 800px;
                         margin: 0 auto;
+                        position: relative;
+                        z-index: 2;
                       }
 
                       .section_home-9 a:hover {
@@ -3827,8 +3829,8 @@ margin: 0rem !important;
                       }
 
                       .section_home-9 a[style*="transparent"]:hover {
-                        background: rgba(255, 255, 255, 0.1) !important;
-                        border-color: rgba(255, 255, 255, 0.6) !important;
+                        background: rgba(44, 44, 44, 0.1) !important;
+                        border-color: rgba(44, 44, 44, 0.6) !important;
                       }
 
                       @media (max-width: 768px) {
@@ -3849,6 +3851,11 @@ margin: 0rem !important;
                           width: 100%;
                           max-width: 300px;
                           justify-content: center !important;
+                        }
+
+                        .section_home-9 {
+                          width: 100vw !important;
+                          margin-left: calc(-50vw + 50%) !important;
                         }
                       }
                     </style>
