@@ -2332,7 +2332,7 @@
     margin: 16px 0 !important;
   }
 
-  /* Weight Loss Section - Apply ED Meds Configuration */
+  /* Weight Loss Section - Single Column Mobile Layout */
   .section_wl-hero div[style*="grid-template-columns: 1fr 1fr"] {
     grid-template-columns: 1fr !important;
   }
@@ -2347,9 +2347,10 @@
     padding: 0 20px !important;
   }
 
-  /* Preserve image layouts exactly as designed */
-  .section_wl-hero div[style*="display: grid; gap: 16px"] {
-    flex-wrap: wrap !important;
+  /* Make image grid single column on mobile */
+  .section_wl-hero div[style*="grid-template-columns: 1fr 1fr"][style*="gap: 16px"] {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
   }
 
   /* Keep buttons touch-friendly */
@@ -3919,7 +3920,7 @@ margin: 0rem !important;
                               <span style="color: #ffd700; font-size: 16px;">��</span>
                               <span style="color: #ffd700; font-size: 16px;">★</span>
                               <span style="color: #ffd700; font-size: 16px;">★</span>
-                              <span style="color: #ffd700; font-size: 16px;">���</span>
+                              <span style="color: #ffd700; font-size: 16px;">★</span>
                               <span style="color: #ffd700; font-size: 16px;">★</span>
                             </div>
                             <span style="color: rgba(255,255,255,0.8); font-size: 12px; font-weight: 500;">4.9/5 Rating</span>
