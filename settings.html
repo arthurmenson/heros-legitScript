@@ -719,21 +719,61 @@
         // Initialize
         function init() {
             log('Initializing settings page...');
-            
+
             try {
+                // Check if this is a production domain
+                const isProductionDomain = window.location.hostname.includes('heroshealth.com') ||
+                                         window.location.hostname.includes('heros');
+
+                if (isProductionDomain) {
+                    log('🌐 Production domain detected: ' + window.location.hostname);
+
+                    // Check if settings exist
+                    const existingSettings = localStorage.getItem('herosSiteSettings');
+                    if (!existingSettings) {
+                        log('📝 No settings found on production domain, creating defaults...');
+                        createProductionDefaults();
+                    }
+                }
+
                 loadSettings();
                 log('Settings loaded');
-                
+
                 setupToggleListeners();
                 log('Toggle listeners setup');
-                
+
                 updateStats();
                 log('Stats updated');
-                
-                log('Settings page ready!');
+
+                if (isProductionDomain) {
+                    log('✅ Production settings page ready!');
+                } else {
+                    log('Settings page ready!');
+                }
             } catch (error) {
                 log(`Initialization ERROR: ${error.message}`);
             }
+        }
+
+        // Create production defaults if none exist
+        function createProductionDefaults() {
+            const defaultSettings = {};
+
+            // Enable all settings by default for production
+            document.querySelectorAll('.toggle').forEach(toggle => {
+                const setting = toggle.getAttribute('data-setting');
+                if (setting) {
+                    defaultSettings[setting] = true;
+                }
+            });
+
+            // Add production metadata
+            defaultSettings['production-auto-created'] = true;
+            defaultSettings['domain'] = window.location.hostname;
+            defaultSettings['created-timestamp'] = Date.now();
+
+            localStorage.setItem('herosSiteSettings', JSON.stringify(defaultSettings));
+            log(`📝 Created ${Object.keys(defaultSettings).length} default production settings`);
         }
 
         // Setup toggle listeners with dynamic functionality
