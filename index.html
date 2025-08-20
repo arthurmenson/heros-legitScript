@@ -5453,6 +5453,28 @@ margin: 0rem !important;
     }
   }
 
+  // Apply individual service card settings
+  function applyServiceCardSettings(settings) {
+    const serviceCards = {
+      'menu-skin-care': 'a[href="skin-care.html"].new-card',
+      'menu-hair-regrowth': 'a[href="hair-regrowth.html"].new-card',
+      'menu-nad-plus': 'a[href="nad-plus.html"].new-card'
+    };
+
+    Object.keys(serviceCards).forEach(settingKey => {
+      const element = document.querySelector(serviceCards[settingKey]);
+      if (element) {
+        if (settings[settingKey] === false) {
+          element.style.display = 'none';
+          console.log(`Hidden service card: ${settingKey}`);
+        } else {
+          element.style.display = '';
+          console.log(`Shown service card: ${settingKey}`);
+        }
+      }
+    });
+  }
+
   // Apply product carousel settings
   function applyProductCarouselSettings(settings) {
     const carouselItems = {
