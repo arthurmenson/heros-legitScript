@@ -5472,42 +5472,37 @@ margin: 0rem !important;
     }
   }
 
-  // Verify that settings were applied correctly
+  // Verification function (silent for customers)
   function verifySettingsApplied(settings) {
-    console.log('🔍 Verifying settings application...');
+    // Silent verification - no console output for customers
+    try {
+      const navItems = {
+        'menu-weight-loss': 'a[href="weight-loss.html"]',
+        'menu-mens-ed': 'a[href="mens-ed.html"]',
+        'menu-skin-care': 'a[href="skin-care.html"]',
+        'menu-hair-regrowth': 'a[href="hair-regrowth.html"]',
+        'menu-nad-plus': 'a[href="nad-plus.html"]',
+        'menu-diabetes-care': 'a[href="diabetes-care.html"]'
+      };
 
-    let verificationErrors = 0;
-    const disabledItems = Object.keys(settings).filter(key => settings[key] === false);
+      let verificationErrors = 0;
+      Object.keys(navItems).forEach(settingKey => {
+        if (settings[settingKey] === false) {
+          const elements = document.querySelectorAll(navItems[settingKey]);
+          elements.forEach(element => {
+            if (!element.hasAttribute('data-heros-hidden')) {
+              verificationErrors++;
+            }
+          });
+        }
+      });
 
-    // Check navigation items
-    const navItems = {
-      'menu-weight-loss': 'a[href="weight-loss.html"]',
-      'menu-mens-ed': 'a[href="mens-ed.html"]',
-      'menu-skin-care': 'a[href="skin-care.html"]',
-      'menu-hair-regrowth': 'a[href="hair-regrowth.html"]',
-      'menu-nad-plus': 'a[href="nad-plus.html"]',
-      'menu-diabetes-care': 'a[href="diabetes-care.html"]'
-    };
-
-    Object.keys(navItems).forEach(settingKey => {
-      if (settings[settingKey] === false) {
-        const elements = document.querySelectorAll(navItems[settingKey]);
-        elements.forEach(element => {
-          if (!element.hasAttribute('data-heros-hidden')) {
-            console.error(`❌ Verification failed: ${settingKey} should be hidden but isn't marked`);
-            verificationErrors++;
-          }
-        });
+      // Silent retry if needed
+      if (verificationErrors > 0) {
+        setTimeout(() => applySettings(), 500);
       }
-    });
-
-    if (verificationErrors === 0) {
-      console.log('✅ Settings verification passed');
-    } else {
-      console.error(`❌ Settings verification failed with ${verificationErrors} errors`);
-      // Attempt to reapply settings
-      console.log('🔄 Attempting to reapply settings...');
-      setTimeout(() => applySettings(), 500);
+    } catch (error) {
+      // Silent error handling
     }
   }
 
