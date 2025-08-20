@@ -5946,40 +5946,69 @@ margin: 0rem !important;
     }
   });
 
-  // Also check for settings periodically in case of same-tab updates
+  // Real-time settings monitoring for immediate updates
   let lastSettingsHash = '';
   let lastChangeTimestamp = 0;
+  let isSettingsPageOpen = false;
 
-  setInterval(function() {
-    try {
-      // Check for settings data changes
-      const settingsData = localStorage.getItem('herosSiteSettings');
-      const currentHash = settingsData ? btoa(settingsData) : '';
-
-      // Check for change notification
-      const changeNotification = localStorage.getItem('herosSettingsChange');
-      let changeTimestamp = 0;
-
-      if (changeNotification) {
-        try {
-          const change = JSON.parse(changeNotification);
-          changeTimestamp = change.timestamp || 0;
-        } catch (e) {
-          // Ignore parse errors
-        }
+  // Detect if settings page is open by checking for its activity
+  function detectSettingsPageActivity() {
+    const changeNotification = localStorage.getItem('herosSettingsChange');
+    if (changeNotification) {
+      try {
+        const change = JSON.parse(changeNotification);
+        const timeSinceChange = Date.now() - change.timestamp;
+        isSettingsPageOpen = timeSinceChange < 5000; // Active within last 5 seconds
+      } catch (e) {
+        isSettingsPageOpen = false;
       }
-
-      // Apply settings if hash changed OR if we have a new change notification
-      if (currentHash !== lastSettingsHash || changeTimestamp > lastChangeTimestamp) {
-        console.log('⚡ Settings changed, reapplying...');
-        applySettings();
-        lastSettingsHash = currentHash;
-        lastChangeTimestamp = changeTimestamp;
-      }
-    } catch (error) {
-      console.error('Settings check error:', error);
     }
-  }, 500); // Check more frequently
+  }
+
+  // More frequent checking when settings page is active
+  function startRealtimeMonitoring() {
+    const checkInterval = isSettingsPageOpen ? 100 : 500; // 100ms when active, 500ms when idle
+
+    setTimeout(function() {
+      try {
+        detectSettingsPageActivity();
+
+        // Check for settings data changes
+        const settingsData = localStorage.getItem('herosSiteSettings');
+        const currentHash = settingsData ? btoa(settingsData) : '';
+
+        // Check for change notification
+        const changeNotification = localStorage.getItem('herosSettingsChange');
+        let changeTimestamp = 0;
+
+        if (changeNotification) {
+          try {
+            const change = JSON.parse(changeNotification);
+            changeTimestamp = change.timestamp || 0;
+          } catch (e) {
+            // Ignore parse errors
+          }
+        }
+
+        // Apply settings if hash changed OR if we have a new change notification
+        if (currentHash !== lastSettingsHash || changeTimestamp > lastChangeTimestamp) {
+          applySettings();
+          lastSettingsHash = currentHash;
+          lastChangeTimestamp = changeTimestamp;
+        }
+
+        // Continue monitoring
+        startRealtimeMonitoring();
+
+      } catch (error) {
+        // Silent error handling - continue monitoring
+        setTimeout(startRealtimeMonitoring, 1000);
+      }
+    }, checkInterval);
+  }
+
+  // Start the monitoring
+  startRealtimeMonitoring();
 
 
 </script>
