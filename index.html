@@ -2304,15 +2304,21 @@
   }
 }
 
-/* Fix Top Banner - Hide Duplicate Elements */
+/* Fix Top Banner - Remove All Redundant Static Elements */
 .div-block-79,
-.div-block-80 {
+.div-block-80,
+.bunner_component > .div-block {
   display: none !important;
 }
 
 /* Keep only the proper scrolling banner */
 .bunner_component .scrolling-banner {
   display: flex !important;
+}
+
+/* Hide any standalone banner div-blocks that appear after scrolling banner */
+.bunner_component .scrolling-banner ~ .div-block {
+  display: none !important;
 }
 
 /* Shift Only Animated Text Up One Row on Mobile */
