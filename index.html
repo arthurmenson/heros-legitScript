@@ -5464,7 +5464,7 @@ margin: 0rem !important;
       }
 
       // Site Features
-      console.log('����️ Applying site feature settings...');
+      console.log('��️ Applying site feature settings...');
       try {
         applySiteFeatureSettings(settings);
         console.log('✅ Site feature settings applied');
@@ -5982,86 +5982,7 @@ margin: 0rem !important;
     console.log('✅ Universal settings system ready on any domain');
   });
 
-  function createUniversalStatusIndicator() {
-    const indicator = document.createElement('div');
-    indicator.id = 'universal-status';
-    indicator.style.cssText = `
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: rgba(0,0,0,0.8);
-      color: white;
-      padding: 12px 16px;
-      border-radius: 8px;
-      font-family: monospace;
-      font-size: 12px;
-      z-index: 999997;
-      border-left: 4px solid #667eea;
-      backdrop-filter: blur(10px);
-      max-width: 300px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      transition: all 0.3s ease;
-    `;
-    document.body.appendChild(indicator);
-
-    // Auto-hide after 15 seconds
-    setTimeout(() => {
-      if (indicator.parentElement) {
-        indicator.style.opacity = '0';
-        indicator.style.transform = 'translateY(-20px)';
-        setTimeout(() => indicator.remove(), 300);
-      }
-    }, 15000);
-
-    return indicator;
-  }
-
-  function updateUniversalStatus(indicator) {
-    try {
-      const settingsData = localStorage.getItem('herosSiteSettings');
-      const domain = window.location.hostname;
-
-      if (settingsData) {
-        const settings = JSON.parse(settingsData);
-        const totalSettings = Object.keys(settings).length;
-        const disabledCount = Object.values(settings).filter(v => v === false).length;
-        const enabledCount = totalSettings - disabledCount;
-
-        indicator.innerHTML = `
-          <div style="color: #667eea; font-weight: bold; margin-bottom: 6px;">🌐 Universal Settings Active</div>
-          <div>📍 Domain: ${domain}</div>
-          <div>📊 Total: ${totalSettings} settings</div>
-          <div style="color: #28a745;">✅ Enabled: ${enabledCount}</div>
-          <div style="color: #dc3545;">❌ Disabled: ${disabledCount}</div>
-          <div style="color: #ffc107; font-size: 10px; margin-top: 6px;">Click ⚙️ in bottom-right for controls</div>
-        `;
-        indicator.style.borderLeftColor = '#28a745';
-
-        console.log('✅ Universal settings loaded successfully');
-        console.log(`📊 Settings summary: ${enabledCount} enabled, ${disabledCount} disabled`);
-
-        if (disabledCount > 0) {
-          console.log('🔴 Disabled items:', Object.keys(settings).filter(key => settings[key] === false));
-        }
-      } else {
-        indicator.innerHTML = `
-          <div style="color: #ffc107; font-weight: bold; margin-bottom: 6px;">⚠️ No Settings Found</div>
-          <div>📍 Domain: ${domain}</div>
-          <div>🔄 Creating defaults...</div>
-          <div style="color: #17a2b8; font-size: 10px; margin-top: 6px;">Use ⚙️ menu to configure</div>
-        `;
-        indicator.style.borderLeftColor = '#ffc107';
-        console.log('📝 No settings found, defaults will be created');
-      }
-    } catch (error) {
-      indicator.innerHTML = `
-        <div style="color: #dc3545; font-weight: bold;">❌ Settings Error</div>
-        <div style="font-size: 11px;">${error.message}</div>
-      `;
-      indicator.style.borderLeftColor = '#dc3545';
-      console.error('❌ Universal settings error:', error);
-    }
-  }
+  // Status indicators removed - settings work silently in background
 
   // Listen for storage changes (when settings are updated)
   window.addEventListener('storage', function(e) {
