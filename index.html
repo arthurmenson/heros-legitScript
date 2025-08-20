@@ -5626,9 +5626,21 @@ margin: 0rem !important;
   });
 
   // Also check for settings periodically in case of same-tab updates
+  let lastSettingsHash = '';
   setInterval(function() {
-    applySettings();
-  }, 2000);
+    try {
+      const settingsData = localStorage.getItem('herosSiteSettings');
+      const currentHash = settingsData ? btoa(settingsData) : '';
+
+      if (currentHash !== lastSettingsHash) {
+        console.log('⚡ Settings changed, reapplying...');
+        applySettings();
+        lastSettingsHash = currentHash;
+      }
+    } catch (error) {
+      console.error('Settings check error:', error);
+    }
+  }, 1000);
 
 
 </script>
