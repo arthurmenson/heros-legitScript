@@ -892,6 +892,33 @@
             init();
         });
 
+        // Test main site functionality
+        function testMainSite() {
+            log("Testing main site settings application...");
+
+            try {
+                // Save current settings first
+                saveSettings();
+
+                // Open main site in new window/tab
+                const mainSite = window.open('index.html', '_blank');
+
+                if (mainSite) {
+                    log("Main site opened in new tab. Check if disabled elements are hidden.");
+
+                    // Optional: Focus the new window
+                    setTimeout(() => {
+                        mainSite.focus();
+                    }, 500);
+                } else {
+                    log("ERROR: Could not open main site. Please check popup blocker.");
+                }
+
+            } catch (error) {
+                log(`ERROR testing main site: ${error.message}`);
+            }
+        }
+
         // Handle any errors
         window.addEventListener('error', function(e) {
             log(`GLOBAL ERROR: ${e.message} at line ${e.lineno}`);
