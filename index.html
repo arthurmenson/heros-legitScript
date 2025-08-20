@@ -5929,6 +5929,21 @@ margin: 0rem !important;
     }
   });
 
+  // BroadcastChannel for instant cross-tab communication
+  if (typeof BroadcastChannel !== 'undefined') {
+    try {
+      const settingsChannel = new BroadcastChannel('heros-settings');
+      settingsChannel.addEventListener('message', function(e) {
+        if (e.data && e.data.type === 'heroSettingChanged') {
+          // Instant update from settings page
+          applySettings();
+        }
+      });
+    } catch (error) {
+      // BroadcastChannel not supported in this browser
+    }
+  }
+
   // Enhanced focus detection for immediate updates when returning to tab
   window.addEventListener('focus', function() {
     // Check for changes when user returns to this tab
