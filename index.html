@@ -5463,12 +5463,11 @@ margin: 0rem !important;
       }
 
     } catch (error) {
-      console.error('❌ Critical error applying settings:', error);
-      // Try to recover by showing all elements
+      // Silent error handling - try to recover by showing all elements
       try {
         showAllElements();
       } catch (recoveryError) {
-        console.error('❌ Recovery failed:', recoveryError);
+        // Silent recovery
       }
     }
   }
