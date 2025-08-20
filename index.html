@@ -5464,7 +5464,7 @@ margin: 0rem !important;
       }
 
       // Site Features
-      console.log('��️ Applying site feature settings...');
+      console.log('����️ Applying site feature settings...');
       try {
         applySiteFeatureSettings(settings);
         console.log('✅ Site feature settings applied');
@@ -5977,11 +5977,7 @@ margin: 0rem !important;
     // Apply current settings
     applySettings();
 
-    // Create universal status indicator
-    const statusIndicator = createUniversalStatusIndicator();
-
-    // Update status
-    updateUniversalStatus(statusIndicator);
+    // Settings apply silently in the background - no customer-facing indicators
 
     console.log('✅ Universal settings system ready on any domain');
   });
