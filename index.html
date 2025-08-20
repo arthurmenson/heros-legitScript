@@ -5530,7 +5530,7 @@ margin: 0rem !important;
 
   // Recovery function to show all elements
   function showAllElements() {
-    console.log('🔄 Emergency recovery: showing all elements');
+    console.log('��� Emergency recovery: showing all elements');
 
     const allHiddenElements = document.querySelectorAll('[data-heros-hidden="true"]');
     allHiddenElements.forEach(element => {
@@ -5865,7 +5865,7 @@ margin: 0rem !important;
         return JSON.parse(decoded);
       }
     } catch (error) {
-      console.log('ℹ️ No valid settings in URL');
+      // Silent for customers
     }
     return null;
   }
