@@ -6040,6 +6040,40 @@ margin: 0rem !important;
   // Start the monitoring
   startRealtimeMonitoring();
 
+  // Production domain fix for heroshealth.com
+  if (window.location.hostname.includes('heroshealth.com') || window.location.hostname.includes('heros')) {
+    console.log('🌐 Production domain detected, applying fixes...');
+
+    // Ensure settings exist on production
+    const productionSettingsData = localStorage.getItem('herosSiteSettings');
+    if (!productionSettingsData) {
+      console.log('📝 Creating default settings for production domain...');
+      const defaultProductionSettings = {
+        'menu-weight-loss': true, 'menu-mens-ed': true, 'menu-skin-care': true,
+        'menu-hair-regrowth': true, 'menu-nad-plus': true, 'menu-diabetes-care': true,
+        'section-hero': true, 'section-service-cards': true, 'section-products': true,
+        'section-weight-loss': true, 'section-bmi': true, 'section-ed-meds': true,
+        'section-results': true, 'section-how-it-works': true, 'section-testimonials': true,
+        'section-trust-badges': true, 'section-health-simplified': true,
+        'carousel-weight-loss': true, 'carousel-hair-regrowth': true, 'carousel-mens-ed': true,
+        'carousel-skin-care': true, 'carousel-diabetes-care': true, 'carousel-remote-monitoring': true,
+        'carousel-nad-plus': true, 'feature-top-banner': true, 'feature-navigation': true,
+        'feature-footer': true, 'feature-live-chat': true, 'feature-mobile-optimization': true,
+        'production-auto-created': true, 'domain': window.location.hostname, 'timestamp': Date.now()
+      };
+      localStorage.setItem('herosSiteSettings', JSON.stringify(defaultProductionSettings));
+      console.log('✅ Production settings created automatically');
+    }
+
+    // Force immediate application
+    setTimeout(() => {
+      if (typeof applySettings === 'function') {
+        applySettings();
+        console.log('⚡ Production settings applied');
+      }
+    }, 100);
+  }
+
 
 </script>
 
