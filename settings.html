@@ -1514,5 +1514,19 @@
 
     <!-- Bulletproof Real-time Sync Fix -->
     <script src="realtime-sync-fix.js"></script>
+
+    <!-- Production Preview Fix for heroshealth.com -->
+    <script>
+        // Auto-load production preview fix on production domains
+        if (window.location.hostname.includes('heroshealth.com') || window.location.hostname.includes('heros')) {
+            console.log('🌐 Production domain detected, loading preview fix...');
+
+            const script = document.createElement('script');
+            script.src = 'production-preview-fix.js';
+            script.onload = () => console.log('✅ Production preview fix loaded');
+            script.onerror = () => console.log('⚠️ Could not load production preview fix - using fallback');
+            document.head.appendChild(script);
+        }
+    </script>
 </body>
 </html>
