@@ -5435,15 +5435,20 @@ margin: 0rem !important;
     };
 
     Object.keys(sections).forEach(settingKey => {
-      const element = document.querySelector(sections[settingKey]);
+      const selector = sections[settingKey];
+      const element = document.querySelector(selector);
+      console.log(`Section ${settingKey}: selector="${selector}", found=${!!element}, setting=${settings[settingKey]}`);
+
       if (element) {
         if (settings[settingKey] === false) {
           element.style.display = 'none';
-          console.log(`Hidden section: ${settingKey}`);
+          console.log(`🙈 Hidden section: ${settingKey}`);
         } else {
           element.style.display = '';
-          console.log(`Shown section: ${settingKey}`);
+          console.log(`👁️ Shown section: ${settingKey}`);
         }
+      } else {
+        console.log(`❌ Section element not found for ${settingKey}: ${selector}`);
       }
     });
 
