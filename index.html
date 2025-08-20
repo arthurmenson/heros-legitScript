@@ -5833,38 +5833,7 @@ margin: 0rem !important;
     });
   }
 
-  // Create debug indicator
-  function createDebugIndicator() {
-    const debugDiv = document.createElement('div');
-    debugDiv.id = 'settings-debug';
-    debugDiv.style.cssText = `
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      background: #333;
-      color: white;
-      padding: 10px;
-      border-radius: 5px;
-      font-family: monospace;
-      font-size: 12px;
-      z-index: 10000;
-      max-width: 300px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    `;
-    debugDiv.innerHTML = 'Loading settings...';
-    document.body.appendChild(debugDiv);
-    return debugDiv;
-  }
-
-  // Update debug indicator
-  function updateDebugIndicator(message, type = 'info') {
-    const debugDiv = document.getElementById('settings-debug');
-    if (debugDiv) {
-      const color = type === 'error' ? '#ff4444' : type === 'success' ? '#44ff44' : '#4444ff';
-      debugDiv.style.borderLeft = `4px solid ${color}`;
-      debugDiv.innerHTML = message;
-    }
-  }
+  // Debug functions removed - no customer-facing debug elements
 
   // Universal Settings System (Domain Agnostic)
   function initializeUniversalSettings() {
