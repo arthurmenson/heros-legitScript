@@ -5914,11 +5914,35 @@ margin: 0rem !important;
 
   // Status indicators removed - settings work silently in background
 
-  // Listen for storage changes (when settings are updated)
+  // Enhanced cross-tab and window communication for real-time updates
   window.addEventListener('storage', function(e) {
-    if (e.key === 'herosSiteSettings') {
-      console.log('Settings updated, reapplying...');
+    if (e.key === 'herosSiteSettings' || e.key === 'herosSettingsChange') {
       applySettings();
+    }
+  });
+
+  // Listen for direct messages from settings page
+  window.addEventListener('message', function(e) {
+    if (e.data && e.data.type === 'heroSettingChanged') {
+      // Immediately apply the specific setting change
+      applySettings();
+    }
+  });
+
+  // Enhanced focus detection for immediate updates when returning to tab
+  window.addEventListener('focus', function() {
+    // Check for changes when user returns to this tab
+    const changeNotification = localStorage.getItem('herosSettingsChange');
+    if (changeNotification) {
+      try {
+        const change = JSON.parse(changeNotification);
+        if (change.timestamp > (window.herosLastFocusCheck || 0)) {
+          applySettings();
+          window.herosLastFocusCheck = change.timestamp;
+        }
+      } catch (error) {
+        // Silent error handling
+      }
     }
   });
 
