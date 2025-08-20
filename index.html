@@ -5343,6 +5343,182 @@ margin: 0rem !important;
     setInterval(changeWord, 3000);
   }
 
+  // Settings Control System
+  function applySettings() {
+    try {
+      // Load settings from localStorage
+      const settingsData = localStorage.getItem('herosSiteSettings');
+      if (!settingsData) {
+        console.log('No settings found, showing all elements');
+        return;
+      }
+
+      const settings = JSON.parse(settingsData);
+      console.log('Applying settings:', settings);
+
+      // Navigation Menu Items
+      applyNavMenuSettings(settings);
+
+      // Homepage Sections
+      applyHomepageSectionSettings(settings);
+
+      // Product Carousel Items
+      applyProductCarouselSettings(settings);
+
+      // Site Features
+      applySiteFeatureSettings(settings);
+
+    } catch (error) {
+      console.error('Error applying settings:', error);
+    }
+  }
+
+  // Apply navigation menu settings
+  function applyNavMenuSettings(settings) {
+    const menuItems = {
+      'menu-weight-loss': 'a[href="weight-loss.html"]',
+      'menu-mens-ed': 'a[href="mens-ed.html"]',
+      'menu-skin-care': 'a[href="skin-care.html"]',
+      'menu-hair-regrowth': 'a[href="hair-regrowth.html"]',
+      'menu-nad-plus': 'a[href="nad-plus.html"]',
+      'menu-diabetes-care': 'a[href="diabetes-care.html"]'
+    };
+
+    Object.keys(menuItems).forEach(settingKey => {
+      const element = document.querySelector(menuItems[settingKey]);
+      if (element) {
+        if (settings[settingKey] === false) {
+          element.style.display = 'none';
+          console.log(`Hidden menu item: ${settingKey}`);
+        } else {
+          element.style.display = '';
+          console.log(`Shown menu item: ${settingKey}`);
+        }
+      }
+    });
+  }
+
+  // Apply homepage section settings
+  function applyHomepageSectionSettings(settings) {
+    const sections = {
+      'section-hero': '.section_home-hero',
+      'section-service-cards': '.new-service-cards',
+      'section-products': '.products-carousel',
+      'section-weight-loss': '.section_wl-hero',
+      'section-bmi': '.bmi-calculator-section',
+      'section-ed-meds': '.ed-meds-grid',
+      'section-results': '.results-section',
+      'section-how-it-works': '.how-it-works-grid',
+      'section-testimonials': '.video-testimonials-grid',
+      'section-trust-badges': '.trust-badges',
+      'section-health-simplified': '.health-simplified-section'
+    };
+
+    Object.keys(sections).forEach(settingKey => {
+      const element = document.querySelector(sections[settingKey]);
+      if (element) {
+        if (settings[settingKey] === false) {
+          element.style.display = 'none';
+          console.log(`Hidden section: ${settingKey}`);
+        } else {
+          element.style.display = '';
+          console.log(`Shown section: ${settingKey}`);
+        }
+      }
+    });
+
+    // Special handling for sections that might be wrapped in other containers
+    if (settings['section-weight-loss'] === false) {
+      const weightLossSection = document.querySelector('.section_wl-hero');
+      if (weightLossSection) {
+        weightLossSection.parentElement && (weightLossSection.parentElement.style.display = 'none');
+      }
+    }
+
+    if (settings['section-ed-meds'] === false) {
+      const edMedsContainer = document.querySelector('.ed-meds-grid')?.closest('.section_home-2');
+      if (edMedsContainer) {
+        edMedsContainer.style.display = 'none';
+      }
+    }
+
+    if (settings['section-results'] === false) {
+      const resultsContainer = document.querySelector('.results-section')?.closest('.section_home-4');
+      if (resultsContainer) {
+        resultsContainer.style.display = 'none';
+      }
+    }
+  }
+
+  // Apply product carousel settings
+  function applyProductCarouselSettings(settings) {
+    const carouselItems = {
+      'carousel-weight-loss': '.weight-loss-card',
+      'carousel-hair-regrowth': '.hair-regrowth-card',
+      'carousel-mens-ed': '.mens-ed-card',
+      'carousel-skin-care': '.skin-care-card',
+      'carousel-diabetes-care': '.diabetes-care-card',
+      'carousel-remote-monitoring': '.remote-monitoring-card',
+      'carousel-nad-plus': '.nad-card'
+    };
+
+    Object.keys(carouselItems).forEach(settingKey => {
+      const element = document.querySelector(carouselItems[settingKey]);
+      if (element) {
+        if (settings[settingKey] === false) {
+          element.style.display = 'none';
+          console.log(`Hidden carousel item: ${settingKey}`);
+        } else {
+          element.style.display = '';
+          console.log(`Shown carousel item: ${settingKey}`);
+        }
+      }
+    });
+  }
+
+  // Apply site feature settings
+  function applySiteFeatureSettings(settings) {
+    const features = {
+      'feature-top-banner': '.bunner_component',
+      'feature-navigation': '.nav_menu',
+      'feature-footer': '.section_footer',
+      'feature-live-chat': '.chat-widget',
+      'feature-mobile-optimization': '.mobile-only'
+    };
+
+    Object.keys(features).forEach(settingKey => {
+      const element = document.querySelector(features[settingKey]);
+      if (element) {
+        if (settings[settingKey] === false) {
+          element.style.display = 'none';
+          console.log(`Hidden feature: ${settingKey}`);
+        } else {
+          element.style.display = '';
+          console.log(`Shown feature: ${settingKey}`);
+        }
+      }
+    });
+  }
+
+  // Apply settings when page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page loaded, applying settings...');
+    applySettings();
+  });
+
+  // Listen for storage changes (when settings are updated)
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'herosSiteSettings') {
+      console.log('Settings updated, reapplying...');
+      applySettings();
+    }
+  });
+
+  // Also check for settings periodically in case of same-tab updates
+  setInterval(function() {
+    applySettings();
+  }, 2000);
+
 
 </script>
 </body>
