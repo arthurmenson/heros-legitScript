@@ -4481,7 +4481,7 @@ margin: 0rem !important;
                     <div class="hair-regrowth-cta-container">
                       <a href="hair-regrowth.html" class="hair-regrowth-cta primary">
                         <span class="cta-text">Start Your Hair Journey</span>
-                        <span class="cta-subtext">Free consultation • No commitment</span>
+                        <span class="cta-subtext">Free consultation �� No commitment</span>
                       </a>
                       <div class="urgency-text">Limited spots available this week</div>
                     </div>
@@ -5468,13 +5468,15 @@ margin: 0rem !important;
       const weightLossSection = document.querySelector('.section_wl-hero');
       if (weightLossSection) {
         // Hide the section itself
-        weightLossSection.style.display = 'none';
+        weightLossSection.style.setProperty('display', 'none', 'important');
+        weightLossSection.setAttribute('data-heros-hidden', 'true');
         console.log('🙈 Hidden Weight Loss section via special handling');
 
         // Also hide parent container if it exists
         const parentSection = weightLossSection.closest('section, .section, [class*="section"]');
         if (parentSection && parentSection !== weightLossSection) {
-          parentSection.style.display = 'none';
+          parentSection.style.setProperty('display', 'none', 'important');
+          parentSection.setAttribute('data-heros-hidden', 'true');
           console.log('🙈 Hidden Weight Loss parent container');
         }
       }
