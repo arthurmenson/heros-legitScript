@@ -5514,17 +5514,21 @@ margin: 0rem !important;
 
     Object.keys(carouselItems).forEach(settingKey => {
       const selector = carouselItems[settingKey];
-      const element = document.querySelector(selector);
-      console.log(`Carousel ${settingKey}: selector="${selector}", found=${!!element}, setting=${settings[settingKey]}`);
 
-      if (element) {
-        if (settings[settingKey] === false) {
-          element.style.display = 'none';
-          console.log(`🙈 Hidden carousel item: ${settingKey}`);
-        } else {
-          element.style.display = '';
-          console.log(`👁️ Shown carousel item: ${settingKey}`);
-        }
+      // Find ALL instances of this element (there might be duplicates for carousel)
+      const elements = document.querySelectorAll(selector);
+      console.log(`Carousel ${settingKey}: selector="${selector}", found=${elements.length} elements, setting=${settings[settingKey]}`);
+
+      if (elements.length > 0) {
+        elements.forEach((element, index) => {
+          if (settings[settingKey] === false) {
+            element.style.display = 'none';
+            console.log(`🙈 Hidden carousel item ${index + 1}: ${settingKey}`);
+          } else {
+            element.style.display = '';
+            console.log(`👁️ Shown carousel item ${index + 1}: ${settingKey}`);
+          }
+        });
       } else {
         console.log(`❌ Carousel element not found for ${settingKey}: ${selector}`);
       }
