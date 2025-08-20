@@ -802,54 +802,50 @@
 
         // Apply specific setting to main site elements (DYNAMIC)
         function applySettingToMainSite(settingKey, isEnabled) {
-            // Map settings to selectors
-            const selectorMap = {
-                'menu-diabetes-care': 'a[href="diabetes-care.html"]',
-                'menu-weight-loss': 'a[href="weight-loss.html"]',
-                'menu-mens-ed': 'a[href="mens-ed.html"]',
-                'menu-skin-care': 'a[href="skin-care.html"]',
-                'menu-hair-regrowth': 'a[href="hair-regrowth.html"]',
-                'menu-nad-plus': 'a[href="nad-plus.html"]',
-                'section-weight-loss': '.section_wl-hero',
-                'section-ed-meds': '.ed-meds-grid',
-                'section-results': '.results-section',
-                'section-service-cards': '.new-service-cards',
-                'section-products': '.products-carousel',
-                'carousel-weight-loss': '.weight-loss-card',
-                'carousel-diabetes-care': '.diabetes-care-card',
-                'carousel-hair-regrowth': '.hair-regrowth-card',
-                'carousel-mens-ed': '.mens-ed-card',
-                'carousel-skin-care': '.skin-care-card',
-                'carousel-nad-plus': '.nad-card'
+            // Since we're on the settings page, we can't directly modify the main site
+            // Instead, we'll create a comprehensive settings object that the main site can read
+
+            // Store individual setting for immediate reference
+            localStorage.setItem(`heros_${settingKey}`, isEnabled ? 'true' : 'false');
+
+            // Also store in the main settings object
+            const allSettings = JSON.parse(localStorage.getItem('herosSiteSettings') || '{}');
+            allSettings[settingKey] = isEnabled;
+            localStorage.setItem('herosSiteSettings', JSON.stringify(allSettings));
+
+            // Create a notification script for the main site to pick up changes
+            const changeNotification = {
+                timestamp: Date.now(),
+                setting: settingKey,
+                value: isEnabled,
+                action: 'toggle'
             };
 
-            const selector = selectorMap[settingKey];
-            if (!selector) return;
+            localStorage.setItem('herosSettingsChange', JSON.stringify(changeNotification));
 
-            // Apply to main site if elements exist
+            log(`💾 Stored setting: ${settingKey} = ${isEnabled}`);
+
+            // If we're in a popup or iframe context, try to communicate with parent
             try {
-                const elements = document.querySelectorAll(selector);
-                elements.forEach(element => {
-                    if (isEnabled) {
-                        element.style.removeProperty('display');
-                        element.style.removeProperty('visibility');
-                        element.style.removeProperty('opacity');
-                        element.removeAttribute('data-heros-hidden');
-                        element.classList.remove('heros-force-hidden');
-                    } else {
-                        element.style.setProperty('display', 'none', 'important');
-                        element.style.setProperty('visibility', 'hidden', 'important');
-                        element.style.setProperty('opacity', '0', 'important');
-                        element.setAttribute('data-heros-hidden', 'true');
-                        element.classList.add('heros-force-hidden');
-                    }
-                });
+                if (window.opener) {
+                    window.opener.postMessage({
+                        type: 'heroSettingChanged',
+                        setting: settingKey,
+                        value: isEnabled
+                    }, '*');
+                    log(`📤 Sent message to opener window`);
+                }
 
-                if (elements.length > 0) {
-                    log(`🎯 Applied to ${elements.length} elements: ${selector}`);
+                if (window.parent !== window) {
+                    window.parent.postMessage({
+                        type: 'heroSettingChanged',
+                        setting: settingKey,
+                        value: isEnabled
+                    }, '*');
+                    log(`📤 Sent message to parent window`);
                 }
             } catch (error) {
-                log(`ERROR applying to main site: ${error.message}`);
+                log(`INFO: Not in popup/iframe context: ${error.message}`);
             }
         }
 
