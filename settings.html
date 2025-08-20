@@ -923,33 +923,38 @@
             }
         }
 
-        // Save settings to localStorage with error handling
+        // Save settings to localStorage (now automatic with dynamic toggles)
         function saveSettings() {
             try {
                 localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
-                log(`Saved ${Object.keys(settings).length} settings to storage`);
-                
+                log(`💾 Saved ${Object.keys(settings).length} settings to storage`);
+
                 // Show success feedback
-                const btn = event.target;
-                const originalText = btn.textContent;
-                btn.textContent = 'Saved!';
-                btn.classList.add('success');
-                
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.classList.remove('success');
-                }, 2000);
-                
+                const btn = event?.target;
+                if (btn) {
+                    const originalText = btn.textContent;
+                    btn.textContent = '✅ Saved!';
+                    btn.classList.add('success');
+
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.classList.remove('success');
+                    }, 2000);
+                }
+
+                // Apply all settings to main site
+                applyAllSettingsToMainSite();
+
             } catch (error) {
                 log(`ERROR saving settings: ${error.message}`);
                 alert('Error saving settings!');
             }
         }
 
-        // Reset all settings with error handling
+        // Reset all settings with dynamic application
         function resetSettings() {
             try {
-                if (confirm('Reset all settings to default? This cannot be undone.')) {
+                if (confirm('Reset all settings to default? This will enable all items and apply changes immediately.')) {
                     const toggles = document.querySelectorAll('.toggle');
                     toggles.forEach(toggle => {
                         const setting = toggle.getAttribute('data-setting');
@@ -957,14 +962,30 @@
                             settings[setting] = true;
                             toggle.classList.add('active');
                             updateStatusIndicator(toggle, true);
+
+                            // Apply to main site immediately
+                            applySettingToMainSite(setting, true);
                         }
                     });
+
                     updateStats();
-                    log('All settings reset to default');
+                    localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
+
+                    // Show feedback
+                    showDynamicFeedback('all-settings', true);
+                    log('✅ All settings reset to default and applied');
                 }
             } catch (error) {
                 log(`ERROR resetting settings: ${error.message}`);
             }
+        }
+
+        // Apply all current settings to main site
+        function applyAllSettingsToMainSite() {
+            Object.keys(settings).forEach(settingKey => {
+                applySettingToMainSite(settingKey, settings[settingKey]);
+            });
+            log('🎯 Applied all settings to main site');
         }
 
         // Update statistics with error handling
