@@ -5563,10 +5563,12 @@ margin: 0rem !important;
       if (elements.length > 0) {
         elements.forEach((element, index) => {
           if (settings[settingKey] === false) {
-            element.style.display = 'none';
+            element.style.setProperty('display', 'none', 'important');
+            element.setAttribute('data-heros-hidden', 'true');
             console.log(`🙈 Hidden carousel item ${index + 1}: ${settingKey}`);
           } else {
-            element.style.display = '';
+            element.style.removeProperty('display');
+            element.removeAttribute('data-heros-hidden');
             console.log(`👁️ Shown carousel item ${index + 1}: ${settingKey}`);
           }
         });
