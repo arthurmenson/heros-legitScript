@@ -5441,13 +5441,10 @@ margin: 0rem !important;
         // Silent error handling
       }
 
-      // Product Carousel Items
-      console.log('🎠 Applying product carousel settings...');
       try {
         applyProductCarouselSettings(settings);
-        console.log('✅ Product carousel settings applied');
       } catch (error) {
-        console.error('❌ Error applying carousel settings:', error);
+        // Silent error handling
       }
 
       // Site Features
