@@ -1515,24 +1515,79 @@
     <!-- Bulletproof Real-time Sync Fix -->
     <script src="realtime-sync-fix.js"></script>
 
-    <!-- Production Preview Fix for heroshealth.com -->
+    <!-- Production Fixes for heroshealth.com -->
     <script>
-        // Auto-load production preview fix on production domains
+        // Auto-load production fixes on heroshealth.com
         if (window.location.hostname.includes('heroshealth.com') || window.location.hostname.includes('heros')) {
-            console.log('🌐 Production domain detected, loading preview fix...');
+            console.log('🏥 Heroshealth.com detected, loading production fixes...');
 
-            const previewScript = document.createElement('script');
-            previewScript.src = 'production-preview-fix.js';
-            previewScript.onload = () => console.log('✅ Production preview fix loaded');
-            previewScript.onerror = () => console.log('⚠️ Could not load production preview fix - using fallback');
-            document.head.appendChild(previewScript);
+            // Critical: Toggle functionality fix (load first)
+            const toggleScript = document.createElement('script');
+            toggleScript.src = 'heroshealth-toggle-fix.js';
+            toggleScript.onload = () => {
+                console.log('✅ Heroshealth toggle fix loaded');
 
-            // Load verification script for diagnostics
-            const verifyScript = document.createElement('script');
-            verifyScript.src = 'verify-production-status.js';
-            verifyScript.onload = () => console.log('✅ Production verification loaded');
-            verifyScript.onerror = () => console.log('⚠️ Could not load production verification');
-            document.head.appendChild(verifyScript);
+                // Load other fixes after toggle fix is ready
+                const previewScript = document.createElement('script');
+                previewScript.src = 'production-preview-fix.js';
+                previewScript.onload = () => console.log('✅ Production preview fix loaded');
+                previewScript.onerror = () => console.log('⚠️ Could not load production preview fix');
+                document.head.appendChild(previewScript);
+
+                // Load verification script for diagnostics
+                const verifyScript = document.createElement('script');
+                verifyScript.src = 'verify-production-status.js';
+                verifyScript.onload = () => console.log('✅ Production verification loaded');
+                verifyScript.onerror = () => console.log('⚠️ Could not load production verification');
+                document.head.appendChild(verifyScript);
+            };
+            toggleScript.onerror = () => {
+                console.log('⚠️ Could not load toggle fix - using inline fallback');
+
+                // Inline fallback for toggle fix
+                setTimeout(() => {
+                    const toggles = document.querySelectorAll('.toggle');
+                    console.log(`🔧 Fallback: Found ${toggles.length} toggles, fixing...`);
+
+                    toggles.forEach((toggle, i) => {
+                        const newToggle = toggle.cloneNode(true);
+                        toggle.parentNode.replaceChild(newToggle, toggle);
+
+                        newToggle.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            const setting = this.getAttribute('data-setting');
+                            if (!setting) return;
+
+                            const isActive = this.classList.contains('active');
+                            const newState = !isActive;
+
+                            if (newState) {
+                                this.classList.add('active');
+                            } else {
+                                this.classList.remove('active');
+                            }
+
+                            // Save to localStorage
+                            const settings = JSON.parse(localStorage.getItem('herosSiteSettings') || '{}');
+                            settings[setting] = newState;
+                            localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
+
+                            // Create change notification
+                            localStorage.setItem('herosSettingsChange', JSON.stringify({
+                                timestamp: Date.now(),
+                                setting: setting,
+                                value: newState,
+                                source: 'fallback-fix'
+                            }));
+
+                            console.log(`✅ Fallback: ${setting} = ${newState}`);
+                        });
+
+                        console.log(`✅ Fallback toggle ${i} fixed`);
+                    });
+                }, 500);
+            };
+            document.head.appendChild(toggleScript);
         }
     </script>
 </body>
