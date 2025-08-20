@@ -5346,30 +5346,45 @@ margin: 0rem !important;
   // Settings Control System
   function applySettings() {
     try {
+      console.log('=== HEROS SETTINGS DEBUG ===');
+      console.log('Checking localStorage for settings...');
+
       // Load settings from localStorage
       const settingsData = localStorage.getItem('herosSiteSettings');
+      console.log('Raw settings data:', settingsData);
+
       if (!settingsData) {
-        console.log('No settings found, showing all elements');
+        console.log('❌ No settings found, showing all elements');
         return;
       }
 
       const settings = JSON.parse(settingsData);
-      console.log('Applying settings:', settings);
+      console.log('✅ Parsed settings:', settings);
+
+      // Count disabled items
+      const disabledItems = Object.keys(settings).filter(key => settings[key] === false);
+      console.log(`📊 Found ${disabledItems.length} disabled items:`, disabledItems);
 
       // Navigation Menu Items
+      console.log('🔗 Applying navigation menu settings...');
       applyNavMenuSettings(settings);
 
       // Homepage Sections
+      console.log('📄 Applying homepage section settings...');
       applyHomepageSectionSettings(settings);
 
       // Product Carousel Items
+      console.log('🎠 Applying product carousel settings...');
       applyProductCarouselSettings(settings);
 
       // Site Features
+      console.log('⚙️ Applying site feature settings...');
       applySiteFeatureSettings(settings);
 
+      console.log('✅ Settings application complete!');
+
     } catch (error) {
-      console.error('Error applying settings:', error);
+      console.error('❌ Error applying settings:', error);
     }
   }
 
