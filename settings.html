@@ -1135,6 +1135,66 @@
             }
         }
 
+        // Verify current settings in localStorage
+        function verifySettings() {
+            log("=== SETTINGS VERIFICATION ===");
+
+            try {
+                // Check main settings object
+                const mainSettings = localStorage.getItem('herosSiteSettings');
+                if (mainSettings) {
+                    const parsed = JSON.parse(mainSettings);
+                    log(`✅ Main settings found: ${Object.keys(parsed).length} items`);
+
+                    // Show first few settings as examples
+                    const examples = Object.keys(parsed).slice(0, 3);
+                    examples.forEach(key => {
+                        log(`   - ${key}: ${parsed[key]}`);
+                    });
+
+                    if (Object.keys(parsed).length > 3) {
+                        log(`   ... and ${Object.keys(parsed).length - 3} more`);
+                    }
+                } else {
+                    log("❌ No main settings found in localStorage");
+                }
+
+                // Check individual settings
+                const individualCount = Object.keys(localStorage).filter(key => key.startsWith('heros_')).length;
+                log(`📝 Individual settings: ${individualCount} items`);
+
+                // Check change notification
+                const changeNotification = localStorage.getItem('herosSettingsChange');
+                if (changeNotification) {
+                    const change = JSON.parse(changeNotification);
+                    log(`🔔 Last change: ${change.setting} = ${change.value} at ${new Date(change.timestamp).toLocaleTimeString()}`);
+                } else {
+                    log("📭 No change notifications found");
+                }
+
+                // Test localStorage functionality
+                try {
+                    const testKey = 'heros_test_' + Date.now();
+                    localStorage.setItem(testKey, 'test-value');
+                    const retrieved = localStorage.getItem(testKey);
+                    localStorage.removeItem(testKey);
+
+                    if (retrieved === 'test-value') {
+                        log("✅ localStorage read/write: Working perfectly");
+                    } else {
+                        log("❌ localStorage read/write: Failed");
+                    }
+                } catch (error) {
+                    log(`❌ localStorage test error: ${error.message}`);
+                }
+
+                log("=== VERIFICATION COMPLETE ===");
+
+            } catch (error) {
+                log(`ERROR during verification: ${error.message}`);
+            }
+        }
+
         // Handle any errors
         window.addEventListener('error', function(e) {
             log(`GLOBAL ERROR: ${e.message} at line ${e.lineno}`);
