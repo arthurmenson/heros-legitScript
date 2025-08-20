@@ -4366,7 +4366,7 @@ margin: 0rem !important;
                       <span style="color: #ffd700; font-size: 14px;">★</span>
                       <span style="color: #ffd700; font-size: 14px;">★</span>
                       <span style="color: #ffd700; font-size: 14px;">★</span>
-                      <span style="color: #ffd700; font-size: 14px;">��</span>
+                      <span style="color: #ffd700; font-size: 14px;">★</span>
                     </div>
                     <span style="color: #666; font-size: 13px; font-weight: 500;">4.8/5 from 12,000+ reviews</span>
                   </div>
@@ -5721,6 +5721,9 @@ margin: 0rem !important;
   // Apply settings when page loads
   document.addEventListener('DOMContentLoaded', function() {
     console.log('Page loaded, applying settings...');
+
+    // First capture original display values
+    captureOriginalDisplayValues();
 
     const debugIndicator = createDebugIndicator();
 
