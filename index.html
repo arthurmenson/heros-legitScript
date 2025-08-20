@@ -2387,6 +2387,19 @@
   .section_wl-hero a {
     min-height: 44px;
   }
+
+  /* HEROS Settings System - Force hiding class as backup */
+  .heros-force-hidden {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+  }
 }
 </style>
 </head>
@@ -5451,7 +5464,7 @@ margin: 0rem !important;
       }
 
       // Site Features
-      console.log('⚙️ Applying site feature settings...');
+      console.log('��️ Applying site feature settings...');
       try {
         applySiteFeatureSettings(settings);
         console.log('✅ Site feature settings applied');
