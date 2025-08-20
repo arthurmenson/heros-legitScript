@@ -53,12 +53,12 @@
     // Settings page sync initialization
     function initSettingsPageSync() {
         console.log('⚙️ Initializing settings page broadcasting...');
-        
-        // Override any existing toggle functions
+
+        // Use a gentle approach that doesn't break existing functionality
         setTimeout(() => {
             setupSettingsPageBroadcast();
-        }, 1000);
-        
+        }, 500); // Shorter delay
+
         console.log('✅ Settings page broadcasting initialized');
     }
     
