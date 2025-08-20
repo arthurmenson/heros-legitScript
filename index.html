@@ -5435,13 +5435,10 @@ margin: 0rem !important;
         // Silent error handling
       }
 
-      // Homepage Sections
-      console.log('📄 Applying homepage section settings...');
       try {
         applyHomepageSectionSettings(settings);
-        console.log('✅ Homepage section settings applied');
       } catch (error) {
-        console.error('❌ Error applying section settings:', error);
+        // Silent error handling
       }
 
       // Product Carousel Items
