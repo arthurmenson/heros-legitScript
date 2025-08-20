@@ -638,9 +638,25 @@
         </div>
 
         <div class="buttons">
-            <button class="btn" onclick="saveSettings()">Save Changes</button>
-            <button class="btn" onclick="resetSettings()">Reset All</button>
-            <button class="btn" onclick="testMainSite()" style="background: #2196F3;">Test on Main Site</button>
+            <button class="btn" onclick="saveSettings()">💾 Save All Changes</button>
+            <button class="btn" onclick="resetSettings()">🔄 Reset All</button>
+            <button class="btn" onclick="testMainSite()" style="background: #2196F3;">🔍 Test on Main Site</button>
+            <button class="btn" onclick="togglePreview()" style="background: #28a745;">👁️ Live Preview</button>
+        </div>
+
+        <!-- Dynamic Preview Section -->
+        <div id="preview-section" style="display: none; margin-top: 30px;">
+            <div class="card">
+                <h2>🔍 Live Preview</h2>
+                <p>See your changes in real-time. This preview updates automatically as you toggle settings.</p>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <iframe id="preview-iframe" src="index.html" style="width: 100%; height: 500px; border: 1px solid #ddd; border-radius: 6px;"></iframe>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <button class="btn" onclick="refreshPreview()">🔄 Refresh Preview</button>
+                    <button class="btn" onclick="togglePreview()" style="background: #6c757d;">❌ Close Preview</button>
+                </div>
+            </div>
         </div>
     </div>
 
