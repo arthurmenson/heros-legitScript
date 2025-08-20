@@ -6141,88 +6141,108 @@ margin: 0rem !important;
     });
   }
 
-  // Apply settings when page loads
+  // Universal domain-agnostic initialization
   document.addEventListener('DOMContentLoaded', function() {
-    console.log('Page loaded, applying settings...');
+    console.log('🌐 Universal Heros Settings System Loading...');
 
-    // First capture original display values
+    // Initialize universal settings system first
+    initializeUniversalSettings();
+
+    // Capture original display values
     captureOriginalDisplayValues();
 
-    const debugIndicator = createDebugIndicator();
+    // Apply current settings
+    applySettings();
 
-    // Test localStorage and detect cross-domain issues
-    const testMsg = [];
+    // Create universal status indicator
+    const statusIndicator = createUniversalStatusIndicator();
+
+    // Update status
+    updateUniversalStatus(statusIndicator);
+
+    console.log('✅ Universal settings system ready on any domain');
+  });
+
+  function createUniversalStatusIndicator() {
+    const indicator = document.createElement('div');
+    indicator.id = 'universal-status';
+    indicator.style.cssText = `
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 12px;
+      z-index: 999997;
+      border-left: 4px solid #667eea;
+      backdrop-filter: blur(10px);
+      max-width: 300px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    `;
+    document.body.appendChild(indicator);
+
+    // Auto-hide after 15 seconds
+    setTimeout(() => {
+      if (indicator.parentElement) {
+        indicator.style.opacity = '0';
+        indicator.style.transform = 'translateY(-20px)';
+        setTimeout(() => indicator.remove(), 300);
+      }
+    }, 15000);
+
+    return indicator;
+  }
+
+  function updateUniversalStatus(indicator) {
     try {
       const settingsData = localStorage.getItem('herosSiteSettings');
-      const currentDomain = window.location.origin;
-      const isProduction = currentDomain.includes('fly.dev') || currentDomain.includes('herokuapp') || !currentDomain.includes('localhost');
-
-      console.log(`🌐 Current domain: ${currentDomain}`);
-      testMsg.push(`Domain: ${currentDomain.replace('https://', '')}`);
-      testMsg.push(`LocalStorage: ${settingsData ? 'FOUND' : 'EMPTY'}`);
+      const domain = window.location.hostname;
 
       if (settingsData) {
         const settings = JSON.parse(settingsData);
-        const disabledCount = Object.keys(settings).filter(key => settings[key] === false).length;
-        testMsg.push(`${disabledCount} items disabled`);
-        updateDebugIndicator(testMsg.join('<br>'), 'success');
+        const totalSettings = Object.keys(settings).length;
+        const disabledCount = Object.values(settings).filter(v => v === false).length;
+        const enabledCount = totalSettings - disabledCount;
 
-        console.log('✅ Settings found and loaded successfully');
-        console.log('📊 Disabled items:', Object.keys(settings).filter(key => settings[key] === false));
+        indicator.innerHTML = `
+          <div style="color: #667eea; font-weight: bold; margin-bottom: 6px;">🌐 Universal Settings Active</div>
+          <div>📍 Domain: ${domain}</div>
+          <div>📊 Total: ${totalSettings} settings</div>
+          <div style="color: #28a745;">✅ Enabled: ${enabledCount}</div>
+          <div style="color: #dc3545;">❌ Disabled: ${disabledCount}</div>
+          <div style="color: #ffc107; font-size: 10px; margin-top: 6px;">Click ⚙️ in bottom-right for controls</div>
+        `;
+        indicator.style.borderLeftColor = '#28a745';
 
-      } else {
-        if (isProduction) {
-          testMsg.push('⚠️ No settings on production domain');
-          updateDebugIndicator(testMsg.join('<br>'), 'warning');
-          console.log('⚠️ CROSS-DOMAIN ISSUE: No settings found on production domain');
-          console.log('💡 Solution: Configure settings directly on this domain, or use localhost for testing');
-          console.log('🔧 Use debug-settings.html to create test settings on this domain');
-        } else {
-          testMsg.push('No settings configured yet');
-          updateDebugIndicator(testMsg.join('<br>'), 'info');
-          console.log('ℹ️ No settings found - configure via settings.html');
+        console.log('✅ Universal settings loaded successfully');
+        console.log(`📊 Settings summary: ${enabledCount} enabled, ${disabledCount} disabled`);
+
+        if (disabledCount > 0) {
+          console.log('🔴 Disabled items:', Object.keys(settings).filter(key => settings[key] === false));
         }
+      } else {
+        indicator.innerHTML = `
+          <div style="color: #ffc107; font-weight: bold; margin-bottom: 6px;">⚠️ No Settings Found</div>
+          <div>📍 Domain: ${domain}</div>
+          <div>🔄 Creating defaults...</div>
+          <div style="color: #17a2b8; font-size: 10px; margin-top: 6px;">Use ⚙️ menu to configure</div>
+        `;
+        indicator.style.borderLeftColor = '#ffc107';
+        console.log('📝 No settings found, defaults will be created');
       }
     } catch (error) {
-      testMsg.push(`ERROR: ${error.message}`);
-      updateDebugIndicator(testMsg.join('<br>'), 'error');
+      indicator.innerHTML = `
+        <div style="color: #dc3545; font-weight: bold;">❌ Settings Error</div>
+        <div style="font-size: 11px;">${error.message}</div>
+      `;
+      indicator.style.borderLeftColor = '#dc3545';
+      console.error('❌ Universal settings error:', error);
     }
-
-    applySettings();
-
-    // Add manual test button
-    const testButton = document.createElement('button');
-    testButton.textContent = '🧪 Test Settings';
-    testButton.style.cssText = `
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      background: #ff6b6b;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      z-index: 10001;
-      font-weight: bold;
-    `;
-    testButton.onclick = function() {
-      console.log('🧪 Manual Settings Test Started');
-      applySettings();
-      alert('Settings test complete! Check console for details.');
-    };
-    document.body.appendChild(testButton);
-
-    // Universal settings initialization (domain agnostic)
-    initializeUniversalSettings();
-
-    // Remove debug indicator after 10 seconds (extended for debugging)
-    setTimeout(() => {
-      if (debugIndicator) {
-        debugIndicator.remove();
-      }
-    }, 10000);
-  });
+  }
 
   // Listen for storage changes (when settings are updated)
   window.addEventListener('storage', function(e) {
