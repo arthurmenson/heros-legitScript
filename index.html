@@ -5999,20 +5999,38 @@ margin: 0rem !important;
 
   // Also check for settings periodically in case of same-tab updates
   let lastSettingsHash = '';
+  let lastChangeTimestamp = 0;
+
   setInterval(function() {
     try {
+      // Check for settings data changes
       const settingsData = localStorage.getItem('herosSiteSettings');
       const currentHash = settingsData ? btoa(settingsData) : '';
 
-      if (currentHash !== lastSettingsHash) {
+      // Check for change notification
+      const changeNotification = localStorage.getItem('herosSettingsChange');
+      let changeTimestamp = 0;
+
+      if (changeNotification) {
+        try {
+          const change = JSON.parse(changeNotification);
+          changeTimestamp = change.timestamp || 0;
+        } catch (e) {
+          // Ignore parse errors
+        }
+      }
+
+      // Apply settings if hash changed OR if we have a new change notification
+      if (currentHash !== lastSettingsHash || changeTimestamp > lastChangeTimestamp) {
         console.log('⚡ Settings changed, reapplying...');
         applySettings();
         lastSettingsHash = currentHash;
+        lastChangeTimestamp = changeTimestamp;
       }
     } catch (error) {
       console.error('Settings check error:', error);
     }
-  }, 1000);
+  }, 500); // Check more frequently
 
 
 </script>
