@@ -5463,21 +5463,56 @@ margin: 0rem !important;
     if (settings['section-weight-loss'] === false) {
       const weightLossSection = document.querySelector('.section_wl-hero');
       if (weightLossSection) {
-        weightLossSection.parentElement && (weightLossSection.parentElement.style.display = 'none');
+        // Hide the section itself
+        weightLossSection.style.display = 'none';
+        console.log('🙈 Hidden Weight Loss section via special handling');
+
+        // Also hide parent container if it exists
+        const parentSection = weightLossSection.closest('section, .section, [class*="section"]');
+        if (parentSection && parentSection !== weightLossSection) {
+          parentSection.style.display = 'none';
+          console.log('🙈 Hidden Weight Loss parent container');
+        }
+      }
+    } else if (settings['section-weight-loss'] === true || settings['section-weight-loss'] === undefined) {
+      // Re-show weight loss section if enabled
+      const weightLossSection = document.querySelector('.section_wl-hero');
+      if (weightLossSection) {
+        weightLossSection.style.display = '';
+        const parentSection = weightLossSection.closest('section, .section, [class*="section"]');
+        if (parentSection && parentSection !== weightLossSection) {
+          parentSection.style.display = '';
+        }
       }
     }
 
     if (settings['section-ed-meds'] === false) {
-      const edMedsContainer = document.querySelector('.ed-meds-grid')?.closest('.section_home-2');
-      if (edMedsContainer) {
-        edMedsContainer.style.display = 'none';
+      const edMedsGrid = document.querySelector('.ed-meds-grid');
+      if (edMedsGrid) {
+        // Find the closest section container
+        const edMedsContainer = edMedsGrid.closest('section, .section, [class*="section"]');
+        if (edMedsContainer) {
+          edMedsContainer.style.display = 'none';
+          console.log('🙈 Hidden ED Meds section container');
+        } else {
+          edMedsGrid.style.display = 'none';
+          console.log('🙈 Hidden ED Meds grid directly');
+        }
       }
     }
 
     if (settings['section-results'] === false) {
-      const resultsContainer = document.querySelector('.results-section')?.closest('.section_home-4');
-      if (resultsContainer) {
-        resultsContainer.style.display = 'none';
+      const resultsSection = document.querySelector('.results-section');
+      if (resultsSection) {
+        // Find the closest section container
+        const resultsContainer = resultsSection.closest('section, .section, [class*="section"]');
+        if (resultsContainer) {
+          resultsContainer.style.display = 'none';
+          console.log('🙈 Hidden Results section container');
+        } else {
+          resultsSection.style.display = 'none';
+          console.log('🙈 Hidden Results section directly');
+        }
       }
     }
   }
