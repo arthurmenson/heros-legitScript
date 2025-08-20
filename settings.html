@@ -541,83 +541,146 @@
   </div>
 
   <script>
+    console.log('Settings page loaded');
+
     // Load settings from localStorage
     function loadSettings() {
-      const settings = JSON.parse(localStorage.getItem('siteSettings') || '{}');
-      
-      // Apply saved settings to toggles
-      Object.keys(settings).forEach(key => {
-        const toggle = document.getElementById(key);
-        if (toggle) {
-          toggle.checked = settings[key];
-          updateStatusIndicator(key, settings[key]);
-        }
-      });
-      
-      updateStats();
+      try {
+        const settings = JSON.parse(localStorage.getItem('siteSettings') || '{}');
+        console.log('Loaded settings:', settings);
+
+        // Apply saved settings to toggles
+        Object.keys(settings).forEach(key => {
+          const toggle = document.getElementById(key);
+          if (toggle) {
+            toggle.checked = settings[key];
+            updateStatusIndicator(key, settings[key]);
+          }
+        });
+
+        updateStats();
+      } catch (error) {
+        console.error('Error loading settings:', error);
+      }
     }
 
     // Save settings to localStorage
     function saveSettings() {
-      const settings = {};
-      const toggles = document.querySelectorAll('input[type="checkbox"]');
-      
-      toggles.forEach(toggle => {
-        settings[toggle.id] = toggle.checked;
-      });
-      
-      localStorage.setItem('siteSettings', JSON.stringify(settings));
-      
-      // Show success message
-      const button = document.querySelector('.save-button');
-      const originalText = button.innerHTML;
-      button.innerHTML = 'Saved! ✅';
-      button.style.background = '#10b981';
-      
-      setTimeout(() => {
-        button.innerHTML = originalText;
-        button.style.background = '#1a1a1a';
-      }, 2000);
-      
-      updateStats();
+      try {
+        const settings = {};
+        const toggles = document.querySelectorAll('input[type="checkbox"]');
+
+        toggles.forEach(toggle => {
+          settings[toggle.id] = toggle.checked;
+        });
+
+        localStorage.setItem('siteSettings', JSON.stringify(settings));
+        console.log('Settings saved:', settings);
+
+        // Show success message
+        const button = document.querySelector('.save-button');
+        const originalText = button.innerHTML;
+        button.innerHTML = 'Saved! ✅';
+        button.style.background = '#10b981';
+
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.style.background = '#1a1a1a';
+        }, 2000);
+
+        updateStats();
+      } catch (error) {
+        console.error('Error saving settings:', error);
+        alert('Error saving settings. Please try again.');
+      }
     }
 
     // Update status indicators
     function updateStatusIndicator(id, isActive) {
-      const indicator = document.querySelector(`label[for="${id}"]`)?.parentElement?.querySelector('.status-indicator');
-      if (indicator) {
-        indicator.className = `status-indicator ${isActive ? 'status-live' : 'status-offline'}`;
+      try {
+        const listItem = document.querySelector(`input[id="${id}"]`)?.closest('li');
+        const indicator = listItem?.querySelector('.status-indicator');
+        if (indicator) {
+          indicator.className = `status-indicator ${isActive ? 'status-live' : 'status-offline'}`;
+        }
+      } catch (error) {
+        console.error('Error updating status indicator:', error);
       }
     }
 
     // Update statistics
     function updateStats() {
-      const products = ['weight-loss', 'mens-ed', 'skin-care', 'hair-regrowth', 'nad-plus', 'diabetes-care'];
-      const features = ['bmi-calculator', 'video-testimonials', 'trust-badges', 'live-chat'];
-      const pages = ['weight-loss-page', 'diabetes-care-page', 'blog-page', 'faq-page', 'contact-page'];
-      
-      const activeProducts = products.filter(id => document.getElementById(id)?.checked).length;
-      const activeFeatures = features.filter(id => document.getElementById(id)?.checked).length;
-      const activePages = pages.filter(id => document.getElementById(id)?.checked).length;
-      
-      document.getElementById('active-products').textContent = activeProducts;
-      document.getElementById('active-features').textContent = activeFeatures;
-      document.getElementById('active-pages').textContent = activePages;
+      try {
+        const products = ['weight-loss', 'mens-ed', 'skin-care', 'hair-regrowth', 'nad-plus', 'diabetes-care'];
+        const features = ['bmi-calculator', 'video-testimonials', 'trust-badges', 'live-chat'];
+        const pages = ['weight-loss-page', 'diabetes-care-page', 'blog-page', 'faq-page', 'contact-page'];
+
+        const activeProducts = products.filter(id => {
+          const element = document.getElementById(id);
+          return element && element.checked;
+        }).length;
+
+        const activeFeatures = features.filter(id => {
+          const element = document.getElementById(id);
+          return element && element.checked;
+        }).length;
+
+        const activePages = pages.filter(id => {
+          const element = document.getElementById(id);
+          return element && element.checked;
+        }).length;
+
+        const productsEl = document.getElementById('active-products');
+        const featuresEl = document.getElementById('active-features');
+        const pagesEl = document.getElementById('active-pages');
+
+        if (productsEl) productsEl.textContent = activeProducts;
+        if (featuresEl) featuresEl.textContent = activeFeatures;
+        if (pagesEl) pagesEl.textContent = activePages;
+
+        console.log('Stats updated:', { activeProducts, activeFeatures, activePages });
+      } catch (error) {
+        console.error('Error updating stats:', error);
+      }
     }
 
     // Add event listeners to all toggles
     document.addEventListener('DOMContentLoaded', function() {
-      const toggles = document.querySelectorAll('input[type="checkbox"]');
-      
-      toggles.forEach(toggle => {
-        toggle.addEventListener('change', function() {
-          updateStatusIndicator(this.id, this.checked);
-          updateStats();
+      console.log('DOM loaded, initializing...');
+
+      try {
+        const toggles = document.querySelectorAll('input[type="checkbox"]');
+        console.log('Found toggles:', toggles.length);
+
+        toggles.forEach((toggle, index) => {
+          console.log(`Toggle ${index}:`, toggle.id);
+          toggle.addEventListener('change', function() {
+            console.log(`Toggle changed: ${this.id} = ${this.checked}`);
+            updateStatusIndicator(this.id, this.checked);
+            updateStats();
+          });
         });
-      });
-      
-      loadSettings();
+
+        loadSettings();
+        console.log('Initialization complete');
+      } catch (error) {
+        console.error('Error during initialization:', error);
+      }
     });
+
+    // Test function to verify page is working
+    function testPage() {
+      console.log('Testing page functionality...');
+      const toggles = document.querySelectorAll('input[type="checkbox"]');
+      console.log(`Found ${toggles.length} toggles`);
+
+      toggles.forEach(toggle => {
+        console.log(`Toggle: ${toggle.id} - Checked: ${toggle.checked}`);
+      });
+
+      updateStats();
+      console.log('Test complete');
+    }
   </script>
 </body>
 </html>
