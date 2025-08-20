@@ -5835,14 +5835,11 @@ margin: 0rem !important;
 
   // Debug functions removed - no customer-facing debug elements
 
-  // Universal Settings System (Domain Agnostic)
+  // Universal Settings System (Domain Agnostic) - Silent for customers
   function initializeUniversalSettings() {
-    console.log('🌐 Universal Settings System Loading...');
-
     // Check for settings in URL first
     const urlSettings = getSettingsFromURL();
     if (urlSettings) {
-      console.log('📥 Settings found in URL, importing...');
       localStorage.setItem('herosSiteSettings', JSON.stringify(urlSettings));
     }
 
@@ -5850,14 +5847,11 @@ margin: 0rem !important;
     const settingsData = localStorage.getItem('herosSiteSettings');
 
     if (!settingsData) {
-      console.log('📝 No settings found, creating universal defaults...');
       createUniversalDefaults();
     }
 
-    // Add universal settings controls (always visible)
+    // No customer-facing controls
     addUniversalControls();
-
-    console.log('✅ Universal settings system ready');
   }
 
   function getSettingsFromURL() {
