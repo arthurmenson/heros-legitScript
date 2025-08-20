@@ -5391,7 +5391,7 @@ margin: 0rem !important;
     console.log('✅ Original display values captured for all controllable elements');
   }
 
-  // Settings Control System
+  // Settings Control System with Enhanced Error Handling
   function applySettings() {
     try {
       console.log('=== HEROS SETTINGS DEBUG ===');
@@ -5409,31 +5409,123 @@ margin: 0rem !important;
       const settings = JSON.parse(settingsData);
       console.log('✅ Parsed settings:', settings);
 
+      // Validate settings object
+      if (typeof settings !== 'object' || settings === null) {
+        console.error('❌ Invalid settings object, resetting...');
+        localStorage.removeItem('herosSiteSettings');
+        return;
+      }
+
       // Count disabled items
       const disabledItems = Object.keys(settings).filter(key => settings[key] === false);
       console.log(`📊 Found ${disabledItems.length} disabled items:`, disabledItems);
 
+      // Store application start time for performance monitoring
+      const startTime = performance.now();
+
       // Navigation Menu Items
       console.log('🔗 Applying navigation menu settings...');
-      applyNavMenuSettings(settings);
+      try {
+        applyNavMenuSettings(settings);
+        console.log('✅ Navigation menu settings applied');
+      } catch (error) {
+        console.error('❌ Error applying navigation settings:', error);
+      }
 
       // Homepage Sections
       console.log('📄 Applying homepage section settings...');
-      applyHomepageSectionSettings(settings);
+      try {
+        applyHomepageSectionSettings(settings);
+        console.log('✅ Homepage section settings applied');
+      } catch (error) {
+        console.error('❌ Error applying section settings:', error);
+      }
 
       // Product Carousel Items
       console.log('🎠 Applying product carousel settings...');
-      applyProductCarouselSettings(settings);
+      try {
+        applyProductCarouselSettings(settings);
+        console.log('✅ Product carousel settings applied');
+      } catch (error) {
+        console.error('❌ Error applying carousel settings:', error);
+      }
 
       // Site Features
       console.log('⚙️ Applying site feature settings...');
-      applySiteFeatureSettings(settings);
+      try {
+        applySiteFeatureSettings(settings);
+        console.log('✅ Site feature settings applied');
+      } catch (error) {
+        console.error('❌ Error applying feature settings:', error);
+      }
 
-      console.log('✅ Settings application complete!');
+      const endTime = performance.now();
+      console.log(`✅ Settings application complete! (${Math.round(endTime - startTime)}ms)`);
+
+      // Verify application was successful
+      setTimeout(() => verifySettingsApplied(settings), 100);
 
     } catch (error) {
-      console.error('❌ Error applying settings:', error);
+      console.error('❌ Critical error applying settings:', error);
+      // Try to recover by showing all elements
+      try {
+        showAllElements();
+      } catch (recoveryError) {
+        console.error('❌ Recovery failed:', recoveryError);
+      }
     }
+  }
+
+  // Verify that settings were applied correctly
+  function verifySettingsApplied(settings) {
+    console.log('🔍 Verifying settings application...');
+
+    let verificationErrors = 0;
+    const disabledItems = Object.keys(settings).filter(key => settings[key] === false);
+
+    // Check navigation items
+    const navItems = {
+      'menu-weight-loss': 'a[href="weight-loss.html"]',
+      'menu-mens-ed': 'a[href="mens-ed.html"]',
+      'menu-skin-care': 'a[href="skin-care.html"]',
+      'menu-hair-regrowth': 'a[href="hair-regrowth.html"]',
+      'menu-nad-plus': 'a[href="nad-plus.html"]',
+      'menu-diabetes-care': 'a[href="diabetes-care.html"]'
+    };
+
+    Object.keys(navItems).forEach(settingKey => {
+      if (settings[settingKey] === false) {
+        const elements = document.querySelectorAll(navItems[settingKey]);
+        elements.forEach(element => {
+          if (!element.hasAttribute('data-heros-hidden')) {
+            console.error(`❌ Verification failed: ${settingKey} should be hidden but isn't marked`);
+            verificationErrors++;
+          }
+        });
+      }
+    });
+
+    if (verificationErrors === 0) {
+      console.log('✅ Settings verification passed');
+    } else {
+      console.error(`❌ Settings verification failed with ${verificationErrors} errors`);
+      // Attempt to reapply settings
+      console.log('🔄 Attempting to reapply settings...');
+      setTimeout(() => applySettings(), 500);
+    }
+  }
+
+  // Recovery function to show all elements
+  function showAllElements() {
+    console.log('🔄 Emergency recovery: showing all elements');
+
+    const allHiddenElements = document.querySelectorAll('[data-heros-hidden="true"]');
+    allHiddenElements.forEach(element => {
+      element.style.removeProperty('display');
+      element.removeAttribute('data-heros-hidden');
+    });
+
+    console.log(`✅ Recovery complete: restored ${allHiddenElements.length} elements`);
   }
 
   // Apply navigation menu settings
