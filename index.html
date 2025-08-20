@@ -5513,15 +5513,20 @@ margin: 0rem !important;
     };
 
     Object.keys(carouselItems).forEach(settingKey => {
-      const element = document.querySelector(carouselItems[settingKey]);
+      const selector = carouselItems[settingKey];
+      const element = document.querySelector(selector);
+      console.log(`Carousel ${settingKey}: selector="${selector}", found=${!!element}, setting=${settings[settingKey]}`);
+
       if (element) {
         if (settings[settingKey] === false) {
           element.style.display = 'none';
-          console.log(`Hidden carousel item: ${settingKey}`);
+          console.log(`🙈 Hidden carousel item: ${settingKey}`);
         } else {
           element.style.display = '';
-          console.log(`Shown carousel item: ${settingKey}`);
+          console.log(`👁️ Shown carousel item: ${settingKey}`);
         }
+      } else {
+        console.log(`❌ Carousel element not found for ${settingKey}: ${selector}`);
       }
     });
   }
