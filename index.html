@@ -5506,17 +5506,17 @@ margin: 0rem !important;
     }
   }
 
-  // Recovery function to show all elements
+  // Recovery function to show all elements (silent)
   function showAllElements() {
-    console.log('🔄 Emergency recovery: showing all elements');
-
-    const allHiddenElements = document.querySelectorAll('[data-heros-hidden="true"]');
-    allHiddenElements.forEach(element => {
-      element.style.removeProperty('display');
-      element.removeAttribute('data-heros-hidden');
-    });
-
-    console.log(`✅ Recovery complete: restored ${allHiddenElements.length} elements`);
+    try {
+      const allHiddenElements = document.querySelectorAll('[data-heros-hidden="true"]');
+      allHiddenElements.forEach(element => {
+        element.style.removeProperty('display');
+        element.removeAttribute('data-heros-hidden');
+      });
+    } catch (error) {
+      // Silent error handling
+    }
   }
 
   // Apply navigation menu settings
