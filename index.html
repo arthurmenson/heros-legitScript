@@ -5585,9 +5585,15 @@ margin: 0rem !important;
             element.setAttribute('data-heros-hidden', 'true');
             console.log(`🙈 Hidden carousel item ${index + 1}: ${settingKey}`);
           } else {
-            element.style.removeProperty('display');
+            // Get the original display value or use appropriate default for carousel items
+            const computedStyle = window.getComputedStyle(element);
+            const originalDisplay = element.getAttribute('data-heros-original-display') ||
+                                   (computedStyle.display !== 'none' ? computedStyle.display : 'block');
+
+            element.style.setProperty('display', originalDisplay, 'important');
+            element.setAttribute('data-heros-original-display', originalDisplay);
             element.removeAttribute('data-heros-hidden');
-            console.log(`👁️ Shown carousel item ${index + 1}: ${settingKey}`);
+            console.log(`👁️ Shown carousel item ${index + 1}: ${settingKey} (display: ${originalDisplay})`);
           }
         });
       } else {
