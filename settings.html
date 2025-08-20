@@ -1196,6 +1196,198 @@
             }
         }
 
+        // Generate universal settings URL
+        function generateUniversalURL() {
+            try {
+                const settingsData = localStorage.getItem('herosSiteSettings');
+                if (!settingsData) {
+                    alert('❌ No settings to share! Please configure some settings first.');
+                    return;
+                }
+
+                // Create base64 encoded settings
+                const encoded = btoa(settingsData);
+
+                // Create URL with current origin but add settings parameter
+                const baseURL = window.location.origin + '/index.html';
+                const shareURL = `${baseURL}?settings=${encoded}`;
+
+                // Show modal with URL
+                showUniversalURLModal(shareURL, settingsData);
+
+                log(`🔗 Universal URL generated: ${shareURL.length} characters`);
+
+            } catch (error) {
+                log(`ERROR generating universal URL: ${error.message}`, 'error');
+                alert(`Error generating URL: ${error.message}`);
+            }
+        }
+
+        function showUniversalURLModal(shareURL, settingsData) {
+            // Create modal overlay
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.8);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                backdrop-filter: blur(5px);
+            `;
+
+            const settings = JSON.parse(settingsData);
+            const totalSettings = Object.keys(settings).length;
+            const disabledCount = Object.values(settings).filter(v => v === false).length;
+            const enabledCount = totalSettings - disabledCount;
+
+            modal.innerHTML = `
+                <div style="
+                    background: white;
+                    padding: 30px;
+                    border-radius: 15px;
+                    max-width: 600px;
+                    width: 90%;
+                    max-height: 80vh;
+                    overflow-y: auto;
+                    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+                ">
+                    <h2 style="margin-top: 0; color: #333; text-align: center;">🌐 Universal Settings URL</h2>
+
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                        <h3 style="margin-top: 0; color: #667eea;">📊 Settings Summary</h3>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+                            <div style="background: white; padding: 10px; border-radius: 6px;">
+                                <div style="font-size: 24px; font-weight: bold; color: #333;">${totalSettings}</div>
+                                <div style="font-size: 12px; color: #666;">Total Settings</div>
+                            </div>
+                            <div style="background: white; padding: 10px; border-radius: 6px;">
+                                <div style="font-size: 24px; font-weight: bold; color: #28a745;">${enabledCount}</div>
+                                <div style="font-size: 12px; color: #666;">Enabled</div>
+                            </div>
+                            <div style="background: white; padding: 10px; border-radius: 6px;">
+                                <div style="font-size: 24px; font-weight: bold; color: #dc3545;">${disabledCount}</div>
+                                <div style="font-size: 12px; color: #666;">Disabled</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="color: #666; margin-bottom: 15px;">
+                        Share this URL to transfer your exact settings to <strong>any domain</strong>.
+                        When someone visits this URL, your settings will be automatically imported.
+                    </p>
+
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <label style="display: block; font-weight: bold; margin-bottom: 8px; color: #333;">Universal Settings URL:</label>
+                        <textarea readonly style="
+                            width: 100%;
+                            height: 80px;
+                            padding: 10px;
+                            border: 1px solid #ddd;
+                            border-radius: 6px;
+                            font-family: monospace;
+                            font-size: 12px;
+                            resize: none;
+                            background: white;
+                        " onclick="this.select()">${shareURL}</textarea>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button onclick="copyUniversalURL('${shareURL}')" style="
+                            background: #28a745;
+                            color: white;
+                            padding: 12px 24px;
+                            border: none;
+                            border-radius: 6px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            margin: 0 10px;
+                            font-size: 14px;
+                        ">📋 Copy URL</button>
+
+                        <button onclick="testUniversalURL('${shareURL}')" style="
+                            background: #2196F3;
+                            color: white;
+                            padding: 12px 24px;
+                            border: none;
+                            border-radius: 6px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            margin: 0 10px;
+                            font-size: 14px;
+                        ">🧪 Test URL</button>
+
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="
+                            background: #6c757d;
+                            color: white;
+                            padding: 12px 24px;
+                            border: none;
+                            border-radius: 6px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            margin: 0 10px;
+                            font-size: 14px;
+                        ">✕ Close</button>
+                    </div>
+
+                    <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px;">
+                        <h4 style="margin-top: 0; color: #1976d2;">💡 How it works:</h4>
+                        <ul style="margin: 10px 0 0 20px; color: #666;">
+                            <li>Settings are encoded in the URL parameters</li>
+                            <li>Works on localhost, production, or any domain</li>
+                            <li>No server or database required</li>
+                            <li>Settings auto-import when URL is visited</li>
+                            <li>Safe to share - contains only your settings data</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            // Close on backdrop click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+
+        window.copyUniversalURL = function(url) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('🔗 Universal URL copied to clipboard!\n\nYou can now paste this URL anywhere to share your settings.');
+                }).catch(() => {
+                    fallbackCopyURL(url);
+                });
+            } else {
+                fallbackCopyURL(url);
+            }
+        };
+
+        window.testUniversalURL = function(url) {
+            const newWindow = window.open(url, '_blank');
+            if (newWindow) {
+                alert('🧪 Testing universal URL in new window!\n\nThe new window should automatically import your settings.');
+            } else {
+                alert('❌ Could not open test window. Please check popup blocker.');
+            }
+        };
+
+        function fallbackCopyURL(url) {
+            const textarea = document.createElement('textarea');
+            textarea.value = url;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('🔗 Universal URL copied to clipboard!');
+        }
+
         // Handle any errors
         window.addEventListener('error', function(e) {
             log(`GLOBAL ERROR: ${e.message} at line ${e.lineno}`);
