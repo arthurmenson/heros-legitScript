@@ -5411,15 +5411,11 @@ margin: 0rem !important;
 
       // Load settings from localStorage
       const settingsData = localStorage.getItem('herosSiteSettings');
-      console.log('Raw settings data:', settingsData);
-
       if (!settingsData) {
-        console.log('❌ No settings found, showing all elements');
         return;
       }
 
       const settings = JSON.parse(settingsData);
-      console.log('✅ Parsed settings:', settings);
 
       // Validate settings object
       if (typeof settings !== 'object' || settings === null) {
