@@ -5594,27 +5594,41 @@ margin: 0rem !important;
 
     const debugIndicator = createDebugIndicator();
 
+    // Test localStorage immediately
+    const testMsg = [];
     try {
       const settingsData = localStorage.getItem('herosSiteSettings');
+      testMsg.push(`LocalStorage access: ${settingsData ? 'SUCCESS' : 'NO DATA'}`);
+
       if (settingsData) {
         const settings = JSON.parse(settingsData);
         const disabledCount = Object.keys(settings).filter(key => settings[key] === false).length;
-        updateDebugIndicator(`Settings loaded: ${disabledCount} items disabled`, 'success');
+        testMsg.push(`${disabledCount} items disabled`);
+        updateDebugIndicator(testMsg.join('<br>'), 'success');
+
+        // Show popup with full settings for debugging
+        const disabledItems = Object.keys(settings).filter(key => settings[key] === false);
+        if (disabledItems.length > 0) {
+          setTimeout(() => {
+            alert(`SETTINGS DEBUG:\nDisabled items: ${disabledItems.join(', ')}\n\nCheck console for detailed logs.`);
+          }, 1000);
+        }
       } else {
         updateDebugIndicator('No settings found - all items visible', 'info');
       }
     } catch (error) {
-      updateDebugIndicator(`Settings error: ${error.message}`, 'error');
+      testMsg.push(`ERROR: ${error.message}`);
+      updateDebugIndicator(testMsg.join('<br>'), 'error');
     }
 
     applySettings();
 
-    // Remove debug indicator after 5 seconds
+    // Remove debug indicator after 10 seconds (extended for debugging)
     setTimeout(() => {
       if (debugIndicator) {
         debugIndicator.remove();
       }
-    }, 5000);
+    }, 10000);
   });
 
   // Listen for storage changes (when settings are updated)
