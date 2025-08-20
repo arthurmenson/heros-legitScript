@@ -795,6 +795,9 @@
                 // Auto-refresh preview if open
                 autoRefreshPreview();
 
+                // Immediately notify all main site instances
+                notifyMainSiteInstances(changedSetting, newValue);
+
                 log(`💾 Auto-saved and applied: ${changedSetting} = ${newValue}`);
 
             } catch (error) {
