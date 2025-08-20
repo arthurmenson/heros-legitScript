@@ -662,17 +662,23 @@
 
         // Update statistics
         function updateStats() {
-            const products = ['weight-loss', 'mens-ed', 'skin-care', 'hair-regrowth', 'nad-plus', 'diabetes-care'];
-            const features = ['bmi-calculator', 'video-testimonials', 'trust-badges', 'live-chat'];
-            const pages = ['weight-loss-page', 'diabetes-care-page', 'blog-page', 'faq-page', 'contact-page'];
+            const menuItems = ['menu-weight-loss', 'menu-mens-ed', 'menu-skin-care', 'menu-hair-regrowth', 'menu-nad-plus', 'menu-diabetes-care'];
+            const productPages = ['page-weight-loss', 'page-mens-ed', 'page-skin-care', 'page-hair-regrowth', 'page-nad-plus', 'page-diabetes-care'];
+            const generalPages = ['page-blog', 'page-faq', 'page-contact', 'page-medical-disclaimer', 'page-privacy-policy', 'page-terms-of-service'];
+            const sections = ['section-hero', 'section-service-cards', 'section-products', 'section-weight-loss', 'section-bmi', 'section-ed-meds', 'section-results', 'section-how-it-works', 'section-testimonials', 'section-trust-badges', 'section-health-simplified'];
+            const features = ['feature-top-banner', 'feature-navigation', 'feature-footer', 'feature-live-chat', 'feature-mobile-optimization'];
 
-            const activeProducts = products.filter(key => settings[key] !== false).length;
+            const activeMenu = menuItems.filter(key => settings[key] !== false).length;
+            const activeProductPages = productPages.filter(key => settings[key] !== false).length;
+            const activeGeneralPages = generalPages.filter(key => settings[key] !== false).length;
+            const activeSections = sections.filter(key => settings[key] !== false).length;
             const activeFeatures = features.filter(key => settings[key] !== false).length;
-            const activePages = pages.filter(key => settings[key] !== false).length;
 
-            document.getElementById('active-products').textContent = activeProducts;
+            document.getElementById('active-menu').textContent = activeMenu;
+            document.getElementById('active-product-pages').textContent = activeProductPages;
+            document.getElementById('active-general-pages').textContent = activeGeneralPages;
+            document.getElementById('active-sections').textContent = activeSections;
             document.getElementById('active-features').textContent = activeFeatures;
-            document.getElementById('active-pages').textContent = activePages;
         }
 
         // Start when page loads
