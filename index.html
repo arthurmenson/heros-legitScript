@@ -5496,11 +5496,22 @@ margin: 0rem !important;
       // Re-show weight loss section if enabled
       const weightLossSection = document.querySelector('.section_wl-hero');
       if (weightLossSection) {
-        weightLossSection.style.removeProperty('display');
+        const computedStyle = window.getComputedStyle(weightLossSection);
+        const originalDisplay = weightLossSection.getAttribute('data-heros-original-display') ||
+                               (computedStyle.display !== 'none' ? computedStyle.display : 'block');
+
+        weightLossSection.style.setProperty('display', originalDisplay, 'important');
+        weightLossSection.setAttribute('data-heros-original-display', originalDisplay);
         weightLossSection.removeAttribute('data-heros-hidden');
+
         const parentSection = weightLossSection.closest('section, .section, [class*="section"]');
         if (parentSection && parentSection !== weightLossSection) {
-          parentSection.style.removeProperty('display');
+          const parentComputedStyle = window.getComputedStyle(parentSection);
+          const parentOriginalDisplay = parentSection.getAttribute('data-heros-original-display') ||
+                                       (parentComputedStyle.display !== 'none' ? parentComputedStyle.display : 'block');
+
+          parentSection.style.setProperty('display', parentOriginalDisplay, 'important');
+          parentSection.setAttribute('data-heros-original-display', parentOriginalDisplay);
           parentSection.removeAttribute('data-heros-hidden');
         }
       }
