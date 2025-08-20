@@ -6079,5 +6079,75 @@ margin: 0rem !important;
 <!-- Bulletproof Real-time Sync Fix -->
 <script src="realtime-sync-fix.js"></script>
 
+<!-- Production Preview Support -->
+<script>
+  // Handle preview mode for production domains
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('preview') && urlParams.get('preview') === 'true') {
+    console.log('📺 Preview mode detected on main site');
+
+    // Add preview-specific enhancements
+    document.body.classList.add('preview-mode');
+
+    // Add preview indicator for debugging
+    if (urlParams.has('source') && urlParams.get('source') === 'settings') {
+      const previewIndicator = document.createElement('div');
+      previewIndicator.style.cssText = `
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: rgba(33, 150, 243, 0.9);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: bold;
+        z-index: 10000;
+        font-family: monospace;
+      `;
+      previewIndicator.textContent = '🔍 PREVIEW MODE';
+      document.body.appendChild(previewIndicator);
+
+      // Auto-remove after 3 seconds
+      setTimeout(() => {
+        if (previewIndicator.parentElement) {
+          previewIndicator.remove();
+        }
+      }, 3000);
+    }
+
+    // Enhanced real-time sync for preview mode
+    const enhancedPreviewSync = () => {
+      const settingsData = localStorage.getItem('herosSiteSettings');
+      if (settingsData && typeof applySettings === 'function') {
+        applySettings();
+        console.log('📺 Preview settings applied');
+      }
+    };
+
+    // More frequent sync in preview mode
+    setInterval(enhancedPreviewSync, 200);
+
+    // Listen for messages from settings page
+    window.addEventListener('message', (event) => {
+      if (event.data && event.data.type === 'heroSettingChanged') {
+        console.log('📨 Preview received settings change:', event.data);
+        setTimeout(enhancedPreviewSync, 100);
+      }
+    });
+  }
+
+  // Handle cross-tab test mode
+  if (urlParams.has('crossTabTest')) {
+    console.log('🌐 Cross-tab test mode detected');
+
+    window.addEventListener('message', (event) => {
+      if (event.data && event.data.source === 'production-testplan') {
+        console.log('🧪 Test message received from production test plan:', event.data);
+      }
+    });
+  }
+</script>
+
 </body>
 </html>
