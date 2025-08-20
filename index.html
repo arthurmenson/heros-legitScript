@@ -5424,12 +5424,7 @@ margin: 0rem !important;
         return;
       }
 
-      // Count disabled items
-      const disabledItems = Object.keys(settings).filter(key => settings[key] === false);
-      console.log(`📊 Found ${disabledItems.length} disabled items:`, disabledItems);
-
-      // Store application start time for performance monitoring
-      const startTime = performance.now();
+      // Apply settings silently
 
       // Navigation Menu Items
       console.log('��� Applying navigation menu settings...');
@@ -5638,7 +5633,7 @@ margin: 0rem !important;
           console.log(`👁️ Shown section: ${settingKey} (display: ${originalDisplay})`);
         }
       } else {
-        console.log(`�� Section element not found for ${settingKey}: ${selector}`);
+        console.log(`❌ Section element not found for ${settingKey}: ${selector}`);
       }
     });
 
