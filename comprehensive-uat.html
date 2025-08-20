@@ -360,7 +360,7 @@
 
             document.getElementById('scenario-2').className = 'test-scenario pass';
             testResults.push({scenario: 2, status: 'pass', items: itemsToDisable});
-            log('🔴 Scenario 2 completed successfully', 'success');
+            log('��� Scenario 2 completed successfully', 'success');
         }
 
         async function runScenario3() {
@@ -531,10 +531,77 @@
             alert('Verify that the edge case testing item is in the correct final state.');
         }
 
+        // Quick test function to run a basic toggle test immediately
+        async function quickToggleTest() {
+            log('🚀 Running quick toggle test...', 'info');
+
+            const settings = getCurrentSettings();
+
+            // Test item that we know exists
+            const testItem = 'menu-diabetes-care';
+            const originalState = settings[testItem];
+
+            log(`Testing ${testItem} - Original state: ${originalState}`, 'info');
+
+            // Step 1: Disable
+            settings[testItem] = false;
+            saveSettings(settings);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            log(`Step 1: Disabled ${testItem}`, 'success');
+
+            // Step 2: Enable
+            settings[testItem] = true;
+            saveSettings(settings);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            log(`Step 2: Enabled ${testItem}`, 'success');
+
+            // Step 3: Disable again (this is where the bug was)
+            settings[testItem] = false;
+            saveSettings(settings);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            log(`Step 3: Disabled ${testItem} again`, 'success');
+
+            // Step 4: Enable again to test the cycle
+            settings[testItem] = true;
+            saveSettings(settings);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            log(`Step 4: Enabled ${testItem} again`, 'success');
+
+            log('✅ Quick toggle test completed - Check main page to verify', 'success');
+
+            // Open main page for verification
+            window.open('index.html', '_blank');
+        }
+
+        // Auto-run quick test button
+        function addQuickTestButton() {
+            const container = document.querySelector('.container');
+            const quickTestDiv = document.createElement('div');
+            quickTestDiv.style.cssText = `
+                background: #fff3cd;
+                border: 1px solid #ffeaa7;
+                padding: 15px;
+                border-radius: 8px;
+                margin: 20px 0;
+                text-align: center;
+            `;
+            quickTestDiv.innerHTML = `
+                <h3>⚡ Quick Toggle Test</h3>
+                <p>Run a quick test of the enable/disable/enable/disable cycle that was problematic.</p>
+                <button class="btn warning" onclick="quickToggleTest()">⚡ Run Quick Test</button>
+            `;
+
+            // Insert after the overview
+            const overview = document.querySelector('.test-summary');
+            overview.parentNode.insertBefore(quickTestDiv, overview.nextSibling);
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             refreshOverview();
+            addQuickTestButton();
             log('📊 Comprehensive UAT Suite initialized', 'info');
+            log('💡 Use the Quick Toggle Test to verify the multi-toggle fix', 'info');
         });
     </script>
 </body>
