@@ -4366,7 +4366,7 @@ margin: 0rem !important;
                       <span style="color: #ffd700; font-size: 14px;">★</span>
                       <span style="color: #ffd700; font-size: 14px;">★</span>
                       <span style="color: #ffd700; font-size: 14px;">★</span>
-                      <span style="color: #ffd700; font-size: 14px;">★</span>
+                      <span style="color: #ffd700; font-size: 14px;">��</span>
                     </div>
                     <span style="color: #666; font-size: 13px; font-weight: 500;">4.8/5 from 12,000+ reviews</span>
                   </div>
@@ -5341,6 +5341,54 @@ margin: 0rem !important;
 
     // Start animation cycle
     setInterval(changeWord, 3000);
+  }
+
+  // Capture original display values for all elements we might control
+  function captureOriginalDisplayValues() {
+    const allSelectors = [
+      // Navigation items
+      'a[href="weight-loss.html"]',
+      'a[href="mens-ed.html"]',
+      'a[href="skin-care.html"]',
+      'a[href="hair-regrowth.html"]',
+      'a[href="nad-plus.html"]',
+      'a[href="diabetes-care.html"]',
+
+      // Sections
+      '.section_home-hero',
+      '.new-service-cards',
+      '.products-carousel',
+      '.section_wl-hero',
+      '.bmi-calculator-section',
+      '.ed-meds-grid',
+      '.results-section',
+      '.how-it-works-grid',
+      '.video-testimonials-grid',
+      '.trust-badges',
+      '.health-simplified-section',
+
+      // Carousel items
+      '.weight-loss-card',
+      '.hair-regrowth-card',
+      '.mens-ed-card',
+      '.skin-care-card',
+      '.diabetes-care-card',
+      '.remote-monitoring-card',
+      '.nad-card'
+    ];
+
+    allSelectors.forEach(selector => {
+      const elements = document.querySelectorAll(selector);
+      elements.forEach(element => {
+        if (!element.getAttribute('data-heros-original-display')) {
+          const computedStyle = window.getComputedStyle(element);
+          const originalDisplay = computedStyle.display === 'none' ? 'block' : computedStyle.display;
+          element.setAttribute('data-heros-original-display', originalDisplay);
+        }
+      });
+    });
+
+    console.log('✅ Original display values captured for all controllable elements');
   }
 
   // Settings Control System
