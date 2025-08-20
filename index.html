@@ -5427,6 +5427,9 @@ margin: 0rem !important;
       }
     });
 
+    // Apply individual service card settings
+    applyServiceCardSettings(settings);
+
     // Special handling for sections that might be wrapped in other containers
     if (settings['section-weight-loss'] === false) {
       const weightLossSection = document.querySelector('.section_wl-hero');
