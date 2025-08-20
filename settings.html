@@ -815,15 +815,27 @@
             allSettings[settingKey] = isEnabled;
             localStorage.setItem('herosSiteSettings', JSON.stringify(allSettings));
 
-            // Create a notification script for the main site to pick up changes
+            // Create multiple notification methods for maximum compatibility
             const changeNotification = {
                 timestamp: Date.now(),
                 setting: settingKey,
                 value: isEnabled,
-                action: 'toggle'
+                action: 'toggle',
+                source: 'settings-page'
             };
 
             localStorage.setItem('herosSettingsChange', JSON.stringify(changeNotification));
+
+            // Also trigger storage event manually for same-tab updates
+            try {
+                window.dispatchEvent(new StorageEvent('storage', {
+                    key: 'herosSettingsChange',
+                    newValue: JSON.stringify(changeNotification),
+                    storageArea: localStorage
+                }));
+            } catch (e) {
+                // Fallback for browsers that don't support StorageEvent constructor
+            }
 
             log(`💾 Stored setting: ${settingKey} = ${isEnabled}`);
 
