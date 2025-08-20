@@ -1053,22 +1053,40 @@
                 // Save current settings first
                 saveSettings();
 
+                // Create a temporary test setting to verify functionality
+                const testSetting = {
+                    setting: 'test-verification',
+                    value: true,
+                    timestamp: Date.now()
+                };
+                localStorage.setItem('herosSettingsChange', JSON.stringify(testSetting));
+
                 // Open main site in new window/tab
                 const mainSite = window.open('index.html', '_blank');
 
                 if (mainSite) {
-                    log("Main site opened in new tab. Check if disabled elements are hidden.");
+                    log("✅ Main site opened in new tab");
+                    log("💡 Try toggling any setting to see immediate changes!");
 
-                    // Optional: Focus the new window
+                    // Show instruction tooltip
+                    showDynamicFeedback('test-main-site', true);
+
+                    // Optional: Focus the new window after a delay
                     setTimeout(() => {
-                        mainSite.focus();
-                    }, 500);
+                        try {
+                            mainSite.focus();
+                        } catch (e) {
+                            // Ignore focus errors
+                        }
+                    }, 1000);
                 } else {
-                    log("ERROR: Could not open main site. Please check popup blocker.");
+                    log("❌ ERROR: Could not open main site. Please check popup blocker.");
+                    alert("Could not open main site. Please check your popup blocker settings.");
                 }
 
             } catch (error) {
                 log(`ERROR testing main site: ${error.message}`);
+                alert(`Error opening main site: ${error.message}`);
             }
         }
 
