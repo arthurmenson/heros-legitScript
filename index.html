@@ -5400,15 +5400,20 @@ margin: 0rem !important;
     };
 
     Object.keys(menuItems).forEach(settingKey => {
-      const element = document.querySelector(menuItems[settingKey]);
+      const selector = menuItems[settingKey];
+      const element = document.querySelector(selector);
+      console.log(`Menu item ${settingKey}: selector="${selector}", found=${!!element}, setting=${settings[settingKey]}`);
+
       if (element) {
         if (settings[settingKey] === false) {
           element.style.display = 'none';
-          console.log(`Hidden menu item: ${settingKey}`);
+          console.log(`🙈 Hidden menu item: ${settingKey}`);
         } else {
           element.style.display = '';
-          console.log(`Shown menu item: ${settingKey}`);
+          console.log(`👁️ Shown menu item: ${settingKey}`);
         }
+      } else {
+        console.log(`❌ Menu element not found for ${settingKey}: ${selector}`);
       }
     });
   }
