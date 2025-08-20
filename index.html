@@ -5866,6 +5866,281 @@ margin: 0rem !important;
     }
   }
 
+  // Universal Settings System (Domain Agnostic)
+  function initializeUniversalSettings() {
+    console.log('🌐 Universal Settings System Loading...');
+
+    // Check for settings in URL first
+    const urlSettings = getSettingsFromURL();
+    if (urlSettings) {
+      console.log('📥 Settings found in URL, importing...');
+      localStorage.setItem('herosSiteSettings', JSON.stringify(urlSettings));
+    }
+
+    // Check if settings exist
+    const settingsData = localStorage.getItem('herosSiteSettings');
+
+    if (!settingsData) {
+      console.log('📝 No settings found, creating universal defaults...');
+      createUniversalDefaults();
+    }
+
+    // Add universal settings controls (always visible)
+    addUniversalControls();
+
+    console.log('✅ Universal settings system ready');
+  }
+
+  function getSettingsFromURL() {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const settingsParam = urlParams.get('settings');
+
+      if (settingsParam) {
+        // Decode base64 settings
+        const decoded = atob(settingsParam);
+        return JSON.parse(decoded);
+      }
+    } catch (error) {
+      console.log('ℹ️ No valid settings in URL');
+    }
+    return null;
+  }
+
+  function createUniversalDefaults() {
+    const defaultSettings = {
+      'menu-weight-loss': true,
+      'menu-mens-ed': true,
+      'menu-skin-care': true,
+      'menu-hair-regrowth': true,
+      'menu-nad-plus': true,
+      'menu-diabetes-care': true,
+      'section-hero': true,
+      'section-service-cards': true,
+      'section-products': true,
+      'section-weight-loss': true,
+      'section-bmi': true,
+      'section-ed-meds': true,
+      'section-results': true,
+      'section-how-it-works': true,
+      'section-testimonials': true,
+      'section-trust-badges': true,
+      'section-health-simplified': true,
+      'carousel-weight-loss': true,
+      'carousel-hair-regrowth': true,
+      'carousel-mens-ed': true,
+      'carousel-skin-care': true,
+      'carousel-diabetes-care': true,
+      'carousel-remote-monitoring': true,
+      'carousel-nad-plus': true,
+      'feature-top-banner': true,
+      'feature-navigation': true,
+      'feature-footer': true,
+      'feature-live-chat': true,
+      'feature-mobile-optimization': true
+    };
+
+    localStorage.setItem('herosSiteSettings', JSON.stringify(defaultSettings));
+    console.log('✅ Universal default settings created');
+  }
+
+  function generateSettingsURL() {
+    try {
+      const settingsData = localStorage.getItem('herosSiteSettings');
+      if (settingsData) {
+        const encoded = btoa(settingsData);
+        const currentURL = new URL(window.location);
+        currentURL.searchParams.set('settings', encoded);
+        return currentURL.toString();
+      }
+    } catch (error) {
+      console.error('Error generating settings URL:', error);
+    }
+    return null;
+  }
+
+  function addUniversalControls() {
+    // Universal floating action button
+    const fab = document.createElement('div');
+    fab.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 999999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      user-select: none;
+    `;
+    fab.innerHTML = '⚙️';
+    fab.title = 'Universal Settings Menu';
+
+    // Settings menu
+    const menu = document.createElement('div');
+    menu.style.cssText = `
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      background: rgba(0,0,0,0.95);
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      z-index: 999998;
+      display: none;
+      min-width: 220px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 14px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    `;
+
+    menu.innerHTML = `
+      <div style="margin-bottom: 15px; font-weight: bold; color: #667eea; text-align: center;">🌐 Universal Settings</div>
+      <div style="font-size: 12px; opacity: 0.8; margin-bottom: 12px; text-align: center;">Works on any domain</div>
+      <button onclick="window.open('settings.html', '_blank')" style="width: 100%; padding: 10px; margin: 4px 0; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">⚙️ Open Settings Panel</button>
+      <button onclick="copySettingsURL()" style="width: 100%; padding: 10px; margin: 4px 0; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">🔗 Generate Share URL</button>
+      <button onclick="importFromClipboard()" style="width: 100%; padding: 10px; margin: 4px 0; background: #ffc107; color: black; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">📥 Import Settings</button>
+      <button onclick="toggleQuickDemo()" style="width: 100%; padding: 10px; margin: 4px 0; background: #17a2b8; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">🎭 Quick Demo</button>
+      <button onclick="resetToDefaults()" style="width: 100%; padding: 10px; margin: 4px 0; background: #dc3545; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">🔄 Reset All</button>
+      <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 10px 0;">
+      <button onclick="toggleSettingsMenu()" style="width: 100%; padding: 8px; margin: 4px 0; background: #6c757d; color: white; border: none; border-radius: 6px; cursor: pointer;">✕ Close</button>
+    `;
+
+    // Toggle menu function
+    window.toggleSettingsMenu = function() {
+      const isVisible = menu.style.display !== 'none';
+      menu.style.display = isVisible ? 'none' : 'block';
+    };
+
+    // FAB click handler
+    fab.onclick = window.toggleSettingsMenu;
+
+    // Hover effects
+    fab.onmouseenter = () => {
+      fab.style.transform = 'scale(1.1)';
+      fab.style.boxShadow = '0 6px 25px rgba(0,0,0,0.4)';
+    };
+    fab.onmouseleave = () => {
+      fab.style.transform = 'scale(1)';
+      fab.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+    };
+
+    // Universal functions
+    window.copySettingsURL = function() {
+      const url = generateSettingsURL();
+      if (url) {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(url).then(() => {
+            alert('🔗 Universal Settings URL copied!\n\nShare this URL with anyone to transfer your exact settings to any domain.\n\nURL length: ' + url.length + ' characters');
+          }).catch(() => {
+            prompt('Copy this universal settings URL:', url);
+          });
+        } else {
+          prompt('Copy this universal settings URL:', url);
+        }
+      } else {
+        alert('❌ Error generating settings URL');
+      }
+    };
+
+    window.importFromClipboard = function() {
+      if (navigator.clipboard) {
+        navigator.clipboard.readText().then((text) => {
+          importSettingsFromText(text);
+        }).catch(() => {
+          const text = prompt('Paste settings JSON or settings URL:');
+          if (text) importSettingsFromText(text);
+        });
+      } else {
+        const text = prompt('Paste settings JSON or settings URL:');
+        if (text) importSettingsFromText(text);
+      }
+    };
+
+    window.toggleQuickDemo = function() {
+      const currentSettings = JSON.parse(localStorage.getItem('herosSiteSettings') || '{}');
+
+      // Toggle diabetes care and a few other items for demo
+      const demoSettings = {
+        ...currentSettings,
+        'menu-diabetes-care': !currentSettings['menu-diabetes-care'],
+        'carousel-diabetes-care': !currentSettings['carousel-diabetes-care'],
+        'section-weight-loss': !currentSettings['section-weight-loss']
+      };
+
+      localStorage.setItem('herosSiteSettings', JSON.stringify(demoSettings));
+
+      const changeNotification = {
+        timestamp: Date.now(),
+        setting: 'quick-demo',
+        action: 'universal-demo'
+      };
+      localStorage.setItem('herosSettingsChange', JSON.stringify(changeNotification));
+
+      alert('🎭 Quick demo applied!\n\nToggled: Diabetes Care menu, carousel, and Weight Loss section.\n\nRefresh to see changes or toggle again to revert.');
+      menu.style.display = 'none';
+    };
+
+    function importSettingsFromText(text) {
+      try {
+        let settings = null;
+
+        // Try parsing as URL first
+        if (text.includes('settings=')) {
+          const url = new URL(text);
+          const settingsParam = url.searchParams.get('settings');
+          if (settingsParam) {
+            const decoded = atob(settingsParam);
+            settings = JSON.parse(decoded);
+          }
+        } else {
+          // Try parsing as JSON
+          settings = JSON.parse(text);
+        }
+
+        if (settings && typeof settings === 'object') {
+          localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
+          alert('✅ Settings imported successfully!\n\nRefresh the page to see changes.');
+          location.reload();
+        } else {
+          throw new Error('Invalid settings format');
+        }
+      } catch (error) {
+        alert('❌ Invalid settings data.\n\nPlease paste either:\n- Settings URL (with ?settings=...)\n- Raw JSON settings object');
+      }
+    }
+
+    window.resetToDefaults = function() {
+      if (confirm('🔄 Reset all settings to defaults?\n\nThis will enable all features and cannot be undone.')) {
+        localStorage.removeItem('herosSiteSettings');
+        localStorage.removeItem('herosSettingsChange');
+        alert('✅ Settings reset to defaults!\n\nRefresh the page to apply changes.');
+        location.reload();
+      }
+    };
+
+    // Add to page
+    document.body.appendChild(fab);
+    document.body.appendChild(menu);
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!fab.contains(e.target) && !menu.contains(e.target)) {
+        menu.style.display = 'none';
+      }
+    });
+  }
+
   // Apply settings when page loads
   document.addEventListener('DOMContentLoaded', function() {
     console.log('Page loaded, applying settings...');
