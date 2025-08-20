@@ -23,6 +23,33 @@
             margin: 0 auto;
         }
 
+        .debug-panel {
+            background: #1e1e1e;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .debug-panel h3 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .test-button {
+            background: #ff9800;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
         .header {
             background: white;
             padding: 30px;
@@ -96,6 +123,7 @@
             border-radius: 25px;
             cursor: pointer;
             transition: background 0.3s;
+            user-select: none;
         }
 
         .toggle.active {
@@ -112,6 +140,7 @@
             background: white;
             border-radius: 50%;
             transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .toggle.active::before {
@@ -202,6 +231,12 @@
 </head>
 <body>
     <div class="container">
+        <div class="debug-panel" id="debug-panel">
+            <h3>Debug Console</h3>
+            <button class="test-button" onclick="runTests()">Test All Functions</button>
+            <div id="debug-log">Page loading...</div>
+        </div>
+
         <a href="index.html" class="back-link">← Back to Main Site</a>
         
         <div class="header">
@@ -611,63 +646,145 @@
     <script>
         // Settings data
         let settings = {};
-
-        // Initialize
-        function init() {
-            console.log('Initializing settings page...');
-            loadSettings();
-            setupToggleListeners();
-            updateStats();
-            console.log('Settings page ready!');
+        
+        // Debug logging
+        function log(message) {
+            const debugLog = document.getElementById('debug-log');
+            const timestamp = new Date().toLocaleTimeString();
+            debugLog.innerHTML += `<br>[${timestamp}] ${message}`;
+            debugLog.scrollTop = debugLog.scrollHeight;
+            console.log(message);
         }
 
-        // Setup toggle listeners
-        function setupToggleListeners() {
-            const toggles = document.querySelectorAll('.toggle');
-            toggles.forEach(toggle => {
-                toggle.addEventListener('click', function() {
-                    const setting = this.getAttribute('data-setting');
-                    const isActive = this.classList.contains('active');
-                    
-                    // Toggle state
-                    if (isActive) {
-                        this.classList.remove('active');
-                        settings[setting] = false;
-                    } else {
-                        this.classList.add('active');
-                        settings[setting] = true;
-                    }
-                    
-                    // Update status indicator
-                    updateStatusIndicator(this, !isActive);
-                    updateStats();
-                    
-                    console.log(`Toggled ${setting}: ${settings[setting]}`);
-                });
-            });
-        }
-
-        // Update status indicator
-        function updateStatusIndicator(toggle, isActive) {
-            const statusEl = toggle.closest('.setting-item').querySelector('.status');
-            if (statusEl) {
-                statusEl.className = `status ${isActive ? 'live' : 'offline'}`;
+        // Test all functionality
+        function runTests() {
+            log("Running comprehensive tests...");
+            
+            try {
+                // Test 1: DOM elements
+                const toggles = document.querySelectorAll('.toggle');
+                log(`Found ${toggles.length} toggle elements`);
+                
+                // Test 2: LocalStorage
+                try {
+                    localStorage.setItem('test', 'value');
+                    localStorage.removeItem('test');
+                    log("LocalStorage: Working");
+                } catch (e) {
+                    log(`LocalStorage ERROR: ${e.message}`);
+                }
+                
+                // Test 3: Settings initialization
+                const testSetting = 'test-setting';
+                settings[testSetting] = true;
+                log(`Settings object: ${Object.keys(settings).length} keys`);
+                
+                // Test 4: Toggle functionality
+                if (toggles.length > 0) {
+                    const firstToggle = toggles[0];
+                    const isActive = firstToggle.classList.contains('active');
+                    log(`First toggle active state: ${isActive}`);
+                }
+                
+                // Test 5: Stats update
+                updateStats();
+                log("Stats updated successfully");
+                
+                log("All tests completed!");
+                
+            } catch (error) {
+                log(`Test ERROR: ${error.message}`);
             }
         }
 
-        // Load settings from localStorage
+        // Initialize
+        function init() {
+            log('Initializing settings page...');
+            
+            try {
+                loadSettings();
+                log('Settings loaded');
+                
+                setupToggleListeners();
+                log('Toggle listeners setup');
+                
+                updateStats();
+                log('Stats updated');
+                
+                log('Settings page ready!');
+            } catch (error) {
+                log(`Initialization ERROR: ${error.message}`);
+            }
+        }
+
+        // Setup toggle listeners with error handling
+        function setupToggleListeners() {
+            const toggles = document.querySelectorAll('.toggle');
+            log(`Setting up ${toggles.length} toggle listeners`);
+            
+            toggles.forEach((toggle, index) => {
+                try {
+                    toggle.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        
+                        const setting = this.getAttribute('data-setting');
+                        if (!setting) {
+                            log(`ERROR: No data-setting attribute found for toggle ${index}`);
+                            return;
+                        }
+                        
+                        const isActive = this.classList.contains('active');
+                        
+                        // Toggle state
+                        if (isActive) {
+                            this.classList.remove('active');
+                            settings[setting] = false;
+                            log(`Disabled: ${setting}`);
+                        } else {
+                            this.classList.add('active');
+                            settings[setting] = true;
+                            log(`Enabled: ${setting}`);
+                        }
+                        
+                        // Update status indicator
+                        updateStatusIndicator(this, !isActive);
+                        updateStats();
+                    });
+                } catch (error) {
+                    log(`ERROR setting up toggle ${index}: ${error.message}`);
+                }
+            });
+        }
+
+        // Update status indicator with error handling
+        function updateStatusIndicator(toggle, isActive) {
+            try {
+                const statusEl = toggle.closest('.setting-item').querySelector('.status');
+                if (statusEl) {
+                    statusEl.className = `status ${isActive ? 'live' : 'offline'}`;
+                }
+            } catch (error) {
+                log(`ERROR updating status indicator: ${error.message}`);
+            }
+        }
+
+        // Load settings from localStorage with error handling
         function loadSettings() {
             try {
                 const saved = localStorage.getItem('herosSiteSettings');
                 if (saved) {
                     settings = JSON.parse(saved);
-                    console.log('Loaded settings:', settings);
+                    log(`Loaded ${Object.keys(settings).length} settings from storage`);
                 } else {
+                    log('No saved settings found, initializing defaults');
                     // Default all to true
                     const toggles = document.querySelectorAll('.toggle');
                     toggles.forEach(toggle => {
                         const setting = toggle.getAttribute('data-setting');
-                        settings[setting] = true;
+                        if (setting) {
+                            settings[setting] = true;
+                        }
                     });
                 }
 
@@ -684,15 +801,15 @@
                     }
                 });
             } catch (error) {
-                console.error('Error loading settings:', error);
+                log(`ERROR loading settings: ${error.message}`);
             }
         }
 
-        // Save settings to localStorage
+        // Save settings to localStorage with error handling
         function saveSettings() {
             try {
                 localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
-                console.log('Settings saved:', settings);
+                log(`Saved ${Object.keys(settings).length} settings to storage`);
                 
                 // Show success feedback
                 const btn = event.target;
@@ -706,52 +823,78 @@
                 }, 2000);
                 
             } catch (error) {
-                console.error('Error saving settings:', error);
+                log(`ERROR saving settings: ${error.message}`);
                 alert('Error saving settings!');
             }
         }
 
-        // Reset all settings
+        // Reset all settings with error handling
         function resetSettings() {
-            if (confirm('Reset all settings to default? This cannot be undone.')) {
-                const toggles = document.querySelectorAll('.toggle');
-                toggles.forEach(toggle => {
-                    const setting = toggle.getAttribute('data-setting');
-                    settings[setting] = true;
-                    toggle.classList.add('active');
-                    updateStatusIndicator(toggle, true);
-                });
-                updateStats();
-                console.log('Settings reset to default');
+            try {
+                if (confirm('Reset all settings to default? This cannot be undone.')) {
+                    const toggles = document.querySelectorAll('.toggle');
+                    toggles.forEach(toggle => {
+                        const setting = toggle.getAttribute('data-setting');
+                        if (setting) {
+                            settings[setting] = true;
+                            toggle.classList.add('active');
+                            updateStatusIndicator(toggle, true);
+                        }
+                    });
+                    updateStats();
+                    log('All settings reset to default');
+                }
+            } catch (error) {
+                log(`ERROR resetting settings: ${error.message}`);
             }
         }
 
-        // Update statistics
+        // Update statistics with error handling
         function updateStats() {
-            const menuItems = ['menu-weight-loss', 'menu-mens-ed', 'menu-skin-care', 'menu-hair-regrowth', 'menu-nad-plus', 'menu-diabetes-care'];
-            const productPages = ['page-weight-loss', 'page-mens-ed', 'page-skin-care', 'page-hair-regrowth', 'page-nad-plus', 'page-diabetes-care'];
-            const generalPages = ['page-blog', 'page-faq', 'page-contact', 'page-medical-disclaimer', 'page-privacy-policy', 'page-terms-of-service'];
-            const carouselItems = ['carousel-weight-loss', 'carousel-hair-regrowth', 'carousel-mens-ed', 'carousel-skin-care', 'carousel-diabetes-care', 'carousel-remote-monitoring', 'carousel-nad-plus'];
-            const sections = ['section-hero', 'section-service-cards', 'section-products', 'section-weight-loss', 'section-bmi', 'section-ed-meds', 'section-results', 'section-how-it-works', 'section-testimonials', 'section-trust-badges', 'section-health-simplified'];
-            const features = ['feature-top-banner', 'feature-navigation', 'feature-footer', 'feature-live-chat', 'feature-mobile-optimization'];
+            try {
+                const menuItems = ['menu-weight-loss', 'menu-mens-ed', 'menu-skin-care', 'menu-hair-regrowth', 'menu-nad-plus', 'menu-diabetes-care'];
+                const productPages = ['page-weight-loss', 'page-mens-ed', 'page-skin-care', 'page-hair-regrowth', 'page-nad-plus', 'page-diabetes-care'];
+                const generalPages = ['page-blog', 'page-faq', 'page-contact', 'page-medical-disclaimer', 'page-privacy-policy', 'page-terms-of-service'];
+                const carouselItems = ['carousel-weight-loss', 'carousel-hair-regrowth', 'carousel-mens-ed', 'carousel-skin-care', 'carousel-diabetes-care', 'carousel-remote-monitoring', 'carousel-nad-plus'];
+                const sections = ['section-hero', 'section-service-cards', 'section-products', 'section-weight-loss', 'section-bmi', 'section-ed-meds', 'section-results', 'section-how-it-works', 'section-testimonials', 'section-trust-badges', 'section-health-simplified'];
+                const features = ['feature-top-banner', 'feature-navigation', 'feature-footer', 'feature-live-chat', 'feature-mobile-optimization'];
 
-            const activeMenu = menuItems.filter(key => settings[key] !== false).length;
-            const activeProductPages = productPages.filter(key => settings[key] !== false).length;
-            const activeGeneralPages = generalPages.filter(key => settings[key] !== false).length;
-            const activeCarousel = carouselItems.filter(key => settings[key] !== false).length;
-            const activeSections = sections.filter(key => settings[key] !== false).length;
-            const activeFeatures = features.filter(key => settings[key] !== false).length;
+                const activeMenu = menuItems.filter(key => settings[key] !== false).length;
+                const activeProductPages = productPages.filter(key => settings[key] !== false).length;
+                const activeGeneralPages = generalPages.filter(key => settings[key] !== false).length;
+                const activeCarousel = carouselItems.filter(key => settings[key] !== false).length;
+                const activeSections = sections.filter(key => settings[key] !== false).length;
+                const activeFeatures = features.filter(key => settings[key] !== false).length;
 
-            document.getElementById('active-menu').textContent = activeMenu;
-            document.getElementById('active-product-pages').textContent = activeProductPages;
-            document.getElementById('active-general-pages').textContent = activeGeneralPages;
-            document.getElementById('active-carousel').textContent = activeCarousel;
-            document.getElementById('active-sections').textContent = activeSections;
-            document.getElementById('active-features').textContent = activeFeatures;
+                const menuEl = document.getElementById('active-menu');
+                const productPagesEl = document.getElementById('active-product-pages');
+                const generalPagesEl = document.getElementById('active-general-pages');
+                const carouselEl = document.getElementById('active-carousel');
+                const sectionsEl = document.getElementById('active-sections');
+                const featuresEl = document.getElementById('active-features');
+
+                if (menuEl) menuEl.textContent = activeMenu;
+                if (productPagesEl) productPagesEl.textContent = activeProductPages;
+                if (generalPagesEl) generalPagesEl.textContent = activeGeneralPages;
+                if (carouselEl) carouselEl.textContent = activeCarousel;
+                if (sectionsEl) sectionsEl.textContent = activeSections;
+                if (featuresEl) featuresEl.textContent = activeFeatures;
+
+            } catch (error) {
+                log(`ERROR updating stats: ${error.message}`);
+            }
         }
 
         // Start when page loads
-        document.addEventListener('DOMContentLoaded', init);
+        document.addEventListener('DOMContentLoaded', function() {
+            log('DOM loaded, initializing...');
+            init();
+        });
+
+        // Handle any errors
+        window.addEventListener('error', function(e) {
+            log(`GLOBAL ERROR: ${e.message} at line ${e.lineno}`);
+        });
     </script>
 </body>
 </html>
