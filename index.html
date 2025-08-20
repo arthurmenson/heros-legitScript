@@ -5961,6 +5961,21 @@ margin: 0rem !important;
     }
   });
 
+  // Listen for custom events from settings page
+  window.addEventListener('herosSettingsUpdate', function(e) {
+    if (e.detail && e.detail.setting) {
+      // Immediate update triggered by settings page
+      applySettings();
+    }
+  });
+
+  // Enhanced storage event listener that triggers on manual events too
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'herosSiteSettings' || e.key === 'herosSettingsChange') {
+      applySettings();
+    }
+  });
+
   // Real-time settings monitoring for immediate updates
   let lastSettingsHash = '';
   let lastChangeTimestamp = 0;
