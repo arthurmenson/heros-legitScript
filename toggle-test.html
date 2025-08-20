@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .test-step {
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f8f9fa;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .enabled { background: #d4edda; color: #155724; }
+        .disabled { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Toggle Testing Tool</h1>
+        <p>Test the enable/disable toggle functionality to ensure it works both ways.</p>
+        
+        <div class="test-step">
+            <h3>Current Settings Status</h3>
+            <div id="current-status"></div>
+            <button class="btn" onclick="loadCurrentStatus()">Refresh Status</button>
+        </div>
+
+        <div class="test-step">
+            <h3>Toggle Test Actions</h3>
+            <p>Test the problematic toggle cycle: disable → enable → disable again</p>
+            
+            <h4>Test Item: Diabetes Care Menu</h4>
+            <div id="diabetes-status" class="status">Loading...</div>
+            <button class="btn" onclick="disableDiabetesCare()">❌ Disable</button>
+            <button class="btn" onclick="enableDiabetesCare()">✅ Enable</button>
+            
+            <h4>Test Item: Weight Loss Section</h4>
+            <div id="weightloss-status" class="status">Loading...</div>
+            <button class="btn" onclick="disableWeightLoss()">❌ Disable</button>
+            <button class="btn" onclick="enableWeightLoss()">✅ Enable</button>
+            
+            <h4>Test Item: Weight Loss Carousel Card</h4>
+            <div id="carousel-status" class="status">Loading...</div>
+            <button class="btn" onclick="disableWeightLossCard()">❌ Disable</button>
+            <button class="btn" onclick="enableWeightLossCard()">✅ Enable</button>
+        </div>
+
+        <div class="test-step">
+            <h3>Full Cycle Test</h3>
+            <p>Run complete disable → enable → disable cycle for all test items</p>
+            <button class="btn" onclick="runFullCycleTest()">🔄 Run Full Cycle Test</button>
+            <div id="cycle-results"></div>
+        </div>
+
+        <div class="test-step">
+            <h3>Quick Actions</h3>
+            <button class="btn" onclick="openMainPage()">📄 Open Main Page</button>
+            <button class="btn" onclick="openSettings()">⚙️ Open Settings</button>
+            <button class="btn" onclick="resetAllSettings()">🔄 Reset All</button>
+        </div>
+    </div>
+
+    <script>
+        function getCurrentSettings() {
+            try {
+                const data = localStorage.getItem('herosSiteSettings');
+                return data ? JSON.parse(data) : {};
+            } catch (error) {
+                return {};
+            }
+        }
+
+        function saveSettings(settings) {
+            localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
+        }
+
+        function loadCurrentStatus() {
+            const settings = getCurrentSettings();
+            const statusDiv = document.getElementById('current-status');
+            
+            const totalItems = Object.keys(settings).length;
+            const disabledItems = Object.keys(settings).filter(key => settings[key] === false).length;
+            
+            statusDiv.innerHTML = `
+                <p><strong>Total Items:</strong> ${totalItems}</p>
+                <p><strong>Enabled:</strong> ${totalItems - disabledItems}</p>
+                <p><strong>Disabled:</strong> ${disabledItems}</p>
+            `;
+            
+            updateItemStatuses(settings);
+        }
+
+        function updateItemStatuses(settings) {
+            const diabetesStatus = settings['menu-diabetes-care'] === false ? 'DISABLED' : 'ENABLED';
+            const weightLossStatus = settings['section-weight-loss'] === false ? 'DISABLED' : 'ENABLED';
+            const carouselStatus = settings['carousel-weight-loss'] === false ? 'DISABLED' : 'ENABLED';
+            
+            document.getElementById('diabetes-status').innerHTML = 
+                `Status: <strong>${diabetesStatus}</strong>`;
+            document.getElementById('diabetes-status').className = 
+                `status ${settings['menu-diabetes-care'] === false ? 'disabled' : 'enabled'}`;
+                
+            document.getElementById('weightloss-status').innerHTML = 
+                `Status: <strong>${weightLossStatus}</strong>`;
+            document.getElementById('weightloss-status').className = 
+                `status ${settings['section-weight-loss'] === false ? 'disabled' : 'enabled'}`;
+                
+            document.getElementById('carousel-status').innerHTML = 
+                `Status: <strong>${carouselStatus}</strong>`;
+            document.getElementById('carousel-status').className = 
+                `status ${settings['carousel-weight-loss'] === false ? 'disabled' : 'enabled'}`;
+        }
+
+        function disableDiabetesCare() {
+            const settings = getCurrentSettings();
+            settings['menu-diabetes-care'] = false;
+            saveSettings(settings);
+            updateItemStatuses(settings);
+            console.log('❌ Disabled Diabetes Care menu');
+        }
+
+        function enableDiabetesCare() {
+            const settings = getCurrentSettings();
+            settings['menu-diabetes-care'] = true;
+            saveSettings(settings);
+            updateItemStatuses(settings);
+            console.log('✅ Enabled Diabetes Care menu');
+        }
+
+        function disableWeightLoss() {
+            const settings = getCurrentSettings();
+            settings['section-weight-loss'] = false;
+            saveSettings(settings);
+            updateItemStatuses(settings);
+            console.log('❌ Disabled Weight Loss section');
+        }
+
+        function enableWeightLoss() {
+            const settings = getCurrentSettings();
+            settings['section-weight-loss'] = true;
+            saveSettings(settings);
+            updateItemStatuses(settings);
+            console.log('✅ Enabled Weight Loss section');
+        }
+
+        function disableWeightLossCard() {
+            const settings = getCurrentSettings();
+            settings['carousel-weight-loss'] = false;
+            saveSettings(settings);
+            updateItemStatuses(settings);
+            console.log('❌ Disabled Weight Loss carousel card');
+        }
+
+        function enableWeightLossCard() {
+            const settings = getCurrentSettings();
+            settings['carousel-weight-loss'] = true;
+            saveSettings(settings);
+            updateItemStatuses(settings);
+            console.log('✅ Enabled Weight Loss carousel card');
+        }
+
+        async function runFullCycleTest() {
+            const resultsDiv = document.getElementById('cycle-results');
+            resultsDiv.innerHTML = '<p>🔄 Running full cycle test...</p>';
+            
+            const testItems = [
+                {name: 'Diabetes Care Menu', key: 'menu-diabetes-care'},
+                {name: 'Weight Loss Section', key: 'section-weight-loss'},
+                {name: 'Weight Loss Carousel Card', key: 'carousel-weight-loss'}
+            ];
+            
+            let results = '<h4>Test Results:</h4>';
+            
+            for (const item of testItems) {
+                results += `<p><strong>${item.name}:</strong></p>`;
+                
+                // Step 1: Disable
+                const settings1 = getCurrentSettings();
+                settings1[item.key] = false;
+                saveSettings(settings1);
+                results += `&nbsp;&nbsp;✅ Step 1: Disabled<br>`;
+                
+                // Wait a bit
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                // Step 2: Enable
+                const settings2 = getCurrentSettings();
+                settings2[item.key] = true;
+                saveSettings(settings2);
+                results += `&nbsp;&nbsp;✅ Step 2: Enabled<br>`;
+                
+                // Wait a bit
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                // Step 3: Disable again
+                const settings3 = getCurrentSettings();
+                settings3[item.key] = false;
+                saveSettings(settings3);
+                results += `&nbsp;&nbsp;✅ Step 3: Disabled again<br>`;
+                
+                // Wait a bit
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+            
+            results += '<p><strong>✅ Full cycle test completed!</strong></p>';
+            results += '<p>Now open the main page to verify all items are properly hidden.</p>';
+            
+            resultsDiv.innerHTML = results;
+            loadCurrentStatus();
+        }
+
+        function openMainPage() {
+            window.open('index.html', '_blank');
+        }
+
+        function openSettings() {
+            window.open('settings.html', '_blank');
+        }
+
+        function resetAllSettings() {
+            const settings = getCurrentSettings();
+            Object.keys(settings).forEach(key => {
+                settings[key] = true;
+            });
+            saveSettings(settings);
+            loadCurrentStatus();
+            alert('✅ All settings reset to enabled');
+        }
+
+        // Load status on page load
+        document.addEventListener('DOMContentLoaded', loadCurrentStatus);
+    </script>
+</body>
+</html>
