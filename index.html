@@ -5419,7 +5419,7 @@ margin: 0rem !important;
 
       // Validate settings object
       if (typeof settings !== 'object' || settings === null) {
-        console.error('❌ Invalid settings object, resetting...');
+        // Silent error handling
         localStorage.removeItem('herosSiteSettings');
         return;
       }
@@ -5638,7 +5638,7 @@ margin: 0rem !important;
           console.log(`👁️ Shown section: ${settingKey} (display: ${originalDisplay})`);
         }
       } else {
-        console.log(`❌ Section element not found for ${settingKey}: ${selector}`);
+        console.log(`�� Section element not found for ${settingKey}: ${selector}`);
       }
     });
 
