@@ -1073,6 +1073,50 @@
             }
         }
 
+        // Toggle preview section
+        function togglePreview() {
+            const previewSection = document.getElementById('preview-section');
+            const isVisible = previewSection.style.display !== 'none';
+
+            if (isVisible) {
+                previewSection.style.display = 'none';
+                log("Preview closed");
+            } else {
+                previewSection.style.display = 'block';
+                refreshPreview();
+                log("Preview opened");
+            }
+        }
+
+        // Refresh preview iframe
+        function refreshPreview() {
+            try {
+                const iframe = document.getElementById('preview-iframe');
+                if (iframe) {
+                    // Force reload by changing src
+                    const currentSrc = iframe.src;
+                    iframe.src = '';
+                    setTimeout(() => {
+                        iframe.src = currentSrc + '?t=' + Date.now();
+                    }, 100);
+
+                    log("Preview refreshed");
+                }
+            } catch (error) {
+                log(`ERROR refreshing preview: ${error.message}`);
+            }
+        }
+
+        // Auto-refresh preview when settings change (DYNAMIC)
+        function autoRefreshPreview() {
+            const previewSection = document.getElementById('preview-section');
+            if (previewSection && previewSection.style.display !== 'none') {
+                setTimeout(() => {
+                    refreshPreview();
+                }, 500); // Small delay to allow changes to apply
+            }
+        }
+
         // Handle any errors
         window.addEventListener('error', function(e) {
             log(`GLOBAL ERROR: ${e.message} at line ${e.lineno}`);
