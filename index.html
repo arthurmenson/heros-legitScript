@@ -4481,7 +4481,7 @@ margin: 0rem !important;
                     <div class="hair-regrowth-cta-container">
                       <a href="hair-regrowth.html" class="hair-regrowth-cta primary">
                         <span class="cta-text">Start Your Hair Journey</span>
-                        <span class="cta-subtext">Free consultation �� No commitment</span>
+                        <span class="cta-subtext">Free consultation • No commitment</span>
                       </a>
                       <div class="urgency-text">Limited spots available this week</div>
                     </div>
@@ -5484,10 +5484,12 @@ margin: 0rem !important;
       // Re-show weight loss section if enabled
       const weightLossSection = document.querySelector('.section_wl-hero');
       if (weightLossSection) {
-        weightLossSection.style.display = '';
+        weightLossSection.style.removeProperty('display');
+        weightLossSection.removeAttribute('data-heros-hidden');
         const parentSection = weightLossSection.closest('section, .section, [class*="section"]');
         if (parentSection && parentSection !== weightLossSection) {
-          parentSection.style.display = '';
+          parentSection.style.removeProperty('display');
+          parentSection.removeAttribute('data-heros-hidden');
         }
       }
     }
