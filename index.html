@@ -5459,14 +5459,8 @@ margin: 0rem !important;
         applySiteFeatureSettings(settings);
         console.log('✅ Site feature settings applied');
       } catch (error) {
-        console.error('❌ Error applying feature settings:', error);
+        // Silent error handling
       }
-
-      const endTime = performance.now();
-      console.log(`✅ Settings application complete! (${Math.round(endTime - startTime)}ms)`);
-
-      // Verify application was successful
-      setTimeout(() => verifySettingsApplied(settings), 100);
 
     } catch (error) {
       console.error('❌ Critical error applying settings:', error);
