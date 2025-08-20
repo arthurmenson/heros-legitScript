@@ -839,27 +839,51 @@
 
             log(`💾 Stored setting: ${settingKey} = ${isEnabled}`);
 
-            // If we're in a popup or iframe context, try to communicate with parent
+            // Comprehensive window messaging for all contexts
+            const messageData = {
+                type: 'heroSettingChanged',
+                setting: settingKey,
+                value: isEnabled,
+                timestamp: Date.now(),
+                source: 'settings-page'
+            };
+
             try {
-                if (window.opener) {
-                    window.opener.postMessage({
-                        type: 'heroSettingChanged',
-                        setting: settingKey,
-                        value: isEnabled
-                    }, '*');
+                // Message to opener window (if opened via window.open)
+                if (window.opener && !window.opener.closed) {
+                    window.opener.postMessage(messageData, '*');
                     log(`📤 Sent message to opener window`);
                 }
 
+                // Message to parent window (if in iframe)
                 if (window.parent !== window) {
-                    window.parent.postMessage({
-                        type: 'heroSettingChanged',
-                        setting: settingKey,
-                        value: isEnabled
-                    }, '*');
+                    window.parent.postMessage(messageData, '*');
                     log(`📤 Sent message to parent window`);
                 }
+
+                // Message to all same-origin windows
+                try {
+                    // Find all windows with the same origin
+                    const allWindows = [window.top];
+                    for (let i = 0; i < allWindows.length; i++) {
+                        if (allWindows[i] && allWindows[i] !== window) {
+                            allWindows[i].postMessage(messageData, '*');
+                        }
+                    }
+                } catch (e) {
+                    // Cross-origin restrictions prevent this
+                }
+
+                // Broadcast to any listening components
+                if (typeof BroadcastChannel !== 'undefined') {
+                    const channel = new BroadcastChannel('heros-settings');
+                    channel.postMessage(messageData);
+                    channel.close();
+                    log(`📡 Broadcast message sent`);
+                }
+
             } catch (error) {
-                log(`INFO: Not in popup/iframe context: ${error.message}`);
+                log(`INFO: Limited messaging context: ${error.message}`);
             }
         }
 
