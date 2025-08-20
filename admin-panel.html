@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - HEROS</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f7fa;
+        }
+        .admin-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .admin-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #007bff;
+        }
+        .admin-card h3 {
+            margin: 0 0 15px 0;
+            color: #495057;
+            font-size: 18px;
+        }
+        .toggle-grid {
+            display: grid;
+            gap: 10px;
+        }
+        .toggle-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+        .toggle-item.disabled {
+            background: #fff5f5;
+            border-color: #fed7d7;
+        }
+        .toggle-label {
+            font-size: 14px;
+            color: #495057;
+        }
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 25px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.3s;
+            border-radius: 25px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 19px;
+            width: 19px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #28a745;
+        }
+        input:checked + .slider:before {
+            transform: translateX(25px);
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            margin: 5px;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn.success { background: #28a745; }
+        .btn.success:hover { background: #218838; }
+        .btn.danger { background: #dc3545; }
+        .btn.danger:hover { background: #c82333; }
+        .btn.warning { background: #ffc107; color: #212529; }
+        .btn.warning:hover { background: #e0a800; }
+        .stats-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #6c757d;
+            text-transform: uppercase;
+        }
+        .preview-section {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .preview-iframe {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+        }
+        .admin-actions {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-header">
+        <h1>🔧 HEROS Admin Panel</h1>
+        <p>Manage site content and navigation for heroshealth.com</p>
+    </div>
+
+    <div class="container">
+        <!-- Stats Overview -->
+        <div class="stats-bar">
+            <h3>📊 Site Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="total-items">0</div>
+                    <div class="stat-label">Total Items</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="enabled-items">0</div>
+                    <div class="stat-label">Enabled</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="disabled-items">0</div>
+                    <div class="stat-label">Disabled</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="last-updated">--</div>
+                    <div class="stat-label">Last Updated</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toggle Controls -->
+        <div class="admin-grid">
+            <!-- Navigation Menu -->
+            <div class="admin-card">
+                <h3>🧭 Navigation Menu</h3>
+                <div class="toggle-grid" id="nav-toggles"></div>
+            </div>
+
+            <!-- Homepage Sections -->
+            <div class="admin-card">
+                <h3>📄 Homepage Sections</h3>
+                <div class="toggle-grid" id="section-toggles"></div>
+            </div>
+
+            <!-- Product Carousel -->
+            <div class="admin-card">
+                <h3>🎠 Product Carousel</h3>
+                <div class="toggle-grid" id="carousel-toggles"></div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="admin-actions">
+            <h3>⚡ Quick Actions</h3>
+            <button class="btn success" onclick="enableAll()">✅ Enable All</button>
+            <button class="btn danger" onclick="disableAll()">❌ Disable All</button>
+            <button class="btn warning" onclick="hideNavigation()">🚫 Hide Navigation</button>
+            <button class="btn" onclick="previewSite()">👁️ Preview Site</button>
+            <button class="btn" onclick="exportSettings()">📤 Export Settings</button>
+        </div>
+
+        <!-- Site Preview -->
+        <div class="preview-section" id="preview-section" style="display: none;">
+            <h3>🔍 Site Preview</h3>
+            <iframe id="preview-iframe" class="preview-iframe" src="index.html"></iframe>
+            <div style="margin-top: 10px; text-align: center;">
+                <button class="btn" onclick="refreshPreview()">🔄 Refresh Preview</button>
+                <button class="btn" onclick="hidePreview()">❌ Close Preview</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let settings = {};
+
+        // Configuration for toggles
+        const toggleConfig = {
+            navigation: [
+                { key: 'menu-weight-loss', label: 'Weight Loss' },
+                { key: 'menu-mens-ed', label: "Men's ED" },
+                { key: 'menu-skin-care', label: 'Skin Care' },
+                { key: 'menu-hair-regrowth', label: 'Hair Regrowth' },
+                { key: 'menu-nad-plus', label: 'NAD+' },
+                { key: 'menu-diabetes-care', label: 'Diabetes Care' }
+            ],
+            sections: [
+                { key: 'section-hero', label: 'Hero Banner' },
+                { key: 'section-service-cards', label: 'Service Cards' },
+                { key: 'section-products', label: 'Product Carousel' },
+                { key: 'section-weight-loss', label: 'Weight Loss Section' },
+                { key: 'section-ed-meds', label: 'ED Meds Section' },
+                { key: 'section-results', label: 'Results Section' }
+            ],
+            carousel: [
+                { key: 'carousel-weight-loss', label: 'Weight Loss Card' },
+                { key: 'carousel-hair-regrowth', label: 'Hair Regrowth Card' },
+                { key: 'carousel-mens-ed', label: "Men's ED Card" },
+                { key: 'carousel-skin-care', label: 'Skin Care Card' },
+                { key: 'carousel-diabetes-care', label: 'Diabetes Care Card' },
+                { key: 'carousel-nad-plus', label: 'NAD+ Card' }
+            ]
+        };
+
+        function loadSettings() {
+            try {
+                const data = localStorage.getItem('herosSiteSettings');
+                settings = data ? JSON.parse(data) : getDefaultSettings();
+                return settings;
+            } catch (error) {
+                console.error('Error loading settings:', error);
+                settings = getDefaultSettings();
+                return settings;
+            }
+        }
+
+        function saveSettings() {
+            try {
+                localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
+                updateStats();
+                return true;
+            } catch (error) {
+                console.error('Error saving settings:', error);
+                return false;
+            }
+        }
+
+        function getDefaultSettings() {
+            const defaults = {};
+            Object.values(toggleConfig).flat().forEach(item => {
+                defaults[item.key] = true;
+            });
+            return defaults;
+        }
+
+        function createToggle(item, containerId) {
+            const isEnabled = settings[item.key] !== false;
+            const container = document.getElementById(containerId);
+            
+            const toggleDiv = document.createElement('div');
+            toggleDiv.className = `toggle-item ${isEnabled ? '' : 'disabled'}`;
+            toggleDiv.innerHTML = `
+                <span class="toggle-label">${item.label}</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" ${isEnabled ? 'checked' : ''} onchange="toggleSetting('${item.key}', this.checked, this)">
+                    <span class="slider"></span>
+                </label>
+            `;
+            
+            container.appendChild(toggleDiv);
+        }
+
+        function toggleSetting(key, isEnabled, element) {
+            settings[key] = isEnabled;
+            saveSettings();
+            
+            // Update visual state
+            const toggleItem = element.closest('.toggle-item');
+            if (isEnabled) {
+                toggleItem.classList.remove('disabled');
+            } else {
+                toggleItem.classList.add('disabled');
+            }
+            
+            console.log(`${isEnabled ? 'Enabled' : 'Disabled'}: ${key}`);
+        }
+
+        function updateStats() {
+            const total = Object.keys(settings).length;
+            const enabled = Object.keys(settings).filter(k => settings[k] === true).length;
+            const disabled = total - enabled;
+            
+            document.getElementById('total-items').textContent = total;
+            document.getElementById('enabled-items').textContent = enabled;
+            document.getElementById('disabled-items').textContent = disabled;
+            document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
+        }
+
+        function enableAll() {
+            Object.keys(settings).forEach(key => {
+                settings[key] = true;
+            });
+            saveSettings();
+            location.reload();
+        }
+
+        function disableAll() {
+            if (confirm('Disable all items? This will hide most content on the site.')) {
+                Object.keys(settings).forEach(key => {
+                    settings[key] = false;
+                });
+                saveSettings();
+                location.reload();
+            }
+        }
+
+        function hideNavigation() {
+            if (confirm('Hide all navigation menu items?')) {
+                toggleConfig.navigation.forEach(item => {
+                    settings[item.key] = false;
+                });
+                saveSettings();
+                location.reload();
+            }
+        }
+
+        function previewSite() {
+            const previewSection = document.getElementById('preview-section');
+            previewSection.style.display = 'block';
+            refreshPreview();
+        }
+
+        function refreshPreview() {
+            const iframe = document.getElementById('preview-iframe');
+            iframe.src = iframe.src; // Force reload
+        }
+
+        function hidePreview() {
+            document.getElementById('preview-section').style.display = 'none';
+        }
+
+        function exportSettings() {
+            const exportData = {
+                timestamp: new Date().toISOString(),
+                domain: window.location.origin,
+                settings: settings
+            };
+            
+            const jsonString = JSON.stringify(exportData, null, 2);
+            
+            navigator.clipboard.writeText(jsonString).then(() => {
+                alert('Settings exported to clipboard!');
+            }).catch(() => {
+                // Fallback: show in popup
+                prompt('Copy these settings:', jsonString);
+            });
+        }
+
+        // Initialize
+        function init() {
+            loadSettings();
+            
+            // Create toggles
+            toggleConfig.navigation.forEach(item => createToggle(item, 'nav-toggles'));
+            toggleConfig.sections.forEach(item => createToggle(item, 'section-toggles'));
+            toggleConfig.carousel.forEach(item => createToggle(item, 'carousel-toggles'));
+            
+            updateStats();
+        }
+
+        // Start when page loads
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
