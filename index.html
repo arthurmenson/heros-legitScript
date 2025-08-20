@@ -5549,18 +5549,40 @@ margin: 0rem !important;
       if (elements.length > 0) {
         elements.forEach((element, index) => {
           if (settings[settingKey] === false) {
+            // Multi-layer hiding approach for maximum compatibility
             element.style.setProperty('display', 'none', 'important');
+            element.style.setProperty('visibility', 'hidden', 'important');
+            element.style.setProperty('opacity', '0', 'important');
             element.setAttribute('data-heros-hidden', 'true');
+            element.setAttribute('aria-hidden', 'true');
+
             console.log(`🙈 Hidden menu item ${index + 1}: ${settingKey}`);
+
+            // Verify the hiding worked
+            setTimeout(() => {
+              const computedStyle = window.getComputedStyle(element);
+              if (computedStyle.display !== 'none') {
+                console.warn(`⚠️ Display override may not be working for ${settingKey}`);
+                // Force hide with additional methods
+                element.classList.add('heros-force-hidden');
+              }
+            }, 50);
+
           } else {
             // Get the original display value from computed styles or use default
             const computedStyle = window.getComputedStyle(element);
             const originalDisplay = element.getAttribute('data-heros-original-display') ||
-                                   (computedStyle.display !== 'none' ? computedStyle.display : 'block');
+                                   (computedStyle.display !== 'none' ? computedStyle.display : 'inline-block');
 
+            // Remove all hiding styles
             element.style.setProperty('display', originalDisplay, 'important');
+            element.style.removeProperty('visibility');
+            element.style.removeProperty('opacity');
             element.setAttribute('data-heros-original-display', originalDisplay);
             element.removeAttribute('data-heros-hidden');
+            element.removeAttribute('aria-hidden');
+            element.classList.remove('heros-force-hidden');
+
             console.log(`👁️ Shown menu item ${index + 1}: ${settingKey} (display: ${originalDisplay})`);
           }
         });
