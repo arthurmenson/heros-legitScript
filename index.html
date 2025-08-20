@@ -5666,6 +5666,29 @@ margin: 0rem !important;
 
     applySettings();
 
+    // Add manual test button
+    const testButton = document.createElement('button');
+    testButton.textContent = '🧪 Test Settings';
+    testButton.style.cssText = `
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: #ff6b6b;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 10001;
+      font-weight: bold;
+    `;
+    testButton.onclick = function() {
+      console.log('🧪 Manual Settings Test Started');
+      applySettings();
+      alert('Settings test complete! Check console for details.');
+    };
+    document.body.appendChild(testButton);
+
     // Remove debug indicator after 10 seconds (extended for debugging)
     setTimeout(() => {
       if (debugIndicator) {
