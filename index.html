@@ -5447,10 +5447,12 @@ margin: 0rem !important;
 
       if (element) {
         if (settings[settingKey] === false) {
-          element.style.display = 'none';
+          element.style.setProperty('display', 'none', 'important');
+          element.setAttribute('data-heros-hidden', 'true');
           console.log(`🙈 Hidden section: ${settingKey}`);
         } else {
-          element.style.display = '';
+          element.style.removeProperty('display');
+          element.removeAttribute('data-heros-hidden');
           console.log(`👁️ Shown section: ${settingKey}`);
         }
       } else {
