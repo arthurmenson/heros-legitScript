@@ -5437,7 +5437,7 @@ margin: 0rem !important;
       const startTime = performance.now();
 
       // Navigation Menu Items
-      console.log('🔗 Applying navigation menu settings...');
+      console.log('��� Applying navigation menu settings...');
       try {
         applyNavMenuSettings(settings);
         console.log('✅ Navigation menu settings applied');
@@ -5938,122 +5938,8 @@ margin: 0rem !important;
     };
     document.body.appendChild(testButton);
 
-    // Add quick setup button for production domains
-    const currentDomain = window.location.origin;
-    const isProduction = currentDomain.includes('fly.dev') || currentDomain.includes('herokuapp') || !currentDomain.includes('localhost');
-    const settingsData = localStorage.getItem('herosSiteSettings');
-
-    if (isProduction && !settingsData) {
-      // Create prominent setup banner
-      const setupBanner = document.createElement('div');
-      setupBanner.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 15px;
-        text-align: center;
-        z-index: 999999;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        border-bottom: 3px solid rgba(255,255,255,0.3);
-      `;
-
-      setupBanner.innerHTML = `
-        <div style="margin-bottom: 10px; font-weight: bold; font-size: 16px;">
-          ⚠️ Production Domain - No Settings Configured
-        </div>
-        <div style="margin-bottom: 15px; opacity: 0.9;">
-          This is a production domain with empty localStorage. Configure settings to enable/disable features.
-        </div>
-        <div>
-          <button onclick="window.open('production-setup.html', '_blank')" style="
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.5);
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            margin: 0 10px;
-            transition: all 0.3s ease;
-          " onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
-            🚀 Open Setup Page
-          </button>
-          <button onclick="createQuickSettings()" style="
-            background: rgba(40, 167, 69, 0.8);
-            color: white;
-            border: 2px solid rgba(40, 167, 69, 1);
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            margin: 0 10px;
-            transition: all 0.3s ease;
-          " onmouseover="this.style.background='rgba(40, 167, 69, 1)'" onmouseout="this.style.background='rgba(40, 167, 69, 0.8)'">
-            ⚡ Quick Test Setup
-          </button>
-          <button onclick="this.parentElement.parentElement.remove()" style="
-            background: transparent;
-            color: rgba(255,255,255,0.7);
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            margin: 0 10px;
-          ">
-            ✕ Dismiss
-          </button>
-        </div>
-      `;
-
-      document.body.appendChild(setupBanner);
-
-      // Add body margin to avoid content overlap
-      document.body.style.paddingTop = '120px';
-
-      // Global function for quick setup
-      window.createQuickSettings = function() {
-        const testSettings = {
-          'menu-diabetes-care': false,
-          'menu-weight-loss': true,
-          'menu-mens-ed': true,
-          'menu-skin-care': true,
-          'menu-hair-regrowth': true,
-          'menu-nad-plus': true,
-          'section-weight-loss': true,
-          'section-ed-meds': true,
-          'section-products': true,
-          'carousel-weight-loss': true,
-          'carousel-diabetes-care': false
-        };
-
-        localStorage.setItem('herosSiteSettings', JSON.stringify(testSettings));
-
-        // Create change notification
-        const changeNotification = {
-          timestamp: Date.now(),
-          setting: 'quick-setup',
-          action: 'production-quick-setup',
-          count: Object.keys(testSettings).length
-        };
-        localStorage.setItem('herosSettingsChange', JSON.stringify(changeNotification));
-
-        console.log('✅ Test settings created on production domain');
-        alert('✅ Test settings created!\n\nDiabetes Care menu and carousel item are now disabled.\nRefresh the page to see changes.');
-        location.reload();
-      };
-
-      // Auto-remove banner after 30 seconds if not interacted with
-      setTimeout(() => {
-        if (setupBanner.parentElement) {
-          setupBanner.remove();
-          document.body.style.paddingTop = '0';
-        }
-      }, 30000);
-    }
+    // Universal settings initialization (domain agnostic)
+    initializeUniversalSettings();
 
     // Remove debug indicator after 10 seconds (extended for debugging)
     setTimeout(() => {
