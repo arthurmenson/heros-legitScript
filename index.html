@@ -5457,9 +5457,15 @@ margin: 0rem !important;
           element.setAttribute('data-heros-hidden', 'true');
           console.log(`🙈 Hidden section: ${settingKey}`);
         } else {
-          element.style.removeProperty('display');
+          // Get the original display value or use appropriate default for sections
+          const computedStyle = window.getComputedStyle(element);
+          const originalDisplay = element.getAttribute('data-heros-original-display') ||
+                                   (computedStyle.display !== 'none' ? computedStyle.display : 'block');
+
+          element.style.setProperty('display', originalDisplay, 'important');
+          element.setAttribute('data-heros-original-display', originalDisplay);
           element.removeAttribute('data-heros-hidden');
-          console.log(`👁️ Shown section: ${settingKey}`);
+          console.log(`👁️ Shown section: ${settingKey} (display: ${originalDisplay})`);
         }
       } else {
         console.log(`❌ Section element not found for ${settingKey}: ${selector}`);
