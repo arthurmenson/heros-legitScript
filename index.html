@@ -5938,6 +5938,49 @@ margin: 0rem !important;
     };
     document.body.appendChild(testButton);
 
+    // Add quick setup button for production domains
+    const currentDomain = window.location.origin;
+    const isProduction = currentDomain.includes('fly.dev') || currentDomain.includes('herokuapp') || !currentDomain.includes('localhost');
+    const settingsData = localStorage.getItem('herosSiteSettings');
+
+    if (isProduction && !settingsData) {
+      const setupButton = document.createElement('button');
+      setupButton.textContent = '⚙️ Quick Setup';
+      setupButton.style.cssText = `
+        position: fixed;
+        bottom: 10px;
+        right: 150px;
+        background: #28a745;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        z-index: 10001;
+        font-weight: bold;
+      `;
+      setupButton.onclick = function() {
+        if (confirm('Create test settings with Diabetes Care menu disabled?')) {
+          const testSettings = {
+            'menu-diabetes-care': false,
+            'menu-weight-loss': true,
+            'menu-mens-ed': true,
+            'menu-skin-care': true,
+            'menu-hair-regrowth': true,
+            'menu-nad-plus': true,
+            'section-weight-loss': true,
+            'carousel-weight-loss': true
+          };
+
+          localStorage.setItem('herosSiteSettings', JSON.stringify(testSettings));
+          console.log('✅ Test settings created on production domain');
+          alert('Test settings created! Refresh the page to see Diabetes Care menu hidden.');
+          location.reload();
+        }
+      };
+      document.body.appendChild(setupButton);
+    }
+
     // Remove debug indicator after 10 seconds (extended for debugging)
     setTimeout(() => {
       if (debugIndicator) {
