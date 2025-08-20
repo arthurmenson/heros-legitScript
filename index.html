@@ -4488,7 +4488,7 @@ margin: 0rem !important;
                       </div>
                     </div>
                     <div class="hair-regrowth-social-proof">
-                      <div class="rating-stars">⭐⭐⭐⭐⭐</div>
+                      <div class="rating-stars">⭐��⭐⭐⭐</div>
                       <span class="rating-text">Trusted by 50,000+ patients</span>
                     </div>
                     <div class="hair-regrowth-cta-container">
@@ -5530,7 +5530,7 @@ margin: 0rem !important;
 
   // Recovery function to show all elements
   function showAllElements() {
-    console.log('��� Emergency recovery: showing all elements');
+    console.log('🔄 Emergency recovery: showing all elements');
 
     const allHiddenElements = document.querySelectorAll('[data-heros-hidden="true"]');
     allHiddenElements.forEach(element => {
@@ -5926,10 +5926,8 @@ margin: 0rem !important;
     console.log('✅ Settings system active (admin controls available in settings.html)');
   }
 
-  // Universal domain-agnostic initialization
+  // Universal domain-agnostic initialization (silent for customers)
   document.addEventListener('DOMContentLoaded', function() {
-    console.log('🌐 Universal Heros Settings System Loading...');
-
     // Initialize universal settings system first
     initializeUniversalSettings();
 
@@ -5939,9 +5937,7 @@ margin: 0rem !important;
     // Apply current settings
     applySettings();
 
-    // Settings apply silently in the background - no customer-facing indicators
-
-    console.log('✅ Universal settings system ready on any domain');
+    // Settings work silently in the background
   });
 
   // Status indicators removed - settings work silently in background
