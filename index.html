@@ -5875,11 +5875,16 @@ margin: 0rem !important;
 
     const debugIndicator = createDebugIndicator();
 
-    // Test localStorage immediately
+    // Test localStorage and detect cross-domain issues
     const testMsg = [];
     try {
       const settingsData = localStorage.getItem('herosSiteSettings');
-      testMsg.push(`LocalStorage access: ${settingsData ? 'SUCCESS' : 'NO DATA'}`);
+      const currentDomain = window.location.origin;
+      const isProduction = currentDomain.includes('fly.dev') || currentDomain.includes('herokuapp') || !currentDomain.includes('localhost');
+
+      console.log(`🌐 Current domain: ${currentDomain}`);
+      testMsg.push(`Domain: ${currentDomain.replace('https://', '')}`);
+      testMsg.push(`LocalStorage: ${settingsData ? 'FOUND' : 'EMPTY'}`);
 
       if (settingsData) {
         const settings = JSON.parse(settingsData);
@@ -5887,15 +5892,21 @@ margin: 0rem !important;
         testMsg.push(`${disabledCount} items disabled`);
         updateDebugIndicator(testMsg.join('<br>'), 'success');
 
-        // Show popup with full settings for debugging
-        const disabledItems = Object.keys(settings).filter(key => settings[key] === false);
-        if (disabledItems.length > 0) {
-          setTimeout(() => {
-            alert(`SETTINGS DEBUG:\nDisabled items: ${disabledItems.join(', ')}\n\nCheck console for detailed logs.`);
-          }, 1000);
-        }
+        console.log('✅ Settings found and loaded successfully');
+        console.log('📊 Disabled items:', Object.keys(settings).filter(key => settings[key] === false));
+
       } else {
-        updateDebugIndicator('No settings found - all items visible', 'info');
+        if (isProduction) {
+          testMsg.push('⚠️ No settings on production domain');
+          updateDebugIndicator(testMsg.join('<br>'), 'warning');
+          console.log('⚠️ CROSS-DOMAIN ISSUE: No settings found on production domain');
+          console.log('💡 Solution: Configure settings directly on this domain, or use localhost for testing');
+          console.log('🔧 Use debug-settings.html to create test settings on this domain');
+        } else {
+          testMsg.push('No settings configured yet');
+          updateDebugIndicator(testMsg.join('<br>'), 'info');
+          console.log('ℹ️ No settings found - configure via settings.html');
+        }
       }
     } catch (error) {
       testMsg.push(`ERROR: ${error.message}`);
