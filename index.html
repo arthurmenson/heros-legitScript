@@ -5555,10 +5555,66 @@ margin: 0rem !important;
     });
   }
 
+  // Create debug indicator
+  function createDebugIndicator() {
+    const debugDiv = document.createElement('div');
+    debugDiv.id = 'settings-debug';
+    debugDiv.style.cssText = `
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #333;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 12px;
+      z-index: 10000;
+      max-width: 300px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    `;
+    debugDiv.innerHTML = 'Loading settings...';
+    document.body.appendChild(debugDiv);
+    return debugDiv;
+  }
+
+  // Update debug indicator
+  function updateDebugIndicator(message, type = 'info') {
+    const debugDiv = document.getElementById('settings-debug');
+    if (debugDiv) {
+      const color = type === 'error' ? '#ff4444' : type === 'success' ? '#44ff44' : '#4444ff';
+      debugDiv.style.borderLeft = `4px solid ${color}`;
+      debugDiv.innerHTML = message;
+    }
+  }
+
   // Apply settings when page loads
   document.addEventListener('DOMContentLoaded', function() {
     console.log('Page loaded, applying settings...');
+
+    const debugIndicator = createDebugIndicator();
+
+    try {
+      const settingsData = localStorage.getItem('herosSiteSettings');
+      if (settingsData) {
+        const settings = JSON.parse(settingsData);
+        const disabledCount = Object.keys(settings).filter(key => settings[key] === false).length;
+        updateDebugIndicator(`Settings loaded: ${disabledCount} items disabled`, 'success');
+      } else {
+        updateDebugIndicator('No settings found - all items visible', 'info');
+      }
+    } catch (error) {
+      updateDebugIndicator(`Settings error: ${error.message}`, 'error');
+    }
+
     applySettings();
+
+    // Remove debug indicator after 5 seconds
+    setTimeout(() => {
+      if (debugIndicator) {
+        debugIndicator.remove();
+      }
+    }, 5000);
   });
 
   // Listen for storage changes (when settings are updated)
