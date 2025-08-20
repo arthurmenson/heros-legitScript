@@ -1427,6 +1427,45 @@
             alert('🔗 Universal URL copied to clipboard!');
         }
 
+        // Immediately notify all main site instances
+        function notifyMainSiteInstances(settingKey, newValue) {
+            try {
+                // Method 1: Force storage event for same-tab detection
+                const event = new Event('storage');
+                event.key = 'herosSiteSettings';
+                event.newValue = localStorage.getItem('herosSiteSettings');
+                window.dispatchEvent(event);
+
+                // Method 2: Use custom event
+                const customEvent = new CustomEvent('herosSettingsUpdate', {
+                    detail: { setting: settingKey, value: newValue, timestamp: Date.now() }
+                });
+                window.dispatchEvent(customEvent);
+
+                // Method 3: Try to find and update any main site iframes/windows
+                const frames = document.getElementsByTagName('iframe');
+                for (let frame of frames) {
+                    try {
+                        if (frame.src.includes('index.html') || frame.contentWindow) {
+                            frame.contentWindow.postMessage({
+                                type: 'heroSettingChanged',
+                                setting: settingKey,
+                                value: newValue,
+                                source: 'settings-preview-sync'
+                            }, '*');
+                        }
+                    } catch (e) {
+                        // Cross-origin iframe access blocked
+                    }
+                }
+
+                log(`🚀 Immediate notification sent for: ${settingKey} = ${newValue}`);
+
+            } catch (error) {
+                log(`ERROR in immediate notification: ${error.message}`);
+            }
+        }
+
         // Handle any errors
         window.addEventListener('error', function(e) {
             log(`GLOBAL ERROR: ${e.message} at line ${e.lineno}`);
