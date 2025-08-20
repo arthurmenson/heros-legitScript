@@ -177,37 +177,52 @@
         }
     }
     
-    // Setup settings page broadcasting
+    // Setup settings page broadcasting (non-invasive approach)
     function setupSettingsPageBroadcast() {
-        // Find all toggle elements
-        const toggles = document.querySelectorAll('.toggle, [onclick*="toggle"], [data-setting]');
-        console.log(`🔧 Found ${toggles.length} potential toggle elements`);
-        
-        toggles.forEach((toggle, index) => {
-            // Remove existing listeners and add our own
-            const newToggle = toggle.cloneNode(true);
-            toggle.parentNode.replaceChild(newToggle, toggle);
-            
-            newToggle.addEventListener('click', function(e) {
-                console.log(`🔀 Toggle ${index} clicked`);
-                
-                // Let the original toggle logic run first
-                setTimeout(() => {
-                    broadcastSettingsChange();
-                }, 50);
-            });
-        });
-        
-        // Also monitor localStorage changes on settings page
+        console.log('🔧 Setting up non-invasive settings page broadcasting...');
+
+        // Don't replace existing toggles - just monitor localStorage changes
         let lastSettingsState = localStorage.getItem('herosSiteSettings');
+        let lastChangeTime = 0;
+
+        // Monitor localStorage changes more aggressively
         setInterval(() => {
             const currentState = localStorage.getItem('herosSiteSettings');
             if (currentState !== lastSettingsState) {
                 console.log('📊 Settings page detected localStorage change');
                 lastSettingsState = currentState;
+                lastChangeTime = Date.now();
                 broadcastSettingsChange();
             }
-        }, 100);
+
+            // Also check for change notifications
+            const changeNotification = localStorage.getItem('herosSettingsChange');
+            if (changeNotification) {
+                try {
+                    const change = JSON.parse(changeNotification);
+                    if (change.timestamp && change.timestamp > lastChangeTime) {
+                        console.log('🔔 Change notification detected on settings page');
+                        lastChangeTime = change.timestamp;
+                        broadcastSettingsChange();
+                    }
+                } catch (e) {
+                    // Invalid JSON, ignore
+                }
+            }
+        }, 50); // Very frequent checking on settings page
+
+        // Add non-invasive click listeners to document
+        document.addEventListener('click', function(e) {
+            if (e.target && (e.target.classList.contains('toggle') || e.target.hasAttribute('data-setting'))) {
+                console.log('🔀 Toggle click detected via document listener');
+                // Wait a bit for the original handler to process
+                setTimeout(() => {
+                    broadcastSettingsChange();
+                }, 100);
+            }
+        }, true); // Use capture phase to ensure we get the event
+
+        console.log('✅ Non-invasive settings broadcasting setup complete');
     }
     
     // Broadcast settings change to all main site instances
