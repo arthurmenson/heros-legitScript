@@ -790,6 +790,9 @@
                 // Show immediate feedback
                 showDynamicFeedback(changedSetting, newValue);
 
+                // Auto-refresh preview if open
+                autoRefreshPreview();
+
                 log(`💾 Auto-saved and applied: ${changedSetting} = ${newValue}`);
 
             } catch (error) {
