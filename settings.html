@@ -210,6 +210,16 @@
 </head>
 <body>
     <div class="container">
+<<<<<<< HEAD
+=======
+        <div class="debug-panel" id="debug-panel">
+            <h3>Debug Console</h3>
+            <button class="test-button" onclick="runTests()">Test All Functions</button>
+            <button class="test-button" onclick="verifySettings()" style="background: #28a745;">Verify Settings</button>
+            <div id="debug-log">Page loading...</div>
+        </div>
+
+>>>>>>> refs/remotes/origin/ai_main_3d91186f3bed
         <a href="index.html" class="back-link">← Back to Main Site</a>
         
         <div class="header">
@@ -511,8 +521,31 @@
         </div>
 
         <div class="buttons">
+<<<<<<< HEAD
             <button class="btn" id="save-btn">Save Changes</button>
             <button class="btn" id="reset-btn">Reset All</button>
+=======
+            <button class="btn" onclick="saveSettings()">💾 Save All Changes</button>
+            <button class="btn" onclick="resetSettings()">🔄 Reset All</button>
+            <button class="btn" onclick="generateUniversalURL()" style="background: #28a745;">🔗 Generate Share URL</button>
+            <button class="btn" onclick="testMainSite()" style="background: #2196F3;">🔍 Test on Main Site</button>
+            <button class="btn" onclick="togglePreview()" style="background: #17a2b8;">👁️ Live Preview</button>
+        </div>
+
+        <!-- Dynamic Preview Section -->
+        <div id="preview-section" style="display: none; margin-top: 30px;">
+            <div class="card">
+                <h2>🔍 Live Preview</h2>
+                <p>See your changes in real-time. This preview updates automatically as you toggle settings.</p>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <iframe id="preview-iframe" src="index.html" style="width: 100%; height: 500px; border: 1px solid #ddd; border-radius: 6px;"></iframe>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <button class="btn" onclick="refreshPreview()">🔄 Refresh Preview</button>
+                    <button class="btn" onclick="togglePreview()" style="background: #6c757d;">❌ Close Preview</button>
+                </div>
+            </div>
+>>>>>>> refs/remotes/origin/ai_main_3d91186f3bed
         </div>
     </div>
 
@@ -520,16 +553,171 @@
         // Simple settings management
         const settings = {};
         
+<<<<<<< HEAD
         // Initialize all settings to true
         function initSettings() {
             const toggles = document.querySelectorAll('.toggle');
             toggles.forEach(toggle => {
                 const setting = toggle.getAttribute('data-setting');
                 settings[setting] = toggle.classList.contains('active');
+=======
+        // Debug logging
+        function log(message) {
+            const debugLog = document.getElementById('debug-log');
+            const timestamp = new Date().toLocaleTimeString();
+            debugLog.innerHTML += `<br>[${timestamp}] ${message}`;
+            debugLog.scrollTop = debugLog.scrollHeight;
+            console.log(message);
+        }
+
+        // Test all functionality
+        function runTests() {
+            log("Running comprehensive tests...");
+            
+            try {
+                // Test 1: DOM elements
+                const toggles = document.querySelectorAll('.toggle');
+                log(`Found ${toggles.length} toggle elements`);
+                
+                // Test 2: LocalStorage
+                try {
+                    localStorage.setItem('test', 'value');
+                    localStorage.removeItem('test');
+                    log("LocalStorage: Working");
+                } catch (e) {
+                    log(`LocalStorage ERROR: ${e.message}`);
+                }
+                
+                // Test 3: Settings initialization
+                const testSetting = 'test-setting';
+                settings[testSetting] = true;
+                log(`Settings object: ${Object.keys(settings).length} keys`);
+                
+                // Test 4: Toggle functionality
+                if (toggles.length > 0) {
+                    const firstToggle = toggles[0];
+                    const isActive = firstToggle.classList.contains('active');
+                    log(`First toggle active state: ${isActive}`);
+                }
+                
+                // Test 5: Stats update
+                updateStats();
+                log("Stats updated successfully");
+                
+                log("All tests completed!");
+                
+            } catch (error) {
+                log(`Test ERROR: ${error.message}`);
+            }
+        }
+
+        // Initialize
+        function init() {
+            log('Initializing settings page...');
+
+            try {
+                // Check if this is a production domain
+                const isProductionDomain = window.location.hostname.includes('heroshealth.com') ||
+                                         window.location.hostname.includes('heros');
+
+                if (isProductionDomain) {
+                    log('🌐 Production domain detected: ' + window.location.hostname);
+
+                    // Check if settings exist
+                    const existingSettings = localStorage.getItem('herosSiteSettings');
+                    if (!existingSettings) {
+                        log('📝 No settings found on production domain, creating defaults...');
+                        createProductionDefaults();
+                    }
+                }
+
+                loadSettings();
+                log('Settings loaded');
+
+                setupToggleListeners();
+                log('Toggle listeners setup');
+
+                updateStats();
+                log('Stats updated');
+
+                if (isProductionDomain) {
+                    log('✅ Production settings page ready!');
+                } else {
+                    log('Settings page ready!');
+                }
+            } catch (error) {
+                log(`Initialization ERROR: ${error.message}`);
+            }
+        }
+
+        // Create production defaults if none exist
+        function createProductionDefaults() {
+            const defaultSettings = {};
+
+            // Enable all settings by default for production
+            document.querySelectorAll('.toggle').forEach(toggle => {
+                const setting = toggle.getAttribute('data-setting');
+                if (setting) {
+                    defaultSettings[setting] = true;
+                }
+            });
+
+            // Add production metadata
+            defaultSettings['production-auto-created'] = true;
+            defaultSettings['domain'] = window.location.hostname;
+            defaultSettings['created-timestamp'] = Date.now();
+
+            localStorage.setItem('herosSiteSettings', JSON.stringify(defaultSettings));
+            log(`📝 Created ${Object.keys(defaultSettings).length} default production settings`);
+        }
+
+        // Setup toggle listeners with dynamic functionality
+        function setupToggleListeners() {
+            const toggles = document.querySelectorAll('.toggle');
+            log(`Setting up ${toggles.length} dynamic toggle listeners`);
+
+            toggles.forEach((toggle, index) => {
+                try {
+                    toggle.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        const setting = this.getAttribute('data-setting');
+                        if (!setting) {
+                            log(`ERROR: No data-setting attribute found for toggle ${index}`);
+                            return;
+                        }
+
+                        const isActive = this.classList.contains('active');
+                        const newState = !isActive;
+
+                        // Toggle state
+                        if (newState) {
+                            this.classList.add('active');
+                            settings[setting] = true;
+                            log(`✅ Enabled: ${setting}`);
+                        } else {
+                            this.classList.remove('active');
+                            settings[setting] = false;
+                            log(`❌ Disabled: ${setting}`);
+                        }
+
+                        // Update status indicator
+                        updateStatusIndicator(this, newState);
+                        updateStats();
+
+                        // 🚀 DYNAMIC FUNCTIONALITY: Auto-save and apply immediately
+                        saveSettingsAndApply(setting, newState);
+                    });
+                } catch (error) {
+                    log(`ERROR setting up toggle ${index}: ${error.message}`);
+                }
+>>>>>>> refs/remotes/origin/ai_main_3d91186f3bed
             });
             updateStats();
         }
 
+<<<<<<< HEAD
         // Update status indicator
         function updateStatus(toggle, isActive) {
             const status = toggle.closest('.setting-item').querySelector('.status');
@@ -571,6 +759,161 @@
 
         // Save settings
         function saveSettings() {
+=======
+        // Save settings and apply changes immediately (DYNAMIC)
+        function saveSettingsAndApply(changedSetting, newValue) {
+            try {
+                // Save to localStorage immediately
+                localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
+
+                // Apply to main site if in same window
+                applySettingToMainSite(changedSetting, newValue);
+
+                // Show immediate feedback
+                showDynamicFeedback(changedSetting, newValue);
+
+                // Auto-refresh preview if open
+                autoRefreshPreview();
+
+                // Immediately notify all main site instances
+                notifyMainSiteInstances(changedSetting, newValue);
+
+                log(`💾 Auto-saved and applied: ${changedSetting} = ${newValue}`);
+
+            } catch (error) {
+                log(`ERROR in dynamic save: ${error.message}`);
+            }
+        }
+
+        // Apply specific setting to main site elements (DYNAMIC)
+        function applySettingToMainSite(settingKey, isEnabled) {
+            // Since we're on the settings page, we can't directly modify the main site
+            // Instead, we'll create a comprehensive settings object that the main site can read
+
+            // Store individual setting for immediate reference
+            localStorage.setItem(`heros_${settingKey}`, isEnabled ? 'true' : 'false');
+
+            // Also store in the main settings object
+            const allSettings = JSON.parse(localStorage.getItem('herosSiteSettings') || '{}');
+            allSettings[settingKey] = isEnabled;
+            localStorage.setItem('herosSiteSettings', JSON.stringify(allSettings));
+
+            // Create multiple notification methods for maximum compatibility
+            const changeNotification = {
+                timestamp: Date.now(),
+                setting: settingKey,
+                value: isEnabled,
+                action: 'toggle',
+                source: 'settings-page'
+            };
+
+            localStorage.setItem('herosSettingsChange', JSON.stringify(changeNotification));
+
+            // Also trigger storage event manually for same-tab updates
+            try {
+                window.dispatchEvent(new StorageEvent('storage', {
+                    key: 'herosSettingsChange',
+                    newValue: JSON.stringify(changeNotification),
+                    storageArea: localStorage
+                }));
+            } catch (e) {
+                // Fallback for browsers that don't support StorageEvent constructor
+            }
+
+            log(`💾 Stored setting: ${settingKey} = ${isEnabled}`);
+
+            // Comprehensive window messaging for all contexts
+            const messageData = {
+                type: 'heroSettingChanged',
+                setting: settingKey,
+                value: isEnabled,
+                timestamp: Date.now(),
+                source: 'settings-page'
+            };
+
+            try {
+                // Message to opener window (if opened via window.open)
+                if (window.opener && !window.opener.closed) {
+                    window.opener.postMessage(messageData, '*');
+                    log(`📤 Sent message to opener window`);
+                }
+
+                // Message to parent window (if in iframe)
+                if (window.parent !== window) {
+                    window.parent.postMessage(messageData, '*');
+                    log(`📤 Sent message to parent window`);
+                }
+
+                // Message to all same-origin windows
+                try {
+                    // Find all windows with the same origin
+                    const allWindows = [window.top];
+                    for (let i = 0; i < allWindows.length; i++) {
+                        if (allWindows[i] && allWindows[i] !== window) {
+                            allWindows[i].postMessage(messageData, '*');
+                        }
+                    }
+                } catch (e) {
+                    // Cross-origin restrictions prevent this
+                }
+
+                // Broadcast to any listening components
+                if (typeof BroadcastChannel !== 'undefined') {
+                    const channel = new BroadcastChannel('heros-settings');
+                    channel.postMessage(messageData);
+                    channel.close();
+                    log(`📡 Broadcast message sent`);
+                }
+
+            } catch (error) {
+                log(`INFO: Limited messaging context: ${error.message}`);
+            }
+        }
+
+        // Show immediate visual feedback (DYNAMIC)
+        function showDynamicFeedback(settingKey, isEnabled) {
+            // Create temporary notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${isEnabled ? '#28a745' : '#dc3545'};
+                color: white;
+                padding: 12px 20px;
+                border-radius: 6px;
+                z-index: 10000;
+                font-weight: 600;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+            `;
+
+            const actionText = isEnabled ? 'Enabled' : 'Disabled';
+            const settingName = settingKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            notification.textContent = `${actionText}: ${settingName}`;
+
+            document.body.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+
+            // Animate out and remove
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 2000);
+        }
+
+        // Update status indicator with error handling
+        function updateStatusIndicator(toggle, isActive) {
+>>>>>>> refs/remotes/origin/ai_main_3d91186f3bed
             try {
                 localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
             } catch (e) {
@@ -619,7 +962,112 @@
             }
         }
 
+<<<<<<< HEAD
         // Initialize when page loads
+=======
+        // Save settings to localStorage (now automatic with dynamic toggles)
+        function saveSettings() {
+            try {
+                localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
+                log(`💾 Saved ${Object.keys(settings).length} settings to storage`);
+
+                // Show success feedback
+                const btn = event?.target;
+                if (btn) {
+                    const originalText = btn.textContent;
+                    btn.textContent = '✅ Saved!';
+                    btn.classList.add('success');
+
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.classList.remove('success');
+                    }, 2000);
+                }
+
+                // Apply all settings to main site
+                applyAllSettingsToMainSite();
+
+            } catch (error) {
+                log(`ERROR saving settings: ${error.message}`);
+                alert('Error saving settings!');
+            }
+        }
+
+        // Reset all settings with dynamic application
+        function resetSettings() {
+            try {
+                if (confirm('Reset all settings to default? This will enable all items and apply changes immediately.')) {
+                    const toggles = document.querySelectorAll('.toggle');
+                    toggles.forEach(toggle => {
+                        const setting = toggle.getAttribute('data-setting');
+                        if (setting) {
+                            settings[setting] = true;
+                            toggle.classList.add('active');
+                            updateStatusIndicator(toggle, true);
+
+                            // Apply to main site immediately
+                            applySettingToMainSite(setting, true);
+                        }
+                    });
+
+                    updateStats();
+                    localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
+
+                    // Show feedback
+                    showDynamicFeedback('all-settings', true);
+                    log('✅ All settings reset to default and applied');
+                }
+            } catch (error) {
+                log(`ERROR resetting settings: ${error.message}`);
+            }
+        }
+
+        // Apply all current settings to main site
+        function applyAllSettingsToMainSite() {
+            Object.keys(settings).forEach(settingKey => {
+                applySettingToMainSite(settingKey, settings[settingKey]);
+            });
+            log('🎯 Applied all settings to main site');
+        }
+
+        // Update statistics with error handling
+        function updateStats() {
+            try {
+                const menuItems = ['menu-weight-loss', 'menu-mens-ed', 'menu-skin-care', 'menu-hair-regrowth', 'menu-nad-plus', 'menu-diabetes-care'];
+                const productPages = ['page-weight-loss', 'page-mens-ed', 'page-skin-care', 'page-hair-regrowth', 'page-nad-plus', 'page-diabetes-care'];
+                const generalPages = ['page-blog', 'page-faq', 'page-contact', 'page-medical-disclaimer', 'page-privacy-policy', 'page-terms-of-service'];
+                const carouselItems = ['carousel-weight-loss', 'carousel-hair-regrowth', 'carousel-mens-ed', 'carousel-skin-care', 'carousel-diabetes-care', 'carousel-remote-monitoring', 'carousel-nad-plus'];
+                const sections = ['section-hero', 'section-service-cards', 'section-products', 'section-weight-loss', 'section-bmi', 'section-ed-meds', 'section-results', 'section-how-it-works', 'section-testimonials', 'section-trust-badges', 'section-health-simplified'];
+                const features = ['feature-top-banner', 'feature-navigation', 'feature-footer', 'feature-live-chat', 'feature-mobile-optimization'];
+
+                const activeMenu = menuItems.filter(key => settings[key] !== false).length;
+                const activeProductPages = productPages.filter(key => settings[key] !== false).length;
+                const activeGeneralPages = generalPages.filter(key => settings[key] !== false).length;
+                const activeCarousel = carouselItems.filter(key => settings[key] !== false).length;
+                const activeSections = sections.filter(key => settings[key] !== false).length;
+                const activeFeatures = features.filter(key => settings[key] !== false).length;
+
+                const menuEl = document.getElementById('active-menu');
+                const productPagesEl = document.getElementById('active-product-pages');
+                const generalPagesEl = document.getElementById('active-general-pages');
+                const carouselEl = document.getElementById('active-carousel');
+                const sectionsEl = document.getElementById('active-sections');
+                const featuresEl = document.getElementById('active-features');
+
+                if (menuEl) menuEl.textContent = activeMenu;
+                if (productPagesEl) productPagesEl.textContent = activeProductPages;
+                if (generalPagesEl) generalPagesEl.textContent = activeGeneralPages;
+                if (carouselEl) carouselEl.textContent = activeCarousel;
+                if (sectionsEl) sectionsEl.textContent = activeSections;
+                if (featuresEl) featuresEl.textContent = activeFeatures;
+
+            } catch (error) {
+                log(`ERROR updating stats: ${error.message}`);
+            }
+        }
+
+        // Start when page loads
+>>>>>>> refs/remotes/origin/ai_main_3d91186f3bed
         document.addEventListener('DOMContentLoaded', function() {
             initSettings();
             loadSettings();
@@ -631,6 +1079,7 @@
                 });
             });
 
+<<<<<<< HEAD
             // Add button handlers
             document.getElementById('save-btn').addEventListener('click', function() {
                 saveSettings();
@@ -643,7 +1092,471 @@
             });
 
             document.getElementById('reset-btn').addEventListener('click', resetAll);
+=======
+        // Test main site functionality
+        function testMainSite() {
+            log("Testing main site settings application...");
+
+            try {
+                // Save current settings first
+                saveSettings();
+
+                // Create a temporary test setting to verify functionality
+                const testSetting = {
+                    setting: 'test-verification',
+                    value: true,
+                    timestamp: Date.now()
+                };
+                localStorage.setItem('herosSettingsChange', JSON.stringify(testSetting));
+
+                // Open main site in new window/tab
+                const mainSite = window.open('index.html', '_blank');
+
+                if (mainSite) {
+                    log("✅ Main site opened in new tab");
+                    log("💡 Try toggling any setting to see immediate changes!");
+
+                    // Show instruction tooltip
+                    showDynamicFeedback('test-main-site', true);
+
+                    // Optional: Focus the new window after a delay
+                    setTimeout(() => {
+                        try {
+                            mainSite.focus();
+                        } catch (e) {
+                            // Ignore focus errors
+                        }
+                    }, 1000);
+                } else {
+                    log("❌ ERROR: Could not open main site. Please check popup blocker.");
+                    alert("Could not open main site. Please check your popup blocker settings.");
+                }
+
+            } catch (error) {
+                log(`ERROR testing main site: ${error.message}`);
+                alert(`Error opening main site: ${error.message}`);
+            }
+        }
+
+        // Toggle preview section
+        function togglePreview() {
+            const previewSection = document.getElementById('preview-section');
+            const isVisible = previewSection.style.display !== 'none';
+
+            if (isVisible) {
+                previewSection.style.display = 'none';
+                log("Preview closed");
+            } else {
+                previewSection.style.display = 'block';
+                refreshPreview();
+                log("Preview opened");
+            }
+        }
+
+        // Refresh preview iframe
+        function refreshPreview() {
+            try {
+                const iframe = document.getElementById('preview-iframe');
+                if (iframe) {
+                    // Force reload by changing src
+                    const currentSrc = iframe.src;
+                    iframe.src = '';
+                    setTimeout(() => {
+                        iframe.src = currentSrc + '?t=' + Date.now();
+                    }, 100);
+
+                    log("Preview refreshed");
+                }
+            } catch (error) {
+                log(`ERROR refreshing preview: ${error.message}`);
+            }
+        }
+
+        // Auto-refresh preview when settings change (DYNAMIC)
+        function autoRefreshPreview() {
+            const previewSection = document.getElementById('preview-section');
+            if (previewSection && previewSection.style.display !== 'none') {
+                setTimeout(() => {
+                    refreshPreview();
+                }, 500); // Small delay to allow changes to apply
+            }
+        }
+
+        // Verify current settings in localStorage
+        function verifySettings() {
+            log("=== SETTINGS VERIFICATION ===");
+
+            try {
+                // Check main settings object
+                const mainSettings = localStorage.getItem('herosSiteSettings');
+                if (mainSettings) {
+                    const parsed = JSON.parse(mainSettings);
+                    log(`✅ Main settings found: ${Object.keys(parsed).length} items`);
+
+                    // Show first few settings as examples
+                    const examples = Object.keys(parsed).slice(0, 3);
+                    examples.forEach(key => {
+                        log(`   - ${key}: ${parsed[key]}`);
+                    });
+
+                    if (Object.keys(parsed).length > 3) {
+                        log(`   ... and ${Object.keys(parsed).length - 3} more`);
+                    }
+                } else {
+                    log("❌ No main settings found in localStorage");
+                }
+
+                // Check individual settings
+                const individualCount = Object.keys(localStorage).filter(key => key.startsWith('heros_')).length;
+                log(`📝 Individual settings: ${individualCount} items`);
+
+                // Check change notification
+                const changeNotification = localStorage.getItem('herosSettingsChange');
+                if (changeNotification) {
+                    const change = JSON.parse(changeNotification);
+                    log(`🔔 Last change: ${change.setting} = ${change.value} at ${new Date(change.timestamp).toLocaleTimeString()}`);
+                } else {
+                    log("📭 No change notifications found");
+                }
+
+                // Test localStorage functionality
+                try {
+                    const testKey = 'heros_test_' + Date.now();
+                    localStorage.setItem(testKey, 'test-value');
+                    const retrieved = localStorage.getItem(testKey);
+                    localStorage.removeItem(testKey);
+
+                    if (retrieved === 'test-value') {
+                        log("✅ localStorage read/write: Working perfectly");
+                    } else {
+                        log("❌ localStorage read/write: Failed");
+                    }
+                } catch (error) {
+                    log(`❌ localStorage test error: ${error.message}`);
+                }
+
+                log("=== VERIFICATION COMPLETE ===");
+
+            } catch (error) {
+                log(`ERROR during verification: ${error.message}`);
+            }
+        }
+
+        // Generate universal settings URL
+        function generateUniversalURL() {
+            try {
+                const settingsData = localStorage.getItem('herosSiteSettings');
+                if (!settingsData) {
+                    alert('❌ No settings to share! Please configure some settings first.');
+                    return;
+                }
+
+                // Create base64 encoded settings
+                const encoded = btoa(settingsData);
+
+                // Create URL with current origin but add settings parameter
+                const baseURL = window.location.origin + '/index.html';
+                const shareURL = `${baseURL}?settings=${encoded}`;
+
+                // Show modal with URL
+                showUniversalURLModal(shareURL, settingsData);
+
+                log(`🔗 Universal URL generated: ${shareURL.length} characters`);
+
+            } catch (error) {
+                log(`ERROR generating universal URL: ${error.message}`, 'error');
+                alert(`Error generating URL: ${error.message}`);
+            }
+        }
+
+        function showUniversalURLModal(shareURL, settingsData) {
+            // Create modal overlay
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.8);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                backdrop-filter: blur(5px);
+            `;
+
+            const settings = JSON.parse(settingsData);
+            const totalSettings = Object.keys(settings).length;
+            const disabledCount = Object.values(settings).filter(v => v === false).length;
+            const enabledCount = totalSettings - disabledCount;
+
+            modal.innerHTML = `
+                <div style="
+                    background: white;
+                    padding: 30px;
+                    border-radius: 15px;
+                    max-width: 600px;
+                    width: 90%;
+                    max-height: 80vh;
+                    overflow-y: auto;
+                    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+                ">
+                    <h2 style="margin-top: 0; color: #333; text-align: center;">🌐 Universal Settings URL</h2>
+
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                        <h3 style="margin-top: 0; color: #667eea;">📊 Settings Summary</h3>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+                            <div style="background: white; padding: 10px; border-radius: 6px;">
+                                <div style="font-size: 24px; font-weight: bold; color: #333;">${totalSettings}</div>
+                                <div style="font-size: 12px; color: #666;">Total Settings</div>
+                            </div>
+                            <div style="background: white; padding: 10px; border-radius: 6px;">
+                                <div style="font-size: 24px; font-weight: bold; color: #28a745;">${enabledCount}</div>
+                                <div style="font-size: 12px; color: #666;">Enabled</div>
+                            </div>
+                            <div style="background: white; padding: 10px; border-radius: 6px;">
+                                <div style="font-size: 24px; font-weight: bold; color: #dc3545;">${disabledCount}</div>
+                                <div style="font-size: 12px; color: #666;">Disabled</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="color: #666; margin-bottom: 15px;">
+                        Share this URL to transfer your exact settings to <strong>any domain</strong>.
+                        When someone visits this URL, your settings will be automatically imported.
+                    </p>
+
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <label style="display: block; font-weight: bold; margin-bottom: 8px; color: #333;">Universal Settings URL:</label>
+                        <textarea readonly style="
+                            width: 100%;
+                            height: 80px;
+                            padding: 10px;
+                            border: 1px solid #ddd;
+                            border-radius: 6px;
+                            font-family: monospace;
+                            font-size: 12px;
+                            resize: none;
+                            background: white;
+                        " onclick="this.select()">${shareURL}</textarea>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button onclick="copyUniversalURL('${shareURL}')" style="
+                            background: #28a745;
+                            color: white;
+                            padding: 12px 24px;
+                            border: none;
+                            border-radius: 6px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            margin: 0 10px;
+                            font-size: 14px;
+                        ">📋 Copy URL</button>
+
+                        <button onclick="testUniversalURL('${shareURL}')" style="
+                            background: #2196F3;
+                            color: white;
+                            padding: 12px 24px;
+                            border: none;
+                            border-radius: 6px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            margin: 0 10px;
+                            font-size: 14px;
+                        ">🧪 Test URL</button>
+
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="
+                            background: #6c757d;
+                            color: white;
+                            padding: 12px 24px;
+                            border: none;
+                            border-radius: 6px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            margin: 0 10px;
+                            font-size: 14px;
+                        ">✕ Close</button>
+                    </div>
+
+                    <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px;">
+                        <h4 style="margin-top: 0; color: #1976d2;">💡 How it works:</h4>
+                        <ul style="margin: 10px 0 0 20px; color: #666;">
+                            <li>Settings are encoded in the URL parameters</li>
+                            <li>Works on localhost, production, or any domain</li>
+                            <li>No server or database required</li>
+                            <li>Settings auto-import when URL is visited</li>
+                            <li>Safe to share - contains only your settings data</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            // Close on backdrop click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+
+        window.copyUniversalURL = function(url) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('🔗 Universal URL copied to clipboard!\n\nYou can now paste this URL anywhere to share your settings.');
+                }).catch(() => {
+                    fallbackCopyURL(url);
+                });
+            } else {
+                fallbackCopyURL(url);
+            }
+        };
+
+        window.testUniversalURL = function(url) {
+            const newWindow = window.open(url, '_blank');
+            if (newWindow) {
+                alert('🧪 Testing universal URL in new window!\n\nThe new window should automatically import your settings.');
+            } else {
+                alert('❌ Could not open test window. Please check popup blocker.');
+            }
+        };
+
+        function fallbackCopyURL(url) {
+            const textarea = document.createElement('textarea');
+            textarea.value = url;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('🔗 Universal URL copied to clipboard!');
+        }
+
+        // Immediately notify all main site instances
+        function notifyMainSiteInstances(settingKey, newValue) {
+            try {
+                // Method 1: Force storage event for same-tab detection
+                const event = new Event('storage');
+                event.key = 'herosSiteSettings';
+                event.newValue = localStorage.getItem('herosSiteSettings');
+                window.dispatchEvent(event);
+
+                // Method 2: Use custom event
+                const customEvent = new CustomEvent('herosSettingsUpdate', {
+                    detail: { setting: settingKey, value: newValue, timestamp: Date.now() }
+                });
+                window.dispatchEvent(customEvent);
+
+                // Method 3: Try to find and update any main site iframes/windows
+                const frames = document.getElementsByTagName('iframe');
+                for (let frame of frames) {
+                    try {
+                        if (frame.src.includes('index.html') || frame.contentWindow) {
+                            frame.contentWindow.postMessage({
+                                type: 'heroSettingChanged',
+                                setting: settingKey,
+                                value: newValue,
+                                source: 'settings-preview-sync'
+                            }, '*');
+                        }
+                    } catch (e) {
+                        // Cross-origin iframe access blocked
+                    }
+                }
+
+                log(`🚀 Immediate notification sent for: ${settingKey} = ${newValue}`);
+
+            } catch (error) {
+                log(`ERROR in immediate notification: ${error.message}`);
+            }
+        }
+
+        // Handle any errors
+        window.addEventListener('error', function(e) {
+            log(`GLOBAL ERROR: ${e.message} at line ${e.lineno}`);
+>>>>>>> refs/remotes/origin/ai_main_3d91186f3bed
         });
+    </script>
+
+    <!-- Bulletproof Real-time Sync Fix -->
+    <script src="realtime-sync-fix.js"></script>
+
+    <!-- Production Fixes for heroshealth.com -->
+    <script>
+        // Auto-load production fixes on heroshealth.com
+        if (window.location.hostname.includes('heroshealth.com') || window.location.hostname.includes('heros')) {
+            console.log('🏥 Heroshealth.com detected, loading production fixes...');
+
+            // Critical: Toggle functionality fix (load first)
+            const toggleScript = document.createElement('script');
+            toggleScript.src = 'heroshealth-toggle-fix.js';
+            toggleScript.onload = () => {
+                console.log('✅ Heroshealth toggle fix loaded');
+
+                // Load other fixes after toggle fix is ready
+                const previewScript = document.createElement('script');
+                previewScript.src = 'production-preview-fix.js';
+                previewScript.onload = () => console.log('✅ Production preview fix loaded');
+                previewScript.onerror = () => console.log('⚠️ Could not load production preview fix');
+                document.head.appendChild(previewScript);
+
+                // Load verification script for diagnostics
+                const verifyScript = document.createElement('script');
+                verifyScript.src = 'verify-production-status.js';
+                verifyScript.onload = () => console.log('✅ Production verification loaded');
+                verifyScript.onerror = () => console.log('⚠️ Could not load production verification');
+                document.head.appendChild(verifyScript);
+            };
+            toggleScript.onerror = () => {
+                console.log('⚠️ Could not load toggle fix - using inline fallback');
+
+                // Inline fallback for toggle fix
+                setTimeout(() => {
+                    const toggles = document.querySelectorAll('.toggle');
+                    console.log(`🔧 Fallback: Found ${toggles.length} toggles, fixing...`);
+
+                    toggles.forEach((toggle, i) => {
+                        const newToggle = toggle.cloneNode(true);
+                        toggle.parentNode.replaceChild(newToggle, toggle);
+
+                        newToggle.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            const setting = this.getAttribute('data-setting');
+                            if (!setting) return;
+
+                            const isActive = this.classList.contains('active');
+                            const newState = !isActive;
+
+                            if (newState) {
+                                this.classList.add('active');
+                            } else {
+                                this.classList.remove('active');
+                            }
+
+                            // Save to localStorage
+                            const settings = JSON.parse(localStorage.getItem('herosSiteSettings') || '{}');
+                            settings[setting] = newState;
+                            localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
+
+                            // Create change notification
+                            localStorage.setItem('herosSettingsChange', JSON.stringify({
+                                timestamp: Date.now(),
+                                setting: setting,
+                                value: newState,
+                                source: 'fallback-fix'
+                            }));
+
+                            console.log(`✅ Fallback: ${setting} = ${newState}`);
+                        });
+
+                        console.log(`✅ Fallback toggle ${i} fixed`);
+                    });
+                }, 500);
+            };
+            document.head.appendChild(toggleScript);
+        }
     </script>
 </body>
 </html>

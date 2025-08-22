@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Execute Multi-Toggle Tests</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #f0f0f0; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; }
+        .test-result { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .pass { background: #d4edda; color: #155724; }
+        .fail { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .warning { background: #fff3cd; color: #856404; }
+        .log { background: #1a1a1a; color: #00ff00; padding: 15px; border-radius: 5px; height: 400px; overflow-y: auto; font-size: 12px; }
+        .btn { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Multi-Toggle Test Execution</h1>
+        <p>Direct execution of multi-toggle tests with real-time verification.</p>
+        
+        <div style="text-align: center; margin: 20px 0;">
+            <button class="btn" onclick="executeTest1()">Test 1: Basic Toggle Cycle</button>
+            <button class="btn" onclick="executeTest2()">Test 2: Multiple Items</button>
+            <button class="btn" onclick="executeTest3()">Test 3: Rapid Toggles</button>
+            <button class="btn" onclick="executeAllTests()">🚀 Run All Tests</button>
+            <button class="btn" onclick="openMainPage()">📄 Open Main Page</button>
+        </div>
+
+        <div id="test-results"></div>
+        <div class="log" id="test-log"></div>
+    </div>
+
+    <script>
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logDiv = document.getElementById('test-log');
+            const color = type === 'error' ? '#ff4444' : type === 'success' ? '#44ff44' : type === 'warning' ? '#ffaa44' : '#00ff00';
+            logDiv.innerHTML += `<div style="color: ${color};">[${timestamp}] ${message}</div>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(message);
+        }
+
+        function getCurrentSettings() {
+            try {
+                const data = localStorage.getItem('herosSiteSettings');
+                return data ? JSON.parse(data) : {};
+            } catch (error) {
+                log(`Error loading settings: ${error.message}`, 'error');
+                return {};
+            }
+        }
+
+        function saveSettings(settings) {
+            try {
+                localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
+                return true;
+            } catch (error) {
+                log(`Error saving settings: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function addResult(testName, status, details) {
+            const resultsDiv = document.getElementById('test-results');
+            const resultClass = status === 'pass' ? 'pass' : status === 'fail' ? 'fail' : 'info';
+            resultsDiv.innerHTML += `
+                <div class="test-result ${resultClass}">
+                    <strong>${testName}</strong>: ${status.toUpperCase()}<br>
+                    ${details}
+                </div>
+            `;
+        }
+
+        // Test 1: Basic Toggle Cycle (the problematic scenario)
+        async function executeTest1() {
+            log('🟢 Starting Test 1: Basic Toggle Cycle', 'info');
+            
+            const settings = getCurrentSettings();
+            const testItem = 'menu-diabetes-care';
+            const originalState = settings[testItem];
+            
+            try {
+                log(`Testing ${testItem} - Original state: ${originalState}`, 'info');
+                
+                // Cycle 1: disable → enable → disable → enable
+                log('Cycle 1: disable → enable → disable → enable', 'info');
+                
+                settings[testItem] = false;
+                saveSettings(settings);
+                await delay(300);
+                log('Step 1: Disabled ✓', 'success');
+                
+                settings[testItem] = true;
+                saveSettings(settings);
+                await delay(300);
+                log('Step 2: Enabled ✓', 'success');
+                
+                settings[testItem] = false;
+                saveSettings(settings);
+                await delay(300);
+                log('Step 3: Disabled again ✓', 'success');
+                
+                settings[testItem] = true;
+                saveSettings(settings);
+                await delay(300);
+                log('Step 4: Enabled again ✓', 'success');
+                
+                // Verify final state
+                const finalSettings = getCurrentSettings();
+                if (finalSettings[testItem] === true) {
+                    log('✅ Test 1 PASSED: Toggle cycle works correctly', 'success');
+                    addResult('Test 1: Basic Toggle Cycle', 'pass', 'Successfully completed disable→enable→disable→enable cycle');
+                } else {
+                    log('❌ Test 1 FAILED: Final state incorrect', 'error');
+                    addResult('Test 1: Basic Toggle Cycle', 'fail', `Expected true, got ${finalSettings[testItem]}`);
+                }
+                
+            } catch (error) {
+                log(`❌ Test 1 ERROR: ${error.message}`, 'error');
+                addResult('Test 1: Basic Toggle Cycle', 'fail', `Error: ${error.message}`);
+            }
+        }
+
+        // Test 2: Multiple Items Toggle
+        async function executeTest2() {
+            log('🔵 Starting Test 2: Multiple Items Toggle', 'info');
+            
+            const settings = getCurrentSettings();
+            const testItems = ['menu-diabetes-care', 'carousel-weight-loss', 'section-weight-loss'];
+            
+            try {
+                log(`Testing multiple items: ${testItems.join(', ')}`, 'info');
+                
+                // Store original states
+                const originalStates = {};
+                testItems.forEach(item => {
+                    originalStates[item] = settings[item];
+                });
+                
+                // Disable all test items
+                log('Phase 1: Disabling all test items', 'info');
+                for (const item of testItems) {
+                    settings[item] = false;
+                    saveSettings(settings);
+                    await delay(200);
+                    log(`Disabled ${item}`, 'success');
+                }
+                
+                // Enable all test items
+                log('Phase 2: Enabling all test items', 'info');
+                for (const item of testItems) {
+                    settings[item] = true;
+                    saveSettings(settings);
+                    await delay(200);
+                    log(`Enabled ${item}`, 'success');
+                }
+                
+                // Disable again (the critical test)
+                log('Phase 3: Disabling again (critical test)', 'warning');
+                for (const item of testItems) {
+                    settings[item] = false;
+                    saveSettings(settings);
+                    await delay(200);
+                    log(`Disabled ${item} again`, 'success');
+                }
+                
+                // Verify all are disabled
+                const finalSettings = getCurrentSettings();
+                let allCorrect = true;
+                testItems.forEach(item => {
+                    if (finalSettings[item] !== false) {
+                        allCorrect = false;
+                        log(`❌ ${item} should be false, is ${finalSettings[item]}`, 'error');
+                    }
+                });
+                
+                if (allCorrect) {
+                    log('✅ Test 2 PASSED: Multiple items toggle correctly', 'success');
+                    addResult('Test 2: Multiple Items Toggle', 'pass', 'All items toggled correctly through multiple cycles');
+                } else {
+                    log('❌ Test 2 FAILED: Some items in wrong state', 'error');
+                    addResult('Test 2: Multiple Items Toggle', 'fail', 'Some items not in expected final state');
+                }
+                
+            } catch (error) {
+                log(`❌ Test 2 ERROR: ${error.message}`, 'error');
+                addResult('Test 2: Multiple Items Toggle', 'fail', `Error: ${error.message}`);
+            }
+        }
+
+        // Test 3: Rapid Toggle Stress Test
+        async function executeTest3() {
+            log('⚡ Starting Test 3: Rapid Toggle Stress Test', 'info');
+            
+            const settings = getCurrentSettings();
+            const testItem = 'menu-nad-plus';
+            
+            try {
+                log(`Rapid toggling ${testItem} 20 times`, 'warning');
+                
+                // Rapid toggle 20 times
+                for (let i = 0; i < 20; i++) {
+                    const newState = i % 2 === 0 ? false : true;
+                    settings[testItem] = newState;
+                    saveSettings(settings);
+                    await delay(50);
+                    
+                    if (i % 5 === 0) {
+                        log(`Toggle ${i + 1}/20: ${newState}`, 'info');
+                    }
+                }
+                
+                // Final verification
+                const finalSettings = getCurrentSettings();
+                const expectedState = true; // Should end on true (20th toggle is odd)
+                
+                if (finalSettings[testItem] === expectedState) {
+                    log('✅ Test 3 PASSED: Rapid toggles work correctly', 'success');
+                    addResult('Test 3: Rapid Toggle Stress', 'pass', 'Successfully completed 20 rapid toggles');
+                } else {
+                    log(`❌ Test 3 FAILED: Expected ${expectedState}, got ${finalSettings[testItem]}`, 'error');
+                    addResult('Test 3: Rapid Toggle Stress', 'fail', `Wrong final state after rapid toggles`);
+                }
+                
+            } catch (error) {
+                log(`❌ Test 3 ERROR: ${error.message}`, 'error');
+                addResult('Test 3: Rapid Toggle Stress', 'fail', `Error: ${error.message}`);
+            }
+        }
+
+        // Execute All Tests
+        async function executeAllTests() {
+            log('🚀 Starting Complete Multi-Toggle UAT', 'info');
+            document.getElementById('test-results').innerHTML = '';
+            
+            await executeTest1();
+            await delay(1000);
+            
+            await executeTest2();
+            await delay(1000);
+            
+            await executeTest3();
+            
+            log('🏁 All tests completed! Check results above.', 'success');
+            log('💡 Open main page to manually verify items are hidden/shown correctly', 'info');
+            
+            // Auto-open main page for verification
+            setTimeout(() => {
+                openMainPage();
+            }, 2000);
+        }
+
+        function openMainPage() {
+            window.open('index.html', '_blank');
+            log('📄 Opened main page for manual verification', 'info');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            log('🧪 Multi-Toggle Test Execution Ready', 'success');
+            log('💡 Click "Run All Tests" to execute comprehensive multi-toggle testing', 'info');
+            
+            // Show current settings overview
+            const settings = getCurrentSettings();
+            const total = Object.keys(settings).length;
+            const disabled = Object.keys(settings).filter(k => settings[k] === false).length;
+            log(`📊 Current state: ${total} total items, ${disabled} disabled`, 'info');
+        });
+    </script>
+</body>
+</html>

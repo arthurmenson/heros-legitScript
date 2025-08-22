@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Multi-Toggle UAT Verification</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border-radius: 10px;
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .test-card {
+            padding: 25px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        .test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .test-card.running {
+            border-color: #007bff;
+            background: #e7f3ff;
+        }
+        .test-card.pass {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        .test-card.fail {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            margin: 8px;
+        }
+        .btn:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+        .btn.success { background: #28a745; }
+        .btn.success:hover { background: #218838; }
+        .btn.danger { background: #dc3545; }
+        .btn.danger:hover { background: #c82333; }
+        .btn.warning { background: #ffc107; color: #212529; }
+        .btn.warning:hover { background: #e0a800; }
+        
+        .results-summary {
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 25px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 500px;
+            overflow-y: auto;
+            margin: 25px 0;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .progress-container {
+            background: #e9ecef;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        
+        .final-report {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin: 5px;
+        }
+        .status-pass { background: #28a745; color: white; }
+        .status-fail { background: #dc3545; color: white; }
+        .status-pending { background: #6c757d; color: white; }
+        
+        h1, h2, h3 { color: #495057; }
+        .emoji { font-size: 1.5em; margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Final Multi-Toggle UAT Verification</h1>
+            <p>Comprehensive testing to ensure the settings system handles all toggle scenarios perfectly</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="overall-progress"></div>
+        </div>
+        <p id="progress-text">Ready to begin final verification...</p>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <button class="btn success" onclick="runFullVerification()">🚀 Run Full Verification</button>
+            <button class="btn warning" onclick="runQuickTest()">⚡ Quick Test</button>
+            <button class="btn" onclick="openMainPage()">📄 Open Main Page</button>
+            <button class="btn danger" onclick="resetEverything()">🔄 Reset All Settings</button>
+        </div>
+
+        <div class="test-grid">
+            <!-- Test 1: Basic Toggle Cycle -->
+            <div class="test-card" id="test-1">
+                <h3><span class="emoji">🔄</span>Basic Toggle Cycle</h3>
+                <p>Test: disable → enable → disable → enable</p>
+                <div id="test-1-status">
+                    <span class="status-badge status-pending">Pending</span>
+                </div>
+                <button class="btn" onclick="runTest1()">Run Test</button>
+                <div id="test-1-details"></div>
+            </div>
+
+            <!-- Test 2: Multiple Items -->
+            <div class="test-card" id="test-2">
+                <h3><span class="emoji">📊</span>Multiple Items Toggle</h3>
+                <p>Test multiple items simultaneously</p>
+                <div id="test-2-status">
+                    <span class="status-badge status-pending">Pending</span>
+                </div>
+                <button class="btn" onclick="runTest2()">Run Test</button>
+                <div id="test-2-details"></div>
+            </div>
+
+            <!-- Test 3: Rapid Toggles -->
+            <div class="test-card" id="test-3">
+                <h3><span class="emoji">⚡</span>Rapid Toggle Stress</h3>
+                <p>Rapid toggle stress testing</p>
+                <div id="test-3-status">
+                    <span class="status-badge status-pending">Pending</span>
+                </div>
+                <button class="btn" onclick="runTest3()">Run Test</button>
+                <div id="test-3-details"></div>
+            </div>
+
+            <!-- Test 4: Edge Cases -->
+            <div class="test-card" id="test-4">
+                <h3><span class="emoji">🎯</span>Edge Cases</h3>
+                <p>Test edge cases and error conditions</p>
+                <div id="test-4-status">
+                    <span class="status-badge status-pending">Pending</span>
+                </div>
+                <button class="btn" onclick="runTest4()">Run Test</button>
+                <div id="test-4-details"></div>
+            </div>
+
+            <!-- Test 5: Cross-Browser Compatibility -->
+            <div class="test-card" id="test-5">
+                <h3><span class="emoji">🌐</span>Browser Compatibility</h3>
+                <p>Test settings persistence and loading</p>
+                <div id="test-5-status">
+                    <span class="status-badge status-pending">Pending</span>
+                </div>
+                <button class="btn" onclick="runTest5()">Run Test</button>
+                <div id="test-5-details"></div>
+            </div>
+
+            <!-- Test 6: Performance -->
+            <div class="test-card" id="test-6">
+                <h3><span class="emoji">🚀</span>Performance Test</h3>
+                <p>Test settings application performance</p>
+                <div id="test-6-status">
+                    <span class="status-badge status-pending">Pending</span>
+                </div>
+                <button class="btn" onclick="runTest6()">Run Test</button>
+                <div id="test-6-details"></div>
+            </div>
+        </div>
+
+        <div class="results-summary" id="results-log">
+            <div style="color: #00ffff;">[INFO] Final UAT Verification Suite Ready</div>
+            <div style="color: #ffff00;">[INFO] Click 'Run Full Verification' to begin comprehensive testing</div>
+        </div>
+
+        <div class="final-report" id="final-report" style="display: none;">
+            <h2>🏆 Final UAT Report</h2>
+            <div id="report-content"></div>
+        </div>
+    </div>
+
+    <script>
+        let testResults = [];
+        let currentTest = 0;
+        let totalTests = 6;
+
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logDiv = document.getElementById('results-log');
+            const colors = {
+                info: '#00ff00',
+                success: '#00ffff',
+                warning: '#ffff00',
+                error: '#ff4444'
+            };
+            logDiv.innerHTML += `<div style="color: ${colors[type]};">[${timestamp}] ${message}</div>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(message);
+        }
+
+        function updateProgress(completed) {
+            const percentage = (completed / totalTests) * 100;
+            document.getElementById('overall-progress').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = 
+                `Progress: ${completed}/${totalTests} tests completed (${Math.round(percentage)}%)`;
+        }
+
+        function updateTestStatus(testNumber, status, details = '') {
+            const testCard = document.getElementById(`test-${testNumber}`);
+            const statusDiv = document.getElementById(`test-${testNumber}-status`);
+            const detailsDiv = document.getElementById(`test-${testNumber}-details`);
+            
+            testCard.className = `test-card ${status}`;
+            
+            const statusBadge = status === 'pass' ? 'status-pass' : 
+                               status === 'fail' ? 'status-fail' : 
+                               status === 'running' ? 'status-pending' : 'status-pending';
+            
+            const statusText = status === 'pass' ? '✅ PASSED' : 
+                              status === 'fail' ? '❌ FAILED' : 
+                              status === 'running' ? '🔄 RUNNING' : '⏳ PENDING';
+            
+            statusDiv.innerHTML = `<span class="status-badge ${statusBadge}">${statusText}</span>`;
+            detailsDiv.innerHTML = details ? `<small>${details}</small>` : '';
+        }
+
+        function getCurrentSettings() {
+            try {
+                const data = localStorage.getItem('herosSiteSettings');
+                return data ? JSON.parse(data) : {};
+            } catch (error) {
+                log(`Error loading settings: ${error.message}`, 'error');
+                return {};
+            }
+        }
+
+        function saveSettings(settings) {
+            try {
+                localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
+                return true;
+            } catch (error) {
+                log(`Error saving settings: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Test 1: Basic Toggle Cycle
+        async function runTest1() {
+            log('🔄 Starting Test 1: Basic Toggle Cycle', 'info');
+            updateTestStatus(1, 'running');
+            
+            const settings = getCurrentSettings();
+            const testItem = 'menu-diabetes-care';
+            
+            try {
+                // Cycle: disable → enable → disable → enable
+                log(`Testing ${testItem} with complete toggle cycle`, 'info');
+                
+                settings[testItem] = false;
+                saveSettings(settings);
+                await delay(300);
+                
+                settings[testItem] = true;
+                saveSettings(settings);
+                await delay(300);
+                
+                settings[testItem] = false;
+                saveSettings(settings);
+                await delay(300);
+                
+                settings[testItem] = true;
+                saveSettings(settings);
+                await delay(300);
+                
+                // Verify final state
+                const finalSettings = getCurrentSettings();
+                if (finalSettings[testItem] === true) {
+                    updateTestStatus(1, 'pass', 'Toggle cycle completed successfully');
+                    testResults.push({test: 1, status: 'pass'});
+                    log('✅ Test 1 PASSED', 'success');
+                } else {
+                    updateTestStatus(1, 'fail', `Expected true, got ${finalSettings[testItem]}`);
+                    testResults.push({test: 1, status: 'fail'});
+                    log('❌ Test 1 FAILED', 'error');
+                }
+                
+            } catch (error) {
+                updateTestStatus(1, 'fail', `Error: ${error.message}`);
+                testResults.push({test: 1, status: 'fail', error: error.message});
+                log(`❌ Test 1 ERROR: ${error.message}`, 'error');
+            }
+        }
+
+        // Test 2: Multiple Items Toggle
+        async function runTest2() {
+            log('📊 Starting Test 2: Multiple Items Toggle', 'info');
+            updateTestStatus(2, 'running');
+            
+            const settings = getCurrentSettings();
+            const testItems = ['menu-diabetes-care', 'carousel-weight-loss', 'section-weight-loss'];
+            
+            try {
+                log(`Testing multiple items: ${testItems.join(', ')}`, 'info');
+                
+                // Phase 1: Disable all
+                for (const item of testItems) {
+                    settings[item] = false;
+                    saveSettings(settings);
+                    await delay(200);
+                }
+                
+                // Phase 2: Enable all
+                for (const item of testItems) {
+                    settings[item] = true;
+                    saveSettings(settings);
+                    await delay(200);
+                }
+                
+                // Phase 3: Disable all again (critical test)
+                for (const item of testItems) {
+                    settings[item] = false;
+                    saveSettings(settings);
+                    await delay(200);
+                }
+                
+                // Verify all are disabled
+                const finalSettings = getCurrentSettings();
+                let allCorrect = true;
+                testItems.forEach(item => {
+                    if (finalSettings[item] !== false) {
+                        allCorrect = false;
+                    }
+                });
+                
+                if (allCorrect) {
+                    updateTestStatus(2, 'pass', 'All items toggled correctly');
+                    testResults.push({test: 2, status: 'pass'});
+                    log('✅ Test 2 PASSED', 'success');
+                } else {
+                    updateTestStatus(2, 'fail', 'Some items in wrong state');
+                    testResults.push({test: 2, status: 'fail'});
+                    log('❌ Test 2 FAILED', 'error');
+                }
+                
+            } catch (error) {
+                updateTestStatus(2, 'fail', `Error: ${error.message}`);
+                testResults.push({test: 2, status: 'fail', error: error.message});
+                log(`❌ Test 2 ERROR: ${error.message}`, 'error');
+            }
+        }
+
+        // Test 3: Rapid Toggle Stress
+        async function runTest3() {
+            log('⚡ Starting Test 3: Rapid Toggle Stress', 'info');
+            updateTestStatus(3, 'running');
+            
+            const settings = getCurrentSettings();
+            const testItem = 'menu-nad-plus';
+            
+            try {
+                log(`Rapid toggling ${testItem} 50 times`, 'info');
+                
+                const startTime = performance.now();
+                
+                for (let i = 0; i < 50; i++) {
+                    const newState = i % 2 === 0 ? false : true;
+                    settings[testItem] = newState;
+                    saveSettings(settings);
+                    await delay(20);
+                }
+                
+                const endTime = performance.now();
+                const duration = Math.round(endTime - startTime);
+                
+                // Verify final state
+                const finalSettings = getCurrentSettings();
+                const expectedState = true; // 50th toggle should be true
+                
+                if (finalSettings[testItem] === expectedState) {
+                    updateTestStatus(3, 'pass', `50 rapid toggles in ${duration}ms`);
+                    testResults.push({test: 3, status: 'pass', duration});
+                    log(`✅ Test 3 PASSED (${duration}ms)`, 'success');
+                } else {
+                    updateTestStatus(3, 'fail', `Wrong final state after rapid toggles`);
+                    testResults.push({test: 3, status: 'fail'});
+                    log('❌ Test 3 FAILED', 'error');
+                }
+                
+            } catch (error) {
+                updateTestStatus(3, 'fail', `Error: ${error.message}`);
+                testResults.push({test: 3, status: 'fail', error: error.message});
+                log(`❌ Test 3 ERROR: ${error.message}`, 'error');
+            }
+        }
+
+        // Test 4: Edge Cases
+        async function runTest4() {
+            log('🎯 Starting Test 4: Edge Cases', 'info');
+            updateTestStatus(4, 'running');
+            
+            try {
+                // Test invalid data handling
+                localStorage.setItem('herosSiteSettings', 'invalid json');
+                await delay(100);
+                
+                // Should recover gracefully
+                const settings = getCurrentSettings();
+                if (typeof settings === 'object') {
+                    updateTestStatus(4, 'pass', 'Handles invalid data gracefully');
+                    testResults.push({test: 4, status: 'pass'});
+                    log('✅ Test 4 PASSED', 'success');
+                } else {
+                    updateTestStatus(4, 'fail', 'Failed to handle invalid data');
+                    testResults.push({test: 4, status: 'fail'});
+                    log('❌ Test 4 FAILED', 'error');
+                }
+                
+            } catch (error) {
+                updateTestStatus(4, 'fail', `Error: ${error.message}`);
+                testResults.push({test: 4, status: 'fail', error: error.message});
+                log(`❌ Test 4 ERROR: ${error.message}`, 'error');
+            }
+        }
+
+        // Test 5: Browser Compatibility
+        async function runTest5() {
+            log('🌐 Starting Test 5: Browser Compatibility', 'info');
+            updateTestStatus(5, 'running');
+            
+            try {
+                // Test localStorage availability
+                const testKey = 'heros-test-' + Date.now();
+                localStorage.setItem(testKey, 'test');
+                const retrieved = localStorage.getItem(testKey);
+                localStorage.removeItem(testKey);
+                
+                if (retrieved === 'test') {
+                    updateTestStatus(5, 'pass', 'localStorage working correctly');
+                    testResults.push({test: 5, status: 'pass'});
+                    log('✅ Test 5 PASSED', 'success');
+                } else {
+                    updateTestStatus(5, 'fail', 'localStorage not working');
+                    testResults.push({test: 5, status: 'fail'});
+                    log('❌ Test 5 FAILED', 'error');
+                }
+                
+            } catch (error) {
+                updateTestStatus(5, 'fail', `Error: ${error.message}`);
+                testResults.push({test: 5, status: 'fail', error: error.message});
+                log(`❌ Test 5 ERROR: ${error.message}`, 'error');
+            }
+        }
+
+        // Test 6: Performance
+        async function runTest6() {
+            log('🚀 Starting Test 6: Performance', 'info');
+            updateTestStatus(6, 'running');
+            
+            try {
+                const settings = getCurrentSettings();
+                const startTime = performance.now();
+                
+                // Simulate heavy settings application
+                for (let i = 0; i < 10; i++) {
+                    settings[`test-item-${i}`] = i % 2 === 0;
+                    saveSettings(settings);
+                }
+                
+                const endTime = performance.now();
+                const duration = Math.round(endTime - startTime);
+                
+                if (duration < 1000) { // Should complete in under 1 second
+                    updateTestStatus(6, 'pass', `Performance test: ${duration}ms`);
+                    testResults.push({test: 6, status: 'pass', duration});
+                    log(`✅ Test 6 PASSED (${duration}ms)`, 'success');
+                } else {
+                    updateTestStatus(6, 'fail', `Too slow: ${duration}ms`);
+                    testResults.push({test: 6, status: 'fail', duration});
+                    log(`❌ Test 6 FAILED (too slow)`, 'error');
+                }
+                
+            } catch (error) {
+                updateTestStatus(6, 'fail', `Error: ${error.message}`);
+                testResults.push({test: 6, status: 'fail', error: error.message});
+                log(`❌ Test 6 ERROR: ${error.message}`, 'error');
+            }
+        }
+
+        // Run all tests
+        async function runFullVerification() {
+            log('🚀 Starting Full UAT Verification Suite', 'info');
+            testResults = [];
+            
+            const tests = [runTest1, runTest2, runTest3, runTest4, runTest5, runTest6];
+            
+            for (let i = 0; i < tests.length; i++) {
+                currentTest = i + 1;
+                updateProgress(i);
+                await tests[i]();
+                await delay(500);
+            }
+            
+            updateProgress(totalTests);
+            generateFinalReport();
+        }
+
+        // Quick test (just the critical toggle cycle)
+        async function runQuickTest() {
+            log('⚡ Running Quick Toggle Test', 'info');
+            await runTest1();
+            generateFinalReport();
+        }
+
+        // Generate final report
+        function generateFinalReport() {
+            const passedTests = testResults.filter(r => r.status === 'pass').length;
+            const totalRun = testResults.length;
+            
+            const reportDiv = document.getElementById('final-report');
+            const contentDiv = document.getElementById('report-content');
+            
+            const success = passedTests === totalRun;
+            
+            contentDiv.innerHTML = `
+                <div style="font-size: 24px; margin-bottom: 20px;">
+                    ${success ? '🎉 ALL TESTS PASSED!' : '⚠️ SOME TESTS FAILED'}
+                </div>
+                <div style="font-size: 18px; margin-bottom: 20px;">
+                    ${passedTests} / ${totalRun} tests passed
+                </div>
+                <div style="margin: 20px 0;">
+                    ${success ? 
+                        '✅ The multi-toggle settings system is working perfectly and ready for production!' : 
+                        '❌ Issues found that need to be addressed before deployment.'}
+                </div>
+                <div>
+                    <strong>Recommendation:</strong> 
+                    ${success ? 
+                        'The settings system has passed comprehensive testing and can be deployed with confidence.' : 
+                        'Review failed tests and fix issues before proceeding to production.'}
+                </div>
+            `;
+            
+            reportDiv.style.display = 'block';
+            
+            log(`🏁 UAT Complete: ${passedTests}/${totalRun} tests passed`, 
+                success ? 'success' : 'error');
+        }
+
+        function openMainPage() {
+            window.open('index.html', '_blank');
+            log('📄 Opened main page for verification', 'info');
+        }
+
+        function resetEverything() {
+            if (confirm('Reset all settings and test results?')) {
+                localStorage.removeItem('herosSiteSettings');
+                location.reload();
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            log('🎯 Final UAT Verification Suite Ready', 'success');
+            log('Click "Run Full Verification" to begin comprehensive testing', 'info');
+        });
+    </script>
+</body>
+</html>

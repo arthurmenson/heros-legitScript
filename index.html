@@ -2387,6 +2387,19 @@
   .section_wl-hero a {
     min-height: 44px;
   }
+
+  /* HEROS Settings System - Force hiding class as backup */
+  .heros-force-hidden {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+  }
 }
 </style>
 </head>
@@ -4475,7 +4488,7 @@ margin: 0rem !important;
                       </div>
                     </div>
                     <div class="hair-regrowth-social-proof">
-                      <div class="rating-stars">⭐⭐⭐⭐⭐</div>
+                      <div class="rating-stars">⭐��⭐⭐⭐</div>
                       <span class="rating-text">Trusted by 50,000+ patients</span>
                     </div>
                     <div class="hair-regrowth-cta-container">
@@ -5343,7 +5356,798 @@ margin: 0rem !important;
     setInterval(changeWord, 3000);
   }
 
+  // Capture original display values for all elements we might control
+  function captureOriginalDisplayValues() {
+    const allSelectors = [
+      // Navigation items
+      'a[href="weight-loss.html"]',
+      'a[href="mens-ed.html"]',
+      'a[href="skin-care.html"]',
+      'a[href="hair-regrowth.html"]',
+      'a[href="nad-plus.html"]',
+      'a[href="diabetes-care.html"]',
+
+      // Sections
+      '.section_home-hero',
+      '.new-service-cards',
+      '.products-carousel',
+      '.section_wl-hero',
+      '.bmi-calculator-section',
+      '.ed-meds-grid',
+      '.results-section',
+      '.how-it-works-grid',
+      '.video-testimonials-grid',
+      '.trust-badges',
+      '.health-simplified-section',
+
+      // Carousel items
+      '.weight-loss-card',
+      '.hair-regrowth-card',
+      '.mens-ed-card',
+      '.skin-care-card',
+      '.diabetes-care-card',
+      '.remote-monitoring-card',
+      '.nad-card'
+    ];
+
+    allSelectors.forEach(selector => {
+      const elements = document.querySelectorAll(selector);
+      elements.forEach(element => {
+        if (!element.getAttribute('data-heros-original-display')) {
+          const computedStyle = window.getComputedStyle(element);
+          const originalDisplay = computedStyle.display === 'none' ? 'block' : computedStyle.display;
+          element.setAttribute('data-heros-original-display', originalDisplay);
+        }
+      });
+    });
+
+    // Original display values captured silently
+  }
+
+  // Settings Control System with Enhanced Error Handling
+  function applySettings() {
+    try {
+      // Silent for customers
+
+      // Load settings from localStorage
+      const settingsData = localStorage.getItem('herosSiteSettings');
+      if (!settingsData) {
+        return;
+      }
+
+      const settings = JSON.parse(settingsData);
+
+      // Validate settings object
+      if (typeof settings !== 'object' || settings === null) {
+        // Silent error handling
+        localStorage.removeItem('herosSiteSettings');
+        return;
+      }
+
+      // Apply settings silently
+
+      // Navigation Menu Items
+      console.log('��� Applying navigation menu settings...');
+      try {
+        applyNavMenuSettings(settings);
+        // Silent success
+      } catch (error) {
+        // Silent error handling
+      }
+
+      try {
+        applyHomepageSectionSettings(settings);
+      } catch (error) {
+        // Silent error handling
+      }
+
+      try {
+        applyProductCarouselSettings(settings);
+      } catch (error) {
+        // Silent error handling
+      }
+
+      // Site Features
+      console.log('��️ Applying site feature settings...');
+      try {
+        applySiteFeatureSettings(settings);
+        // Silent success
+      } catch (error) {
+        // Silent error handling
+      }
+
+    } catch (error) {
+      // Silent error handling - try to recover by showing all elements
+      try {
+        showAllElements();
+      } catch (recoveryError) {
+        // Silent recovery
+      }
+    }
+  }
+
+  // Verification function (silent for customers)
+  function verifySettingsApplied(settings) {
+    // Silent verification - no console output for customers
+    try {
+      const navItems = {
+        'menu-weight-loss': 'a[href="weight-loss.html"]',
+        'menu-mens-ed': 'a[href="mens-ed.html"]',
+        'menu-skin-care': 'a[href="skin-care.html"]',
+        'menu-hair-regrowth': 'a[href="hair-regrowth.html"]',
+        'menu-nad-plus': 'a[href="nad-plus.html"]',
+        'menu-diabetes-care': 'a[href="diabetes-care.html"]'
+      };
+
+      let verificationErrors = 0;
+      Object.keys(navItems).forEach(settingKey => {
+        if (settings[settingKey] === false) {
+          const elements = document.querySelectorAll(navItems[settingKey]);
+          elements.forEach(element => {
+            if (!element.hasAttribute('data-heros-hidden')) {
+              verificationErrors++;
+            }
+          });
+        }
+      });
+
+      // Silent retry if needed
+      if (verificationErrors > 0) {
+        setTimeout(() => applySettings(), 500);
+      }
+    } catch (error) {
+      // Silent error handling
+    }
+  }
+
+  // Recovery function to show all elements (silent)
+  function showAllElements() {
+    try {
+      const allHiddenElements = document.querySelectorAll('[data-heros-hidden="true"]');
+      allHiddenElements.forEach(element => {
+        element.style.removeProperty('display');
+        element.removeAttribute('data-heros-hidden');
+      });
+    } catch (error) {
+      // Silent error handling
+    }
+  }
+
+  // Apply navigation menu settings
+  function applyNavMenuSettings(settings) {
+    const menuItems = {
+      'menu-weight-loss': 'a[href="weight-loss.html"]',
+      'menu-mens-ed': 'a[href="mens-ed.html"]',
+      'menu-skin-care': 'a[href="skin-care.html"]',
+      'menu-hair-regrowth': 'a[href="hair-regrowth.html"]',
+      'menu-nad-plus': 'a[href="nad-plus.html"]',
+      'menu-diabetes-care': 'a[href="diabetes-care.html"]'
+    };
+
+    Object.keys(menuItems).forEach(settingKey => {
+      const selector = menuItems[settingKey];
+
+      // Find ALL instances of this menu item (nav menu, footer links, etc.)
+      const elements = document.querySelectorAll(selector);
+      console.log(`Menu item ${settingKey}: selector="${selector}", found=${elements.length} elements, setting=${settings[settingKey]}`);
+
+      if (elements.length > 0) {
+        elements.forEach((element, index) => {
+          if (settings[settingKey] === false) {
+            // Multi-layer hiding approach for maximum compatibility
+            element.style.setProperty('display', 'none', 'important');
+            element.style.setProperty('visibility', 'hidden', 'important');
+            element.style.setProperty('opacity', '0', 'important');
+            element.setAttribute('data-heros-hidden', 'true');
+            element.setAttribute('aria-hidden', 'true');
+
+            console.log(`🙈 Hidden menu item ${index + 1}: ${settingKey}`);
+
+            // Verify the hiding worked
+            setTimeout(() => {
+              const computedStyle = window.getComputedStyle(element);
+              if (computedStyle.display !== 'none') {
+                console.warn(`⚠️ Display override may not be working for ${settingKey}`);
+                // Force hide with additional methods
+                element.classList.add('heros-force-hidden');
+              }
+            }, 50);
+
+          } else {
+            // Get the original display value from computed styles or use default
+            const computedStyle = window.getComputedStyle(element);
+            const originalDisplay = element.getAttribute('data-heros-original-display') ||
+                                   (computedStyle.display !== 'none' ? computedStyle.display : 'inline-block');
+
+            // Remove all hiding styles
+            element.style.setProperty('display', originalDisplay, 'important');
+            element.style.removeProperty('visibility');
+            element.style.removeProperty('opacity');
+            element.setAttribute('data-heros-original-display', originalDisplay);
+            element.removeAttribute('data-heros-hidden');
+            element.removeAttribute('aria-hidden');
+            element.classList.remove('heros-force-hidden');
+
+            console.log(`👁️ Shown menu item ${index + 1}: ${settingKey} (display: ${originalDisplay})`);
+          }
+        });
+      } else {
+        console.log(`❌ Menu element not found for ${settingKey}: ${selector}`);
+      }
+    });
+  }
+
+  // Apply homepage section settings
+  function applyHomepageSectionSettings(settings) {
+    const sections = {
+      'section-hero': '.section_home-hero',
+      'section-service-cards': '.new-service-cards',
+      'section-products': '.products-carousel',
+      'section-weight-loss': '.section_wl-hero',
+      'section-bmi': '.bmi-calculator-section',
+      'section-ed-meds': '.ed-meds-grid',
+      'section-results': '.results-section',
+      'section-how-it-works': '.how-it-works-grid',
+      'section-testimonials': '.video-testimonials-grid',
+      'section-trust-badges': '.trust-badges',
+      'section-health-simplified': '.health-simplified-section'
+    };
+
+    Object.keys(sections).forEach(settingKey => {
+      const selector = sections[settingKey];
+      const element = document.querySelector(selector);
+      console.log(`Section ${settingKey}: selector="${selector}", found=${!!element}, setting=${settings[settingKey]}`);
+
+      if (element) {
+        if (settings[settingKey] === false) {
+          element.style.setProperty('display', 'none', 'important');
+          element.setAttribute('data-heros-hidden', 'true');
+          console.log(`🙈 Hidden section: ${settingKey}`);
+        } else {
+          // Get the original display value or use appropriate default for sections
+          const computedStyle = window.getComputedStyle(element);
+          const originalDisplay = element.getAttribute('data-heros-original-display') ||
+                                   (computedStyle.display !== 'none' ? computedStyle.display : 'block');
+
+          element.style.setProperty('display', originalDisplay, 'important');
+          element.setAttribute('data-heros-original-display', originalDisplay);
+          element.removeAttribute('data-heros-hidden');
+          console.log(`👁️ Shown section: ${settingKey} (display: ${originalDisplay})`);
+        }
+      } else {
+        console.log(`❌ Section element not found for ${settingKey}: ${selector}`);
+      }
+    });
+
+    // Apply individual service card settings
+    applyServiceCardSettings(settings);
+
+    // Special handling for sections that might be wrapped in other containers
+    if (settings['section-weight-loss'] === false) {
+      const weightLossSection = document.querySelector('.section_wl-hero');
+      if (weightLossSection) {
+        // Hide the section itself
+        weightLossSection.style.setProperty('display', 'none', 'important');
+        weightLossSection.setAttribute('data-heros-hidden', 'true');
+        console.log('🙈 Hidden Weight Loss section via special handling');
+
+        // Also hide parent container if it exists
+        const parentSection = weightLossSection.closest('section, .section, [class*="section"]');
+        if (parentSection && parentSection !== weightLossSection) {
+          parentSection.style.setProperty('display', 'none', 'important');
+          parentSection.setAttribute('data-heros-hidden', 'true');
+          console.log('🙈 Hidden Weight Loss parent container');
+        }
+      }
+    } else if (settings['section-weight-loss'] === true || settings['section-weight-loss'] === undefined) {
+      // Re-show weight loss section if enabled
+      const weightLossSection = document.querySelector('.section_wl-hero');
+      if (weightLossSection) {
+        const computedStyle = window.getComputedStyle(weightLossSection);
+        const originalDisplay = weightLossSection.getAttribute('data-heros-original-display') ||
+                               (computedStyle.display !== 'none' ? computedStyle.display : 'block');
+
+        weightLossSection.style.setProperty('display', originalDisplay, 'important');
+        weightLossSection.setAttribute('data-heros-original-display', originalDisplay);
+        weightLossSection.removeAttribute('data-heros-hidden');
+
+        const parentSection = weightLossSection.closest('section, .section, [class*="section"]');
+        if (parentSection && parentSection !== weightLossSection) {
+          const parentComputedStyle = window.getComputedStyle(parentSection);
+          const parentOriginalDisplay = parentSection.getAttribute('data-heros-original-display') ||
+                                       (parentComputedStyle.display !== 'none' ? parentComputedStyle.display : 'block');
+
+          parentSection.style.setProperty('display', parentOriginalDisplay, 'important');
+          parentSection.setAttribute('data-heros-original-display', parentOriginalDisplay);
+          parentSection.removeAttribute('data-heros-hidden');
+        }
+      }
+    }
+
+    if (settings['section-ed-meds'] === false) {
+      const edMedsGrid = document.querySelector('.ed-meds-grid');
+      if (edMedsGrid) {
+        // Find the closest section container
+        const edMedsContainer = edMedsGrid.closest('section, .section, [class*="section"]');
+        if (edMedsContainer) {
+          edMedsContainer.style.display = 'none';
+          console.log('🙈 Hidden ED Meds section container');
+        } else {
+          edMedsGrid.style.display = 'none';
+          console.log('🙈 Hidden ED Meds grid directly');
+        }
+      }
+    }
+
+    if (settings['section-results'] === false) {
+      const resultsSection = document.querySelector('.results-section');
+      if (resultsSection) {
+        // Find the closest section container
+        const resultsContainer = resultsSection.closest('section, .section, [class*="section"]');
+        if (resultsContainer) {
+          resultsContainer.style.display = 'none';
+          console.log('🙈 Hidden Results section container');
+        } else {
+          resultsSection.style.display = 'none';
+          console.log('🙈 Hidden Results section directly');
+        }
+      }
+    }
+  }
+
+  // Apply individual service card settings
+  function applyServiceCardSettings(settings) {
+    const serviceCards = {
+      'menu-skin-care': 'a[href="skin-care.html"].new-card',
+      'menu-hair-regrowth': 'a[href="hair-regrowth.html"].new-card',
+      'menu-nad-plus': 'a[href="nad-plus.html"].new-card'
+    };
+
+    Object.keys(serviceCards).forEach(settingKey => {
+      const element = document.querySelector(serviceCards[settingKey]);
+      if (element) {
+        if (settings[settingKey] === false) {
+          element.style.display = 'none';
+          console.log(`Hidden service card: ${settingKey}`);
+        } else {
+          element.style.display = '';
+          console.log(`Shown service card: ${settingKey}`);
+        }
+      }
+    });
+  }
+
+  // Apply product carousel settings
+  function applyProductCarouselSettings(settings) {
+    const carouselItems = {
+      'carousel-weight-loss': '.weight-loss-card',
+      'carousel-hair-regrowth': '.hair-regrowth-card',
+      'carousel-mens-ed': '.mens-ed-card',
+      'carousel-skin-care': '.skin-care-card',
+      'carousel-diabetes-care': '.diabetes-care-card',
+      'carousel-remote-monitoring': '.remote-monitoring-card',
+      'carousel-nad-plus': '.nad-card'
+    };
+
+    Object.keys(carouselItems).forEach(settingKey => {
+      const selector = carouselItems[settingKey];
+
+      // Find ALL instances of this element (there might be duplicates for carousel)
+      const elements = document.querySelectorAll(selector);
+      console.log(`Carousel ${settingKey}: selector="${selector}", found=${elements.length} elements, setting=${settings[settingKey]}`);
+
+      if (elements.length > 0) {
+        elements.forEach((element, index) => {
+          if (settings[settingKey] === false) {
+            // Multi-layer hiding approach for carousel items
+            element.style.setProperty('display', 'none', 'important');
+            element.style.setProperty('visibility', 'hidden', 'important');
+            element.style.setProperty('opacity', '0', 'important');
+            element.setAttribute('data-heros-hidden', 'true');
+            element.setAttribute('aria-hidden', 'true');
+
+            console.log(`🙈 Hidden carousel item ${index + 1}: ${settingKey}`);
+
+            // Verify hiding worked for carousel items
+            setTimeout(() => {
+              const computedStyle = window.getComputedStyle(element);
+              if (computedStyle.display !== 'none') {
+                console.warn(`⚠️ Display override may not be working for carousel ${settingKey}`);
+                element.classList.add('heros-force-hidden');
+              }
+            }, 50);
+
+          } else {
+            // Get the original display value or use appropriate default for carousel items
+            const computedStyle = window.getComputedStyle(element);
+            const originalDisplay = element.getAttribute('data-heros-original-display') ||
+                                   (computedStyle.display !== 'none' ? computedStyle.display : 'block');
+
+            // Remove all hiding styles
+            element.style.setProperty('display', originalDisplay, 'important');
+            element.style.removeProperty('visibility');
+            element.style.removeProperty('opacity');
+            element.setAttribute('data-heros-original-display', originalDisplay);
+            element.removeAttribute('data-heros-hidden');
+            element.removeAttribute('aria-hidden');
+            element.classList.remove('heros-force-hidden');
+
+            console.log(`👁️ Shown carousel item ${index + 1}: ${settingKey} (display: ${originalDisplay})`);
+          }
+        });
+      } else {
+        console.log(`❌ Carousel element not found for ${settingKey}: ${selector}`);
+      }
+    });
+  }
+
+  // Apply site feature settings
+  function applySiteFeatureSettings(settings) {
+    const features = {
+      'feature-top-banner': '.bunner_component',
+      'feature-navigation': '.nav_menu',
+      'feature-footer': '.section_footer',
+      'feature-live-chat': '.chat-widget',
+      'feature-mobile-optimization': '.mobile-only'
+    };
+
+    Object.keys(features).forEach(settingKey => {
+      const element = document.querySelector(features[settingKey]);
+      if (element) {
+        if (settings[settingKey] === false) {
+          element.style.display = 'none';
+          console.log(`Hidden feature: ${settingKey}`);
+        } else {
+          element.style.display = '';
+          console.log(`Shown feature: ${settingKey}`);
+        }
+      }
+    });
+  }
+
+  // Debug functions removed - no customer-facing debug elements
+
+  // Universal Settings System (Domain Agnostic) - Silent for customers
+  function initializeUniversalSettings() {
+    // Check for settings in URL first
+    const urlSettings = getSettingsFromURL();
+    if (urlSettings) {
+      localStorage.setItem('herosSiteSettings', JSON.stringify(urlSettings));
+    }
+
+    // Check if settings exist
+    const settingsData = localStorage.getItem('herosSiteSettings');
+
+    if (!settingsData) {
+      createUniversalDefaults();
+    }
+
+    // No customer-facing controls
+    addUniversalControls();
+  }
+
+  function getSettingsFromURL() {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const settingsParam = urlParams.get('settings');
+
+      if (settingsParam) {
+        // Decode base64 settings
+        const decoded = atob(settingsParam);
+        return JSON.parse(decoded);
+      }
+    } catch (error) {
+      // Silent for customers
+    }
+    return null;
+  }
+
+  function createUniversalDefaults() {
+    const defaultSettings = {
+      'menu-weight-loss': true,
+      'menu-mens-ed': true,
+      'menu-skin-care': true,
+      'menu-hair-regrowth': true,
+      'menu-nad-plus': true,
+      'menu-diabetes-care': true,
+      'section-hero': true,
+      'section-service-cards': true,
+      'section-products': true,
+      'section-weight-loss': true,
+      'section-bmi': true,
+      'section-ed-meds': true,
+      'section-results': true,
+      'section-how-it-works': true,
+      'section-testimonials': true,
+      'section-trust-badges': true,
+      'section-health-simplified': true,
+      'carousel-weight-loss': true,
+      'carousel-hair-regrowth': true,
+      'carousel-mens-ed': true,
+      'carousel-skin-care': true,
+      'carousel-diabetes-care': true,
+      'carousel-remote-monitoring': true,
+      'carousel-nad-plus': true,
+      'feature-top-banner': true,
+      'feature-navigation': true,
+      'feature-footer': true,
+      'feature-live-chat': true,
+      'feature-mobile-optimization': true
+    };
+
+    localStorage.setItem('herosSiteSettings', JSON.stringify(defaultSettings));
+  }
+
+  function generateSettingsURL() {
+    try {
+      const settingsData = localStorage.getItem('herosSiteSettings');
+      if (settingsData) {
+        const encoded = btoa(settingsData);
+        const currentURL = new URL(window.location);
+        currentURL.searchParams.set('settings', encoded);
+        return currentURL.toString();
+      }
+    } catch (error) {
+      console.error('Error generating settings URL:', error);
+    }
+    return null;
+  }
+
+  function addUniversalControls() {
+    // No customer-facing controls - all settings management happens in settings.html
+    console.log('✅ Settings system active (admin controls available in settings.html)');
+  }
+
+  // Universal domain-agnostic initialization (silent for customers)
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize universal settings system first
+    initializeUniversalSettings();
+
+    // Capture original display values
+    captureOriginalDisplayValues();
+
+    // Apply current settings
+    applySettings();
+
+    // Settings work silently in the background
+  });
+
+  // Status indicators removed - settings work silently in background
+
+  // Enhanced cross-tab and window communication for real-time updates
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'herosSiteSettings' || e.key === 'herosSettingsChange') {
+      applySettings();
+    }
+  });
+
+  // Listen for direct messages from settings page
+  window.addEventListener('message', function(e) {
+    if (e.data && e.data.type === 'heroSettingChanged') {
+      // Immediately apply the specific setting change
+      applySettings();
+    }
+  });
+
+  // BroadcastChannel for instant cross-tab communication
+  if (typeof BroadcastChannel !== 'undefined') {
+    try {
+      const settingsChannel = new BroadcastChannel('heros-settings');
+      settingsChannel.addEventListener('message', function(e) {
+        if (e.data && e.data.type === 'heroSettingChanged') {
+          // Instant update from settings page
+          applySettings();
+        }
+      });
+    } catch (error) {
+      // BroadcastChannel not supported in this browser
+    }
+  }
+
+  // Enhanced focus detection for immediate updates when returning to tab
+  window.addEventListener('focus', function() {
+    // Check for changes when user returns to this tab
+    const changeNotification = localStorage.getItem('herosSettingsChange');
+    if (changeNotification) {
+      try {
+        const change = JSON.parse(changeNotification);
+        if (change.timestamp > (window.herosLastFocusCheck || 0)) {
+          applySettings();
+          window.herosLastFocusCheck = change.timestamp;
+        }
+      } catch (error) {
+        // Silent error handling
+      }
+    }
+  });
+
+  // Listen for custom events from settings page
+  window.addEventListener('herosSettingsUpdate', function(e) {
+    if (e.detail && e.detail.setting) {
+      // Immediate update triggered by settings page
+      applySettings();
+    }
+  });
+
+  // Enhanced storage event listener that triggers on manual events too
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'herosSiteSettings' || e.key === 'herosSettingsChange') {
+      applySettings();
+    }
+  });
+
+  // Real-time settings monitoring for immediate updates
+  let lastSettingsHash = '';
+  let lastChangeTimestamp = 0;
+  let isSettingsPageOpen = false;
+
+  // Detect if settings page is open by checking for its activity
+  function detectSettingsPageActivity() {
+    const changeNotification = localStorage.getItem('herosSettingsChange');
+    if (changeNotification) {
+      try {
+        const change = JSON.parse(changeNotification);
+        const timeSinceChange = Date.now() - change.timestamp;
+        isSettingsPageOpen = timeSinceChange < 5000; // Active within last 5 seconds
+      } catch (e) {
+        isSettingsPageOpen = false;
+      }
+    }
+  }
+
+  // More frequent checking when settings page is active
+  function startRealtimeMonitoring() {
+    const checkInterval = isSettingsPageOpen ? 100 : 500; // 100ms when active, 500ms when idle
+
+    setTimeout(function() {
+      try {
+        detectSettingsPageActivity();
+
+        // Check for settings data changes
+        const settingsData = localStorage.getItem('herosSiteSettings');
+        const currentHash = settingsData ? btoa(settingsData) : '';
+
+        // Check for change notification
+        const changeNotification = localStorage.getItem('herosSettingsChange');
+        let changeTimestamp = 0;
+
+        if (changeNotification) {
+          try {
+            const change = JSON.parse(changeNotification);
+            changeTimestamp = change.timestamp || 0;
+          } catch (e) {
+            // Ignore parse errors
+          }
+        }
+
+        // Apply settings if hash changed OR if we have a new change notification
+        if (currentHash !== lastSettingsHash || changeTimestamp > lastChangeTimestamp) {
+          applySettings();
+          lastSettingsHash = currentHash;
+          lastChangeTimestamp = changeTimestamp;
+        }
+
+        // Continue monitoring
+        startRealtimeMonitoring();
+
+      } catch (error) {
+        // Silent error handling - continue monitoring
+        setTimeout(startRealtimeMonitoring, 1000);
+      }
+    }, checkInterval);
+  }
+
+  // Start the monitoring
+  startRealtimeMonitoring();
+
+  // Production domain fix for heroshealth.com
+  if (window.location.hostname.includes('heroshealth.com') || window.location.hostname.includes('heros')) {
+    console.log('🌐 Production domain detected, applying fixes...');
+
+    // Ensure settings exist on production
+    const productionSettingsData = localStorage.getItem('herosSiteSettings');
+    if (!productionSettingsData) {
+      console.log('📝 Creating default settings for production domain...');
+      const defaultProductionSettings = {
+        'menu-weight-loss': true, 'menu-mens-ed': true, 'menu-skin-care': true,
+        'menu-hair-regrowth': true, 'menu-nad-plus': true, 'menu-diabetes-care': true,
+        'section-hero': true, 'section-service-cards': true, 'section-products': true,
+        'section-weight-loss': true, 'section-bmi': true, 'section-ed-meds': true,
+        'section-results': true, 'section-how-it-works': true, 'section-testimonials': true,
+        'section-trust-badges': true, 'section-health-simplified': true,
+        'carousel-weight-loss': true, 'carousel-hair-regrowth': true, 'carousel-mens-ed': true,
+        'carousel-skin-care': true, 'carousel-diabetes-care': true, 'carousel-remote-monitoring': true,
+        'carousel-nad-plus': true, 'feature-top-banner': true, 'feature-navigation': true,
+        'feature-footer': true, 'feature-live-chat': true, 'feature-mobile-optimization': true,
+        'production-auto-created': true, 'domain': window.location.hostname, 'timestamp': Date.now()
+      };
+      localStorage.setItem('herosSiteSettings', JSON.stringify(defaultProductionSettings));
+      console.log('✅ Production settings created automatically');
+    }
+
+    // Force immediate application
+    setTimeout(() => {
+      if (typeof applySettings === 'function') {
+        applySettings();
+        console.log('⚡ Production settings applied');
+      }
+    }, 100);
+  }
 
 </script>
+
+<!-- Bulletproof Real-time Sync Fix -->
+<script src="realtime-sync-fix.js"></script>
+
+<!-- Production Preview Support -->
+<script>
+  // Handle preview mode for production domains
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('preview') && urlParams.get('preview') === 'true') {
+    console.log('📺 Preview mode detected on main site');
+
+    // Add preview-specific enhancements
+    document.body.classList.add('preview-mode');
+
+    // Add preview indicator for debugging
+    if (urlParams.has('source') && urlParams.get('source') === 'settings') {
+      const previewIndicator = document.createElement('div');
+      previewIndicator.style.cssText = `
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: rgba(33, 150, 243, 0.9);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: bold;
+        z-index: 10000;
+        font-family: monospace;
+      `;
+      previewIndicator.textContent = '🔍 PREVIEW MODE';
+      document.body.appendChild(previewIndicator);
+
+      // Auto-remove after 3 seconds
+      setTimeout(() => {
+        if (previewIndicator.parentElement) {
+          previewIndicator.remove();
+        }
+      }, 3000);
+    }
+
+    // Enhanced real-time sync for preview mode
+    const enhancedPreviewSync = () => {
+      const settingsData = localStorage.getItem('herosSiteSettings');
+      if (settingsData && typeof applySettings === 'function') {
+        applySettings();
+        console.log('📺 Preview settings applied');
+      }
+    };
+
+    // More frequent sync in preview mode
+    setInterval(enhancedPreviewSync, 200);
+
+    // Listen for messages from settings page
+    window.addEventListener('message', (event) => {
+      if (event.data && event.data.type === 'heroSettingChanged') {
+        console.log('📨 Preview received settings change:', event.data);
+        setTimeout(enhancedPreviewSync, 100);
+      }
+    });
+  }
+
+  // Handle cross-tab test mode
+  if (urlParams.has('crossTabTest')) {
+    console.log('🌐 Cross-tab test mode detected');
+
+    window.addEventListener('message', (event) => {
+      if (event.data && event.data.source === 'production-testplan') {
+        console.log('🧪 Test message received from production test plan:', event.data);
+      }
+    });
+  }
+</script>
+
 </body>
 </html>

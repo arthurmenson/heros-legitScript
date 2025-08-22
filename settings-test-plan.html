@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Test Plan - Heros</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .test-panel {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .preview-panel {
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #555;
+        }
+
+        .btn.success {
+            background: #4CAF50;
+        }
+
+        .btn.danger {
+            background: #f44336;
+        }
+
+        .btn.warning {
+            background: #ff9800;
+        }
+
+        .btn.info {
+            background: #2196F3;
+        }
+
+        .test-item {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .test-header {
+            background: #f8f9fa;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .test-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ccc;
+        }
+
+        .test-status.pass { background: #4CAF50; }
+        .test-status.fail { background: #f44336; }
+        .test-status.running { background: #ff9800; animation: pulse 1s infinite; }
+
+        .test-details {
+            padding: 15px;
+            display: none;
+            background: #fff;
+        }
+
+        .test-details.active {
+            display: block;
+        }
+
+        .log-area {
+            background: #1e1e1e;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .preview-iframe {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #2196F3);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .sequence-test {
+            background: #e3f2fd;
+            border: 1px solid #2196F3;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .sequence-step {
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 4px;
+            background: white;
+            border-left: 4px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sequence-step.current {
+            border-left-color: #ff9800;
+            background: #fff3e0;
+        }
+
+        .sequence-step.passed {
+            border-left-color: #4CAF50;
+            background: #f1f8e9;
+        }
+
+        .sequence-step.failed {
+            border-left-color: #f44336;
+            background: #ffebee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧪 Settings Test Plan & Debug Framework</h1>
+            <p>Comprehensive testing framework for Heros Health settings functionality with automated on/off/on/off sequence testing.</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number" id="total-tests">0</div>
+                <div class="stat-label">Total Tests</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="passed-tests">0</div>
+                <div class="stat-label">Passed</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="failed-tests">0</div>
+                <div class="stat-label">Failed</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="success-rate">0%</div>
+                <div class="stat-label">Success Rate</div>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-panel">
+                <h2>🎯 Test Control Center</h2>
+                
+                <div class="controls">
+                    <button class="btn info" onclick="initializeTests()">🔄 Initialize Tests</button>
+                    <button class="btn success" onclick="runAllTests()">▶️ Run All Tests</button>
+                    <button class="btn warning" onclick="runSequenceTest()">🔄 Sequence Test</button>
+                    <button class="btn danger" onclick="stopTests()">⏹️ Stop Tests</button>
+                    <button class="btn" onclick="clearLogs()">🗑️ Clear Logs</button>
+                    <button class="btn" onclick="resetSettings()">🔧 Reset Settings</button>
+                </div>
+
+                <div class="log-area" id="test-log">
+                    <div style="color: #4CAF50;">=== Settings Test Framework Ready ===</div>
+                    <div>Click "Initialize Tests" to begin...</div>
+                </div>
+
+                <div id="test-results">
+                    <!-- Test items will be populated here -->
+                </div>
+            </div>
+
+            <div class="test-panel preview-panel">
+                <h2>🔍 Live Preview</h2>
+                
+                <div class="controls">
+                    <button class="btn info" onclick="refreshPreview()">🔄 Refresh</button>
+                    <button class="btn" onclick="openMainSite()">🌐 Open Main Site</button>
+                    <button class="btn" onclick="openSettings()">⚙️ Open Settings</button>
+                </div>
+
+                <iframe id="preview" class="preview-iframe" src="index.html"></iframe>
+                
+                <div style="margin-top: 15px;">
+                    <h3>Current Settings Status</h3>
+                    <div id="settings-status" style="font-family: monospace; font-size: 12px; background: #f8f9fa; padding: 10px; border-radius: 4px;">
+                        Loading...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-panel">
+            <h2>🔄 ON/OFF/ON/OFF Sequence Testing</h2>
+            <p>Automated testing of each setting through the complete sequence: ON → OFF → ON → OFF</p>
+            
+            <div class="controls">
+                <button class="btn success" onclick="startSequenceTesting()">🚀 Start Sequence Tests</button>
+                <button class="btn warning" onclick="pauseSequenceTesting()">⏸️ Pause</button>
+                <button class="btn" onclick="skipCurrentTest()">⏭️ Skip Current</button>
+            </div>
+
+            <div id="sequence-container">
+                <!-- Sequence tests will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let testFramework = {
+            tests: [],
+            currentTest: null,
+            isRunning: false,
+            stats: { total: 0, passed: 0, failed: 0 },
+            settings: {},
+            sequenceTests: []
+        };
+
+        // Define all settings to test
+        const ALL_SETTINGS = [
+            // Menu items
+            { key: 'menu-weight-loss', name: 'Weight Loss Menu', selector: 'nav a[href="weight-loss.html"]' },
+            { key: 'menu-mens-ed', name: 'Men\'s ED Menu', selector: 'nav a[href="mens-ed.html"]' },
+            { key: 'menu-skin-care', name: 'Skin Care Menu', selector: 'nav a[href="skin-care.html"]' },
+            { key: 'menu-hair-regrowth', name: 'Hair Regrowth Menu', selector: 'nav a[href="hair-regrowth.html"]' },
+            { key: 'menu-nad-plus', name: 'NAD+ Menu', selector: 'nav a[href="nad-plus.html"]' },
+            { key: 'menu-diabetes-care', name: 'Diabetes Care Menu', selector: 'nav a[href="diabetes-care.html"]' },
+            
+            // Homepage sections
+            { key: 'section-products', name: 'Products Carousel', selector: '.products-carousel' },
+            { key: 'section-weight-loss', name: 'Weight Loss Section', selector: '.section_wl-hero' },
+            { key: 'section-ed-meds', name: 'ED Meds Section', selector: '.ed-meds-grid' },
+            { key: 'section-results', name: 'Results Section', selector: '.results-section' },
+            
+            // Carousel items
+            { key: 'carousel-weight-loss', name: 'Weight Loss Carousel Item', selector: '.products-carousel .link-block-4' },
+            { key: 'carousel-diabetes-care', name: 'Diabetes Care Carousel Item', selector: '.products-carousel .link-block-8' }
+        ];
+
+        function log(message, type = 'info') {
+            const logArea = document.getElementById('test-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const colors = {
+                info: '#ffffff',
+                success: '#4CAF50',
+                error: '#f44336',
+                warning: '#ff9800',
+                debug: '#2196F3'
+            };
+            
+            logArea.innerHTML += `<div style="color: ${colors[type]};">[${timestamp}] ${message}</div>`;
+            logArea.scrollTop = logArea.scrollHeight;
+            console.log(`[TestFramework] ${message}`);
+        }
+
+        function initializeTests() {
+            log("🔄 Initializing test framework...", 'info');
+            
+            // Load current settings
+            loadCurrentSettings();
+            
+            // Create tests for each setting
+            testFramework.tests = ALL_SETTINGS.map(setting => ({
+                id: `test-${setting.key}`,
+                name: setting.name,
+                settingKey: setting.key,
+                selector: setting.selector,
+                status: 'pending',
+                steps: [],
+                results: {}
+            }));
+
+            testFramework.stats.total = testFramework.tests.length;
+            updateStats();
+            renderTestItems();
+            
+            log(`✅ Initialized ${testFramework.tests.length} tests`, 'success');
+        }
+
+        function loadCurrentSettings() {
+            try {
+                const saved = localStorage.getItem('herosSiteSettings');
+                if (saved) {
+                    testFramework.settings = JSON.parse(saved);
+                    log(`📖 Loaded ${Object.keys(testFramework.settings).length} current settings`, 'info');
+                } else {
+                    testFramework.settings = {};
+                    log("📝 No existing settings found, starting fresh", 'warning');
+                }
+                updateSettingsStatus();
+            } catch (error) {
+                log(`❌ Error loading settings: ${error.message}`, 'error');
+            }
+        }
+
+        function updateSettingsStatus() {
+            const statusDiv = document.getElementById('settings-status');
+            const settingsCount = Object.keys(testFramework.settings).length;
+            const enabledCount = Object.values(testFramework.settings).filter(v => v === true).length;
+            
+            statusDiv.innerHTML = `
+                <strong>Settings Overview:</strong><br>
+                📊 Total: ${settingsCount}<br>
+                ✅ Enabled: ${enabledCount}<br>
+                ❌ Disabled: ${settingsCount - enabledCount}<br>
+                <br>
+                <strong>Sample Settings:</strong><br>
+                ${Object.keys(testFramework.settings).slice(0, 5).map(key => 
+                    `${key}: ${testFramework.settings[key] ? '✅' : '❌'}`
+                ).join('<br>')}
+                ${settingsCount > 5 ? '<br>...' : ''}
+            `;
+        }
+
+        function renderTestItems() {
+            const container = document.getElementById('test-results');
+            container.innerHTML = '';
+
+            testFramework.tests.forEach(test => {
+                const testItem = document.createElement('div');
+                testItem.className = 'test-item';
+                testItem.innerHTML = `
+                    <div class="test-header" onclick="toggleTestDetails('${test.id}')">
+                        <span>${test.name}</span>
+                        <div class="test-status ${test.status}" id="status-${test.id}"></div>
+                    </div>
+                    <div class="test-details" id="details-${test.id}">
+                        <p><strong>Setting Key:</strong> ${test.settingKey}</p>
+                        <p><strong>Selector:</strong> ${test.selector}</p>
+                        <p><strong>Status:</strong> <span id="test-status-${test.id}">Pending</span></p>
+                        <div id="test-steps-${test.id}"></div>
+                        <button class="btn info" onclick="runSingleTest('${test.id}')">▶️ Run This Test</button>
+                    </div>
+                `;
+                container.appendChild(testItem);
+            });
+        }
+
+        function toggleTestDetails(testId) {
+            const details = document.getElementById(`details-${testId}`);
+            details.classList.toggle('active');
+        }
+
+        async function runSingleTest(testId) {
+            const test = testFramework.tests.find(t => t.id === testId);
+            if (!test) return;
+
+            log(`🚀 Running test: ${test.name}`, 'info');
+            updateTestStatus(testId, 'running');
+            
+            try {
+                // Run ON/OFF/ON/OFF sequence
+                const results = await runOnOffSequence(test);
+                
+                if (results.allPassed) {
+                    updateTestStatus(testId, 'pass');
+                    testFramework.stats.passed++;
+                    log(`✅ Test passed: ${test.name}`, 'success');
+                } else {
+                    updateTestStatus(testId, 'fail');
+                    testFramework.stats.failed++;
+                    log(`❌ Test failed: ${test.name}`, 'error');
+                }
+                
+                updateStats();
+                
+            } catch (error) {
+                updateTestStatus(testId, 'fail');
+                testFramework.stats.failed++;
+                log(`💥 Test error: ${test.name} - ${error.message}`, 'error');
+                updateStats();
+            }
+        }
+
+        async function runOnOffSequence(test) {
+            const steps = ['ON', 'OFF', 'ON', 'OFF'];
+            const results = { steps: [], allPassed: true };
+            
+            for (let i = 0; i < steps.length; i++) {
+                const step = steps[i];
+                const isEnabled = step === 'ON';
+                
+                log(`  🔄 Step ${i + 1}/4: Setting ${test.settingKey} to ${step}`, 'debug');
+                
+                // Apply setting
+                await applySetting(test.settingKey, isEnabled);
+                
+                // Wait for changes to apply
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Verify the change
+                const verification = await verifySetting(test.settingKey, test.selector, isEnabled);
+                
+                results.steps.push({
+                    step: step,
+                    expected: isEnabled,
+                    actual: verification.isVisible,
+                    passed: verification.passed
+                });
+                
+                if (!verification.passed) {
+                    results.allPassed = false;
+                    log(`    ❌ Verification failed for ${step}`, 'error');
+                } else {
+                    log(`    ✅ Verification passed for ${step}`, 'success');
+                }
+                
+                // Update test steps display
+                updateTestSteps(test.id, results.steps);
+            }
+            
+            return results;
+        }
+
+        async function applySetting(settingKey, isEnabled) {
+            // Update settings object
+            testFramework.settings[settingKey] = isEnabled;
+            
+            // Save to localStorage
+            localStorage.setItem('herosSiteSettings', JSON.stringify(testFramework.settings));
+            
+            // Trigger change notification
+            const changeNotification = {
+                timestamp: Date.now(),
+                setting: settingKey,
+                value: isEnabled,
+                action: 'test'
+            };
+            localStorage.setItem('herosSettingsChange', JSON.stringify(changeNotification));
+            
+            // Update settings status display
+            updateSettingsStatus();
+            
+            log(`    💾 Applied: ${settingKey} = ${isEnabled}`, 'debug');
+        }
+
+        async function verifySetting(settingKey, selector, expectedEnabled) {
+            try {
+                // Check in preview iframe
+                const iframe = document.getElementById('preview');
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                
+                if (!iframeDoc) {
+                    return { passed: false, isVisible: null, error: 'Cannot access iframe document' };
+                }
+                
+                const elements = iframeDoc.querySelectorAll(selector);
+                
+                if (elements.length === 0) {
+                    return { passed: false, isVisible: null, error: 'No elements found with selector' };
+                }
+                
+                // Check if elements are visible (not hidden by our settings)
+                let visibleCount = 0;
+                elements.forEach(element => {
+                    const isHidden = element.classList.contains('heros-force-hidden') ||
+                                   element.getAttribute('data-heros-hidden') === 'true' ||
+                                   element.style.display === 'none';
+                    if (!isHidden) visibleCount++;
+                });
+                
+                const isVisible = visibleCount > 0;
+                const passed = (expectedEnabled && isVisible) || (!expectedEnabled && !isVisible);
+                
+                return {
+                    passed: passed,
+                    isVisible: isVisible,
+                    elementCount: elements.length,
+                    visibleCount: visibleCount
+                };
+                
+            } catch (error) {
+                return { passed: false, isVisible: null, error: error.message };
+            }
+        }
+
+        function updateTestStatus(testId, status) {
+            const statusEl = document.getElementById(`status-${testId}`);
+            const statusTextEl = document.getElementById(`test-status-${testId}`);
+            
+            if (statusEl) {
+                statusEl.className = `test-status ${status}`;
+            }
+            if (statusTextEl) {
+                statusTextEl.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+            }
+        }
+
+        function updateTestSteps(testId, steps) {
+            const stepsContainer = document.getElementById(`test-steps-${testId}`);
+            if (!stepsContainer) return;
+            
+            stepsContainer.innerHTML = `
+                <h4>Test Steps:</h4>
+                ${steps.map((step, index) => `
+                    <div class="sequence-step ${step.passed ? 'passed' : 'failed'}">
+                        <span>Step ${index + 1}: ${step.step}</span>
+                        <span>${step.passed ? '✅' : '❌'}</span>
+                    </div>
+                `).join('')}
+            `;
+        }
+
+        function updateStats() {
+            document.getElementById('total-tests').textContent = testFramework.stats.total;
+            document.getElementById('passed-tests').textContent = testFramework.stats.passed;
+            document.getElementById('failed-tests').textContent = testFramework.stats.failed;
+            
+            const successRate = testFramework.stats.total > 0 
+                ? Math.round((testFramework.stats.passed / testFramework.stats.total) * 100)
+                : 0;
+            document.getElementById('success-rate').textContent = successRate + '%';
+            
+            // Update progress bar
+            const progress = testFramework.stats.total > 0 
+                ? ((testFramework.stats.passed + testFramework.stats.failed) / testFramework.stats.total) * 100
+                : 0;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        async function runAllTests() {
+            if (testFramework.tests.length === 0) {
+                log("❌ No tests initialized. Click 'Initialize Tests' first.", 'error');
+                return;
+            }
+
+            log("🚀 Starting all tests...", 'info');
+            testFramework.isRunning = true;
+            
+            // Reset stats
+            testFramework.stats.passed = 0;
+            testFramework.stats.failed = 0;
+            
+            for (const test of testFramework.tests) {
+                if (!testFramework.isRunning) break;
+                
+                await runSingleTest(test.id);
+                
+                // Small delay between tests
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+            
+            testFramework.isRunning = false;
+            log(`🏁 All tests completed. Passed: ${testFramework.stats.passed}, Failed: ${testFramework.stats.failed}`, 'success');
+        }
+
+        function stopTests() {
+            testFramework.isRunning = false;
+            log("⏹️ Tests stopped", 'warning');
+        }
+
+        function clearLogs() {
+            document.getElementById('test-log').innerHTML = '<div style="color: #4CAF50;">=== Logs Cleared ===</div>';
+        }
+
+        function refreshPreview() {
+            const iframe = document.getElementById('preview');
+            iframe.src = iframe.src;
+            log("🔄 Preview refreshed", 'info');
+        }
+
+        function openMainSite() {
+            window.open('index.html', '_blank');
+            log("🌐 Opened main site in new tab", 'info');
+        }
+
+        function openSettings() {
+            window.open('settings.html', '_blank');
+            log("⚙️ Opened settings page in new tab", 'info');
+        }
+
+        function resetSettings() {
+            localStorage.removeItem('herosSiteSettings');
+            localStorage.removeItem('herosSettingsChange');
+            testFramework.settings = {};
+            updateSettingsStatus();
+            log("🔧 Settings reset to default", 'warning');
+        }
+
+        // Auto-initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            log("📱 Test framework loaded successfully", 'success');
+            
+            // Auto-refresh preview every 30 seconds
+            setInterval(() => {
+                if (!testFramework.isRunning) {
+                    refreshPreview();
+                }
+            }, 30000);
+        });
+
+        // Sequence testing functions
+        function startSequenceTesting() {
+            if (testFramework.tests.length === 0) {
+                initializeTests();
+            }
+            runAllTests();
+        }
+
+        function pauseSequenceTesting() {
+            stopTests();
+        }
+
+        function skipCurrentTest() {
+            // Implementation for skipping current test
+            log("⏭️ Skipping current test", 'warning');
+        }
+    </script>
+</body>
+</html>

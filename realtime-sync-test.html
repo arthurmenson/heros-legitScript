@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Sync Test - Heros</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .panel {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.5);
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 5px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-1px);
+        }
+        
+        .btn.primary {
+            background: rgba(40, 167, 69, 0.8);
+            border-color: #28a745;
+        }
+        
+        .btn.secondary {
+            background: rgba(23, 162, 184, 0.8);
+            border-color: #17a2b8;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            background: white;
+        }
+        
+        .status {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        .log-area {
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .warning { color: #ffc107; }
+        .info { color: #17a2b8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚡ Real-time Settings Sync Test</h1>
+            <p>Test that changes in settings.html immediately appear on the main site</p>
+        </div>
+
+        <div class="test-grid">
+            <div class="panel">
+                <h3>⚙️ Settings Control Panel</h3>
+                <p>Make changes here and watch them appear instantly in the main site preview:</p>
+                
+                <iframe src="settings.html" title="Settings panel"></iframe>
+                
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="settings.html" target="_blank" class="btn primary">🔗 Open Settings in New Tab</a>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>🌐 Main Site Preview</h3>
+                <p>This should update instantly when you change settings in the left panel:</p>
+                
+                <iframe id="main-preview" src="index.html" title="Main site preview"></iframe>
+                
+                <div style="text-align: center; margin-top: 15px;">
+                    <button class="btn secondary" onclick="refreshMainPreview()">🔄 Refresh Main Site</button>
+                    <a href="index.html" target="_blank" class="btn">🌐 Open Main Site</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h3>📊 Real-time Monitoring</h3>
+            
+            <div class="status" id="sync-status">
+                <strong>Sync Status:</strong> <span id="status-text">Initializing...</span><br>
+                <strong>Last Update:</strong> <span id="last-update">None</span><br>
+                <strong>Total Changes:</strong> <span id="change-count">0</span>
+            </div>
+
+            <div class="log-area" id="activity-log">
+                <div class="info">[Initializing] Real-time sync monitor started...</div>
+            </div>
+
+            <div style="text-align: center; margin-top: 15px;">
+                <button class="btn" onclick="testSync()">🧪 Test Sync</button>
+                <button class="btn" onclick="clearLog()">🗑️ Clear Log</button>
+                <button class="btn secondary" onclick="checkSettings()">🔍 Check Current Settings</button>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h3>📋 How to Test</h3>
+            <ol style="line-height: 1.8;">
+                <li><strong>Use the left panel</strong> to change any setting (toggle switches)</li>
+                <li><strong>Watch the right panel</strong> - changes should appear immediately</li>
+                <li><strong>Monitor the log below</strong> to see real-time communication</li>
+                <li><strong>Try opening settings in a new tab</strong> and watch for sync</li>
+                <li><strong>Test different settings</strong> - menu items, sections, carousel items</li>
+            </ol>
+            
+            <div class="status">
+                <strong>Expected Behavior:</strong><br>
+                ✅ Changes in settings panel appear instantly in main site<br>
+                ✅ No page refresh needed<br>
+                ✅ Works across tabs and windows<br>
+                ✅ Real-time visual feedback
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let changeCount = 0;
+        let lastUpdate = null;
+
+        function log(message, type = 'info') {
+            const logArea = document.getElementById('activity-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.className = type;
+            entry.innerHTML = `[${timestamp}] ${message}`;
+            logArea.appendChild(entry);
+            logArea.scrollTop = logArea.scrollHeight;
+        }
+
+        function updateStatus() {
+            const statusText = document.getElementById('status-text');
+            const lastUpdateEl = document.getElementById('last-update');
+            const changeCountEl = document.getElementById('change-count');
+            
+            statusText.textContent = 'Active - Monitoring for changes';
+            lastUpdateEl.textContent = lastUpdate || 'None';
+            changeCountEl.textContent = changeCount;
+        }
+
+        function refreshMainPreview() {
+            const mainPreview = document.getElementById('main-preview');
+            mainPreview.src = mainPreview.src;
+            log('🔄 Main site preview refreshed manually', 'info');
+        }
+
+        function testSync() {
+            log('🧪 Testing sync by creating test setting...', 'warning');
+            
+            // Create a test setting change
+            const testSettings = JSON.parse(localStorage.getItem('herosSiteSettings') || '{}');
+            testSettings['test-sync'] = !testSettings['test-sync'];
+            testSettings['menu-diabetes-care'] = !testSettings['menu-diabetes-care'];
+            
+            localStorage.setItem('herosSiteSettings', JSON.stringify(testSettings));
+            
+            const changeNotification = {
+                timestamp: Date.now(),
+                setting: 'test-sync',
+                value: testSettings['test-sync'],
+                action: 'manual-test'
+            };
+            localStorage.setItem('herosSettingsChange', JSON.stringify(changeNotification));
+            
+            changeCount++;
+            lastUpdate = new Date().toLocaleTimeString();
+            updateStatus();
+            
+            log(`✅ Test change applied: test-sync = ${testSettings['test-sync']}`, 'success');
+        }
+
+        function clearLog() {
+            document.getElementById('activity-log').innerHTML = '<div class="info">[Cleared] Log cleared manually</div>';
+        }
+
+        function checkSettings() {
+            try {
+                const settings = JSON.parse(localStorage.getItem('herosSiteSettings') || '{}');
+                const settingsCount = Object.keys(settings).length;
+                const disabledCount = Object.values(settings).filter(v => v === false).length;
+                
+                log(`📊 Current settings: ${settingsCount} total, ${disabledCount} disabled`, 'info');
+                
+                // Show some example settings
+                const examples = Object.keys(settings).slice(0, 3);
+                examples.forEach(key => {
+                    log(`   - ${key}: ${settings[key]}`, 'info');
+                });
+                
+            } catch (error) {
+                log(`❌ Error checking settings: ${error.message}`, 'error');
+            }
+        }
+
+        // Monitor for localStorage changes
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'herosSiteSettings' || e.key === 'herosSettingsChange') {
+                changeCount++;
+                lastUpdate = new Date().toLocaleTimeString();
+                updateStatus();
+                
+                log(`📡 Storage change detected: ${e.key}`, 'success');
+                
+                if (e.key === 'herosSettingsChange' && e.newValue) {
+                    try {
+                        const change = JSON.parse(e.newValue);
+                        log(`   Setting: ${change.setting} = ${change.value}`, 'success');
+                    } catch (error) {
+                        log(`   Raw change: ${e.newValue}`, 'success');
+                    }
+                }
+            }
+        });
+
+        // Monitor for window messages
+        window.addEventListener('message', function(e) {
+            if (e.data && e.data.type === 'heroSettingChanged') {
+                changeCount++;
+                lastUpdate = new Date().toLocaleTimeString();
+                updateStatus();
+                
+                log(`📤 Window message received: ${e.data.setting} = ${e.data.value}`, 'success');
+            }
+        });
+
+        // Monitor for custom events
+        window.addEventListener('herosSettingsUpdate', function(e) {
+            if (e.detail) {
+                changeCount++;
+                lastUpdate = new Date().toLocaleTimeString();
+                updateStatus();
+                
+                log(`⚡ Custom event received: ${e.detail.setting} = ${e.detail.value}`, 'success');
+            }
+        });
+
+        // BroadcastChannel monitoring
+        if (typeof BroadcastChannel !== 'undefined') {
+            try {
+                const channel = new BroadcastChannel('heros-settings');
+                channel.addEventListener('message', function(e) {
+                    if (e.data && e.data.type === 'heroSettingChanged') {
+                        changeCount++;
+                        lastUpdate = new Date().toLocaleTimeString();
+                        updateStatus();
+                        
+                        log(`📡 Broadcast received: ${e.data.setting} = ${e.data.value}`, 'success');
+                    }
+                });
+            } catch (error) {
+                log('⚠️ BroadcastChannel not available in this browser', 'warning');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStatus();
+            log('✅ Real-time sync monitor initialized', 'success');
+            log('👀 Watching for settings changes...', 'info');
+        });
+    </script>
+</body>
+</html>
