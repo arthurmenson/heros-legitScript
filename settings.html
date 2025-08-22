@@ -23,31 +23,16 @@
             margin: 0 auto;
         }
 
-        .debug-panel {
-            background: #1e1e1e;
-            color: #fff;
-            padding: 15px;
-            border-radius: 5px;
+        .back-link {
+            display: inline-block;
+            color: #666;
+            text-decoration: none;
             margin-bottom: 20px;
-            font-family: monospace;
-            font-size: 12px;
-            max-height: 150px;
-            overflow-y: auto;
+            font-weight: 500;
         }
 
-        .debug-panel h3 {
-            color: #4CAF50;
-            margin-bottom: 10px;
-        }
-
-        .test-button {
-            background: #ff9800;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            margin-bottom: 10px;
+        .back-link:hover {
+            color: #333;
         }
 
         .header {
@@ -122,8 +107,9 @@
             background: #ccc;
             border-radius: 25px;
             cursor: pointer;
-            transition: background 0.3s;
-            user-select: none;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
         }
 
         .toggle.active {
@@ -139,12 +125,28 @@
             height: 21px;
             background: white;
             border-radius: 50%;
-            transition: transform 0.3s;
+            transition: all 0.3s ease;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .toggle.active::before {
             transform: translateX(25px);
+        }
+
+        .status {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status.live { 
+            background: #4CAF50; 
+        }
+        
+        .status.offline { 
+            background: #f44336; 
         }
 
         .stats {
@@ -199,29 +201,6 @@
             background: #4CAF50;
         }
 
-        .back-link {
-            display: inline-block;
-            color: #666;
-            text-decoration: none;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .back-link:hover {
-            color: #333;
-        }
-
-        .status {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-
-        .status.live { background: #4CAF50; }
-        .status.offline { background: #f44336; }
-
         @media (max-width: 768px) {
             body { padding: 10px; }
             .grid { grid-template-columns: 1fr; }
@@ -231,17 +210,11 @@
 </head>
 <body>
     <div class="container">
-        <div class="debug-panel" id="debug-panel">
-            <h3>Debug Console</h3>
-            <button class="test-button" onclick="runTests()">Test All Functions</button>
-            <div id="debug-log">Page loading...</div>
-        </div>
-
         <a href="index.html" class="back-link">← Back to Main Site</a>
         
         <div class="header">
             <h1>Site Settings</h1>
-            <p>Control which products and pages are live on your main site. Changes take effect immediately.</p>
+            <p>Control which products and pages are live on your main site. Changes are saved automatically.</p>
         </div>
 
         <div class="grid">
@@ -255,7 +228,7 @@
                         <h4><span class="status live"></span>Weight Loss</h4>
                         <small>Weight loss menu item</small>
                     </div>
-                    <div class="toggle active" data-setting="menu-weight-loss"></div>
+                    <button class="toggle active" data-setting="menu-weight-loss"></button>
                 </div>
 
                 <div class="setting-item">
@@ -263,7 +236,7 @@
                         <h4><span class="status live"></span>Men's ED</h4>
                         <small>Men's ED menu item</small>
                     </div>
-                    <div class="toggle active" data-setting="menu-mens-ed"></div>
+                    <button class="toggle active" data-setting="menu-mens-ed"></button>
                 </div>
 
                 <div class="setting-item">
@@ -271,7 +244,7 @@
                         <h4><span class="status live"></span>Skin Care</h4>
                         <small>Skin care menu item</small>
                     </div>
-                    <div class="toggle active" data-setting="menu-skin-care"></div>
+                    <button class="toggle active" data-setting="menu-skin-care"></button>
                 </div>
 
                 <div class="setting-item">
@@ -279,7 +252,7 @@
                         <h4><span class="status live"></span>Hair Regrowth</h4>
                         <small>Hair regrowth menu item</small>
                     </div>
-                    <div class="toggle active" data-setting="menu-hair-regrowth"></div>
+                    <button class="toggle active" data-setting="menu-hair-regrowth"></button>
                 </div>
 
                 <div class="setting-item">
@@ -287,7 +260,7 @@
                         <h4><span class="status live"></span>NAD+</h4>
                         <small>NAD+ supplements menu item</small>
                     </div>
-                    <div class="toggle active" data-setting="menu-nad-plus"></div>
+                    <button class="toggle active" data-setting="menu-nad-plus"></button>
                 </div>
 
                 <div class="setting-item">
@@ -295,7 +268,7 @@
                         <h4><span class="status live"></span>Diabetes Care</h4>
                         <small>Diabetes care menu item</small>
                     </div>
-                    <div class="toggle active" data-setting="menu-diabetes-care"></div>
+                    <button class="toggle active" data-setting="menu-diabetes-care"></button>
                 </div>
             </div>
 
@@ -307,49 +280,49 @@
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>Weight Loss Page</h4>
-                        <small>weight-loss.html - Weight loss treatments</small>
+                        <small>weight-loss.html</small>
                     </div>
-                    <div class="toggle active" data-setting="page-weight-loss"></div>
+                    <button class="toggle active" data-setting="page-weight-loss"></button>
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>Men's ED Page</h4>
-                        <small>mens-ed.html - Erectile dysfunction treatments</small>
+                        <small>mens-ed.html</small>
                     </div>
-                    <div class="toggle active" data-setting="page-mens-ed"></div>
+                    <button class="toggle active" data-setting="page-mens-ed"></button>
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>Skin Care Page</h4>
-                        <small>skin-care.html - Professional skincare solutions</small>
+                        <small>skin-care.html</small>
                     </div>
-                    <div class="toggle active" data-setting="page-skin-care"></div>
+                    <button class="toggle active" data-setting="page-skin-care"></button>
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>Hair Regrowth Page</h4>
-                        <small>hair-regrowth.html - Hair loss prevention</small>
+                        <small>hair-regrowth.html</small>
                     </div>
-                    <div class="toggle active" data-setting="page-hair-regrowth"></div>
+                    <button class="toggle active" data-setting="page-hair-regrowth"></button>
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>NAD+ Page</h4>
-                        <small>nad-plus.html - Anti-aging supplements</small>
+                        <small>nad-plus.html</small>
                     </div>
-                    <div class="toggle active" data-setting="page-nad-plus"></div>
+                    <button class="toggle active" data-setting="page-nad-plus"></button>
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>Diabetes Care Page</h4>
-                        <small>diabetes-care.html - Diabetes management</small>
+                        <small>diabetes-care.html</small>
                     </div>
-                    <div class="toggle active" data-setting="page-diabetes-care"></div>
+                    <button class="toggle active" data-setting="page-diabetes-care"></button>
                 </div>
             </div>
 
@@ -361,49 +334,25 @@
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>Blog</h4>
-                        <small>blog.html - Health and wellness articles</small>
+                        <small>blog.html</small>
                     </div>
-                    <div class="toggle active" data-setting="page-blog"></div>
+                    <button class="toggle active" data-setting="page-blog"></button>
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>FAQ</h4>
-                        <small>faq.html - Frequently asked questions</small>
+                        <small>faq.html</small>
                     </div>
-                    <div class="toggle active" data-setting="page-faq"></div>
+                    <button class="toggle active" data-setting="page-faq"></button>
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>Contact</h4>
-                        <small>contact.html - Contact information and form</small>
+                        <small>contact.html</small>
                     </div>
-                    <div class="toggle active" data-setting="page-contact"></div>
-                </div>
-
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <h4><span class="status live"></span>Medical Disclaimer</h4>
-                        <small>medical-disclaimer.html - Legal disclaimers</small>
-                    </div>
-                    <div class="toggle active" data-setting="page-medical-disclaimer"></div>
-                </div>
-
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <h4><span class="status live"></span>Privacy Policy</h4>
-                        <small>privacy-policy.html - Privacy policy</small>
-                    </div>
-                    <div class="toggle active" data-setting="page-privacy-policy"></div>
-                </div>
-
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <h4><span class="status live"></span>Terms of Service</h4>
-                        <small>terms-of-service.html - Terms and conditions</small>
-                    </div>
-                    <div class="toggle active" data-setting="page-terms-of-service"></div>
+                    <button class="toggle active" data-setting="page-contact"></button>
                 </div>
             </div>
 
@@ -415,41 +364,25 @@
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>Hero Banner</h4>
-                        <small>Main hero section with typing animation</small>
+                        <small>Main hero section</small>
                     </div>
-                    <div class="toggle active" data-setting="section-hero"></div>
-                </div>
-
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <h4><span class="status live"></span>Service Cards</h4>
-                        <small>Weight Loss and Men's ED cards</small>
-                    </div>
-                    <div class="toggle active" data-setting="section-service-cards"></div>
+                    <button class="toggle active" data-setting="section-hero"></button>
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>Product Carousel</h4>
-                        <small>Our Products scrolling section</small>
+                        <small>Our Products section</small>
                     </div>
-                    <div class="toggle active" data-setting="section-products"></div>
+                    <button class="toggle active" data-setting="section-products"></button>
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>Weight Loss Section</h4>
-                        <small>Weight Loss That Doesn't Wait section</small>
+                        <small>Weight Loss That Doesn't Wait</small>
                     </div>
-                    <div class="toggle active" data-setting="section-weight-loss"></div>
-                </div>
-
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <h4><span class="status live"></span>BMI Calculator</h4>
-                        <small>Interactive BMI calculation tool</small>
-                    </div>
-                    <div class="toggle active" data-setting="section-bmi"></div>
+                    <button class="toggle active" data-setting="section-weight-loss"></button>
                 </div>
 
                 <div class="setting-item">
@@ -457,109 +390,69 @@
                         <h4><span class="status live"></span>ED Meds Section</h4>
                         <small>Men's ED treatment section</small>
                     </div>
-                    <div class="toggle active" data-setting="section-ed-meds"></div>
+                    <button class="toggle active" data-setting="section-ed-meds"></button>
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
-                        <h4><span class="status live"></span>Results Section</h4>
-                        <small>Skincare results with images</small>
+                        <h4><span class="status live"></span>BMI Calculator</h4>
+                        <small>Interactive BMI tool</small>
                     </div>
-                    <div class="toggle active" data-setting="section-results"></div>
-                </div>
-
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <h4><span class="status live"></span>How It Works</h4>
-                        <small>Process explanation section</small>
-                    </div>
-                    <div class="toggle active" data-setting="section-how-it-works"></div>
-                </div>
-
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <h4><span class="status live"></span>Video Testimonials</h4>
-                        <small>Customer success story videos</small>
-                    </div>
-                    <div class="toggle active" data-setting="section-testimonials"></div>
-                </div>
-
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <h4><span class="status live"></span>Trust Badges</h4>
-                        <small>HIPAA, FDA compliance badges</small>
-                    </div>
-                    <div class="toggle active" data-setting="section-trust-badges"></div>
-                </div>
-
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <h4><span class="status live"></span>Your Health Simplified</h4>
-                        <small>Final CTA section with stats</small>
-                    </div>
-                    <div class="toggle active" data-setting="section-health-simplified"></div>
+                    <button class="toggle active" data-setting="section-bmi"></button>
                 </div>
             </div>
 
             <!-- Product Carousel Items -->
             <div class="card">
                 <h2>Product Carousel Items</h2>
-                <p>Control which products appear in the "Our Products" scrolling carousel.</p>
+                <p>Control which products appear in the carousel.</p>
 
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>Weight Loss Card</h4>
-                        <small>Weight loss product in carousel</small>
+                        <small>Weight loss product</small>
                     </div>
-                    <div class="toggle active" data-setting="carousel-weight-loss"></div>
+                    <button class="toggle active" data-setting="carousel-weight-loss"></button>
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>Hair Regrowth Card</h4>
-                        <small>Hair regrowth product in carousel</small>
+                        <small>Hair regrowth product</small>
                     </div>
-                    <div class="toggle active" data-setting="carousel-hair-regrowth"></div>
+                    <button class="toggle active" data-setting="carousel-hair-regrowth"></button>
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>Men's ED Card</h4>
-                        <small>Men's ED product in carousel</small>
+                        <small>Men's ED product</small>
                     </div>
-                    <div class="toggle active" data-setting="carousel-mens-ed"></div>
+                    <button class="toggle active" data-setting="carousel-mens-ed"></button>
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>Skin Care Card</h4>
-                        <small>Skin care product in carousel</small>
+                        <small>Skin care product</small>
                     </div>
-                    <div class="toggle active" data-setting="carousel-skin-care"></div>
+                    <button class="toggle active" data-setting="carousel-skin-care"></button>
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>Diabetes Care Card</h4>
-                        <small>Diabetes care product in carousel</small>
+                        <small>Diabetes care product</small>
                     </div>
-                    <div class="toggle active" data-setting="carousel-diabetes-care"></div>
-                </div>
-
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <h4><span class="status live"></span>Remote Monitoring Card</h4>
-                        <small>Remote health monitoring in carousel</small>
-                    </div>
-                    <div class="toggle active" data-setting="carousel-remote-monitoring"></div>
+                    <button class="toggle active" data-setting="carousel-diabetes-care"></button>
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>NAD+ Card</h4>
-                        <small>NAD+ supplements in carousel</small>
+                        <small>NAD+ supplements</small>
                     </div>
-                    <div class="toggle active" data-setting="carousel-nad-plus"></div>
+                    <button class="toggle active" data-setting="carousel-nad-plus"></button>
                 </div>
             </div>
 
@@ -571,9 +464,9 @@
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>Top Banner</h4>
-                        <small>Scrolling trust indicators banner</small>
+                        <small>Scrolling banner</small>
                     </div>
-                    <div class="toggle active" data-setting="feature-top-banner"></div>
+                    <button class="toggle active" data-setting="feature-top-banner"></button>
                 </div>
 
                 <div class="setting-item">
@@ -581,31 +474,15 @@
                         <h4><span class="status live"></span>Navigation Menu</h4>
                         <small>Main site navigation</small>
                     </div>
-                    <div class="toggle active" data-setting="feature-navigation"></div>
+                    <button class="toggle active" data-setting="feature-navigation"></button>
                 </div>
 
                 <div class="setting-item">
                     <div class="setting-info">
                         <h4><span class="status live"></span>Footer</h4>
-                        <small>Site footer with links</small>
+                        <small>Site footer</small>
                     </div>
-                    <div class="toggle active" data-setting="feature-footer"></div>
-                </div>
-
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <h4><span class="status live"></span>Live Chat</h4>
-                        <small>Customer support chat widget</small>
-                    </div>
-                    <div class="toggle active" data-setting="feature-live-chat"></div>
-                </div>
-
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <h4><span class="status live"></span>Mobile Optimization</h4>
-                        <small>Mobile responsive layouts</small>
-                    </div>
-                    <div class="toggle active" data-setting="feature-mobile-optimization"></div>
+                    <button class="toggle active" data-setting="feature-footer"></button>
                 </div>
             </div>
         </div>
@@ -616,284 +493,156 @@
                 <div class="stat-label">Menu Items</div>
             </div>
             <div class="stat">
-                <div class="stat-number" id="active-product-pages">6</div>
-                <div class="stat-label">Product Pages</div>
+                <div class="stat-number" id="active-pages">9</div>
+                <div class="stat-label">Pages</div>
             </div>
             <div class="stat">
-                <div class="stat-number" id="active-general-pages">6</div>
-                <div class="stat-label">General Pages</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number" id="active-carousel">7</div>
-                <div class="stat-label">Carousel Items</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number" id="active-sections">11</div>
+                <div class="stat-number" id="active-sections">5</div>
                 <div class="stat-label">Homepage Sections</div>
             </div>
             <div class="stat">
-                <div class="stat-number" id="active-features">5</div>
+                <div class="stat-number" id="active-carousel">6</div>
+                <div class="stat-label">Carousel Items</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="active-features">3</div>
                 <div class="stat-label">Site Features</div>
             </div>
         </div>
 
         <div class="buttons">
-            <button class="btn" onclick="saveSettings()">Save Changes</button>
-            <button class="btn" onclick="resetSettings()">Reset All</button>
+            <button class="btn" id="save-btn">Save Changes</button>
+            <button class="btn" id="reset-btn">Reset All</button>
         </div>
     </div>
 
     <script>
-        // Settings data
-        let settings = {};
+        // Simple settings management
+        const settings = {};
         
-        // Debug logging
-        function log(message) {
-            const debugLog = document.getElementById('debug-log');
-            const timestamp = new Date().toLocaleTimeString();
-            debugLog.innerHTML += `<br>[${timestamp}] ${message}`;
-            debugLog.scrollTop = debugLog.scrollHeight;
-            console.log(message);
-        }
-
-        // Test all functionality
-        function runTests() {
-            log("Running comprehensive tests...");
-            
-            try {
-                // Test 1: DOM elements
-                const toggles = document.querySelectorAll('.toggle');
-                log(`Found ${toggles.length} toggle elements`);
-                
-                // Test 2: LocalStorage
-                try {
-                    localStorage.setItem('test', 'value');
-                    localStorage.removeItem('test');
-                    log("LocalStorage: Working");
-                } catch (e) {
-                    log(`LocalStorage ERROR: ${e.message}`);
-                }
-                
-                // Test 3: Settings initialization
-                const testSetting = 'test-setting';
-                settings[testSetting] = true;
-                log(`Settings object: ${Object.keys(settings).length} keys`);
-                
-                // Test 4: Toggle functionality
-                if (toggles.length > 0) {
-                    const firstToggle = toggles[0];
-                    const isActive = firstToggle.classList.contains('active');
-                    log(`First toggle active state: ${isActive}`);
-                }
-                
-                // Test 5: Stats update
-                updateStats();
-                log("Stats updated successfully");
-                
-                log("All tests completed!");
-                
-            } catch (error) {
-                log(`Test ERROR: ${error.message}`);
-            }
-        }
-
-        // Initialize
-        function init() {
-            log('Initializing settings page...');
-            
-            try {
-                loadSettings();
-                log('Settings loaded');
-                
-                setupToggleListeners();
-                log('Toggle listeners setup');
-                
-                updateStats();
-                log('Stats updated');
-                
-                log('Settings page ready!');
-            } catch (error) {
-                log(`Initialization ERROR: ${error.message}`);
-            }
-        }
-
-        // Setup toggle listeners with error handling
-        function setupToggleListeners() {
+        // Initialize all settings to true
+        function initSettings() {
             const toggles = document.querySelectorAll('.toggle');
-            log(`Setting up ${toggles.length} toggle listeners`);
-            
-            toggles.forEach((toggle, index) => {
-                try {
-                    toggle.addEventListener('click', function(event) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        
-                        const setting = this.getAttribute('data-setting');
-                        if (!setting) {
-                            log(`ERROR: No data-setting attribute found for toggle ${index}`);
-                            return;
-                        }
-                        
-                        const isActive = this.classList.contains('active');
-                        
-                        // Toggle state
-                        if (isActive) {
-                            this.classList.remove('active');
-                            settings[setting] = false;
-                            log(`Disabled: ${setting}`);
-                        } else {
-                            this.classList.add('active');
-                            settings[setting] = true;
-                            log(`Enabled: ${setting}`);
-                        }
-                        
-                        // Update status indicator
-                        updateStatusIndicator(this, !isActive);
-                        updateStats();
-                    });
-                } catch (error) {
-                    log(`ERROR setting up toggle ${index}: ${error.message}`);
-                }
+            toggles.forEach(toggle => {
+                const setting = toggle.getAttribute('data-setting');
+                settings[setting] = toggle.classList.contains('active');
             });
+            updateStats();
         }
 
-        // Update status indicator with error handling
-        function updateStatusIndicator(toggle, isActive) {
+        // Update status indicator
+        function updateStatus(toggle, isActive) {
+            const status = toggle.closest('.setting-item').querySelector('.status');
+            status.className = `status ${isActive ? 'live' : 'offline'}`;
+        }
+
+        // Update statistics
+        function updateStats() {
+            const menuKeys = Object.keys(settings).filter(key => key.startsWith('menu-'));
+            const pageKeys = Object.keys(settings).filter(key => key.startsWith('page-'));
+            const sectionKeys = Object.keys(settings).filter(key => key.startsWith('section-'));
+            const carouselKeys = Object.keys(settings).filter(key => key.startsWith('carousel-'));
+            const featureKeys = Object.keys(settings).filter(key => key.startsWith('feature-'));
+
+            document.getElementById('active-menu').textContent = menuKeys.filter(key => settings[key]).length;
+            document.getElementById('active-pages').textContent = pageKeys.filter(key => settings[key]).length;
+            document.getElementById('active-sections').textContent = sectionKeys.filter(key => settings[key]).length;
+            document.getElementById('active-carousel').textContent = carouselKeys.filter(key => settings[key]).length;
+            document.getElementById('active-features').textContent = featureKeys.filter(key => settings[key]).length;
+        }
+
+        // Handle toggle clicks
+        function handleToggle(toggle) {
+            const setting = toggle.getAttribute('data-setting');
+            const isActive = toggle.classList.contains('active');
+            
+            if (isActive) {
+                toggle.classList.remove('active');
+                settings[setting] = false;
+            } else {
+                toggle.classList.add('active');
+                settings[setting] = true;
+            }
+            
+            updateStatus(toggle, !isActive);
+            updateStats();
+            saveSettings();
+        }
+
+        // Save settings
+        function saveSettings() {
             try {
-                const statusEl = toggle.closest('.setting-item').querySelector('.status');
-                if (statusEl) {
-                    statusEl.className = `status ${isActive ? 'live' : 'offline'}`;
-                }
-            } catch (error) {
-                log(`ERROR updating status indicator: ${error.message}`);
+                localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
+            } catch (e) {
+                console.error('Failed to save settings:', e);
             }
         }
 
-        // Load settings from localStorage with error handling
+        // Load settings
         function loadSettings() {
             try {
                 const saved = localStorage.getItem('herosSiteSettings');
                 if (saved) {
-                    settings = JSON.parse(saved);
-                    log(`Loaded ${Object.keys(settings).length} settings from storage`);
-                } else {
-                    log('No saved settings found, initializing defaults');
-                    // Default all to true
-                    const toggles = document.querySelectorAll('.toggle');
-                    toggles.forEach(toggle => {
-                        const setting = toggle.getAttribute('data-setting');
-                        if (setting) {
-                            settings[setting] = true;
+                    const savedSettings = JSON.parse(saved);
+                    Object.assign(settings, savedSettings);
+                    
+                    // Apply to UI
+                    Object.keys(settings).forEach(key => {
+                        const toggle = document.querySelector(`[data-setting="${key}"]`);
+                        if (toggle) {
+                            if (settings[key]) {
+                                toggle.classList.add('active');
+                            } else {
+                                toggle.classList.remove('active');
+                            }
+                            updateStatus(toggle, settings[key]);
                         }
                     });
                 }
+            } catch (e) {
+                console.error('Failed to load settings:', e);
+            }
+        }
 
-                // Apply settings to UI
-                Object.keys(settings).forEach(key => {
-                    const toggle = document.querySelector(`[data-setting="${key}"]`);
-                    if (toggle) {
-                        if (settings[key]) {
-                            toggle.classList.add('active');
-                        } else {
-                            toggle.classList.remove('active');
-                        }
-                        updateStatusIndicator(toggle, settings[key]);
-                    }
+        // Reset all settings
+        function resetAll() {
+            if (confirm('Reset all settings to enabled? This cannot be undone.')) {
+                const toggles = document.querySelectorAll('.toggle');
+                toggles.forEach(toggle => {
+                    const setting = toggle.getAttribute('data-setting');
+                    toggle.classList.add('active');
+                    settings[setting] = true;
+                    updateStatus(toggle, true);
                 });
-            } catch (error) {
-                log(`ERROR loading settings: ${error.message}`);
+                updateStats();
+                saveSettings();
             }
         }
 
-        // Save settings to localStorage with error handling
-        function saveSettings() {
-            try {
-                localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
-                log(`Saved ${Object.keys(settings).length} settings to storage`);
-                
-                // Show success feedback
-                const btn = event.target;
-                const originalText = btn.textContent;
-                btn.textContent = 'Saved!';
-                btn.classList.add('success');
-                
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.classList.remove('success');
-                }, 2000);
-                
-            } catch (error) {
-                log(`ERROR saving settings: ${error.message}`);
-                alert('Error saving settings!');
-            }
-        }
-
-        // Reset all settings with error handling
-        function resetSettings() {
-            try {
-                if (confirm('Reset all settings to default? This cannot be undone.')) {
-                    const toggles = document.querySelectorAll('.toggle');
-                    toggles.forEach(toggle => {
-                        const setting = toggle.getAttribute('data-setting');
-                        if (setting) {
-                            settings[setting] = true;
-                            toggle.classList.add('active');
-                            updateStatusIndicator(toggle, true);
-                        }
-                    });
-                    updateStats();
-                    log('All settings reset to default');
-                }
-            } catch (error) {
-                log(`ERROR resetting settings: ${error.message}`);
-            }
-        }
-
-        // Update statistics with error handling
-        function updateStats() {
-            try {
-                const menuItems = ['menu-weight-loss', 'menu-mens-ed', 'menu-skin-care', 'menu-hair-regrowth', 'menu-nad-plus', 'menu-diabetes-care'];
-                const productPages = ['page-weight-loss', 'page-mens-ed', 'page-skin-care', 'page-hair-regrowth', 'page-nad-plus', 'page-diabetes-care'];
-                const generalPages = ['page-blog', 'page-faq', 'page-contact', 'page-medical-disclaimer', 'page-privacy-policy', 'page-terms-of-service'];
-                const carouselItems = ['carousel-weight-loss', 'carousel-hair-regrowth', 'carousel-mens-ed', 'carousel-skin-care', 'carousel-diabetes-care', 'carousel-remote-monitoring', 'carousel-nad-plus'];
-                const sections = ['section-hero', 'section-service-cards', 'section-products', 'section-weight-loss', 'section-bmi', 'section-ed-meds', 'section-results', 'section-how-it-works', 'section-testimonials', 'section-trust-badges', 'section-health-simplified'];
-                const features = ['feature-top-banner', 'feature-navigation', 'feature-footer', 'feature-live-chat', 'feature-mobile-optimization'];
-
-                const activeMenu = menuItems.filter(key => settings[key] !== false).length;
-                const activeProductPages = productPages.filter(key => settings[key] !== false).length;
-                const activeGeneralPages = generalPages.filter(key => settings[key] !== false).length;
-                const activeCarousel = carouselItems.filter(key => settings[key] !== false).length;
-                const activeSections = sections.filter(key => settings[key] !== false).length;
-                const activeFeatures = features.filter(key => settings[key] !== false).length;
-
-                const menuEl = document.getElementById('active-menu');
-                const productPagesEl = document.getElementById('active-product-pages');
-                const generalPagesEl = document.getElementById('active-general-pages');
-                const carouselEl = document.getElementById('active-carousel');
-                const sectionsEl = document.getElementById('active-sections');
-                const featuresEl = document.getElementById('active-features');
-
-                if (menuEl) menuEl.textContent = activeMenu;
-                if (productPagesEl) productPagesEl.textContent = activeProductPages;
-                if (generalPagesEl) generalPagesEl.textContent = activeGeneralPages;
-                if (carouselEl) carouselEl.textContent = activeCarousel;
-                if (sectionsEl) sectionsEl.textContent = activeSections;
-                if (featuresEl) featuresEl.textContent = activeFeatures;
-
-            } catch (error) {
-                log(`ERROR updating stats: ${error.message}`);
-            }
-        }
-
-        // Start when page loads
+        // Initialize when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            log('DOM loaded, initializing...');
-            init();
-        });
+            initSettings();
+            loadSettings();
+            
+            // Add click handlers to toggles
+            document.querySelectorAll('.toggle').forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    handleToggle(this);
+                });
+            });
 
-        // Handle any errors
-        window.addEventListener('error', function(e) {
-            log(`GLOBAL ERROR: ${e.message} at line ${e.lineno}`);
+            // Add button handlers
+            document.getElementById('save-btn').addEventListener('click', function() {
+                saveSettings();
+                this.textContent = 'Saved!';
+                this.classList.add('success');
+                setTimeout(() => {
+                    this.textContent = 'Save Changes';
+                    this.classList.remove('success');
+                }, 2000);
+            });
+
+            document.getElementById('reset-btn').addEventListener('click', resetAll);
         });
     </script>
 </body>
