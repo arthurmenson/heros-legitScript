@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Test - Heros</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .error { color: #ff4444; }
+        .success { color: #44ff44; }
+        .warning { color: #ffaa44; }
+        .result {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #00ff00;
+        }
+        .btn {
+            background: #007acc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Error Fix Verification</h1>
+    <p>Testing if the "startTime is not defined" error has been fixed.</p>
+
+    <div class="result">
+        <h3>🧪 Test Results:</h3>
+        <div id="test-results">Click "Test Settings" to run verification...</div>
+    </div>
+
+    <div class="result">
+        <h3>📊 Console Monitor:</h3>
+        <div id="console-monitor">Monitoring for errors...</div>
+    </div>
+
+    <button class="btn" onclick="testSettings()">🧪 Test Settings Function</button>
+    <button class="btn" onclick="testWithData()">📝 Test With Sample Data</button>
+    <button class="btn" onclick="clearTests()">🗑️ Clear Results</button>
+    <button class="btn" onclick="window.open('index.html', '_blank')">🌐 Open Main Site</button>
+
+    <script>
+        let testResults = [];
+        let errorCount = 0;
+
+        // Capture console errors
+        const originalError = console.error;
+        console.error = function(...args) {
+            errorCount++;
+            const errorMsg = args.join(' ');
+            addResult(`❌ Console Error #${errorCount}: ${errorMsg}`, 'error');
+            originalError.apply(console, args);
+        };
+
+        // Capture console logs to see if they're silenced
+        const originalLog = console.log;
+        let logCount = 0;
+        console.log = function(...args) {
+            logCount++;
+            const logMsg = args.join(' ');
+            if (logMsg.includes('Settings') || logMsg.includes('Applying') || logMsg.includes('Hidden') || logMsg.includes('Shown')) {
+                addResult(`📢 Settings Log #${logCount}: ${logMsg}`, 'warning');
+            }
+            originalLog.apply(console, args);
+        };
+
+        function addResult(message, type = 'success') {
+            const resultsDiv = document.getElementById('test-results');
+            const timestamp = new Date().toLocaleTimeString();
+            
+            testResults.push({
+                timestamp,
+                message,
+                type
+            });
+            
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            const resultsDiv = document.getElementById('test-results');
+            const monitorDiv = document.getElementById('console-monitor');
+            
+            resultsDiv.innerHTML = testResults.map(result => 
+                `<div class="${result.type}">[${result.timestamp}] ${result.message}</div>`
+            ).join('');
+            
+            monitorDiv.innerHTML = `
+                <div>Total Errors Captured: ${errorCount}</div>
+                <div>Total Settings Logs: ${logCount}</div>
+                <div>Status: ${errorCount === 0 ? '<span class="success">✅ No Errors</span>' : '<span class="error">❌ Errors Found</span>'}</div>
+            `;
+        }
+
+        function testSettings() {
+            addResult('🚀 Starting settings function test...', 'success');
+            
+            try {
+                // Test if we can access the applySettings function
+                if (typeof applySettings === 'function') {
+                    addResult('✅ applySettings function exists', 'success');
+                    
+                    // Try calling it
+                    applySettings();
+                    addResult('✅ applySettings() executed without throwing error', 'success');
+                    
+                } else {
+                    addResult('❌ applySettings function not found', 'error');
+                }
+                
+            } catch (error) {
+                addResult(`❌ Error calling applySettings: ${error.message}`, 'error');
+                addResult(`📍 Error stack: ${error.stack}`, 'error');
+            }
+        }
+
+        function testWithData() {
+            addResult('📝 Testing with sample settings data...', 'success');
+            
+            try {
+                // Create test settings
+                const testSettings = {
+                    'menu-diabetes-care': false,
+                    'menu-weight-loss': true,
+                    'section-weight-loss': false,
+                    'test-timestamp': Date.now()
+                };
+                
+                localStorage.setItem('herosSiteSettings', JSON.stringify(testSettings));
+                addResult('✅ Test settings stored in localStorage', 'success');
+                
+                // Try applying settings
+                if (typeof applySettings === 'function') {
+                    applySettings();
+                    addResult('✅ applySettings() with test data executed successfully', 'success');
+                } else {
+                    addResult('❌ applySettings function not available', 'error');
+                }
+                
+            } catch (error) {
+                addResult(`❌ Error with test data: ${error.message}`, 'error');
+            }
+        }
+
+        function clearTests() {
+            testResults = [];
+            errorCount = 0;
+            logCount = 0;
+            updateDisplay();
+            addResult('🗑️ Test results cleared', 'success');
+        }
+
+        // Auto-run basic test
+        document.addEventListener('DOMContentLoaded', function() {
+            addResult('🔧 Error fix verification started', 'success');
+            
+            // Wait a bit then test
+            setTimeout(() => {
+                testSettings();
+            }, 1000);
+        });
+
+        // Monitor for any global errors
+        window.addEventListener('error', function(e) {
+            addResult(`🚨 Global Error: ${e.message} at line ${e.lineno}`, 'error');
+        });
+
+        // Test if main site functions exist
+        setTimeout(() => {
+            const functions = ['applySettings', 'captureOriginalDisplayValues', 'generateSettingsURL'];
+            functions.forEach(funcName => {
+                if (typeof window[funcName] === 'function') {
+                    addResult(`✅ Function available: ${funcName}`, 'success');
+                } else {
+                    addResult(`⚠️ Function not found: ${funcName}`, 'warning');
+                }
+            });
+        }, 2000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production Settings Setup - Heros</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .subtitle {
+            text-align: center;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin: 10px 5px;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        .btn.success {
+            background: linear-gradient(135deg, #00b894, #00a085);
+        }
+        .btn.info {
+            background: linear-gradient(135deg, #0984e3, #74b9ff);
+        }
+        .btn.warning {
+            background: linear-gradient(135deg, #fdcb6e, #e17055);
+        }
+        .status {
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #00b894;
+        }
+        .error {
+            border-left-color: #e74c3c;
+            background: rgba(231, 76, 60, 0.1);
+        }
+        .success {
+            border-left-color: #00b894;
+            background: rgba(0, 184, 148, 0.1);
+        }
+        .warning {
+            border-left-color: #f39c12;
+            background: rgba(243, 156, 18, 0.1);
+        }
+        .copy-area {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            word-break: break-all;
+            margin: 15px 0;
+            border: 1px dashed rgba(255, 255, 255, 0.3);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .setting-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .toggle {
+            width: 50px;
+            height: 25px;
+            background: #ccc;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+            position: relative;
+        }
+        .toggle.active {
+            background: #00b894;
+        }
+        .toggle::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 21px;
+            height: 21px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        .toggle.active::before {
+            transform: translateX(25px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🚀 Production Settings Setup</h1>
+        <p class="subtitle">Configure your Heros Health settings for this production domain</p>
+        
+        <div class="card">
+            <h2>📊 Current Status</h2>
+            <div class="status" id="current-status">
+                <div>🔍 Checking current domain and localStorage...</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🛠️ Quick Setup Options</h2>
+            <p>Choose how you want to configure your settings:</p>
+            
+            <div style="text-align: center;">
+                <button class="btn success" onclick="createDefaultSettings()">
+                    ✅ Default Settings (All Enabled)
+                </button>
+                <button class="btn info" onclick="createTestSettings()">
+                    🧪 Test Settings (Some Disabled)
+                </button>
+                <button class="btn warning" onclick="importSettings()">
+                    📥 Import from Clipboard
+                </button>
+                <button class="btn" onclick="clearAllSettings()">
+                    🗑️ Clear All Settings
+                </button>
+            </div>
+        </div>
+
+        <div class="card" id="manual-config" style="display: none;">
+            <h2>⚙️ Manual Configuration</h2>
+            <p>Toggle individual settings manually:</p>
+            <div class="grid" id="settings-grid">
+                <!-- Settings will be populated here -->
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn success" onclick="saveManualSettings()">💾 Save Manual Settings</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📋 Export/Import Settings</h2>
+            <p>Copy settings between domains:</p>
+            
+            <button class="btn info" onclick="exportSettings()">📤 Export Current Settings</button>
+            <button class="btn warning" onclick="showImportArea()">📥 Show Import Area</button>
+            
+            <div id="export-area" style="display: none;">
+                <h3>Export Data:</h3>
+                <div class="copy-area" id="export-data">
+                    <!-- Export data will appear here -->
+                </div>
+                <button class="btn" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+            </div>
+            
+            <div id="import-area" style="display: none;">
+                <h3>Import Data:</h3>
+                <textarea id="import-data" class="copy-area" placeholder="Paste settings JSON data here..." style="width: 100%; height: 100px; background: rgba(0,0,0,0.4); color: white; border: 1px solid rgba(255,255,255,0.3); border-radius: 10px; padding: 15px; resize: vertical;"></textarea>
+                <button class="btn success" onclick="importFromTextarea()">📥 Import Settings</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🔗 Quick Links</h2>
+            <div style="text-align: center;">
+                <button class="btn info" onclick="window.open('settings.html', '_blank')">⚙️ Open Settings Page</button>
+                <button class="btn info" onclick="window.open('settings-debug.html', '_blank')">🐛 Open Debug Console</button>
+                <button class="btn success" onclick="window.open('index.html', '_blank')">🏠 Test Main Site</button>
+                <button class="btn" onclick="location.reload()">🔄 Refresh Status</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSettings = {};
+        
+        // All available settings
+        const ALL_SETTINGS = {
+            'menu-weight-loss': 'Weight Loss Menu',
+            'menu-mens-ed': 'Men\'s ED Menu',
+            'menu-skin-care': 'Skin Care Menu',
+            'menu-hair-regrowth': 'Hair Regrowth Menu',
+            'menu-nad-plus': 'NAD+ Menu',
+            'menu-diabetes-care': 'Diabetes Care Menu',
+            'section-hero': 'Hero Section',
+            'section-service-cards': 'Service Cards',
+            'section-products': 'Products Carousel',
+            'section-weight-loss': 'Weight Loss Section',
+            'section-bmi': 'BMI Calculator',
+            'section-ed-meds': 'ED Meds Section',
+            'section-results': 'Results Section',
+            'section-how-it-works': 'How It Works',
+            'section-testimonials': 'Testimonials',
+            'section-trust-badges': 'Trust Badges',
+            'section-health-simplified': 'Health Simplified',
+            'carousel-weight-loss': 'Weight Loss Card',
+            'carousel-hair-regrowth': 'Hair Regrowth Card',
+            'carousel-mens-ed': 'Men\'s ED Card',
+            'carousel-skin-care': 'Skin Care Card',
+            'carousel-diabetes-care': 'Diabetes Care Card',
+            'carousel-remote-monitoring': 'Remote Monitoring Card',
+            'carousel-nad-plus': 'NAD+ Card',
+            'feature-top-banner': 'Top Banner',
+            'feature-navigation': 'Navigation',
+            'feature-footer': 'Footer',
+            'feature-live-chat': 'Live Chat',
+            'feature-mobile-optimization': 'Mobile Optimization'
+        };
+
+        function updateStatus() {
+            const statusDiv = document.getElementById('current-status');
+            const domain = window.location.hostname;
+            const settingsData = localStorage.getItem('herosSiteSettings');
+            
+            let statusHTML = `
+                <div><strong>🌐 Domain:</strong> ${domain}</div>
+                <div><strong>📍 Origin:</strong> ${window.location.origin}</div>
+            `;
+            
+            if (settingsData) {
+                try {
+                    currentSettings = JSON.parse(settingsData);
+                    const settingsCount = Object.keys(currentSettings).length;
+                    const enabledCount = Object.values(currentSettings).filter(v => v === true).length;
+                    const disabledCount = settingsCount - enabledCount;
+                    
+                    statusHTML += `
+                        <div class="success">
+                            <strong>✅ Settings Found:</strong> ${settingsCount} total<br>
+                            <strong>🟢 Enabled:</strong> ${enabledCount}<br>
+                            <strong>🔴 Disabled:</strong> ${disabledCount}
+                        </div>
+                    `;
+                    statusDiv.className = 'status success';
+                } catch (error) {
+                    statusHTML += `<div class="error"><strong>❌ Error:</strong> Invalid settings data</div>`;
+                    statusDiv.className = 'status error';
+                }
+            } else {
+                statusHTML += `<div class="warning"><strong>⚠️ No Settings:</strong> LocalStorage is empty for this domain</div>`;
+                statusDiv.className = 'status warning';
+            }
+            
+            statusDiv.innerHTML = statusHTML;
+        }
+
+        function createDefaultSettings() {
+            const defaultSettings = {};
+            Object.keys(ALL_SETTINGS).forEach(key => {
+                defaultSettings[key] = true; // All enabled by default
+            });
+            
+            saveSettings(defaultSettings, 'Default settings created with all items enabled!');
+        }
+
+        function createTestSettings() {
+            const testSettings = {};
+            Object.keys(ALL_SETTINGS).forEach(key => {
+                // Enable most settings, disable a few for testing
+                if (key === 'menu-diabetes-care' || key === 'carousel-diabetes-care') {
+                    testSettings[key] = false;
+                } else {
+                    testSettings[key] = true;
+                }
+            });
+            
+            saveSettings(testSettings, 'Test settings created! Diabetes Care items are disabled for testing.');
+        }
+
+        function saveSettings(settings, message) {
+            try {
+                localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
+                
+                // Create change notification
+                const changeNotification = {
+                    timestamp: Date.now(),
+                    setting: 'bulk-update',
+                    action: 'production-setup',
+                    count: Object.keys(settings).length
+                };
+                localStorage.setItem('herosSettingsChange', JSON.stringify(changeNotification));
+                
+                alert(message + ' Refresh the main site to see changes.');
+                updateStatus();
+            } catch (error) {
+                alert(`Error saving settings: ${error.message}`);
+            }
+        }
+
+        function clearAllSettings() {
+            if (confirm('Are you sure you want to clear all settings? This cannot be undone.')) {
+                localStorage.removeItem('herosSiteSettings');
+                localStorage.removeItem('herosSettingsChange');
+                currentSettings = {};
+                updateStatus();
+                alert('All settings cleared!');
+            }
+        }
+
+        function exportSettings() {
+            const settingsData = localStorage.getItem('herosSiteSettings');
+            if (!settingsData) {
+                alert('No settings to export!');
+                return;
+            }
+            
+            const exportArea = document.getElementById('export-area');
+            const exportData = document.getElementById('export-data');
+            
+            exportData.textContent = settingsData;
+            exportArea.style.display = 'block';
+        }
+
+        function showImportArea() {
+            const importArea = document.getElementById('import-area');
+            importArea.style.display = 'block';
+        }
+
+        function importFromTextarea() {
+            const textarea = document.getElementById('import-data');
+            const data = textarea.value.trim();
+            
+            if (!data) {
+                alert('Please paste settings data first!');
+                return;
+            }
+            
+            try {
+                const settings = JSON.parse(data);
+                saveSettings(settings, 'Settings imported successfully!');
+                textarea.value = '';
+                document.getElementById('import-area').style.display = 'none';
+            } catch (error) {
+                alert(`Invalid JSON data: ${error.message}`);
+            }
+        }
+
+        function importSettings() {
+            const data = prompt('Paste settings JSON data:');
+            if (data) {
+                try {
+                    const settings = JSON.parse(data);
+                    saveSettings(settings, 'Settings imported successfully!');
+                } catch (error) {
+                    alert(`Invalid JSON data: ${error.message}`);
+                }
+            }
+        }
+
+        function copyToClipboard() {
+            const exportData = document.getElementById('export-data');
+            const text = exportData.textContent;
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Settings copied to clipboard!');
+                }).catch(() => {
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('Settings copied to clipboard!');
+        }
+
+        function showManualConfig() {
+            const manualConfig = document.getElementById('manual-config');
+            const settingsGrid = document.getElementById('settings-grid');
+            
+            manualConfig.style.display = 'block';
+            settingsGrid.innerHTML = '';
+            
+            Object.keys(ALL_SETTINGS).forEach(key => {
+                const isEnabled = currentSettings[key] !== false;
+                const item = document.createElement('div');
+                item.className = 'setting-item';
+                item.innerHTML = `
+                    <span>${ALL_SETTINGS[key]}</span>
+                    <div class="toggle ${isEnabled ? 'active' : ''}" onclick="toggleManualSetting('${key}', this)"></div>
+                `;
+                settingsGrid.appendChild(item);
+            });
+        }
+
+        function toggleManualSetting(key, toggleEl) {
+            const isActive = toggleEl.classList.contains('active');
+            if (isActive) {
+                toggleEl.classList.remove('active');
+                currentSettings[key] = false;
+            } else {
+                toggleEl.classList.add('active');
+                currentSettings[key] = true;
+            }
+        }
+
+        function saveManualSettings() {
+            saveSettings(currentSettings, 'Manual settings saved!');
+            document.getElementById('manual-config').style.display = 'none';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStatus();
+            
+            // Auto-show manual config if settings exist
+            const settingsData = localStorage.getItem('herosSiteSettings');
+            if (settingsData) {
+                setTimeout(() => {
+                    showManualConfig();
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>

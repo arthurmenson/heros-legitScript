@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Debug - Heros</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #1e1e1e;
+            color: #fff;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .debug-panel {
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            background: #007acc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #005a9e;
+        }
+        .btn.success { background: #28a745; }
+        .btn.danger { background: #dc3545; }
+        .btn.warning { background: #ffc107; color: #000; }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #555;
+            border-radius: 4px;
+        }
+        .log {
+            background: #000;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 4px;
+            height: 300px;
+            overflow-y: auto;
+            font-size: 12px;
+        }
+        .status {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status.on { background: #28a745; }
+        .status.off { background: #dc3545; }
+        .status.unknown { background: #6c757d; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐛 Settings Debug Console</h1>
+        
+        <div class="debug-panel">
+            <h2>Quick Actions</h2>
+            <button class="btn" onclick="openSettings()">⚙️ Open Settings</button>
+            <button class="btn" onclick="openMainSite()">🌐 Open Main Site</button>
+            <button class="btn" onclick="refreshIframes()">🔄 Refresh Previews</button>
+            <button class="btn warning" onclick="resetAllSettings()">🗑️ Reset All</button>
+            <button class="btn success" onclick="runQuickTest()">🧪 Quick Test</button>
+            <button class="btn danger" onclick="toggleTestSetting()">🔀 Toggle Test</button>
+        </div>
+
+        <div class="grid">
+            <div class="debug-panel">
+                <h2>Settings Page Preview</h2>
+                <iframe id="settings-iframe" src="settings.html"></iframe>
+            </div>
+
+            <div class="debug-panel">
+                <h2>Main Site Preview</h2>
+                <iframe id="main-iframe" src="index.html"></iframe>
+            </div>
+        </div>
+
+        <div class="debug-panel">
+            <h2>Current Settings Status</h2>
+            <div id="settings-status">Loading...</div>
+        </div>
+
+        <div class="debug-panel">
+            <h2>Real-time Debug Log</h2>
+            <div class="log" id="debug-log">
+                <div style="color: #0f0;">=== Settings Debug Console Started ===</div>
+            </div>
+        </div>
+
+        <div class="debug-panel">
+            <h2>Manual Test Controls</h2>
+            <p>Test individual settings manually:</p>
+            <div id="manual-controls">
+                <!-- Will be populated with individual setting controls -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let debugState = {
+            settings: {},
+            testCounter: 0
+        };
+
+        function log(message, color = '#0f0') {
+            const logDiv = document.getElementById('debug-log');
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `<div style="color: ${color};">[${timestamp}] ${message}</div>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(`[Debug] ${message}`);
+        }
+
+        function openSettings() {
+            window.open('settings.html', '_blank');
+            log('Opened settings page in new tab');
+        }
+
+        function openMainSite() {
+            window.open('index.html', '_blank');
+            log('Opened main site in new tab');
+        }
+
+        function refreshIframes() {
+            const settingsIframe = document.getElementById('settings-iframe');
+            const mainIframe = document.getElementById('main-iframe');
+            
+            settingsIframe.src = settingsIframe.src;
+            mainIframe.src = mainIframe.src;
+            
+            log('Refreshed both preview iframes');
+        }
+
+        function loadCurrentSettings() {
+            try {
+                const settingsData = localStorage.getItem('herosSiteSettings');
+                if (settingsData) {
+                    debugState.settings = JSON.parse(settingsData);
+                    log(`Loaded ${Object.keys(debugState.settings).length} settings`);
+                } else {
+                    debugState.settings = {};
+                    log('No settings found in localStorage', '#ffa500');
+                }
+                updateSettingsDisplay();
+            } catch (error) {
+                log(`Error loading settings: ${error.message}`, '#ff0000');
+            }
+        }
+
+        function updateSettingsDisplay() {
+            const statusDiv = document.getElementById('settings-status');
+            const settingsKeys = Object.keys(debugState.settings);
+            
+            if (settingsKeys.length === 0) {
+                statusDiv.innerHTML = '<p style="color: #ffa500;">No settings found</p>';
+                return;
+            }
+
+            let html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px;">';
+            
+            settingsKeys.forEach(key => {
+                const value = debugState.settings[key];
+                const statusClass = value ? 'on' : 'off';
+                html += `
+                    <div style="background: #2d2d2d; padding: 10px; border-radius: 4px;">
+                        <span class="status ${statusClass}"></span>
+                        <strong>${key}</strong>: ${value ? 'ON' : 'OFF'}
+                        <button class="btn" style="float: right; padding: 2px 8px; font-size: 10px;" onclick="toggleSetting('${key}')">Toggle</button>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            statusDiv.innerHTML = html;
+        }
+
+        function toggleSetting(settingKey) {
+            debugState.settings[settingKey] = !debugState.settings[settingKey];
+            
+            // Save to localStorage
+            localStorage.setItem('herosSiteSettings', JSON.stringify(debugState.settings));
+            
+            // Create change notification
+            const changeNotification = {
+                timestamp: Date.now(),
+                setting: settingKey,
+                value: debugState.settings[settingKey],
+                action: 'debug-toggle'
+            };
+            localStorage.setItem('herosSettingsChange', JSON.stringify(changeNotification));
+            
+            log(`Toggled ${settingKey} to ${debugState.settings[settingKey] ? 'ON' : 'OFF'}`, '#00bfff');
+            updateSettingsDisplay();
+            
+            // Refresh main site iframe to see changes
+            setTimeout(() => {
+                const mainIframe = document.getElementById('main-iframe');
+                mainIframe.src = mainIframe.src;
+            }, 500);
+        }
+
+        function resetAllSettings() {
+            if (confirm('Reset all settings? This will clear all localStorage data.')) {
+                localStorage.removeItem('herosSiteSettings');
+                localStorage.removeItem('herosSettingsChange');
+                debugState.settings = {};
+                log('All settings reset', '#ff6600');
+                updateSettingsDisplay();
+                refreshIframes();
+            }
+        }
+
+        function runQuickTest() {
+            log('=== Running Quick Test ===', '#00bfff');
+            
+            // Test localStorage functionality
+            const testKey = 'debug-test-' + Date.now();
+            const testValue = 'test-value-' + Math.random();
+            
+            try {
+                localStorage.setItem(testKey, testValue);
+                const retrieved = localStorage.getItem(testKey);
+                localStorage.removeItem(testKey);
+                
+                if (retrieved === testValue) {
+                    log('✅ localStorage read/write: WORKING', '#0f0');
+                } else {
+                    log('❌ localStorage read/write: FAILED', '#ff0000');
+                }
+            } catch (error) {
+                log(`❌ localStorage error: ${error.message}`, '#ff0000');
+            }
+            
+            // Test settings loading
+            loadCurrentSettings();
+            
+            // Test change notification
+            const changeNotification = {
+                timestamp: Date.now(),
+                setting: 'test-setting',
+                value: true,
+                action: 'quick-test'
+            };
+            localStorage.setItem('herosSettingsChange', JSON.stringify(changeNotification));
+            log('✅ Change notification created', '#0f0');
+            
+            log('=== Quick Test Complete ===', '#00bfff');
+        }
+
+        function toggleTestSetting() {
+            debugState.testCounter++;
+            const testKey = 'menu-diabetes-care'; // Test with a real setting
+            const newValue = debugState.testCounter % 2 === 1;
+            
+            debugState.settings[testKey] = newValue;
+            localStorage.setItem('herosSiteSettings', JSON.stringify(debugState.settings));
+            
+            const changeNotification = {
+                timestamp: Date.now(),
+                setting: testKey,
+                value: newValue,
+                action: 'manual-test'
+            };
+            localStorage.setItem('herosSettingsChange', JSON.stringify(changeNotification));
+            
+            log(`🔀 Test toggle #${debugState.testCounter}: ${testKey} = ${newValue}`, '#ff6600');
+            updateSettingsDisplay();
+            
+            // Auto-refresh main site preview
+            setTimeout(() => {
+                const mainIframe = document.getElementById('main-iframe');
+                mainIframe.src = mainIframe.src;
+                log('🔄 Auto-refreshed main site preview', '#00bfff');
+            }, 1000);
+        }
+
+        // Auto-update display every 2 seconds
+        setInterval(() => {
+            loadCurrentSettings();
+        }, 2000);
+
+        // Listen for storage changes
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'herosSiteSettings' || e.key === 'herosSettingsChange') {
+                log('📡 Storage change detected from another tab', '#00bfff');
+                loadCurrentSettings();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            log('Debug console initialized');
+            loadCurrentSettings();
+        });
+    </script>
+</body>
+</html>

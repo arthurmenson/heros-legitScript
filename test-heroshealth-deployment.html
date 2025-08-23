@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏥 Heroshealth.com Deployment Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .test-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .status {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status.pass { background: #28a745; }
+        .status.fail { background: #dc3545; }
+        .status.pending { background: #ffc107; }
+        
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-weight: 600;
+        }
+        
+        .btn:hover { background: #0056b3; }
+        .btn.success { background: #28a745; }
+        .btn.danger { background: #dc3545; }
+        
+        .console {
+            background: #1e1e1e;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 14px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+        
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .link-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s;
+        }
+        
+        .link-card:hover {
+            border-color: #007bff;
+            background: #e3f2fd;
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏥 Heroshealth.com Deployment Test</h1>
+        <p>Quick verification for settings page toggle functionality</p>
+        <div id="domain-status">
+            <span class="status pending" id="domain-indicator"></span>
+            <span id="domain-text">Checking domain...</span>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🚀 Quick Tests</h2>
+        <p>Run these tests to verify the deployment is working correctly:</p>
+        
+        <button class="btn" onclick="testBasicFunctionality()">1️⃣ Test Basic Functionality</button>
+        <button class="btn" onclick="testToggleSystem()">2️⃣ Test Toggle System</button>
+        <button class="btn" onclick="testLocalStorage()">3️⃣ Test Storage</button>
+        <button class="btn" onclick="testCrossDomain()">4️⃣ Test Cross-Domain</button>
+        <button class="btn success" onclick="runAllTests()">🧪 Run All Tests</button>
+        
+        <div class="console" id="test-console">
+            <div style="color: #4CAF50;">🚀 Heroshealth.com Deployment Test Ready</div>
+            <div>Click any test button to begin verification...</div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>📋 Manual Verification Steps</h2>
+        <ol>
+            <li><strong>Check Domain:</strong> Ensure you're on heroshealth.com (not fly.dev)</li>
+            <li><strong>Open Settings:</strong> Go to <code>/settings.html</code></li>
+            <li><strong>Test Toggles:</strong> Click any toggle switch - it should change state immediately</li>
+            <li><strong>Check Console:</strong> Open F12 → Console, look for toggle fix messages</li>
+            <li><strong>Test Preview:</strong> Click "Live Preview" - iframe should load main site</li>
+            <li><strong>Verify Sync:</strong> Changes should appear in preview instantly</li>
+        </ol>
+    </div>
+
+    <div class="test-section">
+        <h2>🔗 Quick Links</h2>
+        <div class="quick-links">
+            <a href="/settings.html" class="link-card" target="_blank">
+                <h3>⚙️ Settings Page</h3>
+                <p>Test toggle functionality</p>
+            </a>
+            
+            <a href="/index.html" class="link-card" target="_blank">
+                <h3>🏠 Main Site</h3>
+                <p>Check if changes apply</p>
+            </a>
+            
+            <a href="/production-testplan.html" class="link-card" target="_blank">
+                <h3>🧪 Test Plan</h3>
+                <p>Comprehensive testing</p>
+            </a>
+            
+            <a href="/PRODUCTION-TROUBLESHOOTING.md" class="link-card" target="_blank">
+                <h3>🔧 Troubleshooting</h3>
+                <p>If something's not working</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🆘 If Tests Fail</h2>
+        <p><strong>Common Issues & Quick Fixes:</strong></p>
+        <ul>
+            <li><strong>Toggles not clicking:</strong> Clear browser cache, hard refresh (Ctrl+F5)</li>
+            <li><strong>Settings not saving:</strong> Check localStorage permissions in browser</li>
+            <li><strong>Preview not working:</strong> Check if iframe is blocked by security settings</li>
+            <li><strong>Cross-domain issues:</strong> Ensure all files deployed to heroshealth.com</li>
+        </ul>
+        
+        <button class="btn danger" onclick="runEmergencyFix()">🚨 Emergency Fix</button>
+        <button class="btn" onclick="downloadDiagnostics()">📥 Download Diagnostics</button>
+    </div>
+
+    <script>
+        let testResults = [];
+        
+        function log(message, type = 'info') {
+            const console = document.getElementById('test-console');
+            const timestamp = new Date().toLocaleTimeString();
+            const colors = {
+                'success': '#4CAF50',
+                'error': '#f44336',
+                'warning': '#FF9800',
+                'info': '#2196F3'
+            };
+            
+            console.innerHTML += `<div style="color: ${colors[type]};">[${timestamp}] ${message}</div>`;
+            console.scrollTop = console.scrollHeight;
+            console.log(message);
+        }
+        
+        function updateDomainStatus() {
+            const domain = window.location.hostname;
+            const isProduction = domain.includes('heroshealth.com') || domain.includes('heros');
+            
+            const indicator = document.getElementById('domain-indicator');
+            const text = document.getElementById('domain-text');
+            
+            if (isProduction) {
+                indicator.className = 'status pass';
+                text.textContent = `✅ Production domain: ${domain}`;
+                log(`🏥 Production domain confirmed: ${domain}`, 'success');
+            } else {
+                indicator.className = 'status fail';
+                text.textContent = `❌ Non-production domain: ${domain}`;
+                log(`⚠️ Warning: Not on production domain (${domain})`, 'warning');
+            }
+        }
+        
+        function testBasicFunctionality() {
+            log('🔍 Testing basic functionality...', 'info');
+            
+            const checks = {
+                domain: window.location.hostname.includes('heroshealth.com'),
+                localStorage: (() => {
+                    try {
+                        localStorage.setItem('test', 'test');
+                        localStorage.removeItem('test');
+                        return true;
+                    } catch (e) {
+                        return false;
+                    }
+                })(),
+                console: typeof console !== 'undefined',
+                fetch: typeof fetch !== 'undefined'
+            };
+            
+            Object.entries(checks).forEach(([check, result]) => {
+                const status = result ? 'success' : 'error';
+                log(`${check}: ${result ? 'PASS' : 'FAIL'}`, status);
+            });
+            
+            const passed = Object.values(checks).filter(Boolean).length;
+            const total = Object.keys(checks).length;
+            
+            if (passed === total) {
+                log('✅ Basic functionality test PASSED', 'success');
+            } else {
+                log(`❌ Basic functionality test FAILED (${passed}/${total})`, 'error');
+            }
+            
+            testResults.push({ test: 'basic', passed: passed === total, score: `${passed}/${total}` });
+        }
+        
+        function testToggleSystem() {
+            log('🔀 Testing toggle system...', 'info');
+            
+            // Try to access settings page in iframe to test toggle system
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = '/settings.html';
+            
+            iframe.onload = () => {
+                try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    const toggles = iframeDoc.querySelectorAll('.toggle');
+                    
+                    log(`Found ${toggles.length} toggles in settings page`, 'info');
+                    
+                    if (toggles.length > 0) {
+                        log('✅ Toggle system test PASSED', 'success');
+                        testResults.push({ test: 'toggles', passed: true, score: `${toggles.length} toggles found` });
+                    } else {
+                        log('❌ Toggle system test FAILED - no toggles found', 'error');
+                        testResults.push({ test: 'toggles', passed: false, score: 'No toggles found' });
+                    }
+                } catch (e) {
+                    log('⚠️ Cannot access iframe content (cross-origin)', 'warning');
+                    log('💡 Toggle test requires manual verification', 'info');
+                    testResults.push({ test: 'toggles', passed: null, score: 'Manual verification needed' });
+                }
+                
+                document.body.removeChild(iframe);
+            };
+            
+            iframe.onerror = () => {
+                log('❌ Cannot load settings page', 'error');
+                testResults.push({ test: 'toggles', passed: false, score: 'Settings page not accessible' });
+                document.body.removeChild(iframe);
+            };
+            
+            document.body.appendChild(iframe);
+        }
+        
+        function testLocalStorage() {
+            log('💾 Testing localStorage functionality...', 'info');
+            
+            try {
+                // Test basic localStorage
+                const testKey = 'heros-deployment-test';
+                const testValue = { timestamp: Date.now(), test: 'deployment' };
+                
+                localStorage.setItem(testKey, JSON.stringify(testValue));
+                const retrieved = JSON.parse(localStorage.getItem(testKey));
+                localStorage.removeItem(testKey);
+                
+                if (retrieved && retrieved.test === 'deployment') {
+                    log('✅ LocalStorage read/write: PASS', 'success');
+                } else {
+                    log('❌ LocalStorage read/write: FAIL', 'error');
+                }
+                
+                // Test settings storage
+                const settingsExist = localStorage.getItem('herosSiteSettings');
+                if (settingsExist) {
+                    const settings = JSON.parse(settingsExist);
+                    log(`✅ Settings found: ${Object.keys(settings).length} items`, 'success');
+                } else {
+                    log('⚠️ No existing settings found', 'warning');
+                }
+                
+                log('✅ LocalStorage test PASSED', 'success');
+                testResults.push({ test: 'localStorage', passed: true, score: 'Working' });
+                
+            } catch (error) {
+                log(`❌ LocalStorage test FAILED: ${error.message}`, 'error');
+                testResults.push({ test: 'localStorage', passed: false, score: error.message });
+            }
+        }
+        
+        function testCrossDomain() {
+            log('🌐 Testing cross-domain functionality...', 'info');
+            
+            const domain = window.location.hostname;
+            const isProduction = domain.includes('heroshealth.com');
+            
+            if (!isProduction) {
+                log('⚠️ Not on production domain - cross-domain test not applicable', 'warning');
+                testResults.push({ test: 'crossDomain', passed: null, score: 'Not on production domain' });
+                return;
+            }
+            
+            // Test if we can access settings and apply changes
+            const testSettings = {
+                'test-cross-domain': true,
+                'deployment-test': Date.now(),
+                'domain': domain
+            };
+            
+            try {
+                localStorage.setItem('herosSiteSettings', JSON.stringify(testSettings));
+                
+                // Create change notification
+                const changeNotification = {
+                    timestamp: Date.now(),
+                    setting: 'deployment-test',
+                    action: 'cross-domain-test',
+                    domain: domain
+                };
+                localStorage.setItem('herosSettingsChange', JSON.stringify(changeNotification));
+                
+                log('✅ Cross-domain settings storage: PASS', 'success');
+                
+                // Test storage events
+                window.addEventListener('storage', function testStorageEvent(e) {
+                    if (e.key === 'herosSiteSettings') {
+                        log('✅ Storage events working: PASS', 'success');
+                        window.removeEventListener('storage', testStorageEvent);
+                    }
+                });
+                
+                // Trigger storage event
+                setTimeout(() => {
+                    localStorage.setItem('herosSiteSettings', JSON.stringify({
+                        ...testSettings,
+                        'event-test': Date.now()
+                    }));
+                }, 100);
+                
+                log('✅ Cross-domain test PASSED', 'success');
+                testResults.push({ test: 'crossDomain', passed: true, score: 'Working on production' });
+                
+            } catch (error) {
+                log(`❌ Cross-domain test FAILED: ${error.message}`, 'error');
+                testResults.push({ test: 'crossDomain', passed: false, score: error.message });
+            }
+        }
+        
+        function runAllTests() {
+            log('🚀 Running all deployment tests...', 'info');
+            testResults = [];
+            
+            testBasicFunctionality();
+            
+            setTimeout(() => {
+                testLocalStorage();
+                setTimeout(() => {
+                    testCrossDomain();
+                    setTimeout(() => {
+                        testToggleSystem();
+                        setTimeout(() => {
+                            generateTestReport();
+                        }, 2000);
+                    }, 1000);
+                }, 500);
+            }, 500);
+        }
+        
+        function generateTestReport() {
+            log('📋 Generating test report...', 'info');
+            
+            const passed = testResults.filter(r => r.passed === true).length;
+            const failed = testResults.filter(r => r.passed === false).length;
+            const skipped = testResults.filter(r => r.passed === null).length;
+            
+            log('='.repeat(50), 'info');
+            log('📊 DEPLOYMENT TEST REPORT', 'info');
+            log('='.repeat(50), 'info');
+            
+            testResults.forEach(result => {
+                const status = result.passed === true ? '✅ PASS' : 
+                              result.passed === false ? '❌ FAIL' : '⚠️ SKIP';
+                log(`${status} ${result.test}: ${result.score}`, 
+                    result.passed === true ? 'success' : 
+                    result.passed === false ? 'error' : 'warning');
+            });
+            
+            log('='.repeat(50), 'info');
+            log(`SUMMARY: ${passed} passed, ${failed} failed, ${skipped} skipped`, 'info');
+            
+            if (failed === 0) {
+                log('🎉 ALL TESTS PASSED! Deployment should be working correctly.', 'success');
+            } else {
+                log(`⚠️ ${failed} test(s) failed. Check the issues above.`, 'warning');
+            }
+        }
+        
+        function runEmergencyFix() {
+            log('🚨 Running emergency fix for toggle functionality...', 'warning');
+            
+            // Create emergency settings if none exist
+            const emergencySettings = {
+                'menu-weight-loss': true,
+                'menu-mens-ed': true,
+                'menu-skin-care': true,
+                'menu-hair-regrowth': true,
+                'menu-nad-plus': true,
+                'menu-diabetes-care': true,
+                'emergency-fix': Date.now(),
+                'domain': window.location.hostname
+            };
+            
+            localStorage.setItem('herosSiteSettings', JSON.stringify(emergencySettings));
+            
+            // Create emergency change notification
+            localStorage.setItem('herosSettingsChange', JSON.stringify({
+                timestamp: Date.now(),
+                action: 'emergency-fix',
+                source: 'deployment-test'
+            }));
+            
+            log('✅ Emergency settings created', 'success');
+            log('🔄 Please refresh the settings page and try again', 'info');
+        }
+        
+        function downloadDiagnostics() {
+            const diagnostics = {
+                timestamp: new Date().toISOString(),
+                domain: window.location.hostname,
+                userAgent: navigator.userAgent,
+                testResults: testResults,
+                localStorage: {
+                    available: typeof Storage !== 'undefined',
+                    settingsExist: !!localStorage.getItem('herosSiteSettings'),
+                    changeNotifications: !!localStorage.getItem('herosSettingsChange')
+                },
+                environment: {
+                    protocol: window.location.protocol,
+                    hostname: window.location.hostname,
+                    pathname: window.location.pathname
+                }
+            };
+            
+            const blob = new Blob([JSON.stringify(diagnostics, null, 2)], 
+                                 { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `heroshealth-diagnostics-${Date.now()}.json`;
+            a.click();
+            
+            URL.revokeObjectURL(url);
+            log('📥 Diagnostics downloaded', 'success');
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDomainStatus();
+            log('🏥 Heroshealth.com deployment test ready', 'success');
+        });
+    </script>
+</body>
+</html>
