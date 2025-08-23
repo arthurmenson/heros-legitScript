@@ -6101,30 +6101,6 @@ margin: 0rem !important;
 
   // ====== SECTION-SPECIFIC CRO ELEMENTS ======
 
-  // 8. Hero Section - Personalization Quiz Widget
-  function initHeroPersonalization() {
-    const heroSection = document.querySelector('.section_home-hero');
-    if (heroSection) {
-      const personalizeWidget = document.createElement('div');
-      personalizeWidget.innerHTML = `
-        <div id="hero-personalize" style="position: absolute; top: 120px; right: 40px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 16px; padding: 24px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12); z-index: 500; width: 320px; border: 1px solid rgba(230, 181, 145, 0.3);">
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-            <div style="background: linear-gradient(135deg, #e6b591, #d4a574); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px;"></div>
-            <h4 style="margin: 0; font-weight: 700; color: #1a1a1a;">Find Your Solution</h4>
-          </div>
-          <p style="margin: 0 0 16px; font-size: 14px; color: #666;">Get personalized recommendations in 30 seconds</p>
-          <div id="hero-options" style="display: grid; gap: 8px;">
-            <button onclick="selectHeroConcern('performance')" style="background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 8px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.3s ease; font-size: 14px;">Performance & Confidence</button>
-            <button onclick="selectHeroConcern('appearance')" style="background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 8px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.3s ease; font-size: 14px;">Skin & Anti-Aging</button>
-            <button onclick="selectHeroConcern('wellness')" style="background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 8px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.3s ease; font-size: 14px;">Overall Wellness</button>
-          </div>
-        </div>
-      `;
-      heroSection.style.position = 'relative';
-      heroSection.appendChild(personalizeWidget);
-    }
-  }
-
   // 9. ED Section - Treatment Cost Calculator
   function initEDCostCalculator() {
     const edSection = document.querySelector('.ed-meds-section');
@@ -6445,31 +6421,6 @@ margin: 0rem !important;
   }
 
   // Helper Functions for New Widgets
-  window.selectHeroConcern = function(concern) {
-    const options = document.querySelectorAll('#hero-options button');
-    options.forEach(opt => {
-      opt.style.background = '#f8f9fa';
-      opt.style.borderColor = '#e9ecef';
-    });
-
-    event.target.style.background = '#e6b591';
-    event.target.style.borderColor = '#e6b591';
-    event.target.style.color = 'white';
-
-    setTimeout(() => {
-      const heroWidget = document.getElementById('hero-personalize');
-      heroWidget.innerHTML = `
-        <div style="text-align: center;">
-          <div style="background: #e6f7ff; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px;"></div>
-          <h4 style="margin: 0 0 8px; color: #1a1a1a;">Perfect Match!</h4>
-          <p style="margin: 0 0 20px; color: #666; font-size: 14px;">We've found the ideal solution for your ${concern} goals.</p>
-          <button onclick="window.open('#', '_blank')" style="background: #e6b591; border: none; border-radius: 32px; padding: 14px 28px; color: white; font-weight: 700; cursor: pointer; width: 100%;">
-            Get Personalized Plan
-          </button>
-        </div>
-      `;
-    }, 500);
-  };
 
   window.selectTimeSlot = function(button, slot) {
     document.querySelectorAll('#skin-scheduler button').forEach(btn => {
@@ -6582,7 +6533,6 @@ margin: 0rem !important;
     initSocialProofCounter();
 
     // New section-specific widgets
-    initHeroPersonalization();
     initEDCostCalculator();
     initSkinConsultationScheduler();
     addPricingComparisonSection();
