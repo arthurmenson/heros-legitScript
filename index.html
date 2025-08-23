@@ -6157,17 +6157,17 @@ margin: 0rem !important;
       const pricingSection = document.createElement('div');
       pricingSection.innerHTML = `
         <div id="pricing-comparison" style="background: white; padding: 40px 20px; margin: 40px 0;">
-          <div style="max-width: 900px; margin: 0 auto;">
+          <div style="max-width: 1200px; margin: 0 auto;">
             <div style="text-align: center; margin-bottom: 32px;">
               <h2 style="font-size: 28px; font-weight: 600; color: #1a1a1a; margin: 0 0 8px;">Transparent Pricing</h2>
               <p style="font-size: 16px; color: #666; margin: 0;">No hidden fees, no insurance required</p>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
               <!-- ED Treatment -->
               <div style="background: #faf9f8; border: 1px solid #f2efeb; border-radius: 8px; padding: 20px; text-align: center;">
                 <h3 style="font-size: 16px; font-weight: 600; color: #1a1a1a; margin: 0 0 8px;">ED Treatment</h3>
-                <div style="font-size: 24px; font-weight: 700; color: #C4A084; margin: 0 0 4px;">$9<span style="font-size: 14px; color: #666;">/pill</span></div>
+                <div style="font-size: 24px; font-weight: 700; color: #C4A084; margin: 0 0 4px;">$2<span style="font-size: 14px; color: #666;">/pill</span></div>
                 <p style="font-size: 12px; color: #666; margin: 0 0 16px;">vs $89 pharmacy</p>
                 <button onclick="selectPricing('ed')" style="background: #C4A084; color: white; border: none; border-radius: 6px; padding: 10px 16px; font-weight: 600; font-size: 14px; cursor: pointer; width: 100%;">
                   Get Started
@@ -6190,6 +6190,16 @@ margin: 0rem !important;
                 <div style="font-size: 24px; font-weight: 700; color: #B8C9A8; margin: 0 0 4px;">$39<span style="font-size: 14px; color: #666;">/month</span></div>
                 <p style="font-size: 12px; color: #666; margin: 0 0 16px;">vs $300+ clinics</p>
                 <button onclick="selectPricing('hair')" style="background: #B8C9A8; color: white; border: none; border-radius: 6px; padding: 10px 16px; font-weight: 600; font-size: 14px; cursor: pointer; width: 100%;">
+                  Get Started
+                </button>
+              </div>
+
+              <!-- NAD+ -->
+              <div style="background: #faf9f8; border: 1px solid #f2efeb; border-radius: 8px; padding: 20px; text-align: center;">
+                <h3 style="font-size: 16px; font-weight: 600; color: #1a1a1a; margin: 0 0 8px;">NAD+</h3>
+                <div style="font-size: 24px; font-weight: 700; color: #B8860B; margin: 0 0 4px;">$49<span style="font-size: 14px; color: #666;">/month</span></div>
+                <p style="font-size: 12px; color: #666; margin: 0 0 16px;">vs $150+ supplements</p>
+                <button onclick="selectPricing('nad')" style="background: #B8860B; color: white; border: none; border-radius: 6px; padding: 10px 16px; font-weight: 600; font-size: 14px; cursor: pointer; width: 100%;">
                   Get Started
                 </button>
               </div>
