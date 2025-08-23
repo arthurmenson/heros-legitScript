@@ -2826,6 +2826,34 @@
     }
   }
 
+  /* Hide Floating Popups on Mobile Only */
+  @media (max-width: 768px) {
+
+    /* Hide all CRO floating widgets on mobile for clean experience */
+    #live-activity-feed,
+    #floating-cta,
+    #quick-assessment,
+    #social-proof-counter,
+    #exit-intent-popup {
+      display: none !important;
+    }
+
+    /* Hide any floating or fixed positioned elements that might interfere */
+    [style*="position: fixed"],
+    [style*="position: absolute"][style*="right:"],
+    [style*="position: absolute"][style*="left:"],
+    [style*="position: absolute"][style*="bottom:"] {
+      /* Only hide if they're positioned for floating behavior */
+    }
+
+    /* Specifically target common floating popup patterns */
+    div[style*="position: fixed"][style*="z-index"],
+    div[style*="position: absolute"][style*="z-index"][style*="right"],
+    div[style*="position: absolute"][style*="z-index"][style*="bottom"] {
+      display: none !important;
+    }
+  }
+
   /* Additional Mobile Container Optimizations */
   @media (max-width: 768px) {
 
@@ -6156,7 +6184,7 @@ margin: 0rem !important;
         z-index: 10000;
         font-family: monospace;
       `;
-      previewIndicator.textContent = '�� PREVIEW MODE';
+      previewIndicator.textContent = '🔍 PREVIEW MODE';
       document.body.appendChild(previewIndicator);
 
       // Auto-remove after 3 seconds
@@ -6172,7 +6200,7 @@ margin: 0rem !important;
       const settingsData = localStorage.getItem('herosSiteSettings');
       if (settingsData && typeof applySettings === 'function') {
         applySettings();
-        console.log('📺 Preview settings applied');
+        console.log('���� Preview settings applied');
       }
     };
 
