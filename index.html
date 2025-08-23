@@ -2514,6 +2514,317 @@
     transform: scale(1.02);
     transition: transform 0.3s ease;
   }
+
+  /* Mobile Optimizations for New/Updated Sections */
+  @media (max-width: 768px) {
+
+    /* Transparent Pricing Section - 4 to 2 columns on tablet, 1 on mobile */
+    #pricing-comparison {
+      padding: 30px 15px !important;
+      margin: 30px 0 !important;
+    }
+
+    #pricing-comparison [style*="max-width: 1200px"] {
+      max-width: 100% !important;
+    }
+
+    #pricing-comparison [style*="grid-template-columns: repeat(4, 1fr)"] {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 12px !important;
+    }
+
+    #pricing-comparison [style*="background: #faf9f8"] {
+      padding: 16px !important;
+      margin-bottom: 0 !important;
+    }
+
+    #pricing-comparison h3 {
+      font-size: 14px !important;
+    }
+
+    #pricing-comparison [style*="font-size: 24px"] {
+      font-size: 20px !important;
+    }
+
+    #pricing-comparison p[style*="font-size: 12px"] {
+      font-size: 11px !important;
+    }
+
+    #pricing-comparison button {
+      padding: 8px 12px !important;
+      font-size: 12px !important;
+      min-height: 44px !important;
+    }
+
+    /* Medical Team Section */
+    #doctor-profiles {
+      padding: 40px 20px !important;
+      margin: 30px 0 !important;
+    }
+
+    #doctor-profiles h2 {
+      font-size: 28px !important;
+      line-height: 1.2 !important;
+    }
+
+    #doctor-profiles p[style*="font-size: 20px"] {
+      font-size: 16px !important;
+    }
+
+    #doctor-profiles [style*="grid-template-columns: repeat(3, 1fr)"] {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 20px !important;
+    }
+
+    #doctor-profiles [style*="padding: 24px"] {
+      padding: 20px !important;
+    }
+
+    #doctor-profiles img {
+      width: 60px !important;
+      height: 60px !important;
+      margin-bottom: 12px !important;
+    }
+
+    #doctor-profiles h3 {
+      font-size: 18px !important;
+    }
+
+    #doctor-profiles [style*="background: rgba(230, 181, 145, 0.05)"] {
+      padding: 24px 16px !important;
+      margin-top: 30px !important;
+    }
+
+    #doctor-profiles h4 {
+      font-size: 18px !important;
+      margin-bottom: 12px !important;
+    }
+
+    #doctor-profiles button {
+      padding: 12px 24px !important;
+      font-size: 14px !important;
+      min-height: 44px !important;
+    }
+
+    /* Treatment Timeline Section */
+    #treatment-timeline {
+      padding: 40px 20px !important;
+    }
+
+    #treatment-timeline h2 {
+      font-size: 28px !important;
+    }
+
+    #treatment-timeline [style*="grid-template-columns: repeat(4, 1fr)"] {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 20px !important;
+    }
+
+    #treatment-timeline [style*="padding: 24px"] {
+      padding: 16px !important;
+    }
+
+    #treatment-timeline h3 {
+      font-size: 16px !important;
+    }
+
+    #treatment-timeline button[onclick*="startTimelineAssessment"] {
+      padding: 14px 28px !important;
+      font-size: 14px !important;
+      min-height: 44px !important;
+    }
+
+    /* CRO Widgets Mobile Optimization */
+    #live-activity-feed {
+      right: 10px !important;
+      bottom: 80px !important;
+      max-width: 280px !important;
+    }
+
+    #floating-cta {
+      bottom: 10px !important;
+      right: 10px !important;
+      padding: 12px 20px !important;
+      font-size: 14px !important;
+      min-height: 44px !important;
+    }
+
+    #exit-intent-popup [style*="max-width: 500px"] {
+      max-width: 90% !important;
+      margin: 0 5% !important;
+      padding: 20px !important;
+    }
+
+    #trust-badges {
+      padding: 20px 15px !important;
+    }
+
+    #trust-badges [style*="grid-template-columns: repeat(4, 1fr)"] {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 10px !important;
+    }
+
+    #progress-bar {
+      height: 4px !important;
+    }
+
+    #quick-assessment {
+      right: 10px !important;
+      bottom: 120px !important;
+      max-width: 280px !important;
+      padding: 16px !important;
+    }
+
+    #social-proof-counter {
+      left: 10px !important;
+      bottom: 10px !important;
+      padding: 8px 12px !important;
+      font-size: 12px !important;
+    }
+
+    /* Updated Product Carousel Mobile */
+    .products-carousel[style*="width: calc(8 * 300px)"] {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 16px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      animation: none !important;
+      padding: 0 20px !important;
+      overflow: visible !important;
+    }
+
+    .products-carousel .product-card {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 100% !important;
+      margin: 0 !important;
+      height: auto !important;
+      flex: none !important;
+      animation: none !important;
+      transform: none !important;
+      padding: 20px !important;
+    }
+
+    .products-carousel .product-card:nth-child(n+5) {
+      display: none !important;
+    }
+
+    /* ED Cost Calculator Mobile */
+    #ed-cost-calculator {
+      margin: 16px 0 !important;
+      padding: 16px !important;
+    }
+
+    #ed-cost-calculator h4 {
+      font-size: 14px !important;
+    }
+
+    #ed-cost-calculator [style*="display: flex"] {
+      flex-direction: column !important;
+      gap: 16px !important;
+    }
+
+    #ed-cost-calculator [style*="font-size: 28px"] {
+      font-size: 24px !important;
+    }
+
+    /* Skin Consultation Scheduler Mobile */
+    #skin-scheduler {
+      margin: 16px 0 !important;
+      padding: 16px !important;
+    }
+
+    #skin-scheduler [style*="grid-template-columns: repeat(3, 1fr)"] {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 8px !important;
+    }
+
+    #skin-scheduler button {
+      min-height: 44px !important;
+      font-size: 14px !important;
+    }
+
+    /* Footer Logo Mobile Adjustment */
+    .footer-logo-watermark {
+      width: 400px !important;
+      top: 200px !important;
+      opacity: 0.04 !important;
+    }
+
+    /* General Mobile Text Scaling */
+    .section_home-7 h2 {
+      font-size: 24px !important;
+      line-height: 1.2 !important;
+    }
+
+    /* Touch Target Improvements */
+    button, .button, a[onclick], [style*="cursor: pointer"] {
+      min-height: 44px !important;
+      min-width: 44px !important;
+      touch-action: manipulation;
+    }
+
+    /* Form Inputs Mobile */
+    input, select, textarea {
+      font-size: 16px !important; /* Prevents iOS zoom */
+      padding: 12px 16px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+
+    /* Extra small mobile adjustments */
+    #pricing-comparison [style*="grid-template-columns: repeat(2, 1fr)"] {
+      grid-template-columns: 1fr !important;
+      gap: 16px !important;
+    }
+
+    #treatment-timeline [style*="grid-template-columns: repeat(2, 1fr)"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    #trust-badges [style*="grid-template-columns: repeat(2, 1fr)"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    .footer-logo-watermark {
+      width: 300px !important;
+      top: 150px !important;
+    }
+
+    /* Typography adjustments for very small screens */
+    h1, .heading-style-h1 {
+      font-size: 24px !important;
+      line-height: 1.2 !important;
+    }
+
+    h2, .heading-style-h2 {
+      font-size: 20px !important;
+      line-height: 1.2 !important;
+    }
+  }
+
+  /* Landscape phone adjustments */
+  @media (max-width: 767px) and (orientation: landscape) {
+    #live-activity-feed,
+    #quick-assessment {
+      display: none !important;
+    }
+
+    .footer-logo-watermark {
+      width: 350px !important;
+      top: 100px !important;
+    }
+  }
 }
 </style>
 </head>
