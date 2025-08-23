@@ -5275,7 +5275,7 @@ margin: 0rem !important;
           console.log(`👁️ Shown section: ${settingKey} (display: ${originalDisplay})`);
         }
       } else {
-        console.log(`�� Section element not found for ${settingKey}: ${selector}`);
+        console.log(`❌ Section element not found for ${settingKey}: ${selector}`);
       }
     });
 
@@ -6099,6 +6099,478 @@ margin: 0rem !important;
     }, 500);
   };
 
+  // ====== SECTION-SPECIFIC CRO ELEMENTS ======
+
+  // 8. Hero Section - Personalization Quiz Widget
+  function initHeroPersonalization() {
+    const heroSection = document.querySelector('.section_home-hero');
+    if (heroSection) {
+      const personalizeWidget = document.createElement('div');
+      personalizeWidget.innerHTML = `
+        <div id="hero-personalize" style="position: absolute; top: 120px; right: 40px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 16px; padding: 24px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12); z-index: 500; width: 320px; border: 1px solid rgba(230, 181, 145, 0.3);">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="background: linear-gradient(135deg, #e6b591, #d4a574); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px;">🎯</div>
+            <h4 style="margin: 0; font-weight: 700; color: #1a1a1a;">Find Your Solution</h4>
+          </div>
+          <p style="margin: 0 0 16px; font-size: 14px; color: #666;">Get personalized recommendations in 30 seconds</p>
+          <div id="hero-options" style="display: grid; gap: 8px;">
+            <button onclick="selectHeroConcern('performance')" style="background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 8px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.3s ease; font-size: 14px;">🔥 Performance & Confidence</button>
+            <button onclick="selectHeroConcern('appearance')" style="background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 8px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.3s ease; font-size: 14px;">✨ Skin & Anti-Aging</button>
+            <button onclick="selectHeroConcern('wellness')" style="background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 8px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.3s ease; font-size: 14px;">🌟 Overall Wellness</button>
+          </div>
+        </div>
+      `;
+      heroSection.style.position = 'relative';
+      heroSection.appendChild(personalizeWidget);
+    }
+  }
+
+  // 9. ED Section - Treatment Cost Calculator
+  function initEDCostCalculator() {
+    const edSection = document.querySelector('.ed-meds-section');
+    if (edSection) {
+      const calculator = document.createElement('div');
+      calculator.innerHTML = `
+        <div id="ed-cost-calculator" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 16px; padding: 24px; margin: 32px 0; border: 2px solid #e1e5e9;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+            <div style="background: #1a1a1a; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px;">💰</div>
+            <div>
+              <h4 style="margin: 0; font-weight: 700; color: #1a1a1a;">Treatment Cost Calculator</h4>
+              <p style="margin: 0; font-size: 14px; color: #666;">See your potential savings vs. traditional pharmacy</p>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div style="text-align: center; padding: 16px; background: white; border-radius: 12px; border: 2px solid #dc3545;">
+              <div style="font-size: 24px; font-weight: 700; color: #dc3545; margin-bottom: 4px;">$89/pill</div>
+              <div style="font-size: 12px; color: #666;">Traditional Pharmacy</div>
+            </div>
+            <div style="text-align: center; padding: 16px; background: white; border-radius: 12px; border: 2px solid #28a745;">
+              <div style="font-size: 24px; font-weight: 700; color: #28a745; margin-bottom: 4px;">$9/pill</div>
+              <div style="font-size: 12px; color: #666;">With Heros</div>
+            </div>
+          </div>
+
+          <div style="background: rgba(40, 167, 69, 0.1); border-radius: 12px; padding: 16px; text-align: center;">
+            <div style="font-size: 18px; font-weight: 700; color: #28a745; margin-bottom: 4px;">Save up to $960/month</div>
+            <div style="font-size: 14px; color: #666;">That's $11,520 per year in savings</div>
+          </div>
+        </div>
+      `;
+
+      const edContent = edSection.querySelector('.ed-meds-content');
+      if (edContent) {
+        edContent.appendChild(calculator);
+      }
+    }
+  }
+
+  // 10. Skin Care Section - Virtual Consultation Scheduler
+  function initSkinConsultationScheduler() {
+    const skinSection = document.querySelector('h1[style*="Clear, Radiant Skin"]');
+    if (skinSection) {
+      const scheduler = document.createElement('div');
+      scheduler.innerHTML = `
+        <div id="skin-scheduler" style="background: rgba(230, 181, 145, 0.05); border: 2px solid rgba(230, 181, 145, 0.3); border-radius: 16px; padding: 24px; margin: 24px 0;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="background: #e6b591; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;">📅</div>
+            <div>
+              <h4 style="margin: 0; font-weight: 700; color: #1a1a1a;">Free Virtual Consultation</h4>
+              <p style="margin: 0; font-size: 14px; color: #666;">Meet with a board-certified dermatologist</p>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px;">
+            <button onclick="selectTimeSlot(this, 'today')" style="background: white; border: 2px solid #e6b591; border-radius: 8px; padding: 12px 8px; cursor: pointer; text-align: center; transition: all 0.3s ease;">
+              <div style="font-size: 12px; font-weight: 600; color: #e6b591;">Today</div>
+              <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">3:00 PM</div>
+            </button>
+            <button onclick="selectTimeSlot(this, 'tomorrow')" style="background: white; border: 2px solid #e9ecef; border-radius: 8px; padding: 12px 8px; cursor: pointer; text-align: center; transition: all 0.3s ease;">
+              <div style="font-size: 12px; font-weight: 600; color: #666;">Tomorrow</div>
+              <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">10:00 AM</div>
+            </button>
+            <button onclick="selectTimeSlot(this, 'weekend')" style="background: white; border: 2px solid #e9ecef; border-radius: 8px; padding: 12px 8px; cursor: pointer; text-align: center; transition: all 0.3s ease;">
+              <div style="font-size: 12px; font-weight: 600; color: #666;">Weekend</div>
+              <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">2:00 PM</div>
+            </button>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+            <div style="width: 8px; height: 8px; background: #28a745; border-radius: 50%; animation: pulse 2s infinite;"></div>
+            <span style="font-size: 13px; color: #666;">3 spots left today</span>
+          </div>
+        </div>
+      `;
+
+      const parentDiv = skinSection.closest('div[style*="flex-direction: column"]');
+      if (parentDiv) {
+        parentDiv.appendChild(scheduler);
+      }
+    }
+  }
+
+  // 11. Add Interactive Pricing Comparison Section
+  function addPricingComparisonSection() {
+    const resultsSection = document.querySelector('.results-section');
+    if (resultsSection) {
+      const pricingSection = document.createElement('div');
+      pricingSection.innerHTML = `
+        <div id="pricing-comparison" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 60px 40px; margin: 60px 0;">
+          <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 48px;">
+              <h2 style="font-size: 42px; font-weight: 700; color: #1a1a1a; margin: 0 0 16px;">Transparent Pricing</h2>
+              <p style="font-size: 20px; color: #666; margin: 0;">No hidden fees. No insurance hassles. Just honest healthcare.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+              <!-- ED Treatment -->
+              <div style="background: white; border-radius: 16px; padding: 32px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); position: relative; border: 2px solid transparent; transition: all 0.3s ease;" onmouseover="this.style.borderColor='#e6b591'; this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='transparent'; this.style.transform='translateY(0)'">
+                <div style="text-align: center;">
+                  <div style="background: linear-gradient(135deg, #3498db, #2980b9); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 24px; color: white;">💊</div>
+                  <h3 style="font-size: 24px; font-weight: 700; color: #1a1a1a; margin: 0 0 8px;">ED Treatment</h3>
+                  <div style="font-size: 36px; font-weight: 700; color: #3498db; margin: 0 0 8px;">$9<span style="font-size: 18px; color: #666;">/pill</span></div>
+                  <p style="font-size: 14px; color: #666; margin: 0 0 24px;">vs $89 at pharmacy</p>
+
+                  <div style="text-align: left; margin-bottom: 24px;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                      <span style="color: #28a745; font-weight: 700;">✓</span>
+                      <span style="font-size: 14px; color: #333;">FDA-approved medication</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                      <span style="color: #28a745; font-weight: 700;">✓</span>
+                      <span style="font-size: 14px; color: #333;">Free online consultation</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                      <span style="color: #28a745; font-weight: 700;">✓</span>
+                      <span style="font-size: 14px; color: #333;">Discreet shipping</span>
+                    </div>
+                  </div>
+
+                  <button onclick="selectPricing('ed')" style="background: #3498db; color: white; border: none; border-radius: 32px; padding: 14px 28px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    Start Assessment
+                  </button>
+                </div>
+              </div>
+
+              <!-- Skin Care -->
+              <div style="background: white; border-radius: 16px; padding: 32px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); position: relative; border: 2px solid #e6b591; transform: translateY(-8px);">
+                <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #e6b591; color: white; padding: 6px 16px; border-radius: 16px; font-size: 12px; font-weight: 700;">MOST POPULAR</div>
+                <div style="text-align: center;">
+                  <div style="background: linear-gradient(135deg, #e6b591, #d4a574); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 24px; color: white;">✨</div>
+                  <h3 style="font-size: 24px; font-weight: 700; color: #1a1a1a; margin: 0 0 8px;">Skin Care</h3>
+                  <div style="font-size: 36px; font-weight: 700; color: #e6b591; margin: 0 0 8px;">$29<span style="font-size: 18px; color: #666;">/month</span></div>
+                  <p style="font-size: 14px; color: #666; margin: 0 0 24px;">vs $200+ at clinics</p>
+
+                  <div style="text-align: left; margin-bottom: 24px;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                      <span style="color: #28a745; font-weight: 700;">✓</span>
+                      <span style="font-size: 14px; color: #333;">Custom prescription formula</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                      <span style="color: #28a745; font-weight: 700;">✓</span>
+                      <span style="font-size: 14px; color: #333;">Dermatologist consultation</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                      <span style="color: #28a745; font-weight: 700;">✓</span>
+                      <span style="font-size: 14px; color: #333;">90-day guarantee</span>
+                    </div>
+                  </div>
+
+                  <button onclick="selectPricing('skin')" style="background: #e6b591; color: white; border: none; border-radius: 32px; padding: 14px 28px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    Start Assessment
+                  </button>
+                </div>
+              </div>
+
+              <!-- Hair Regrowth -->
+              <div style="background: white; border-radius: 16px; padding: 32px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); position: relative; border: 2px solid transparent; transition: all 0.3s ease;" onmouseover="this.style.borderColor='#70978F'; this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='transparent'; this.style.transform='translateY(0)'">
+                <div style="text-align: center;">
+                  <div style="background: linear-gradient(135deg, #70978F, #5a7a6b); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 24px; color: white;">🌱</div>
+                  <h3 style="font-size: 24px; font-weight: 700; color: #1a1a1a; margin: 0 0 8px;">Hair Regrowth</h3>
+                  <div style="font-size: 36px; font-weight: 700; color: #70978F; margin: 0 0 8px;">$39<span style="font-size: 18px; color: #666;">/month</span></div>
+                  <p style="font-size: 14px; color: #666; margin: 0 0 24px;">vs $300+ at clinics</p>
+
+                  <div style="text-align: left; margin-bottom: 24px;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                      <span style="color: #28a745; font-weight: 700;">✓</span>
+                      <span style="font-size: 14px; color: #333;">FDA-approved ingredients</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                      <span style="color: #28a745; font-weight: 700;">✓</span>
+                      <span style="font-size: 14px; color: #333;">Personalized treatment plan</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                      <span style="color: #28a745; font-weight: 700;">✓</span>
+                      <span style="font-size: 14px; color: #333;">Progress tracking</span>
+                    </div>
+                  </div>
+
+                  <button onclick="selectPricing('hair')" style="background: #70978F; color: white; border: none; border-radius: 32px; padding: 14px 28px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    Start Assessment
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 32px;">
+              <p style="font-size: 14px; color: #666; margin: 0;">💝 All treatments include free shipping and 24/7 medical support</p>
+            </div>
+          </div>
+        </div>
+      `;
+
+      resultsSection.parentNode.insertBefore(pricingSection, resultsSection.nextSibling);
+    }
+  }
+
+  // 12. Add Doctor Profiles Trust Section
+  function addDoctorProfilesSection() {
+    const trustSection = document.querySelector('.trust-badges-section');
+    if (trustSection) {
+      const doctorSection = document.createElement('div');
+      doctorSection.innerHTML = `
+        <div id="doctor-profiles" style="background: white; padding: 60px 40px; margin: 40px 0;">
+          <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 48px;">
+              <h2 style="font-size: 42px; font-weight: 700; color: #1a1a1a; margin: 0 0 16px;">Meet Your Medical Team</h2>
+              <p style="font-size: 20px; color: #666; margin: 0;">Board-certified doctors with 15+ years of experience</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
+              <div style="text-align: center; padding: 24px; background: #f8f9fa; border-radius: 16px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #3498db, #2980b9); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">👨‍⚕️</div>
+                <h3 style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin: 0 0 8px;">Dr. Michael Chen</h3>
+                <p style="font-size: 14px; color: #e6b591; font-weight: 600; margin: 0 0 12px;">Urologist • 18 years</p>
+                <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 12px;">
+                  <span style="color: #ffd700; font-size: 16px;">★★★★★</span>
+                </div>
+                <p style="font-size: 13px; color: #666; margin: 0; line-height: 1.4;">"Specializing in men's health and sexual wellness. Harvard Medical School graduate."</p>
+              </div>
+
+              <div style="text-align: center; padding: 24px; background: #f8f9fa; border-radius: 16px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #e6b591, #d4a574); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">👩‍⚕️</div>
+                <h3 style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin: 0 0 8px;">Dr. Sarah Williams</h3>
+                <p style="font-size: 14px; color: #e6b591; font-weight: 600; margin: 0 0 12px;">Dermatologist • 15 years</p>
+                <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 12px;">
+                  <span style="color: #ffd700; font-size: 16px;">★★★★★</span>
+                </div>
+                <p style="font-size: 13px; color: #666; margin: 0; line-height: 1.4;">"Expert in anti-aging and acne treatments. Johns Hopkins Medical School."</p>
+              </div>
+
+              <div style="text-align: center; padding: 24px; background: #f8f9fa; border-radius: 16px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #70978F, #5a7a6b); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">👨‍⚕️</div>
+                <h3 style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin: 0 0 8px;">Dr. James Rodriguez</h3>
+                <p style="font-size: 14px; color: #e6b591; font-weight: 600; margin: 0 0 12px;">Hair Specialist • 20 years</p>
+                <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 12px;">
+                  <span style="color: #ffd700; font-size: 16px;">★★★★★</span>
+                </div>
+                <p style="font-size: 13px; color: #666; margin: 0; line-height: 1.4;">"Leading hair restoration expert. Stanford Medical School graduate."</p>
+              </div>
+            </div>
+
+            <div style="background: rgba(230, 181, 145, 0.05); border-radius: 16px; padding: 32px; margin-top: 40px; text-align: center;">
+              <h4 style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin: 0 0 16px;">👥 Meet Your Doctor in a Free 15-Minute Video Call</h4>
+              <p style="font-size: 16px; color: #666; margin: 0 0 20px;">Get to know your medical provider before starting treatment</p>
+              <button onclick="bookDoctorCall()" style="background: #e6b591; color: white; border: none; border-radius: 32px; padding: 16px 32px; font-weight: 700; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                Schedule Free Doctor Call
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      trustSection.parentNode.insertBefore(doctorSection, trustSection);
+    }
+  }
+
+  // 13. Interactive Treatment Timeline Widget
+  function addTreatmentTimelineSection() {
+    const videoSection = document.querySelector('.section_home-13');
+    if (videoSection) {
+      const timelineSection = document.createElement('div');
+      timelineSection.innerHTML = `
+        <div id="treatment-timeline" style="background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%); color: white; padding: 60px 40px; margin: 40px 0;">
+          <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 48px;">
+              <h2 style="font-size: 42px; font-weight: 700; color: white; margin: 0 0 16px;">Your Treatment Journey</h2>
+              <p style="font-size: 20px; color: #ccc; margin: 0;">From assessment to results in just a few simple steps</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;">
+              <div class="timeline-step" data-step="1" style="text-align: center; padding: 24px; background: rgba(255, 255, 255, 0.05); border-radius: 16px; cursor: pointer; transition: all 0.3s ease; border: 2px solid rgba(230, 181, 145, 0.3);" onmouseover="showTimelineDetails(1)" onmouseout="hideTimelineDetails()">
+                <div style="background: #e6b591; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: white; font-size: 24px; font-weight: 700;">1</div>
+                <h3 style="font-size: 18px; font-weight: 700; margin: 0 0 8px;">Assessment</h3>
+                <p style="font-size: 14px; color: #ccc; margin: 0;">3-minute health questionnaire</p>
+                <div style="font-size: 12px; color: #e6b591; margin-top: 8px; font-weight: 600;">⏱️ 3 minutes</div>
+              </div>
+
+              <div class="timeline-step" data-step="2" style="text-align: center; padding: 24px; background: rgba(255, 255, 255, 0.05); border-radius: 16px; cursor: pointer; transition: all 0.3s ease; border: 2px solid rgba(255, 255, 255, 0.1);" onmouseover="showTimelineDetails(2)" onmouseout="hideTimelineDetails()">
+                <div style="background: rgba(230, 181, 145, 0.3); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: white; font-size: 24px; font-weight: 700;">2</div>
+                <h3 style="font-size: 18px; font-weight: 700; margin: 0 0 8px;">Doctor Review</h3>
+                <p style="font-size: 14px; color: #ccc; margin: 0;">Board-certified physician evaluation</p>
+                <div style="font-size: 12px; color: #e6b591; margin-top: 8px; font-weight: 600;">⏱️ 24 hours</div>
+              </div>
+
+              <div class="timeline-step" data-step="3" style="text-align: center; padding: 24px; background: rgba(255, 255, 255, 0.05); border-radius: 16px; cursor: pointer; transition: all 0.3s ease; border: 2px solid rgba(255, 255, 255, 0.1);" onmouseover="showTimelineDetails(3)" onmouseout="hideTimelineDetails()">
+                <div style="background: rgba(230, 181, 145, 0.3); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: white; font-size: 24px; font-weight: 700;">3</div>
+                <h3 style="font-size: 18px; font-weight: 700; margin: 0 0 8px;">Prescription</h3>
+                <p style="font-size: 14px; color: #ccc; margin: 0;">Custom treatment plan created</p>
+                <div style="font-size: 12px; color: #e6b591; margin-top: 8px; font-weight: 600;">⏱️ Same day</div>
+              </div>
+
+              <div class="timeline-step" data-step="4" style="text-align: center; padding: 24px; background: rgba(255, 255, 255, 0.05); border-radius: 16px; cursor: pointer; transition: all 0.3s ease; border: 2px solid rgba(255, 255, 255, 0.1);" onmouseover="showTimelineDetails(4)" onmouseout="hideTimelineDetails()">
+                <div style="background: rgba(230, 181, 145, 0.3); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: white; font-size: 24px; font-weight: 700;">4</div>
+                <h3 style="font-size: 18px; font-weight: 700; margin: 0 0 8px;">Delivery</h3>
+                <p style="font-size: 14px; color: #ccc; margin: 0;">Discreet shipping to your door</p>
+                <div style="font-size: 12px; color: #e6b591; margin-top: 8px; font-weight: 600;">⏱️ 2-3 days</div>
+              </div>
+            </div>
+
+            <div id="timeline-details" style="background: rgba(230, 181, 145, 0.1); border-radius: 16px; padding: 24px; margin-top: 32px; text-align: center; opacity: 0; transition: all 0.3s ease;">
+              <h4 id="detail-title" style="font-size: 20px; font-weight: 700; margin: 0 0 12px; color: #e6b591;"></h4>
+              <p id="detail-description" style="font-size: 16px; margin: 0; color: #ccc;"></p>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+              <button onclick="startTimelineAssessment()" style="background: linear-gradient(135deg, #e6b591, #d4a574); border: none; border-radius: 32px; padding: 18px 36px; color: white; font-weight: 700; font-size: 16px; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px) scale(1.02)'" onmouseout="this.style.transform='translateY(0) scale(1)'">
+                Start Your Journey Today
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      videoSection.parentNode.insertBefore(timelineSection, videoSection);
+    }
+  }
+
+  // Helper Functions for New Widgets
+  window.selectHeroConcern = function(concern) {
+    const options = document.querySelectorAll('#hero-options button');
+    options.forEach(opt => {
+      opt.style.background = '#f8f9fa';
+      opt.style.borderColor = '#e9ecef';
+    });
+
+    event.target.style.background = '#e6b591';
+    event.target.style.borderColor = '#e6b591';
+    event.target.style.color = 'white';
+
+    setTimeout(() => {
+      const heroWidget = document.getElementById('hero-personalize');
+      heroWidget.innerHTML = `
+        <div style="text-align: center;">
+          <div style="background: #e6f7ff; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px;">🎯</div>
+          <h4 style="margin: 0 0 8px; color: #1a1a1a;">Perfect Match!</h4>
+          <p style="margin: 0 0 20px; color: #666; font-size: 14px;">We've found the ideal solution for your ${concern} goals.</p>
+          <button onclick="window.open('#', '_blank')" style="background: #e6b591; border: none; border-radius: 32px; padding: 14px 28px; color: white; font-weight: 700; cursor: pointer; width: 100%;">
+            Get Personalized Plan
+          </button>
+        </div>
+      `;
+    }, 500);
+  };
+
+  window.selectTimeSlot = function(button, slot) {
+    document.querySelectorAll('#skin-scheduler button').forEach(btn => {
+      if (btn !== button) {
+        btn.style.borderColor = '#e9ecef';
+        btn.querySelector('div').style.color = '#666';
+      }
+    });
+
+    button.style.borderColor = '#e6b591';
+    button.querySelector('div').style.color = '#e6b591';
+
+    setTimeout(() => {
+      const scheduler = document.getElementById('skin-scheduler');
+      scheduler.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+          <div style="background: #28a745; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: white; font-size: 24px;">✓</div>
+          <h4 style="margin: 0 0 8px; color: #1a1a1a;">Appointment Reserved!</h4>
+          <p style="margin: 0 0 20px; color: #666; font-size: 14px;">Your ${slot} consultation slot is confirmed. You'll receive a confirmation email shortly.</p>
+          <button onclick="window.open('#', '_blank')" style="background: #e6b591; border: none; border-radius: 32px; padding: 14px 28px; color: white; font-weight: 700; cursor: pointer; width: 100%;">
+            Complete Pre-Consultation Form
+          </button>
+        </div>
+      `;
+    }, 1000);
+  };
+
+  window.selectPricing = function(plan) {
+    // Track pricing selection
+    console.log('Selected pricing plan:', plan);
+    // In real implementation, this would redirect to assessment
+  };
+
+  window.bookDoctorCall = function() {
+    // In real implementation, this would open booking modal
+    alert('Doctor consultation booking would open here');
+  };
+
+  window.startTimelineAssessment = function() {
+    // Scroll to assessment or open modal
+    document.getElementById('quick-assessment').style.transform = 'translateY(0)';
+  };
+
+  window.showTimelineDetails = function(step) {
+    const details = {
+      1: {
+        title: "Quick Health Assessment",
+        description: "Answer questions about your health history, symptoms, and goals. Our smart questionnaire adapts based on your responses."
+      },
+      2: {
+        title: "Expert Medical Review",
+        description: "A board-certified doctor reviews your information and determines the best treatment options for your specific needs."
+      },
+      3: {
+        title: "Personalized Prescription",
+        description: "If approved, we create a custom treatment plan and send your prescription to our pharmacy partner."
+      },
+      4: {
+        title: "Discreet Home Delivery",
+        description: "Your medication arrives in unmarked packaging with free shipping. Ongoing support available 24/7."
+      }
+    };
+
+    const detailsDiv = document.getElementById('timeline-details');
+    const titleDiv = document.getElementById('detail-title');
+    const descDiv = document.getElementById('detail-description');
+
+    titleDiv.textContent = details[step].title;
+    descDiv.textContent = details[step].description;
+    detailsDiv.style.opacity = '1';
+
+    // Highlight active step
+    document.querySelectorAll('.timeline-step').forEach((stepEl, index) => {
+      if (index + 1 === step) {
+        stepEl.style.borderColor = '#e6b591';
+        stepEl.style.background = 'rgba(230, 181, 145, 0.1)';
+        stepEl.querySelector('div').style.background = '#e6b591';
+      } else {
+        stepEl.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+        stepEl.style.background = 'rgba(255, 255, 255, 0.05)';
+        stepEl.querySelector('div').style.background = 'rgba(230, 181, 145, 0.3)';
+      }
+    });
+  };
+
+  window.hideTimelineDetails = function() {
+    document.getElementById('timeline-details').style.opacity = '0';
+
+    // Reset all steps
+    document.querySelectorAll('.timeline-step').forEach((stepEl, index) => {
+      stepEl.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+      stepEl.style.background = 'rgba(255, 255, 255, 0.05)';
+      if (index === 0) {
+        stepEl.style.borderColor = 'rgba(230, 181, 145, 0.3)';
+        stepEl.querySelector('div').style.background = '#e6b591';
+      } else {
+        stepEl.querySelector('div').style.background = 'rgba(230, 181, 145, 0.3)';
+      }
+    });
+  };
+
   // Initialize all widgets
   function initializeWidgets() {
     initLiveActivityFeed();
@@ -6108,6 +6580,14 @@ margin: 0rem !important;
     initProgressBar();
     initQuickAssessment();
     initSocialProofCounter();
+
+    // New section-specific widgets
+    initHeroPersonalization();
+    initEDCostCalculator();
+    initSkinConsultationScheduler();
+    addPricingComparisonSection();
+    addDoctorProfilesSection();
+    addTreatmentTimelineSection();
   }
 
   if (document.readyState === 'loading') {
