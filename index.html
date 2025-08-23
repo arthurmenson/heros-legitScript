@@ -2400,6 +2400,120 @@
     overflow: hidden !important;
     pointer-events: none !important;
   }
+
+  /* ====== BUTTON ANIMATIONS ====== */
+
+  /* Button animation keyframes */
+  @keyframes buttonPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes buttonGlow {
+    0% { box-shadow: 0 0 0 0 rgba(230, 181, 145, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(230, 181, 145, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(230, 181, 145, 0); }
+  }
+
+  /* Universal button styles */
+  a[href="#"]:not(.no-animate),
+  .button:not(.no-animate),
+  button:not(.no-animate),
+  input[type="submit"]:not(.no-animate) {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(0);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Hover effects for primary buttons */
+  a[href="#"][style*="background-color: #e6b591"]:hover,
+  a[href="#"][style*="background-color: #70978F"]:hover,
+  a[href="#"][style*="background-color: rgb(0, 0, 0)"]:hover,
+  a[href="#"][style*="background: rgb(26, 26, 26)"]:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    filter: brightness(1.1);
+  }
+
+  /* Hover effects for secondary buttons */
+  a[href="#"][style*="border: 2px solid"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    background-color: rgba(230, 181, 145, 0.05);
+  }
+
+  /* Active/click animation */
+  a[href="#"]:not(.no-animate):active,
+  .button:not(.no-animate):active,
+  button:not(.no-animate):active {
+    transform: translateY(1px) scale(0.98);
+    transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ED section button effects */
+  a[href="mens-ed.html"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(26, 26, 26, 0.3);
+    animation: buttonGlow 1.5s infinite;
+  }
+
+  /* Navigation links animation */
+  .nav_menu_link:hover {
+    transform: translateY(-1px);
+    color: #e6b591 !important;
+    transition: all 0.3s ease;
+  }
+
+  /* Product carousel CTA animations */
+  .product-cta:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .product-cta:hover .cta-arrow {
+    transform: translateX(3px);
+    transition: transform 0.3s ease;
+  }
+
+  /* Form buttons */
+  .w-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Login buttons */
+  .link-block:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Ripple effect on click */
+  a[href="#"]:not(.no-animate)::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    z-index: 0;
+  }
+
+  a[href="#"]:not(.no-animate):active::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  /* Trust badges hover */
+  div[style*="background-color: rgba"]:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+  }
 }
 </style>
 </head>
