@@ -2637,27 +2637,7 @@
       min-height: 44px !important;
     }
 
-    /* CRO Widgets Mobile Optimization */
-    #live-activity-feed {
-      right: 10px !important;
-      bottom: 80px !important;
-      max-width: 280px !important;
-    }
-
-    #floating-cta {
-      bottom: 10px !important;
-      right: 10px !important;
-      padding: 12px 20px !important;
-      font-size: 14px !important;
-      min-height: 44px !important;
-    }
-
-    #exit-intent-popup [style*="max-width: 500px"] {
-      max-width: 90% !important;
-      margin: 0 5% !important;
-      padding: 20px !important;
-    }
-
+    /* Trust Badges Mobile Optimization (non-floating element) */
     #trust-badges {
       padding: 20px 15px !important;
     }
@@ -2668,22 +2648,9 @@
       gap: 10px !important;
     }
 
+    /* Progress Bar Mobile Optimization (non-floating element) */
     #progress-bar {
       height: 4px !important;
-    }
-
-    #quick-assessment {
-      right: 10px !important;
-      bottom: 120px !important;
-      max-width: 280px !important;
-      padding: 16px !important;
-    }
-
-    #social-proof-counter {
-      left: 10px !important;
-      bottom: 10px !important;
-      padding: 8px 12px !important;
-      font-size: 12px !important;
     }
 
     /* Updated Product Carousel Mobile */
@@ -6200,7 +6167,7 @@ margin: 0rem !important;
       const settingsData = localStorage.getItem('herosSiteSettings');
       if (settingsData && typeof applySettings === 'function') {
         applySettings();
-        console.log('���� Preview settings applied');
+        console.log('📺 Preview settings applied');
       }
     };
 
