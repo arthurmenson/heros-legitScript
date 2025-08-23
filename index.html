@@ -6107,29 +6107,26 @@ margin: 0rem !important;
     if (edSection) {
       const calculator = document.createElement('div');
       calculator.innerHTML = `
-        <div id="ed-cost-calculator" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 16px; padding: 24px; margin: 32px 0; border: 2px solid #e1e5e9;">
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-            <div style="background: #1a1a1a; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px;">💰</div>
-            <div>
-              <h4 style="margin: 0; font-weight: 700; color: #1a1a1a;">Treatment Cost Calculator</h4>
-              <p style="margin: 0; font-size: 14px; color: #666;">See your potential savings vs. traditional pharmacy</p>
+        <div id="ed-cost-calculator" style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px; margin: 24px 0;">
+          <div style="text-align: center; margin-bottom: 16px;">
+            <h4 style="margin: 0 0 8px; font-weight: 600; color: #1a1a1a; font-size: 16px;">Treatment Pricing</h4>
+            <p style="margin: 0; font-size: 13px; color: #888;">Transparent, affordable healthcare</p>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 16px;">
+            <div style="text-align: center;">
+              <div style="font-size: 28px; font-weight: 700; color: #1a1a1a; margin-bottom: 2px;">$2</div>
+              <div style="font-size: 12px; color: #666; font-weight: 500;">per pill</div>
+            </div>
+            <div style="width: 1px; height: 40px; background: #e9ecef;"></div>
+            <div style="text-align: center;">
+              <div style="font-size: 14px; color: #888; margin-bottom: 2px;">vs $89 at pharmacy</div>
+              <div style="font-size: 12px; color: #28a745; font-weight: 600;">Save 98%</div>
             </div>
           </div>
 
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-            <div style="text-align: center; padding: 16px; background: white; border-radius: 12px; border: 2px solid #dc3545;">
-              <div style="font-size: 24px; font-weight: 700; color: #dc3545; margin-bottom: 4px;">$89/pill</div>
-              <div style="font-size: 12px; color: #666;">Traditional Pharmacy</div>
-            </div>
-            <div style="text-align: center; padding: 16px; background: white; border-radius: 12px; border: 2px solid #28a745;">
-              <div style="font-size: 24px; font-weight: 700; color: #28a745; margin-bottom: 4px;">$9/pill</div>
-              <div style="font-size: 12px; color: #666;">With Heros</div>
-            </div>
-          </div>
-
-          <div style="background: rgba(40, 167, 69, 0.1); border-radius: 12px; padding: 16px; text-align: center;">
-            <div style="font-size: 18px; font-weight: 700; color: #28a745; margin-bottom: 4px;">Save up to $960/month</div>
-            <div style="font-size: 14px; color: #666;">That's $11,520 per year in savings</div>
+          <div style="text-align: center; padding: 12px; background: #f8f9fa; border-radius: 6px;">
+            <div style="font-size: 13px; color: #666;">Starting from $2/pill • No insurance required</div>
           </div>
         </div>
       `;
