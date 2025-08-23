@@ -2825,6 +2825,121 @@
       top: 100px !important;
     }
   }
+
+  /* Additional Mobile Container Optimizations */
+  @media (max-width: 768px) {
+
+    /* Ensure all containers are mobile-friendly */
+    .container-large,
+    .container-medium,
+    .container-small {
+      max-width: 100% !important;
+      padding-left: 20px !important;
+      padding-right: 20px !important;
+    }
+
+    /* Section padding adjustments */
+    .section_home-7,
+    .section_home-6,
+    .section_home-9,
+    .section_home-13 {
+      padding: 40px 0 !important;
+    }
+
+    /* Global mobile typography improvements */
+    .padding-section-medium {
+      padding-top: 40px !important;
+      padding-bottom: 40px !important;
+    }
+
+    .padding-section-large {
+      padding-top: 50px !important;
+      padding-bottom: 50px !important;
+    }
+
+    /* Mobile-specific hiding classes */
+    .hide-mobile {
+      display: none !important;
+    }
+
+    /* Improve readability on mobile */
+    p, .text-size-medium, .text-size-regular {
+      font-size: 16px !important;
+      line-height: 1.5 !important;
+    }
+
+    /* Better mobile navigation */
+    .nav_menu {
+      background: white !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+    }
+
+    .nav_link {
+      padding: 16px 20px !important;
+      border-bottom: 1px solid #f0f0f0 !important;
+    }
+
+    /* Mobile-optimized buttons */
+    .button,
+    .link-block,
+    a[class*="button"] {
+      display: block !important;
+      width: 100% !important;
+      text-align: center !important;
+      margin-bottom: 12px !important;
+      padding: 14px 20px !important;
+      min-height: 48px !important;
+      font-size: 16px !important;
+    }
+
+    /* Improve mobile images */
+    img {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+
+    /* Ultra-mobile optimizations */
+    .container-large,
+    .container-medium,
+    .container-small {
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+    }
+
+    /* Smaller padding for very small screens */
+    .padding-section-medium {
+      padding-top: 30px !important;
+      padding-bottom: 30px !important;
+    }
+
+    /* Ultra-mobile typography */
+    h1, .heading-style-h1 {
+      font-size: 22px !important;
+      line-height: 1.2 !important;
+    }
+
+    h2, .heading-style-h2 {
+      font-size: 18px !important;
+      line-height: 1.2 !important;
+    }
+
+    h3, .heading-style-h3 {
+      font-size: 16px !important;
+    }
+
+    p, .text-size-medium {
+      font-size: 14px !important;
+    }
+
+    /* Ultra-mobile button adjustments */
+    .button {
+      padding: 12px 16px !important;
+      font-size: 14px !important;
+    }
+  }
 }
 </style>
 </head>
