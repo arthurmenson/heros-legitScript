@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Debug Tool</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .debug-box {
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn.danger { background: #dc3545; }
+        .btn.success { background: #28a745; }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .error { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
+        .success { background: #d4edda; color: #155724; }
+        .info { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Settings Debug Tool</h1>
+        <p>Diagnose why settings aren't being applied to the main page.</p>
+        
+        <div class="status info">
+            <strong>Current Domain:</strong> <span id="current-domain"></span><br>
+            <strong>Timestamp:</strong> <span id="timestamp"></span>
+        </div>
+
+        <h3>📊 Settings Status</h3>
+        <button class="btn" onclick="checkSettings()">🔍 Check Settings</button>
+        <button class="btn success" onclick="createTestSettings()">✅ Create Test Settings</button>
+        <button class="btn danger" onclick="clearSettings()">🗑️ Clear Settings</button>
+        
+        <div id="settings-status"></div>
+        <div class="debug-box" id="settings-content"></div>
+
+        <h3>🎯 Test Element Detection</h3>
+        <button class="btn" onclick="testElementDetection()">🔍 Test Element Detection</button>
+        <div id="element-status"></div>
+        <div class="debug-box" id="element-details"></div>
+
+        <h3>🔄 Manual Toggle Test</h3>
+        <button class="btn" onclick="manualToggleDiabetesCare()">❌ Toggle Diabetes Care</button>
+        <button class="btn" onclick="forceHideDiabetesCare()">🚫 Force Hide Diabetes Care</button>
+        <button class="btn" onclick="forceShowDiabetesCare()">👁️ Force Show Diabetes Care</button>
+        
+        <div id="toggle-status"></div>
+
+        <h3>🔧 Actions</h3>
+        <button class="btn" onclick="openMainPage()">📄 Open Main Page</button>
+        <button class="btn" onclick="openSettings()">⚙️ Open Settings</button>
+    </div>
+
+    <script>
+        function log(elementId, message) {
+            const element = document.getElementById(elementId);
+            const timestamp = new Date().toLocaleTimeString();
+            element.innerHTML += `[${timestamp}] ${message}\n`;
+        }
+
+        function setStatus(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.className = `status ${type}`;
+            element.innerHTML = message;
+        }
+
+        function getCurrentSettings() {
+            try {
+                const data = localStorage.getItem('herosSiteSettings');
+                return data ? JSON.parse(data) : null;
+            } catch (error) {
+                return { error: error.message };
+            }
+        }
+
+        function checkSettings() {
+            const settings = getCurrentSettings();
+            const contentDiv = document.getElementById('settings-content');
+            
+            contentDiv.innerHTML = '';
+            log('settings-content', '=== SETTINGS DIAGNOSTIC ===');
+            
+            if (!settings) {
+                setStatus('settings-status', '❌ No settings found in localStorage', 'error');
+                log('settings-content', 'ERROR: No settings found in localStorage');
+                log('settings-content', 'This means the settings page is on a different domain or settings were never saved.');
+                return;
+            }
+
+            if (settings.error) {
+                setStatus('settings-status', `❌ Error loading settings: ${settings.error}`, 'error');
+                log('settings-content', `ERROR: ${settings.error}`);
+                return;
+            }
+
+            const total = Object.keys(settings).length;
+            const disabled = Object.keys(settings).filter(k => settings[k] === false).length;
+            
+            setStatus('settings-status', `✅ Found ${total} settings, ${disabled} disabled`, 'success');
+            
+            log('settings-content', `Total settings: ${total}`);
+            log('settings-content', `Disabled settings: ${disabled}`);
+            log('settings-content', '');
+            log('settings-content', 'Disabled items:');
+            
+            Object.keys(settings).forEach(key => {
+                if (settings[key] === false) {
+                    log('settings-content', `  - ${key}: FALSE`);
+                }
+            });
+
+            log('settings-content', '');
+            log('settings-content', 'Full settings object:');
+            log('settings-content', JSON.stringify(settings, null, 2));
+        }
+
+        function testElementDetection() {
+            const elementsToTest = {
+                'menu-diabetes-care': 'a[href="diabetes-care.html"]',
+                'menu-weight-loss': 'a[href="weight-loss.html"]',
+                'carousel-weight-loss': '.weight-loss-card',
+                'section-weight-loss': '.section_wl-hero'
+            };
+
+            const detailsDiv = document.getElementById('element-details');
+            detailsDiv.innerHTML = '';
+            
+            log('element-details', '=== ELEMENT DETECTION TEST ===');
+            
+            let totalFound = 0;
+            let totalSearched = 0;
+
+            Object.keys(elementsToTest).forEach(settingKey => {
+                const selector = elementsToTest[settingKey];
+                const elements = document.querySelectorAll(selector);
+                totalSearched++;
+                
+                if (elements.length > 0) {
+                    totalFound++;
+                    log('element-details', `✅ ${settingKey}: Found ${elements.length} elements with selector "${selector}"`);
+                    
+                    elements.forEach((element, index) => {
+                        const computedStyle = window.getComputedStyle(element);
+                        const isHidden = computedStyle.display === 'none' || element.hasAttribute('data-heros-hidden');
+                        log('element-details', `   Element ${index + 1}: display="${computedStyle.display}", hidden=${isHidden}`);
+                    });
+                } else {
+                    log('element-details', `❌ ${settingKey}: No elements found with selector "${selector}"`);
+                }
+            });
+
+            if (totalFound === 0) {
+                setStatus('element-status', '❌ No elements found - wrong page or selectors broken', 'error');
+            } else {
+                setStatus('element-status', `✅ Found ${totalFound}/${totalSearched} element types`, 'success');
+            }
+        }
+
+        function createTestSettings() {
+            const testSettings = {
+                'menu-diabetes-care': false,
+                'menu-weight-loss': true,
+                'section-weight-loss': false,
+                'carousel-weight-loss': false
+            };
+
+            try {
+                localStorage.setItem('herosSiteSettings', JSON.stringify(testSettings));
+                setStatus('settings-status', '✅ Test settings created successfully', 'success');
+                log('settings-content', 'Created test settings with diabetes care disabled');
+                checkSettings();
+            } catch (error) {
+                setStatus('settings-status', `❌ Error creating test settings: ${error.message}`, 'error');
+            }
+        }
+
+        function clearSettings() {
+            if (confirm('Clear all settings?')) {
+                localStorage.removeItem('herosSiteSettings');
+                setStatus('settings-status', '🗑️ Settings cleared', 'warning');
+                document.getElementById('settings-content').innerHTML = 'Settings cleared';
+            }
+        }
+
+        function manualToggleDiabetesCare() {
+            const diabetesCareLinks = document.querySelectorAll('a[href="diabetes-care.html"]');
+            const statusDiv = document.getElementById('toggle-status');
+            
+            if (diabetesCareLinks.length === 0) {
+                setStatus('toggle-status', '❌ No Diabetes Care links found on this page', 'error');
+                return;
+            }
+
+            diabetesCareLinks.forEach((link, index) => {
+                const isCurrentlyHidden = link.style.display === 'none' || link.hasAttribute('data-heros-hidden');
+                
+                if (isCurrentlyHidden) {
+                    // Show it
+                    link.style.removeProperty('display');
+                    link.removeAttribute('data-heros-hidden');
+                    link.removeAttribute('aria-hidden');
+                    link.classList.remove('heros-force-hidden');
+                } else {
+                    // Hide it
+                    link.style.setProperty('display', 'none', 'important');
+                    link.setAttribute('data-heros-hidden', 'true');
+                    link.setAttribute('aria-hidden', 'true');
+                }
+            });
+
+            setStatus('toggle-status', `✅ Toggled ${diabetesCareLinks.length} Diabetes Care links`, 'success');
+        }
+
+        function forceHideDiabetesCare() {
+            const diabetesCareLinks = document.querySelectorAll('a[href="diabetes-care.html"]');
+            
+            if (diabetesCareLinks.length === 0) {
+                setStatus('toggle-status', '❌ No Diabetes Care links found', 'error');
+                return;
+            }
+
+            diabetesCareLinks.forEach(link => {
+                link.style.setProperty('display', 'none', 'important');
+                link.style.setProperty('visibility', 'hidden', 'important');
+                link.style.setProperty('opacity', '0', 'important');
+                link.setAttribute('data-heros-hidden', 'true');
+                link.setAttribute('aria-hidden', 'true');
+                link.classList.add('heros-force-hidden');
+            });
+
+            setStatus('toggle-status', `✅ Force hidden ${diabetesCareLinks.length} Diabetes Care links`, 'success');
+        }
+
+        function forceShowDiabetesCare() {
+            const diabetesCareLinks = document.querySelectorAll('a[href="diabetes-care.html"]');
+            
+            if (diabetesCareLinks.length === 0) {
+                setStatus('toggle-status', '❌ No Diabetes Care links found', 'error');
+                return;
+            }
+
+            diabetesCareLinks.forEach(link => {
+                link.style.removeProperty('display');
+                link.style.removeProperty('visibility');
+                link.style.removeProperty('opacity');
+                link.removeAttribute('data-heros-hidden');
+                link.removeAttribute('aria-hidden');
+                link.classList.remove('heros-force-hidden');
+            });
+
+            setStatus('toggle-status', `✅ Force shown ${diabetesCareLinks.length} Diabetes Care links`, 'success');
+        }
+
+        function openMainPage() {
+            window.open('index.html', '_blank');
+        }
+
+        function openSettings() {
+            window.open('settings.html', '_blank');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('current-domain').textContent = window.location.origin;
+            document.getElementById('timestamp').textContent = new Date().toLocaleString();
+            
+            // Auto-check settings on load
+            checkSettings();
+            
+            // Auto-test element detection
+            setTimeout(() => {
+                testElementDetection();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAT Test Runner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-step {
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #007bff;
+            background: #f8f9fa;
+        }
+        .pass { border-left-color: #28a745; background: #d4edda; }
+        .fail { border-left-color: #dc3545; background: #f8d7da; }
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn.danger { background: #dc3545; }
+        .btn.success { background: #28a745; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 HEROS Settings System UAT</h1>
+        <p>This test will verify that the settings system is working correctly.</p>
+        
+        <div class="test-step">
+            <h3>Step 1: Setup Test Configuration</h3>
+            <p>This will disable specific items for testing.</p>
+            <button class="btn" onclick="setupTestConfig()">Setup Test Configuration</button>
+            <div id="setup-result"></div>
+        </div>
+
+        <div class="test-step">
+            <h3>Step 2: Open Main Page</h3>
+            <p>Open the main page in a new tab to verify settings are applied.</p>
+            <button class="btn" onclick="openMainPage()">Open Main Page</button>
+        </div>
+
+        <div class="test-step">
+            <h3>Step 3: Verify Results</h3>
+            <p>Check if the following items are hidden on the main page:</p>
+            <ul id="test-items">
+                <li>❓ Diabetes Care navigation menu item</li>
+                <li>❓ Weight Loss section (large section in middle of page)</li>
+                <li>❓ Weight Loss card in product carousel</li>
+                <li>❓ Diabetes Care card in product carousel</li>
+                <li>❓ Hair Regrowth card in product carousel</li>
+            </ul>
+            <button class="btn success" onclick="markTestPassed()">✅ All Items Hidden</button>
+            <button class="btn danger" onclick="markTestFailed()">❌ Items Still Visible</button>
+        </div>
+
+        <div class="test-step">
+            <h3>Step 4: Reset Configuration</h3>
+            <p>Reset all settings to show all items.</p>
+            <button class="btn" onclick="resetConfig()">Reset All Settings</button>
+            <div id="reset-result"></div>
+        </div>
+
+        <div class="test-step">
+            <h3>Test Results</h3>
+            <div id="final-results">
+                <p>No test results yet. Run the test steps above.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function setupTestConfig() {
+            // Create test configuration with specific items disabled
+            const testSettings = {
+                // Navigation
+                'menu-weight-loss': true,
+                'menu-mens-ed': true,
+                'menu-skin-care': true,
+                'menu-hair-regrowth': true,
+                'menu-nad-plus': true,
+                'menu-diabetes-care': false, // DISABLED for testing
+                
+                // Pages
+                'page-weight-loss': true,
+                'page-mens-ed': true,
+                'page-skin-care': true,
+                'page-hair-regrowth': true,
+                'page-nad-plus': true,
+                'page-diabetes-care': true,
+                'page-blog': true,
+                'page-faq': true,
+                'page-contact': true,
+                'page-medical-disclaimer': true,
+                'page-privacy-policy': true,
+                'page-terms-of-service': true,
+                
+                // Sections
+                'section-hero': true,
+                'section-service-cards': true,
+                'section-products': true,
+                'section-weight-loss': false, // DISABLED for testing
+                'section-bmi': true,
+                'section-ed-meds': true,
+                'section-results': true,
+                'section-how-it-works': true,
+                'section-testimonials': true,
+                'section-trust-badges': true,
+                'section-health-simplified': true,
+                
+                // Carousel
+                'carousel-weight-loss': false, // DISABLED for testing
+                'carousel-hair-regrowth': false, // DISABLED for testing
+                'carousel-mens-ed': true,
+                'carousel-skin-care': true,
+                'carousel-diabetes-care': false, // DISABLED for testing
+                'carousel-remote-monitoring': true,
+                'carousel-nad-plus': true,
+                
+                // Features
+                'feature-top-banner': true,
+                'feature-navigation': true,
+                'feature-footer': true,
+                'feature-live-chat': true,
+                'feature-mobile-optimization': true
+            };
+
+            try {
+                localStorage.setItem('herosSiteSettings', JSON.stringify(testSettings));
+                
+                const disabledCount = Object.keys(testSettings).filter(key => testSettings[key] === false).length;
+                
+                document.getElementById('setup-result').innerHTML = 
+                    `<p style="color: green;">✅ Test configuration saved! ${disabledCount} items disabled for testing.</p>`;
+                
+                return true;
+            } catch (error) {
+                document.getElementById('setup-result').innerHTML = 
+                    `<p style="color: red;">❌ Error saving test configuration: ${error.message}</p>`;
+                return false;
+            }
+        }
+
+        function openMainPage() {
+            window.open('index.html', '_blank', 'width=1200,height=800');
+            
+            // Update instructions
+            const items = document.getElementById('test-items');
+            items.innerHTML = `
+                <li>🔍 Diabetes Care navigation menu item (should be HIDDEN)</li>
+                <li>🔍 Weight Loss section - large "Weight Loss That Doesn't Wait" section (should be HIDDEN)</li>
+                <li>🔍 Weight Loss card in "Our Products" carousel (should be HIDDEN)</li>
+                <li>🔍 Diabetes Care card in "Our Products" carousel (should be HIDDEN)</li>
+                <li>🔍 Hair Regrowth card in "Our Products" carousel (should be HIDDEN)</li>
+            `;
+        }
+
+        function markTestPassed() {
+            document.getElementById('final-results').innerHTML = `
+                <div style="color: green; font-weight: bold; font-size: 18px;">
+                    ✅ UAT TEST PASSED!
+                </div>
+                <p>All disabled items are properly hidden on the main page. The settings system is working correctly.</p>
+                <p><strong>Test completed at:</strong> ${new Date().toLocaleString()}</p>
+            `;
+        }
+
+        function markTestFailed() {
+            document.getElementById('final-results').innerHTML = `
+                <div style="color: red; font-weight: bold; font-size: 18px;">
+                    ❌ UAT TEST FAILED!
+                </div>
+                <p>Some disabled items are still visible on the main page. The settings system needs fixing.</p>
+                <p><strong>Test completed at:</strong> ${new Date().toLocaleString()}</p>
+                <p><strong>Next steps:</strong> Check browser console logs and debug the settings application logic.</p>
+            `;
+        }
+
+        function resetConfig() {
+            try {
+                const currentSettings = JSON.parse(localStorage.getItem('herosSiteSettings') || '{}');
+                
+                // Enable all items
+                Object.keys(currentSettings).forEach(key => {
+                    currentSettings[key] = true;
+                });
+                
+                localStorage.setItem('herosSiteSettings', JSON.stringify(currentSettings));
+                
+                document.getElementById('reset-result').innerHTML = 
+                    `<p style="color: green;">✅ All settings reset to enabled. Refresh the main page to see all items.</p>`;
+                
+            } catch (error) {
+                document.getElementById('reset-result').innerHTML = 
+                    `<p style="color: red;">❌ Error resetting configuration: ${error.message}</p>`;
+            }
+        }
+
+        // Auto-check localStorage on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const settings = localStorage.getItem('herosSiteSettings');
+            if (settings) {
+                const parsed = JSON.parse(settings);
+                const total = Object.keys(parsed).length;
+                const disabled = Object.keys(parsed).filter(k => parsed[k] === false).length;
+                
+                document.querySelector('.container').insertAdjacentHTML('afterbegin', 
+                    `<div style="background: #e3f2fd; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+                        <strong>Current Settings:</strong> ${total} total items, ${disabled} disabled
+                    </div>`
+                );
+            }
+        });
+    </script>
+</body>
+</html>

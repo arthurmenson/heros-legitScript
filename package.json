@@ -1,13 +1,28 @@
 {
-  "name": "heros-webflow-site",
+  "name": "heros-health-website",
   "version": "1.0.0",
-  "description": "Heros healthcare website built with Webflow",
+  "description": "Heros Health - Telehealth and Medical Services Platform",
   "main": "index.html",
   "scripts": {
-    "start": "http-server . -p 8000",
-    "serve": "http-server . -p 8000"
+    "start": "npx http-server . -p 3000",
+    "dev": "npx http-server . -p 3000 -o",
+    "build": "echo 'Static site - no build process needed'",
+    "test": "echo 'No tests specified'"
   },
-  "keywords": ["webflow", "healthcare", "static-site"],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "telehealth",
+    "healthcare",
+    "medical",
+    "webflow"
+  ],
+  "author": "Heros Health, Inc.",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroshealth/website"
+  },
+  "homepage": "https://heroshealth.com"
 }

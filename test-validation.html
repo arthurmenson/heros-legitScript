@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Test Validation</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .test-result {
+            padding: 5px;
+            margin: 2px 0;
+            border-radius: 3px;
+        }
+        .pass { background: #d4edda; color: #155724; }
+        .fail { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .warning { background: #fff3cd; color: #856404; }
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Settings System Test Validation</h1>
+        <p>This page tests whether disabled settings are properly applied to the main site.</p>
+        
+        <div class="test-section">
+            <h2>📊 Current Settings Status</h2>
+            <button class="btn" onclick="loadCurrentSettings()">Load Current Settings</button>
+            <div id="settings-status"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔍 Element Visibility Test</h2>
+            <button class="btn" onclick="testMainPageElements()">Test Main Page Elements</button>
+            <div id="visibility-results"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎯 Test Actions</h2>
+            <button class="btn" onclick="disableTestItems()">Disable Test Items</button>
+            <button class="btn" onclick="enableAllItems()">Enable All Items</button>
+            <button class="btn" onclick="openMainPage()">Open Main Page</button>
+            <button class="btn" onclick="openSettings()">Open Settings</button>
+        </div>
+
+        <div class="test-section">
+            <h2>🚀 UAT Test Scenarios</h2>
+            <button class="btn" onclick="runFullUAT()">Run Full UAT</button>
+            <div id="uat-results"></div>
+        </div>
+    </div>
+
+    <script>
+        function log(message, type = 'info') {
+            console.log(message);
+            // Also display on page for visibility
+        }
+
+        function loadCurrentSettings() {
+            try {
+                const settingsData = localStorage.getItem('herosSiteSettings');
+                const statusDiv = document.getElementById('settings-status');
+                
+                if (!settingsData) {
+                    statusDiv.innerHTML = '<div class="test-result warning">❌ No settings found in localStorage</div>';
+                    return;
+                }
+
+                const settings = JSON.parse(settingsData);
+                const disabledItems = Object.keys(settings).filter(key => settings[key] === false);
+                const enabledItems = Object.keys(settings).filter(key => settings[key] === true);
+
+                let html = `
+                    <div class="test-result info">✅ Settings loaded: ${Object.keys(settings).length} total items</div>
+                    <div class="test-result pass">🟢 Enabled: ${enabledItems.length} items</div>
+                    <div class="test-result fail">🔴 Disabled: ${disabledItems.length} items</div>
+                `;
+
+                if (disabledItems.length > 0) {
+                    html += '<h4>Disabled Items:</h4><ul>';
+                    disabledItems.forEach(item => {
+                        html += `<li>${item}</li>`;
+                    });
+                    html += '</ul>';
+                }
+
+                statusDiv.innerHTML = html;
+            } catch (error) {
+                document.getElementById('settings-status').innerHTML = 
+                    `<div class="test-result fail">❌ Error loading settings: ${error.message}</div>`;
+            }
+        }
+
+        function testMainPageElements() {
+            // Open main page in iframe to test elements
+            const resultsDiv = document.getElementById('visibility-results');
+            resultsDiv.innerHTML = '<div class="test-result info">⏳ Loading main page to test elements...</div>';
+
+            // Create hidden iframe to load main page
+            const iframe = document.createElement('iframe');
+            iframe.src = 'index.html';
+            iframe.style.display = 'none';
+            iframe.onload = function() {
+                try {
+                    const doc = iframe.contentDocument || iframe.contentWindow.document;
+                    const settingsData = localStorage.getItem('herosSiteSettings');
+                    
+                    if (!settingsData) {
+                        resultsDiv.innerHTML = '<div class="test-result warning">⚠️ No settings to test</div>';
+                        return;
+                    }
+
+                    const settings = JSON.parse(settingsData);
+                    let results = '';
+
+                    // Test navigation menu items
+                    results += '<h4>Navigation Menu Test:</h4>';
+                    const menuTests = {
+                        'menu-diabetes-care': 'a[href="diabetes-care.html"]',
+                        'menu-weight-loss': 'a[href="weight-loss.html"]',
+                        'menu-skin-care': 'a[href="skin-care.html"]'
+                    };
+
+                    Object.keys(menuTests).forEach(settingKey => {
+                        const element = doc.querySelector(menuTests[settingKey]);
+                        const isDisabled = settings[settingKey] === false;
+                        const isHidden = element && element.style.display === 'none';
+                        
+                        if (isDisabled && isHidden) {
+                            results += `<div class="test-result pass">✅ ${settingKey}: Correctly hidden</div>`;
+                        } else if (!isDisabled && !isHidden) {
+                            results += `<div class="test-result pass">✅ ${settingKey}: Correctly visible</div>`;
+                        } else if (isDisabled && !isHidden) {
+                            results += `<div class="test-result fail">❌ ${settingKey}: Should be hidden but is visible</div>`;
+                        } else {
+                            results += `<div class="test-result warning">⚠️ ${settingKey}: Element not found</div>`;
+                        }
+                    });
+
+                    // Test carousel items
+                    results += '<h4>Product Carousel Test:</h4>';
+                    const carouselTests = {
+                        'carousel-weight-loss': '.weight-loss-card',
+                        'carousel-diabetes-care': '.diabetes-care-card',
+                        'carousel-hair-regrowth': '.hair-regrowth-card'
+                    };
+
+                    Object.keys(carouselTests).forEach(settingKey => {
+                        const element = doc.querySelector(carouselTests[settingKey]);
+                        const isDisabled = settings[settingKey] === false;
+                        const isHidden = element && element.style.display === 'none';
+                        
+                        if (isDisabled && isHidden) {
+                            results += `<div class="test-result pass">✅ ${settingKey}: Correctly hidden</div>`;
+                        } else if (!isDisabled && !isHidden) {
+                            results += `<div class="test-result pass">✅ ${settingKey}: Correctly visible</div>`;
+                        } else if (isDisabled && !isHidden) {
+                            results += `<div class="test-result fail">❌ ${settingKey}: Should be hidden but is visible</div>`;
+                        } else {
+                            results += `<div class="test-result warning">⚠️ ${settingKey}: Element not found</div>`;
+                        }
+                    });
+
+                    // Test sections
+                    results += '<h4>Homepage Sections Test:</h4>';
+                    const sectionTests = {
+                        'section-weight-loss': '.section_wl-hero'
+                    };
+
+                    Object.keys(sectionTests).forEach(settingKey => {
+                        const element = doc.querySelector(sectionTests[settingKey]);
+                        const isDisabled = settings[settingKey] === false;
+                        const isHidden = element && element.style.display === 'none';
+                        
+                        if (isDisabled && isHidden) {
+                            results += `<div class="test-result pass">✅ ${settingKey}: Correctly hidden</div>`;
+                        } else if (!isDisabled && !isHidden) {
+                            results += `<div class="test-result pass">✅ ${settingKey}: Correctly visible</div>`;
+                        } else if (isDisabled && !isHidden) {
+                            results += `<div class="test-result fail">❌ ${settingKey}: Should be hidden but is visible</div>`;
+                        } else {
+                            results += `<div class="test-result warning">⚠️ ${settingKey}: Element not found</div>`;
+                        }
+                    });
+
+                    resultsDiv.innerHTML = results;
+                } catch (error) {
+                    resultsDiv.innerHTML = `<div class="test-result fail">❌ Error testing elements: ${error.message}</div>`;
+                }
+                
+                document.body.removeChild(iframe);
+            };
+
+            document.body.appendChild(iframe);
+        }
+
+        function disableTestItems() {
+            const testSettings = {
+                'menu-diabetes-care': false,
+                'menu-weight-loss': false,
+                'page-weight-loss': false,
+                'page-diabetes-care': false,
+                'section-weight-loss': false,
+                'carousel-weight-loss': false,
+                'carousel-diabetes-care': false,
+                'carousel-hair-regrowth': false,
+                'carousel-remote-monitoring': false
+            };
+
+            localStorage.setItem('herosSiteSettings', JSON.stringify({
+                ...JSON.parse(localStorage.getItem('herosSiteSettings') || '{}'),
+                ...testSettings
+            }));
+
+            alert('✅ Test items disabled! Navigate to main page to verify.');
+        }
+
+        function enableAllItems() {
+            // Get current settings and enable all
+            const current = JSON.parse(localStorage.getItem('herosSiteSettings') || '{}');
+            Object.keys(current).forEach(key => {
+                current[key] = true;
+            });
+            localStorage.setItem('herosSiteSettings', JSON.stringify(current));
+            alert('✅ All items enabled! Navigate to main page to verify.');
+        }
+
+        function openMainPage() {
+            window.open('index.html', '_blank');
+        }
+
+        function openSettings() {
+            window.open('settings.html', '_blank');
+        }
+
+        function runFullUAT() {
+            const resultsDiv = document.getElementById('uat-results');
+            resultsDiv.innerHTML = '<div class="test-result info">🚀 Running Full UAT...</div>';
+            
+            const tests = [
+                {
+                    name: 'Settings Load Test',
+                    test: () => {
+                        const data = localStorage.getItem('herosSiteSettings');
+                        return data !== null;
+                    }
+                },
+                {
+                    name: 'Settings Parse Test',
+                    test: () => {
+                        const data = localStorage.getItem('herosSiteSettings');
+                        try {
+                            JSON.parse(data);
+                            return true;
+                        } catch {
+                            return false;
+                        }
+                    }
+                },
+                {
+                    name: 'Disabled Items Count Test',
+                    test: () => {
+                        const data = localStorage.getItem('herosSiteSettings');
+                        const settings = JSON.parse(data);
+                        const disabled = Object.keys(settings).filter(k => settings[k] === false);
+                        return disabled.length > 0;
+                    }
+                }
+            ];
+
+            let results = '<h4>UAT Results:</h4>';
+            tests.forEach(test => {
+                try {
+                    const passed = test.test();
+                    results += `<div class="test-result ${passed ? 'pass' : 'fail'}">${passed ? '✅' : '❌'} ${test.name}</div>`;
+                } catch (error) {
+                    results += `<div class="test-result fail">❌ ${test.name}: Error - ${error.message}</div>`;
+                }
+            });
+
+            resultsDiv.innerHTML = results;
+        }
+
+        // Auto-load settings on page load
+        document.addEventListener('DOMContentLoaded', loadCurrentSettings);
+    </script>
+</body>
+</html>

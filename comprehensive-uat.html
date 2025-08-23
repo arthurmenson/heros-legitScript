@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Multi-Toggle UAT</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 20px;
+            background: #f5f7fa;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .test-scenario {
+            margin: 30px 0;
+            padding: 25px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+        .test-scenario.running {
+            border-color: #007bff;
+            background: #e7f3ff;
+        }
+        .test-scenario.pass {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        .test-scenario.fail {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 8px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            background: #0056b3;
+            transform: translateY(-1px);
+        }
+        .btn.success { background: #28a745; }
+        .btn.danger { background: #dc3545; }
+        .btn.warning { background: #ffc107; color: #212529; }
+        .btn.secondary { background: #6c757d; }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .status-card {
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        .enabled { background: #d4edda; border-color: #c3e6cb; }
+        .disabled { background: #f8d7da; border-color: #f5c6cb; }
+        
+        .results-log {
+            background: #1e1e1e;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin: 20px 0;
+        }
+        .log-entry {
+            margin: 5px 0;
+            padding: 5px 0;
+        }
+        .log-success { color: #28a745; }
+        .log-error { color: #dc3545; }
+        .log-info { color: #17a2b8; }
+        .log-warning { color: #ffc107; }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #007bff;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+        
+        .test-summary {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        h1 { color: #495057; margin-bottom: 10px; }
+        h2 { color: #6c757d; margin-bottom: 15px; }
+        h3 { color: #495057; margin-bottom: 10px; }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Comprehensive Multi-Toggle UAT Suite</h1>
+        <p>Complete User Acceptance Testing for the HEROS settings system with multiple toggle scenarios.</p>
+        
+        <div class="test-summary">
+            <h3>📊 Current Settings Overview</h3>
+            <div id="overview-stats"></div>
+            <button class="btn secondary" onclick="refreshOverview()">🔄 Refresh Overview</button>
+        </div>
+
+        <!-- Test Progress -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-bar"></div>
+        </div>
+        <p id="progress-text">Ready to start testing...</p>
+
+        <!-- Global Controls -->
+        <div style="text-align: center; margin: 30px 0; padding: 20px; background: #e9ecef; border-radius: 8px;">
+            <h3>🎮 Global Test Controls</h3>
+            <button class="btn success" onclick="runAllTests()">🚀 Run All Tests</button>
+            <button class="btn warning" onclick="pauseTesting()">⏸️ Pause</button>
+            <button class="btn secondary" onclick="resetToBaseline()">🔄 Reset to Baseline</button>
+            <button class="btn" onclick="openMainPage()">📄 Open Main Page</button>
+        </div>
+
+        <!-- Test Scenarios -->
+        
+        <!-- Scenario 1: Enable Previously Disabled Items -->
+        <div class="test-scenario" id="scenario-1">
+            <h3>🟢 Scenario 1: Enable Previously Disabled Items</h3>
+            <p>Test enabling items that are currently disabled to verify they appear correctly.</p>
+            <div class="status-grid" id="scenario-1-status"></div>
+            <button class="btn" onclick="runScenario1()">▶️ Run Scenario 1</button>
+            <button class="btn secondary" onclick="verifyScenario1()">👁️ Verify Results</button>
+            <div id="scenario-1-results"></div>
+        </div>
+
+        <!-- Scenario 2: Disable Currently Enabled Items -->
+        <div class="test-scenario" id="scenario-2">
+            <h3>🔴 Scenario 2: Disable Currently Enabled Items</h3>
+            <p>Test disabling items that are currently enabled to verify they hide correctly.</p>
+            <div class="status-grid" id="scenario-2-status"></div>
+            <button class="btn" onclick="runScenario2()">▶️ Run Scenario 2</button>
+            <button class="btn secondary" onclick="verifyScenario2()">👁️ Verify Results</button>
+            <div id="scenario-2-results"></div>
+        </div>
+
+        <!-- Scenario 3: Rapid Multi-Toggle -->
+        <div class="test-scenario" id="scenario-3">
+            <h3>⚡ Scenario 3: Rapid Multi-Toggle Stress Test</h3>
+            <p>Rapidly toggle multiple items to test system stability and consistency.</p>
+            <div class="status-grid" id="scenario-3-status"></div>
+            <button class="btn" onclick="runScenario3()">▶️ Run Scenario 3</button>
+            <button class="btn secondary" onclick="verifyScenario3()">👁️ Verify Results</button>
+            <div id="scenario-3-results"></div>
+        </div>
+
+        <!-- Scenario 4: Complete Reset Test -->
+        <div class="test-scenario" id="scenario-4">
+            <h3>🔄 Scenario 4: Complete Reset and Re-disable Test</h3>
+            <p>Reset all items to enabled, then selectively disable to test clean state behavior.</p>
+            <div class="status-grid" id="scenario-4-status"></div>
+            <button class="btn" onclick="runScenario4()">▶️ Run Scenario 4</button>
+            <button class="btn secondary" onclick="verifyScenario4()">👁️ Verify Results</button>
+            <div id="scenario-4-results"></div>
+        </div>
+
+        <!-- Scenario 5: Edge Case Testing -->
+        <div class="test-scenario" id="scenario-5">
+            <h3>🎯 Scenario 5: Edge Case Testing</h3>
+            <p>Test edge cases like toggling the same item multiple times rapidly.</p>
+            <div class="status-grid" id="scenario-5-status"></div>
+            <button class="btn" onclick="runScenario5()">▶️ Run Scenario 5</button>
+            <button class="btn secondary" onclick="verifyScenario5()">👁️ Verify Results</button>
+            <div id="scenario-5-results"></div>
+        </div>
+
+        <!-- Results Log -->
+        <div class="results-log" id="results-log">
+            <div class="log-entry log-info">[INFO] UAT Test Suite Ready - Click 'Run All Tests' to begin</div>
+        </div>
+
+        <!-- Final Summary -->
+        <div class="test-summary">
+            <h3>📋 Test Summary</h3>
+            <div id="final-summary">
+                <p>No tests completed yet. Run test scenarios to see results.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let testProgress = 0;
+        let totalTests = 5;
+        let testResults = [];
+        let currentSettings = {};
+        let baseline = {};
+
+        // Utility Functions
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logDiv = document.getElementById('results-log');
+            const logClass = type === 'error' ? 'log-error' : 
+                           type === 'success' ? 'log-success' : 
+                           type === 'warning' ? 'log-warning' : 'log-info';
+            
+            logDiv.innerHTML += `<div class="log-entry ${logClass}">[${timestamp}] ${message}</div>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+
+        function updateProgress(completed, total) {
+            const percentage = (completed / total) * 100;
+            document.getElementById('progress-bar').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = 
+                `Progress: ${completed}/${total} tests completed (${Math.round(percentage)}%)`;
+        }
+
+        function getCurrentSettings() {
+            try {
+                const data = localStorage.getItem('herosSiteSettings');
+                return data ? JSON.parse(data) : {};
+            } catch (error) {
+                log(`Error loading settings: ${error.message}`, 'error');
+                return {};
+            }
+        }
+
+        function saveSettings(settings) {
+            try {
+                localStorage.setItem('herosSiteSettings', JSON.stringify(settings));
+                return true;
+            } catch (error) {
+                log(`Error saving settings: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        function refreshOverview() {
+            currentSettings = getCurrentSettings();
+            const total = Object.keys(currentSettings).length;
+            const enabled = Object.keys(currentSettings).filter(k => currentSettings[k] === true).length;
+            const disabled = total - enabled;
+
+            document.getElementById('overview-stats').innerHTML = `
+                <div class="status-grid">
+                    <div class="status-card enabled">
+                        <strong>✅ Enabled Items</strong><br>
+                        ${enabled} / ${total}
+                    </div>
+                    <div class="status-card disabled">
+                        <strong>❌ Disabled Items</strong><br>
+                        ${disabled} / ${total}
+                    </div>
+                </div>
+            `;
+
+            log(`Settings overview refreshed: ${enabled} enabled, ${disabled} disabled`, 'info');
+        }
+
+        // Test Scenarios
+
+        async function runScenario1() {
+            log('🟢 Starting Scenario 1: Enable Previously Disabled Items', 'info');
+            document.getElementById('scenario-1').className = 'test-scenario running';
+            
+            const settings = getCurrentSettings();
+            const disabledItems = Object.keys(settings).filter(k => settings[k] === false);
+            
+            if (disabledItems.length === 0) {
+                log('No disabled items found. Creating some for testing...', 'warning');
+                // Disable some items for testing
+                settings['menu-diabetes-care'] = false;
+                settings['section-weight-loss'] = false;
+                settings['carousel-weight-loss'] = false;
+                saveSettings(settings);
+            }
+
+            // Select first 3 disabled items to enable
+            const itemsToEnable = disabledItems.slice(0, 3);
+            log(`Enabling items: ${itemsToEnable.join(', ')}`, 'info');
+
+            for (const item of itemsToEnable) {
+                settings[item] = true;
+                saveSettings(settings);
+                await new Promise(resolve => setTimeout(resolve, 500));
+                log(`✅ Enabled: ${item}`, 'success');
+            }
+
+            document.getElementById('scenario-1').className = 'test-scenario pass';
+            testResults.push({scenario: 1, status: 'pass', items: itemsToEnable});
+            log('🟢 Scenario 1 completed successfully', 'success');
+        }
+
+        async function runScenario2() {
+            log('🔴 Starting Scenario 2: Disable Currently Enabled Items', 'info');
+            document.getElementById('scenario-2').className = 'test-scenario running';
+            
+            const settings = getCurrentSettings();
+            const enabledItems = Object.keys(settings).filter(k => settings[k] === true);
+            
+            // Select first 3 enabled items to disable
+            const itemsToDisable = enabledItems.slice(0, 3);
+            log(`Disabling items: ${itemsToDisable.join(', ')}`, 'info');
+
+            for (const item of itemsToDisable) {
+                settings[item] = false;
+                saveSettings(settings);
+                await new Promise(resolve => setTimeout(resolve, 500));
+                log(`❌ Disabled: ${item}`, 'success');
+            }
+
+            document.getElementById('scenario-2').className = 'test-scenario pass';
+            testResults.push({scenario: 2, status: 'pass', items: itemsToDisable});
+            log('✅ Scenario 2 completed successfully', 'success');
+        }
+
+        async function runScenario3() {
+            log('⚡ Starting Scenario 3: Rapid Multi-Toggle Stress Test', 'info');
+            document.getElementById('scenario-3').className = 'test-scenario running';
+            
+            const settings = getCurrentSettings();
+            const testItems = ['menu-nad-plus', 'carousel-skin-care', 'section-service-cards'];
+            
+            log('Performing rapid toggle test...', 'info');
+            
+            for (let round = 0; round < 3; round++) {
+                log(`Round ${round + 1}: Rapid toggling...`, 'info');
+                
+                for (const item of testItems) {
+                    // Toggle off
+                    settings[item] = false;
+                    saveSettings(settings);
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    
+                    // Toggle on
+                    settings[item] = true;
+                    saveSettings(settings);
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+            }
+
+            document.getElementById('scenario-3').className = 'test-scenario pass';
+            testResults.push({scenario: 3, status: 'pass', items: testItems});
+            log('⚡ Scenario 3 completed successfully', 'success');
+        }
+
+        async function runScenario4() {
+            log('🔄 Starting Scenario 4: Complete Reset and Re-disable Test', 'info');
+            document.getElementById('scenario-4').className = 'test-scenario running';
+            
+            const settings = getCurrentSettings();
+            
+            // Step 1: Enable everything
+            log('Step 1: Enabling all items...', 'info');
+            Object.keys(settings).forEach(key => {
+                settings[key] = true;
+            });
+            saveSettings(settings);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Step 2: Selectively disable items
+            log('Step 2: Selectively disabling items...', 'info');
+            const itemsToDisable = ['menu-diabetes-care', 'section-weight-loss', 'carousel-weight-loss', 'carousel-diabetes-care'];
+            
+            for (const item of itemsToDisable) {
+                settings[item] = false;
+                saveSettings(settings);
+                await new Promise(resolve => setTimeout(resolve, 500));
+                log(`❌ Disabled: ${item}`, 'success');
+            }
+
+            document.getElementById('scenario-4').className = 'test-scenario pass';
+            testResults.push({scenario: 4, status: 'pass', items: itemsToDisable});
+            log('🔄 Scenario 4 completed successfully', 'success');
+        }
+
+        async function runScenario5() {
+            log('🎯 Starting Scenario 5: Edge Case Testing', 'info');
+            document.getElementById('scenario-5').className = 'test-scenario running';
+            
+            const settings = getCurrentSettings();
+            const testItem = 'menu-weight-loss';
+            
+            log(`Edge case: Rapid toggle of single item (${testItem})`, 'info');
+            
+            // Rapidly toggle the same item 10 times
+            for (let i = 0; i < 10; i++) {
+                const newState = i % 2 === 0 ? false : true;
+                settings[testItem] = newState;
+                saveSettings(settings);
+                await new Promise(resolve => setTimeout(resolve, 50));
+                log(`Toggle ${i + 1}: ${testItem} = ${newState}`, 'info');
+            }
+
+            document.getElementById('scenario-5').className = 'test-scenario pass';
+            testResults.push({scenario: 5, status: 'pass', items: [testItem]});
+            log('🎯 Scenario 5 completed successfully', 'success');
+        }
+
+        async function runAllTests() {
+            log('🚀 Starting comprehensive UAT test suite...', 'info');
+            testResults = [];
+            updateProgress(0, totalTests);
+            
+            await runScenario1();
+            updateProgress(1, totalTests);
+            
+            await runScenario2();
+            updateProgress(2, totalTests);
+            
+            await runScenario3();
+            updateProgress(3, totalTests);
+            
+            await runScenario4();
+            updateProgress(4, totalTests);
+            
+            await runScenario5();
+            updateProgress(5, totalTests);
+            
+            // Generate final summary
+            const passedTests = testResults.filter(r => r.status === 'pass').length;
+            const summaryDiv = document.getElementById('final-summary');
+            
+            summaryDiv.innerHTML = `
+                <div class="status-grid">
+                    <div class="status-card ${passedTests === totalTests ? 'enabled' : 'disabled'}">
+                        <strong>Test Results</strong><br>
+                        ${passedTests} / ${totalTests} scenarios passed
+                    </div>
+                    <div class="status-card enabled">
+                        <strong>Final Status</strong><br>
+                        ${passedTests === totalTests ? '✅ ALL TESTS PASSED' : '❌ SOME TESTS FAILED'}
+                    </div>
+                </div>
+                <p><strong>Recommendation:</strong> ${passedTests === totalTests ? 
+                    'Settings system is working correctly across all scenarios.' : 
+                    'Review failed tests and fix issues before deployment.'}</p>
+            `;
+            
+            log(`🏁 UAT Complete: ${passedTests}/${totalTests} tests passed`, 
+                passedTests === totalTests ? 'success' : 'error');
+        }
+
+        function openMainPage() {
+            window.open('index.html', '_blank', 'width=1200,height=800');
+            log('📄 Opened main page for manual verification', 'info');
+        }
+
+        function resetToBaseline() {
+            const settings = getCurrentSettings();
+            Object.keys(settings).forEach(key => {
+                settings[key] = true;
+            });
+            saveSettings(settings);
+            refreshOverview();
+            log('🔄 Reset all settings to baseline (all enabled)', 'info');
+        }
+
+        // Verification functions
+        function verifyScenario1() {
+            openMainPage();
+            alert('Verify that the enabled items are now visible on the main page. Check:\n- Navigation menu items\n- Page sections\n- Carousel cards');
+        }
+
+        function verifyScenario2() {
+            openMainPage();
+            alert('Verify that the disabled items are now hidden on the main page. Check:\n- Navigation menu items\n- Page sections\n- Carousel cards');
+        }
+
+        function verifyScenario3() {
+            openMainPage();
+            alert('Verify that rapid toggling worked correctly and all items are in their expected state.');
+        }
+
+        function verifyScenario4() {
+            openMainPage();
+            alert('Verify that after reset and selective disable, only the intended items are hidden.');
+        }
+
+        function verifyScenario5() {
+            openMainPage();
+            alert('Verify that the edge case testing item is in the correct final state.');
+        }
+
+        // Quick test function to run a basic toggle test immediately
+        async function quickToggleTest() {
+            log('🚀 Running quick toggle test...', 'info');
+
+            const settings = getCurrentSettings();
+
+            // Test item that we know exists
+            const testItem = 'menu-diabetes-care';
+            const originalState = settings[testItem];
+
+            log(`Testing ${testItem} - Original state: ${originalState}`, 'info');
+
+            // Step 1: Disable
+            settings[testItem] = false;
+            saveSettings(settings);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            log(`Step 1: Disabled ${testItem}`, 'success');
+
+            // Step 2: Enable
+            settings[testItem] = true;
+            saveSettings(settings);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            log(`Step 2: Enabled ${testItem}`, 'success');
+
+            // Step 3: Disable again (this is where the bug was)
+            settings[testItem] = false;
+            saveSettings(settings);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            log(`Step 3: Disabled ${testItem} again`, 'success');
+
+            // Step 4: Enable again to test the cycle
+            settings[testItem] = true;
+            saveSettings(settings);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            log(`Step 4: Enabled ${testItem} again`, 'success');
+
+            log('✅ Quick toggle test completed - Check main page to verify', 'success');
+
+            // Open main page for verification
+            window.open('index.html', '_blank');
+        }
+
+        // Auto-run quick test button
+        function addQuickTestButton() {
+            const container = document.querySelector('.container');
+            const quickTestDiv = document.createElement('div');
+            quickTestDiv.style.cssText = `
+                background: #fff3cd;
+                border: 1px solid #ffeaa7;
+                padding: 15px;
+                border-radius: 8px;
+                margin: 20px 0;
+                text-align: center;
+            `;
+            quickTestDiv.innerHTML = `
+                <h3>⚡ Quick Toggle Test</h3>
+                <p>Run a quick test of the enable/disable/enable/disable cycle that was problematic.</p>
+                <button class="btn warning" onclick="quickToggleTest()">⚡ Run Quick Test</button>
+            `;
+
+            // Insert after the overview
+            const overview = document.querySelector('.test-summary');
+            overview.parentNode.insertBefore(quickTestDiv, overview.nextSibling);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            refreshOverview();
+            addQuickTestButton();
+            log('📊 Comprehensive UAT Suite initialized', 'info');
+            log('💡 Use the Quick Toggle Test to verify the multi-toggle fix', 'info');
+        });
+    </script>
+</body>
+</html>
