@@ -5275,7 +5275,7 @@ margin: 0rem !important;
           console.log(`👁️ Shown section: ${settingKey} (display: ${originalDisplay})`);
         }
       } else {
-        console.log(`❌ Section element not found for ${settingKey}: ${selector}`);
+        console.log(`�� Section element not found for ${settingKey}: ${selector}`);
       }
     });
 
@@ -5807,6 +5807,317 @@ margin: 0rem !important;
       }
     });
   }
+
+  // ====== CRO INTERACTIVE WIDGETS ======
+
+  // 1. Live Activity Feed
+  function initLiveActivityFeed() {
+    const activities = [
+      "Sarah from Austin just started skin assessment",
+      "Mike from NYC ordered ED treatment",
+      "Jennifer from LA completed hair consultation",
+      "David from Miami joined NAD+ program",
+      "Lisa from Seattle got skincare prescription",
+      "Carlos from Denver started assessment",
+      "Emma from Portland ordered treatment",
+      "Ryan from Chicago completed consultation"
+    ];
+
+    let activityIndex = 0;
+    const activityWidget = document.createElement('div');
+    activityWidget.innerHTML = `
+      <div id="live-activity" style="position: fixed; bottom: 20px; left: 20px; background: rgba(255, 255, 255, 0.95); border: 1px solid #e0e0e0; border-radius: 12px; padding: 12px 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); z-index: 1000; max-width: 300px; backdrop-filter: blur(10px); transform: translateY(100px); opacity: 0; transition: all 0.3s ease;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 8px; height: 8px; background: #70978F; border-radius: 50%; animation: pulse 2s infinite;"></div>
+          <span id="activity-text" style="font-size: 13px; font-weight: 500; color: #333;">Sarah from Austin just started skin assessment</span>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(activityWidget);
+
+    function showActivity() {
+      const widget = document.getElementById('live-activity');
+      const text = document.getElementById('activity-text');
+
+      widget.style.transform = 'translateY(0)';
+      widget.style.opacity = '1';
+
+      setTimeout(() => {
+        widget.style.transform = 'translateY(100px)';
+        widget.style.opacity = '0';
+      }, 4000);
+
+      setTimeout(() => {
+        activityIndex = (activityIndex + 1) % activities.length;
+        text.textContent = activities[activityIndex];
+      }, 5000);
+    }
+
+    setTimeout(showActivity, 3000);
+    setInterval(showActivity, 8000);
+  }
+
+  // 2. Floating Action Button
+  function initFloatingCTA() {
+    const floatingCTA = document.createElement('div');
+    floatingCTA.innerHTML = `
+      <div id="floating-cta" style="position: fixed; right: 20px; bottom: 80px; z-index: 1000; opacity: 0; transform: translateY(20px); transition: all 0.3s ease;">
+        <button onclick="scrollToAssessment()" style="background: linear-gradient(135deg, #e6b591 0%, #d4a574 100%); border: none; border-radius: 50px; padding: 16px 24px; color: white; font-weight: 700; font-size: 14px; cursor: pointer; box-shadow: 0 4px 20px rgba(230, 181, 145, 0.3); transition: all 0.3s ease; display: flex; align-items: center; gap: 8px;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 25px rgba(230, 181, 145, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 20px rgba(230, 181, 145, 0.3)'">
+          <span>Free Assessment</span>
+          <div style="background: rgba(255,255,255,0.2); border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">→</div>
+        </button>
+      </div>
+    `;
+    document.body.appendChild(floatingCTA);
+
+    window.addEventListener('scroll', () => {
+      const button = document.getElementById('floating-cta');
+      if (window.scrollY > 500) {
+        button.style.opacity = '1';
+        button.style.transform = 'translateY(0)';
+      } else {
+        button.style.opacity = '0';
+        button.style.transform = 'translateY(20px)';
+      }
+    });
+  }
+
+  // 3. Exit Intent Popup
+  function initExitIntentPopup() {
+    let exitIntentShown = false;
+
+    document.addEventListener('mouseleave', (e) => {
+      if (e.clientY <= 0 && !exitIntentShown) {
+        exitIntentShown = true;
+        showExitIntentPopup();
+      }
+    });
+  }
+
+  function showExitIntentPopup() {
+    const popup = document.createElement('div');
+    popup.innerHTML = `
+      <div id="exit-intent-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;">
+        <div style="background: white; border-radius: 16px; padding: 40px; max-width: 500px; margin: 20px; position: relative; animation: slideIn 0.3s ease;">
+          <button onclick="closeExitIntent()" style="position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: #999;">×</button>
+
+          <div style="text-align: center;">
+            <div style="background: linear-gradient(135deg, #e6b591, #d4a574); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 24px;">🎯</div>
+
+            <h3 style="margin: 0 0 16px; font-size: 24px; font-weight: 700; color: #1a1a1a;">Wait! Don't Miss Out</h3>
+            <p style="margin: 0 0 24px; color: #666; line-height: 1.5;">Get personalized health insights with our free assessment. Join 50,000+ patients who transformed their health.</p>
+
+            <div style="display: flex; gap: 12px; justify-content: center;">
+              <button onclick="startAssessment()" style="background: #e6b591; border: none; border-radius: 32px; padding: 14px 28px; color: white; font-weight: 700; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                Start Free Assessment
+              </button>
+              <button onclick="closeExitIntent()" style="background: transparent; border: 2px solid #ddd; border-radius: 32px; padding: 12px 24px; color: #666; font-weight: 600; cursor: pointer;">
+                Maybe Later
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style>
+        @keyframes slideIn {
+          from { transform: translateY(-20px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+      </style>
+    `;
+    document.body.appendChild(popup);
+
+    setTimeout(() => {
+      document.getElementById('exit-intent-overlay').style.opacity = '1';
+    }, 100);
+  }
+
+  // 4. Trust Badge Carousel
+  function initTrustBadgeCarousel() {
+    const trustBadges = [
+      { icon: "🏥", text: "FDA Approved", subtext: "Regulated treatments" },
+      { icon: "👨‍⚕️", text: "Board Certified", subtext: "Licensed doctors" },
+      { icon: "🔒", text: "HIPAA Compliant", subtext: "Your privacy protected" },
+      { icon: "📦", text: "Free Shipping", subtext: "Discreet delivery" },
+      { icon: "⭐", text: "4.8/5 Rating", subtext: "50k+ reviews" }
+    ];
+
+    const carousel = document.createElement('div');
+    carousel.innerHTML = `
+      <div id="trust-carousel" style="position: fixed; top: 50%; right: 0; transform: translateY(-50%); background: white; border-radius: 12px 0 0 12px; box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1); z-index: 999; padding: 20px 16px; width: 200px;">
+        <div id="trust-badge-content" style="text-align: center; transition: all 0.3s ease;">
+          <div style="font-size: 24px; margin-bottom: 8px;">🏥</div>
+          <div style="font-weight: 700; font-size: 14px; color: #1a1a1a; margin-bottom: 4px;">FDA Approved</div>
+          <div style="font-size: 12px; color: #666;">Regulated treatments</div>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 4px; margin-top: 12px;">
+          ${trustBadges.map((_, i) => `<div class="trust-dot" style="width: 6px; height: 6px; border-radius: 50%; background: ${i === 0 ? '#e6b591' : '#ddd'}; transition: all 0.3s ease;"></div>`).join('')}
+        </div>
+      </div>
+    `;
+    document.body.appendChild(carousel);
+
+    let currentBadge = 0;
+    setInterval(() => {
+      currentBadge = (currentBadge + 1) % trustBadges.length;
+      const badge = trustBadges[currentBadge];
+
+      document.getElementById('trust-badge-content').innerHTML = `
+        <div style="font-size: 24px; margin-bottom: 8px;">${badge.icon}</div>
+        <div style="font-weight: 700; font-size: 14px; color: #1a1a1a; margin-bottom: 4px;">${badge.text}</div>
+        <div style="font-size: 12px; color: #666;">${badge.subtext}</div>
+      `;
+
+      document.querySelectorAll('.trust-dot').forEach((dot, i) => {
+        dot.style.background = i === currentBadge ? '#e6b591' : '#ddd';
+      });
+    }, 3000);
+  }
+
+  // 5. Interactive Progress Bar
+  function initProgressBar() {
+    const progressBar = document.createElement('div');
+    progressBar.innerHTML = `
+      <div id="progress-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: rgba(230, 181, 145, 0.2); z-index: 9999;">
+        <div id="progress-bar" style="height: 100%; background: linear-gradient(90deg, #e6b591, #d4a574); width: 0%; transition: width 0.3s ease;"></div>
+      </div>
+    `;
+    document.body.appendChild(progressBar);
+
+    window.addEventListener('scroll', () => {
+      const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = (window.scrollY / windowHeight) * 100;
+      document.getElementById('progress-bar').style.width = Math.min(scrolled, 100) + '%';
+    });
+  }
+
+  // 6. Quick Assessment Widget
+  function initQuickAssessment() {
+    const assessment = document.createElement('div');
+    assessment.innerHTML = `
+      <div id="quick-assessment" style="position: fixed; bottom: 20px; right: 20px; background: white; border-radius: 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); z-index: 1001; width: 320px; transform: translateY(400px); transition: all 0.4s ease; border: 1px solid #f0f0f0;">
+        <div style="background: linear-gradient(135deg, #e6b591, #d4a574); padding: 20px; border-radius: 16px 16px 0 0; color: white;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="margin: 0; font-weight: 700;">Quick Health Assessment</h4>
+            <button onclick="toggleAssessment()" style="background: rgba(255,255,255,0.2); border: none; border-radius: 50%; width: 30px; height: 30px; color: white; cursor: pointer; font-size: 16px;">×</button>
+          </div>
+          <p style="margin: 8px 0 0; font-size: 14px; opacity: 0.9;">2-minute personalized health check</p>
+        </div>
+
+        <div id="assessment-content" style="padding: 24px;">
+          <div id="question-1" class="assessment-question">
+            <p style="margin: 0 0 16px; font-weight: 600; color: #1a1a1a;">What's your primary health concern?</p>
+            <div style="display: grid; gap: 8px;">
+              <button class="assessment-option" onclick="selectOption(this, 'ed')" style="background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 8px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.3s ease;">ED & Sexual Health</button>
+              <button class="assessment-option" onclick="selectOption(this, 'skin')" style="background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 8px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.3s ease;">Skin & Anti-Aging</button>
+              <button class="assessment-option" onclick="selectOption(this, 'hair')" style="background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 8px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.3s ease;">Hair Loss</button>
+              <button class="assessment-option" onclick="selectOption(this, 'longevity')" style="background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 8px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.3s ease;">Longevity & NAD+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(assessment);
+
+    window.addEventListener('scroll', () => {
+      const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      if (scrollPercent > 50 && !assessment.classList.contains('shown')) {
+        assessment.classList.add('shown');
+        document.getElementById('quick-assessment').style.transform = 'translateY(0)';
+      }
+    });
+  }
+
+  // 7. Social Proof Counter
+  function initSocialProofCounter() {
+    const counter = document.createElement('div');
+    counter.innerHTML = `
+      <div id="social-proof-counter" style="position: fixed; top: 100px; left: 20px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 12px; padding: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); z-index: 998; border: 1px solid rgba(230, 181, 145, 0.2);">
+        <div style="text-align: center;">
+          <div id="patient-counter" style="font-size: 24px; font-weight: 700; color: #e6b591; margin-bottom: 4px;">2,547,891</div>
+          <div style="font-size: 12px; color: #666; font-weight: 500;">Patients Treated</div>
+          <div style="font-size: 10px; color: #999; margin-top: 4px;">+127 today</div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(counter);
+
+    let count = 2547891;
+    setInterval(() => {
+      count += Math.floor(Math.random() * 3) + 1;
+      document.getElementById('patient-counter').textContent = count.toLocaleString();
+    }, 30000);
+  }
+
+  // Helper Functions
+  window.scrollToAssessment = function() {
+    document.getElementById('quick-assessment').style.transform = 'translateY(0)';
+  };
+
+  window.closeExitIntent = function() {
+    document.getElementById('exit-intent-overlay').style.opacity = '0';
+    setTimeout(() => {
+      document.getElementById('exit-intent-overlay').remove();
+    }, 300);
+  };
+
+  window.startAssessment = function() {
+    closeExitIntent();
+    scrollToAssessment();
+  };
+
+  window.toggleAssessment = function() {
+    const widget = document.getElementById('quick-assessment');
+    const isOpen = widget.style.transform === 'translateY(0px)';
+    widget.style.transform = isOpen ? 'translateY(400px)' : 'translateY(0)';
+  };
+
+  window.selectOption = function(button, value) {
+    document.querySelectorAll('.assessment-option').forEach(opt => {
+      opt.style.background = '#f8f9fa';
+      opt.style.borderColor = '#e9ecef';
+      opt.style.color = '#333';
+    });
+
+    button.style.background = '#e6b591';
+    button.style.borderColor = '#e6b591';
+    button.style.color = 'white';
+
+    setTimeout(() => {
+      const content = document.getElementById('assessment-content');
+      content.innerHTML = `
+        <div style="text-align: center;">
+          <div style="background: #e6f7ff; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px;">✓</div>
+          <h4 style="margin: 0 0 8px; color: #1a1a1a;">Perfect!</h4>
+          <p style="margin: 0 0 20px; color: #666; font-size: 14px;">We've personalized your experience. Start your consultation now.</p>
+          <button onclick="window.open('#', '_blank')" style="background: #e6b591; border: none; border-radius: 32px; padding: 14px 28px; color: white; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+            Start My Consultation
+          </button>
+        </div>
+      `;
+    }, 500);
+  };
+
+  // Initialize all widgets
+  function initializeWidgets() {
+    initLiveActivityFeed();
+    initFloatingCTA();
+    initExitIntentPopup();
+    initTrustBadgeCarousel();
+    initProgressBar();
+    initQuickAssessment();
+    initSocialProofCounter();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(initializeWidgets, 2000);
+    });
+  } else {
+    setTimeout(initializeWidgets, 2000);
+  }
+
 </script>
 
 </body>
