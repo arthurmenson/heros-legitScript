@@ -1,0 +1,13 @@
+{
+  "name": "heros-webflow-site",
+  "version": "1.0.0",
+  "description": "Heros healthcare website built with Webflow",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server . -p 8000",
+    "serve": "http-server . -p 8000"
+  },
+  "keywords": ["webflow", "healthcare", "static-site"],
+  "author": "",
+  "license": "ISC"
+}
