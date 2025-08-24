@@ -702,6 +702,74 @@
     overflow: visible; /* Allow content to flow to container level */
   }
 
+  /* Mobile-only layout changes */
+  @media (min-width: 769px) {
+    /* Desktop: Restore original layout for ED meds section */
+    .ed-meds-content .ed-meds-inner-grid {
+      display: none !important;
+    }
+
+    .ed-meds-column.second {
+      display: flex !important;
+    }
+
+    .ed-meds-column.second .ed-meds-inner-grid {
+      display: grid !important;
+      gap: 16px;
+      grid-template: auto auto / 1fr 1fr;
+      grid-template-rows: auto auto;
+      margin-bottom: 196px;
+      padding-bottom: 6px;
+      position: relative;
+    }
+
+    /* Desktop: Restore original layout for hair regrowth section */
+    .hair-regrowth-content > img:first-child {
+      display: none !important;
+    }
+
+    /* Desktop: Restore original layout for NAD+ section */
+    .nad-section-images-top {
+      display: none !important;
+    }
+
+    .nad-section-content {
+      margin-top: 0 !important;
+      max-width: 486px !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    /* Mobile: Keep current layout changes */
+    .ed-meds-column.second {
+      display: none !important;
+    }
+
+    .ed-meds-content .ed-meds-inner-grid {
+      display: grid !important;
+    }
+
+    /* Mobile: Stack layout vertically */
+    .ed-meds-grid {
+      flex-direction: column !important;
+    }
+
+    /* Mobile: Full width content */
+    .ed-meds-column {
+      width: 100% !important;
+      margin-left: 0 !important;
+    }
+
+    /* Mobile: Adjust spacing */
+    .hair-regrowth-content > img:first-child {
+      margin-bottom: 24px;
+    }
+
+    .nad-section-content {
+      margin-top: 24px !important;
+    }
+  }
+
   .section_home-7 .div-block-107 {
     padding: 0; /* Reset any extra padding to match standard sections */
   }
@@ -5721,7 +5789,7 @@ margin: 0rem !important;
           console.log('🙈 Hidden ED Meds section container');
         } else {
           edMedsGrid.style.display = 'none';
-          console.log('�� Hidden ED Meds grid directly');
+          console.log('🙈 Hidden ED Meds grid directly');
         }
       }
     }
