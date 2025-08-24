@@ -713,16 +713,6 @@
       display: flex !important;
     }
 
-    .ed-meds-column.second .ed-meds-inner-grid {
-      display: grid !important;
-      gap: 16px;
-      grid-template: auto auto / 1fr 1fr;
-      grid-template-rows: auto auto;
-      margin-bottom: 196px;
-      padding-bottom: 6px;
-      position: relative;
-    }
-
     /* Desktop: Restore original layout for hair regrowth section */
     .hair-regrowth-content > img:first-child {
       display: none !important;
@@ -737,10 +727,18 @@
       margin-top: 0 !important;
       max-width: 486px !important;
     }
+
+    .nad-section-images-column {
+      display: flex !important;
+    }
+
+    .nad-section-columns {
+      display: flex !important;
+    }
   }
 
   @media (max-width: 768px) {
-    /* Mobile: Keep current layout changes */
+    /* Mobile: ED meds section changes */
     .ed-meds-column.second {
       display: none !important;
     }
@@ -749,24 +747,36 @@
       display: grid !important;
     }
 
-    /* Mobile: Stack layout vertically */
     .ed-meds-grid {
       flex-direction: column !important;
     }
 
-    /* Mobile: Full width content */
     .ed-meds-column {
       width: 100% !important;
       margin-left: 0 !important;
     }
 
-    /* Mobile: Adjust spacing */
+    /* Mobile: Hair regrowth section changes */
     .hair-regrowth-content > img:first-child {
+      display: block !important;
       margin-bottom: 24px;
+    }
+
+    /* Mobile: NAD+ section changes */
+    .nad-section-images-top {
+      display: grid !important;
     }
 
     .nad-section-content {
       margin-top: 24px !important;
+    }
+
+    .nad-section-images-column {
+      display: none !important;
+    }
+
+    .nad-section-columns {
+      display: block !important;
     }
   }
 
@@ -6362,7 +6372,7 @@ margin: 0rem !important;
           <button onclick="closeExitIntent()" style="position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: #999;">×</button>
 
           <div style="text-align: center;">
-            <div style="background: linear-gradient(135deg, #e6b591, #d4a574); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 24px;">🎯</div>
+            <div style="background: linear-gradient(135deg, #e6b591, #d4a574); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 24px;">���</div>
 
             <h3 style="margin: 0 0 16px; font-size: 24px; font-weight: 700; color: #1a1a1a;">Wait! Don't Miss Out</h3>
             <p style="margin: 0 0 24px; color: #666; line-height: 1.5;">Get personalized health insights with our free assessment. Join 50,000+ patients who transformed their health.</p>
@@ -6399,7 +6409,7 @@ margin: 0rem !important;
       { icon: "🏥", text: "FDA Approved", subtext: "Regulated treatments" },
       { icon: "👨‍⚕️", text: "Board Certified", subtext: "Licensed doctors" },
       { icon: "🔒", text: "HIPAA Compliant", subtext: "Your privacy protected" },
-      { icon: "��", text: "Free Shipping", subtext: "Discreet delivery" },
+      { icon: "📦", text: "Free Shipping", subtext: "Discreet delivery" },
       { icon: "⭐", text: "4.8/5 Rating", subtext: "50k+ reviews" }
     ];
 
