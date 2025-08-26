@@ -3015,6 +3015,40 @@
       max-width: 557px !important;
     }
   }
+
+  /* Responsive CSS for NAD+ section restructure */
+  .nad-two-column-container {
+    display: flex;
+    gap: 20px;
+  }
+
+  .nad-column {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 50%;
+  }
+
+  .nad-column:first-child {
+    margin-left: 0px;
+  }
+
+  .nad-column:last-child {
+    margin-left: 20px;
+  }
+
+  @media (max-width: 991px) {
+    .nad-two-column-container {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0px;
+    }
+
+    .nad-column {
+      width: 100%;
+      margin-left: 0 !important;
+    }
+  }
 }
 </style>
 </head>
@@ -4456,7 +4490,7 @@ margin: 0rem !important;
                       <span style="color: #FFD700; font-size: 14px;">★</span>
                       <span style="color: #FFD700; font-size: 14px;">★</span>
                       <span style="color: #FFD700; font-size: 14px;">★</span>
-                      <span style="color: #FFD700; font-size: 14px;">��</span>
+                      <span style="color: #FFD700; font-size: 14px;">���</span>
                     </div>
                     <span style="color: #666; font-size: 13px; font-weight: 500;">4.8/5 from 12,000+ users</span>
                   </div>
@@ -5647,7 +5681,7 @@ margin: 0rem !important;
             element.removeAttribute('aria-hidden');
             element.classList.remove('heros-force-hidden');
 
-            console.log(`👁️ Shown menu item ${index + 1}: ${settingKey} (display: ${originalDisplay})`);
+            console.log(`👁��� Shown menu item ${index + 1}: ${settingKey} (display: ${originalDisplay})`);
           }
         });
       } else {
@@ -5753,7 +5787,7 @@ margin: 0rem !important;
           console.log('🙈 Hidden ED Meds section container');
         } else {
           edMedsGrid.style.display = 'none';
-          console.log('🙈 Hidden ED Meds grid directly');
+          console.log('�� Hidden ED Meds grid directly');
         }
       }
     }
@@ -5851,7 +5885,7 @@ margin: 0rem !important;
             element.removeAttribute('aria-hidden');
             element.classList.remove('heros-force-hidden');
 
-            console.log(`👁️ Shown carousel item ${index + 1}: ${settingKey} (display: ${originalDisplay})`);
+            console.log(`👁�� Shown carousel item ${index + 1}: ${settingKey} (display: ${originalDisplay})`);
           }
         });
       } else {
