@@ -1,0 +1,33 @@
+/* Responsive CSS for NAD+ section restructure */
+.nad-two-column-container {
+  display: flex;
+  gap: 20px;
+}
+
+.nad-column {
+  display: flex;
+  flex-direction: column;
+  line-height: normal;
+  width: 50%;
+}
+
+.nad-column:first-child {
+  margin-left: 0px;
+}
+
+.nad-column:last-child {
+  margin-left: 20px;
+}
+
+@media (max-width: 991px) {
+  .nad-two-column-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0px;
+  }
+  
+  .nad-column {
+    width: 100%;
+    margin-left: 0 !important;
+  }
+}
