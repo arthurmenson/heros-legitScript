@@ -750,14 +750,45 @@ class DatabaseManager {
       console.warn('⚠️ Database connection test failed, using fallback:', errorMsg);
 
       // Return success for fallback mode instead of complete failure
-      return {
+      const result = {
         success: true,
         error: errorMsg,
         message: 'Connection test failed, using fallback storage (localStorage)',
         step: 'fallback_general_error',
         fallback: true
       };
+
+      // Safety check to ensure no [object Object] in return values
+      return this.sanitizeReturnObject(result);
     }
+  }
+
+  // Safety method to ensure return objects don't contain [object Object] values
+  sanitizeReturnObject(obj) {
+    if (!obj || typeof obj !== 'object') return obj;
+
+    const sanitized = {};
+    for (const [key, value] of Object.entries(obj)) {
+      if (typeof value === 'string' && value === '[object Object]') {
+        console.warn(`⚠️ Prevented [object Object] in return value for key: ${key}`);
+        sanitized[key] = 'Error (could not display object)';
+      } else if (typeof value === 'object' && value !== null) {
+        const stringified = String(value);
+        if (stringified === '[object Object]') {
+          try {
+            sanitized[key] = JSON.stringify(value);
+          } catch (e) {
+            sanitized[key] = `Error object (${value.constructor?.name || 'Unknown'})`;
+          }
+        } else {
+          sanitized[key] = value;
+        }
+      } else {
+        sanitized[key] = value;
+      }
+    }
+
+    return sanitized;
   }
 }
 
