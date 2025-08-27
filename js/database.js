@@ -1,13 +1,15 @@
 // Supabase Database Configuration and Utilities
 // Connection string: postgres://postgres:P!33w0rd@db.bvpyedvojwfnlztwqile.supabase.co:6543/postgres
 
-// Parse the connection string
+// Extract project ref from connection string
 const DB_URL = 'postgres://postgres:P!33w0rd@db.bvpyedvojwfnlztwqile.supabase.co:6543/postgres';
-const urlParts = new URL(DB_URL);
+const PROJECT_REF = 'bvpyedvojwfnlztwqile'; // Extracted from hostname
 
 // Supabase configuration
-const SUPABASE_URL = `https://${urlParts.hostname.split('.')[0]}.supabase.co`;
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2cHllZHZvandmbmx6dHdxaWxlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUwMTcxNzYsImV4cCI6MjA1MDU5MzE3Nn0.gXyOl4qnH7TL_uR3eqzQzY8G5tJ2P5a6B4z0TdV4Frw'; // Default anon key pattern
+const SUPABASE_URL = `https://${PROJECT_REF}.supabase.co`;
+// Note: You'll need to get the real anon key from your Supabase dashboard
+// For now, we'll try to connect without it and provide better error messages
+const SUPABASE_ANON_KEY = null; // Will be set dynamically
 
 class DatabaseManager {
   constructor() {
@@ -18,30 +20,104 @@ class DatabaseManager {
   // Initialize Supabase client
   async init() {
     try {
-      // Import Supabase client dynamically
-      const { createClient } = await import('https://cdn.skypack.dev/@supabase/supabase-js@2');
-      
-      this.supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      console.log('🔄 Initializing database connection...');
+      console.log('📡 Supabase URL:', SUPABASE_URL);
+
+      // Try to load Supabase client
+      let createClient;
+      try {
+        // Try different CDN sources
+        try {
+          console.log('📦 Loading Supabase from CDN...');
+          const module = await import('https://cdn.skypack.dev/@supabase/supabase-js@2');
+          createClient = module.createClient;
+        } catch (cdnError) {
+          console.warn('⚠️ CDN import failed, trying alternative...');
+          // Fallback to unpkg
+          const module = await import('https://unpkg.com/@supabase/supabase-js@2/dist/main.js');
+          createClient = module.createClient;
+        }
+      } catch (importError) {
+        console.error('❌ Failed to import Supabase client:', importError);
+        throw new Error(`Failed to load Supabase client: ${importError.message}`);
+      }
+
+      if (!createClient) {
+        throw new Error('Supabase createClient function not available');
+      }
+
+      // Get anon key (this is a placeholder - you need the real key)
+      const anonKey = this.getAnonKey();
+
+      console.log('🔑 Using anon key:', anonKey ? 'Found' : 'Missing');
+
+      this.supabase = createClient(SUPABASE_URL, anonKey, {
         auth: {
-          persistSession: true,
-          autoRefreshToken: true
+          persistSession: false, // Disable for now to avoid auth issues
+          autoRefreshToken: false
         },
         db: {
           schema: 'public'
         }
       });
-      
+
       this.isInitialized = true;
-      console.log('✅ Database connection initialized');
-      
-      // Ensure tables exist
-      await this.ensureTablesExist();
-      
+      console.log('✅ Database client initialized');
+
+      // Test basic connection
+      await this.testBasicConnection();
+
       return this.supabase;
     } catch (error) {
-      console.error('❌ Database initialization failed:', error);
-      throw new Error('Failed to connect to database');
+      console.error('❌ Database initialization failed:', this.getErrorMessage(error));
+      this.isInitialized = false;
+      throw error;
     }
+  }
+
+  // Get anon key - in production, this should come from environment variables
+  getAnonKey() {
+    // This is a placeholder anon key pattern for the project
+    // You need to get the real anon key from your Supabase dashboard
+    return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2cHllZHZvandmbmx6dHdxaWxlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAwMDAwMDAsImV4cCI6MjA0NTAwMDAwMH0.placeholder';
+  }
+
+  // Test basic connection without table access
+  async testBasicConnection() {
+    try {
+      console.log('🧪 Testing basic connection...');
+
+      // Try a simple health check
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/`, {
+        headers: {
+          'apikey': this.getAnonKey(),
+          'Authorization': `Bearer ${this.getAnonKey()}`
+        }
+      });
+
+      console.log('📡 Health check response status:', response.status);
+
+      if (response.status === 200 || response.status === 404) {
+        console.log('✅ Basic connection successful');
+        return true;
+      } else {
+        const text = await response.text();
+        console.log('❌ Connection issue:', text);
+        return false;
+      }
+    } catch (error) {
+      console.error('❌ Basic connection test failed:', this.getErrorMessage(error));
+      return false;
+    }
+  }
+
+  // Helper to extract error messages properly
+  getErrorMessage(error) {
+    if (typeof error === 'string') return error;
+    if (error?.message) return error.message;
+    if (error?.error) return error.error;
+    if (error?.details) return error.details;
+    return JSON.stringify(error, Object.getOwnPropertyNames(error));
   }
 
   // Ensure required tables exist
@@ -281,25 +357,67 @@ class DatabaseManager {
   // Test database connection
   async testConnection() {
     try {
+      console.log('🧪 Starting comprehensive connection test...');
+
       if (!this.isInitialized) {
+        console.log('🔄 Database not initialized, initializing now...');
         await this.init();
       }
 
+      if (!this.supabase) {
+        throw new Error('Supabase client not available');
+      }
+
+      console.log('🔍 Testing table access...');
+
+      // Try to access the users table
       const { data, error } = await this.supabase
         .from('users')
         .select('count')
         .limit(1);
 
-      if (error && error.code !== 'PGRST116') {
-        throw error;
+      if (error) {
+        console.log('📋 Table access error:', this.getErrorMessage(error));
+
+        if (error.code === 'PGRST116') {
+          console.log('ℹ️ Users table does not exist - this is expected for first setup');
+          return {
+            success: true,
+            message: 'Connection successful (table needs to be created)',
+            needsSetup: true
+          };
+        } else if (error.code === '42P01') {
+          console.log('ℹ️ Table does not exist - setup required');
+          return {
+            success: true,
+            message: 'Connection successful (database setup required)',
+            needsSetup: true
+          };
+        } else {
+          console.error('❌ Database access error:', this.getErrorMessage(error));
+          return {
+            success: false,
+            error: this.getErrorMessage(error),
+            message: 'Database connection failed'
+          };
+        }
       }
 
-      console.log('✅ Database connection test successful');
-      return { success: true, message: 'Connection successful' };
+      console.log('✅ Database connection and table access successful');
+      return {
+        success: true,
+        message: 'Connection and table access successful',
+        data: data
+      };
 
     } catch (error) {
-      console.error('❌ Database connection test failed:', error);
-      return { success: false, error: error.message };
+      const errorMsg = this.getErrorMessage(error);
+      console.error('❌ Database connection test failed:', errorMsg);
+      return {
+        success: false,
+        error: errorMsg,
+        message: 'Database connection test failed'
+      };
     }
   }
 }
