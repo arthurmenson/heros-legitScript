@@ -1,0 +1,882 @@
+/* Mobile/Tablet Responsive Styles - Based on Figma Design */
+
+/* Mobile-first approach with responsive design */
+@media (max-width: 991px) {
+  
+  /* Base mobile container */
+  .mobile-layout {
+    width: 100%;
+    max-width: 375px;
+    margin: 0 auto;
+    background: #fff;
+    position: relative;
+  }
+
+  /* Top Banner */
+  .mobile-top-banner {
+    width: 100%;
+    height: 40px;
+    background: #f1ede7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+  }
+
+  .mobile-banner-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .mobile-banner-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mobile-banner-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .mobile-banner-text {
+    color: #000;
+    font-family: 'Rethink', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 120%;
+    letter-spacing: -0.36px;
+    opacity: 0.5;
+  }
+
+  /* Mobile Navigation */
+  .mobile-nav {
+    display: flex;
+    padding: 12px 20px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eaeaea;
+    background: #fff;
+  }
+
+  .mobile-logo {
+    color: #000;
+    font-family: 'Recoleta', serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: -0.72px;
+  }
+
+  .mobile-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mobile-nav-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+  }
+
+  /* Mobile Hero Section */
+  .mobile-hero {
+    display: flex;
+    width: 334px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+    margin: 48px auto 0;
+    padding: 0 21px;
+  }
+
+  .mobile-hero-title {
+    width: 100%;
+    font-family: 'Recoleta', serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 35px;
+    letter-spacing: -0.96px;
+  }
+
+  .mobile-hero-title .highlight-text {
+    color: #d5b331;
+  }
+
+  .mobile-hero-subtitle {
+    width: 100%;
+    color: #000;
+    font-family: 'Rethink', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: -0.48px;
+  }
+
+  /* Mobile Service Cards */
+  .mobile-service-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 48px 20px;
+    max-width: 375px;
+    margin: 0 auto;
+  }
+
+  /* Weight Loss Card - Special Layout */
+  .mobile-weight-loss-card {
+    display: flex;
+    align-items: flex-end;
+    width: 164px;
+    height: 250px;
+    border-radius: 16px;
+    background: #f1ede7;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mobile-weight-loss-card .card-image {
+    width: 153px;
+    height: 183px;
+    border-radius: 0 0 16px 16px;
+    position: absolute;
+    left: 1px;
+    top: 21px;
+    object-fit: cover;
+  }
+
+  .mobile-weight-loss-card .card-title {
+    position: absolute;
+    left: 29px;
+    top: 220px;
+    color: #000;
+    text-align: center;
+    font-family: 'Recoleta', serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 28px;
+    letter-spacing: -0.6px;
+  }
+
+  .mobile-weight-loss-card .card-cta {
+    position: absolute;
+    left: 36px;
+    bottom: 16px;
+    display: inline-flex;
+    padding: 7px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 32px;
+    border: 1px solid #eb1f1f;
+    background: transparent;
+    text-decoration: none;
+  }
+
+  .mobile-weight-loss-card .card-cta-text {
+    color: #000;
+    text-align: center;
+    font-family: 'Rethink', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 18px;
+    letter-spacing: -0.36px;
+  }
+
+  /* Men's ED Card - Special Layout */
+  .mobile-mens-ed-card {
+    width: 163px;
+    height: 250px;
+    border-radius: 16px;
+    background: #f2ece4;
+    position: relative;
+    overflow: hidden;
+    margin-left: auto;
+  }
+
+  .mobile-mens-ed-card .card-image {
+    width: 163px;
+    height: 250px;
+    border-radius: 16px;
+    object-fit: cover;
+  }
+
+  .mobile-mens-ed-card .card-content {
+    position: absolute;
+    top: 20px;
+    left: 41px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .mobile-mens-ed-card .card-title {
+    color: #000;
+    text-align: center;
+    font-family: 'Recoleta', serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 28px;
+    letter-spacing: -0.6px;
+  }
+
+  .mobile-mens-ed-card .card-cta {
+    position: absolute;
+    left: 35px;
+    bottom: 36px;
+    display: inline-flex;
+    padding: 7px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 32px;
+    border: 1px solid #eb1f1f;
+    background: transparent;
+    text-decoration: none;
+  }
+
+  /* Horizontal Service Cards */
+  .mobile-service-card-horizontal {
+    width: 335px;
+    height: 114px;
+    border-radius: 16px;
+    background: #f1ede7;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+
+  .mobile-service-card-horizontal .card-image {
+    width: 137px;
+    height: 114px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .mobile-service-card-horizontal .card-gradient {
+    width: 112px;
+    height: 114px;
+    background: linear-gradient(270deg, rgba(244, 238, 230, 0.00) 0%, #f1eae3 100%);
+    position: relative;
+  }
+
+  .mobile-service-card-horizontal .card-content {
+    display: flex;
+    width: 142px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .mobile-service-card-horizontal .card-title {
+    color: #000;
+    font-family: 'Recoleta', serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.54px;
+  }
+
+  .mobile-service-card-horizontal .card-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+  }
+
+  .mobile-service-card-horizontal .card-cta-secondary {
+    display: flex;
+    padding: 7px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 32px;
+    border: 1px solid #d9d9d9;
+    background: transparent;
+    text-decoration: none;
+  }
+
+  .mobile-service-card-horizontal .card-cta-primary {
+    display: flex;
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 32px;
+    background: #000;
+    text-decoration: none;
+  }
+
+  .mobile-service-card-horizontal .card-cta-text {
+    color: #000;
+    text-align: center;
+    font-family: 'Rethink', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 18px;
+    letter-spacing: -0.36px;
+  }
+
+  .mobile-service-card-horizontal .card-cta-primary .card-cta-text {
+    color: #fff;
+  }
+
+  /* Hero Cards */
+  .mobile-hero-card {
+    width: 335px;
+    height: 332px;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    margin: 16px auto;
+  }
+
+  .mobile-hero-card .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .mobile-hero-card .hero-content {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 280px;
+  }
+
+  .mobile-hero-card .hero-title {
+    color: #000;
+    font-family: 'Recoleta', serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 40px;
+    letter-spacing: -0.96px;
+  }
+
+  .mobile-hero-card.dark .hero-title {
+    color: #fff;
+  }
+
+  .mobile-hero-card .hero-subtitle {
+    font-family: 'Rethink', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.54px;
+    color: #000;
+  }
+
+  .mobile-hero-card.dark .hero-subtitle {
+    color: #fff;
+  }
+
+  .mobile-hero-card .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* Power Performance Card */
+  .mobile-power-card {
+    width: 335px;
+    height: 495px;
+    border-radius: 16px;
+    background: #adc9c4;
+    position: relative;
+    margin: 16px auto;
+    overflow: hidden;
+  }
+
+  .mobile-power-card .power-content {
+    position: absolute;
+    left: 20px;
+    top: 32px;
+    color: #fff;
+  }
+
+  .mobile-power-card .power-title {
+    font-family: 'Recoleta', serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 40px;
+    letter-spacing: -0.96px;
+    margin-bottom: 16px;
+  }
+
+  .mobile-power-card .power-subtitle {
+    font-family: 'Recoleta', serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 40px;
+    letter-spacing: -0.96px;
+    color: #000;
+    margin-bottom: 32px;
+  }
+
+  .mobile-power-card .power-cta {
+    display: inline-flex;
+    padding: 12px 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 32px;
+    border: 1px solid #fff;
+    background: transparent;
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Rethink', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 18px;
+    letter-spacing: -0.36px;
+  }
+
+  /* Testimonial Card */
+  .mobile-testimonial-card {
+    width: 335px;
+    height: 332px;
+    border-radius: 16px;
+    background: #fbfbfb;
+    padding: 32px 20px;
+    margin: 16px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .mobile-testimonial-card .testimonial-logo {
+    width: 89px;
+    height: 26px;
+  }
+
+  .mobile-testimonial-card .testimonial-text {
+    color: #000;
+    font-family: 'Rethink', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.54px;
+    flex-grow: 1;
+  }
+
+  .mobile-testimonial-card .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mobile-testimonial-card .author-image {
+    width: 52px;
+    height: 52px;
+    border-radius: 50px;
+    object-fit: cover;
+  }
+
+  .mobile-testimonial-card .author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .mobile-testimonial-card .author-name {
+    color: #0c0c0c;
+    font-family: 'Rethink', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: -0.72px;
+  }
+
+  .mobile-testimonial-card .author-title {
+    color: #0c0c0c;
+    font-family: 'Rethink', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+    opacity: 0.6;
+  }
+
+  /* Section Titles */
+  .mobile-section-title {
+    color: #000;
+    text-align: center;
+    font-family: 'Recoleta', serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 40px;
+    letter-spacing: -0.96px;
+    margin: 48px auto 32px;
+    max-width: 320px;
+    padding: 0 28px;
+  }
+
+  /* BMI Calculator */
+  .mobile-bmi-calculator {
+    width: 335px;
+    height: 316px;
+    border-radius: 24px;
+    background: #fff2c0;
+    padding: 20px;
+    margin: 16px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mobile-bmi-calculator .bmi-title {
+    color: #000;
+    font-family: 'Recoleta', serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.6px;
+    max-width: 145px;
+  }
+
+  .mobile-bmi-calculator .bmi-scale {
+    width: 100%;
+    height: 116px;
+    margin: 16px 0;
+  }
+
+  .mobile-bmi-calculator .bmi-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .mobile-bmi-calculator .bmi-label {
+    color: #000;
+    font-family: 'Rethink', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.48px;
+  }
+
+  .mobile-bmi-calculator .bmi-inputs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mobile-bmi-calculator .bmi-input {
+    width: 130px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.60);
+    background: rgba(255, 255, 255, 0.24);
+    padding: 0 14px;
+    font-family: 'Rethink', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: -0.36px;
+    color: #000;
+  }
+
+  .mobile-bmi-calculator .bmi-input::placeholder {
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  /* How It Works Section */
+  .mobile-how-it-works {
+    padding: 48px 20px;
+    max-width: 375px;
+    margin: 0 auto;
+  }
+
+  .mobile-how-it-works .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .mobile-how-it-works .section-title {
+    color: #000;
+    font-family: 'Recoleta', serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 48px;
+    letter-spacing: -0.96px;
+  }
+
+  .mobile-how-it-works .section-subtitle {
+    color: #000;
+    font-family: 'Rethink', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: -0.6px;
+  }
+
+  .mobile-how-it-works .steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mobile-how-it-works .step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .mobile-how-it-works .step-icon {
+    display: flex;
+    width: 48px;
+    height: 48px;
+    padding: 6px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 24px;
+    flex-shrink: 0;
+  }
+
+  .mobile-how-it-works .step-icon.quiz {
+    background: #f1ede7;
+  }
+
+  .mobile-how-it-works .step-icon.expert {
+    background: #ffe8e8;
+  }
+
+  .mobile-how-it-works .step-icon.plan {
+    background: #fff2c0;
+  }
+
+  .mobile-how-it-works .step-icon.delivery {
+    background: #adc9c4;
+  }
+
+  .mobile-how-it-works .step-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+  }
+
+  .mobile-how-it-works .step-title {
+    color: #000;
+    font-family: 'Recoleta', serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 28px;
+    letter-spacing: -1px;
+  }
+
+  .mobile-how-it-works .step-description {
+    color: #7b7b7b;
+    font-family: 'Rethink', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.54px;
+    max-width: 227px;
+  }
+
+  /* Video Placeholder */
+  .mobile-video-placeholder {
+    width: 335px;
+    height: 230px;
+    border-radius: 16px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 16px auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mobile-video-placeholder .video-background {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .mobile-video-placeholder .play-button {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .mobile-video-placeholder .play-icon {
+    width: 0;
+    height: 0;
+    border-left: 12px solid #000;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    margin-left: 4px;
+  }
+
+  /* CTA Section */
+  .mobile-cta-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 32px 20px;
+    max-width: 375px;
+    margin: 0 auto;
+  }
+
+  .mobile-cta-section .cta-title {
+    color: #000;
+    text-align: center;
+    font-family: 'Recoleta', serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    max-width: 163px;
+  }
+
+  .mobile-cta-section .cta-button {
+    display: flex;
+    padding: 12px 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 32px;
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Rethink', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: -0.48px;
+  }
+
+  /* Footer */
+  .mobile-footer {
+    width: 375px;
+    height: 110px;
+    opacity: 0.6;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-footer .footer-logo {
+    width: 375px;
+    height: 110px;
+  }
+
+  /* Utility Classes */
+  .mobile-hidden {
+    display: none !important;
+  }
+
+  .mobile-visible {
+    display: block !important;
+  }
+
+  /* Hide desktop elements on mobile */
+  .desktop-only {
+    display: none !important;
+  }
+
+  /* Show mobile elements only on mobile */
+  .mobile-only {
+    display: block !important;
+  }
+
+  /* Card Grid Layout for Top Services */
+  .mobile-top-services {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 0 auto 16px;
+    padding: 0 20px;
+    max-width: 375px;
+  }
+
+  .mobile-top-services .mobile-weight-loss-card {
+    grid-column: 1;
+    margin: 0;
+  }
+
+  .mobile-top-services .mobile-mens-ed-card {
+    grid-column: 2;
+    margin: 0;
+  }
+
+}
+
+/* Tablet adjustments */
+@media (min-width: 768px) and (max-width: 991px) {
+  .mobile-layout {
+    max-width: 768px;
+  }
+
+  .mobile-service-grid {
+    max-width: 768px;
+    padding: 48px 40px;
+  }
+
+  .mobile-hero {
+    max-width: 600px;
+    padding: 0 40px;
+  }
+
+  .mobile-hero-card,
+  .mobile-power-card,
+  .mobile-testimonial-card,
+  .mobile-bmi-calculator,
+  .mobile-video-placeholder {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .mobile-service-card-horizontal {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .mobile-top-services {
+    max-width: 768px;
+    padding: 0 40px;
+    gap: 16px;
+  }
+
+  .mobile-how-it-works {
+    max-width: 768px;
+    padding: 48px 40px;
+  }
+}
