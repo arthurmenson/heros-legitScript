@@ -5913,7 +5913,7 @@ margin: 0rem !important;
             element.setAttribute('data-heros-hidden', 'true');
             element.setAttribute('aria-hidden', 'true');
 
-            console.log(`🙈 Hidden carousel item ${index + 1}: ${settingKey}`);
+            console.log(`�� Hidden carousel item ${index + 1}: ${settingKey}`);
 
             // Verify hiding worked for carousel items
             setTimeout(() => {
@@ -6978,11 +6978,13 @@ margin: 0rem !important;
     });
   };
 
-  // ED Quiz data and variables - define immediately
-  let currentQuizStep = 0;
-  let quizAnswers = {};
+// ========= ED QUIZ SYSTEM - GLOBAL SCOPE =========
+// Define all quiz functions and data in global scope to ensure availability
 
-  const edQuizData = {
+let currentQuizStep = 0;
+let quizAnswers = {};
+
+const edQuizData = {
     0: {
       question: "How would you describe your current situation?",
       subtitle: "This helps us understand your needs better",
