@@ -6978,6 +6978,68 @@ margin: 0rem !important;
     });
   };
 
+  // ED Quiz data and variables - define immediately
+  let currentQuizStep = 0;
+  let quizAnswers = {};
+
+  const edQuizData = {
+    0: {
+      question: "How would you describe your current situation?",
+      subtitle: "This helps us understand your needs better",
+      options: [
+        { text: "I'm experiencing erectile dysfunction", value: "has_ed", next: 1 },
+        { text: "I want to improve my performance", value: "performance", next: 2 },
+        { text: "I'm curious about treatment options", value: "curious", next: 3 },
+        { text: "I've tried treatments before", value: "tried_before", next: 4 }
+      ]
+    },
+    1: {
+      question: "How long have you been experiencing ED?",
+      subtitle: "Understanding duration helps determine the best treatment approach",
+      options: [
+        { text: "Less than 3 months", value: "recent", next: "results" },
+        { text: "3-12 months", value: "moderate", next: "results" },
+        { text: "1-2 years", value: "long_term", next: "results" },
+        { text: "More than 2 years", value: "chronic", next: "results" }
+      ]
+    },
+    2: {
+      question: "What aspects of performance are you looking to improve?",
+      subtitle: "Select what matters most to you",
+      options: [
+        { text: "Duration and stamina", value: "duration", next: "results" },
+        { text: "Confidence and reliability", value: "confidence", next: "results" },
+        { text: "Overall satisfaction", value: "satisfaction", next: "results" },
+        { text: "All of the above", value: "all_performance", next: "results" }
+      ]
+    },
+    3: {
+      question: "What's prompting your interest in ED treatment?",
+      subtitle: "Understanding your motivation helps us provide relevant information",
+      options: [
+        { text: "Planning ahead for potential issues", value: "preventive", next: "results" },
+        { text: "Partner or relationship concerns", value: "relationship", next: "results" },
+        { text: "Age-related changes", value: "aging", next: "results" },
+        { text: "General health optimization", value: "health", next: "results" }
+      ]
+    },
+    4: {
+      question: "What treatments have you tried before?",
+      subtitle: "This helps us recommend the most suitable options",
+      options: [
+        { text: "Prescription medications (Viagra, Cialis)", value: "prescriptions", next: "results" },
+        { text: "Over-the-counter supplements", value: "supplements", next: "results" },
+        { text: "Natural remedies or lifestyle changes", value: "natural", next: "results" },
+        { text: "Multiple approaches", value: "multiple", next: "results" }
+      ]
+    },
+    results: {
+      isResult: true,
+      title: "Your Personalized ED Treatment Plan",
+      subtitle: "Based on your responses, here's what we recommend"
+    }
+  };
+
   // ED Quiz function - define immediately
   function startEDQuiz() {
     initEDQuizModal();
