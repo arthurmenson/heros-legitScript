@@ -546,8 +546,13 @@
         // Clear quiz data from localStorage after successful account creation
         localStorage.removeItem('edQuizAnswers');
 
-        // Show success message
-        successMessage.innerHTML = `<strong>✓ Account created successfully!</strong> Welcome ${userData.firstName}! Redirecting to your consultation...`;
+        // Show success message with storage info
+        let successMsg = `<strong>✓ Account created successfully!</strong> Welcome ${userData.firstName}!`;
+        if (result.storage === 'localStorage') {
+          successMsg += ' <em>(Stored securely on your device)</em>';
+        }
+        successMsg += ' Redirecting to your consultation...';
+        successMessage.innerHTML = successMsg;
         successMessage.style.display = 'block';
         form.style.display = 'none';
 
