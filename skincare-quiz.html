@@ -1062,7 +1062,7 @@
       questionHistory.push(stepIndex);
       
       const content = document.getElementById('quizContent');
-      const totalSteps = Object.keys(quizData).length;
+      const totalSteps = Object.keys(quizData).filter(key => !isNaN(key)).length;
       const progress = ((stepIndex + 1) / totalSteps) * 100;
       
       // Update progress
