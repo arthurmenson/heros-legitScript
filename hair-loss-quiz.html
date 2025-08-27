@@ -1105,16 +1105,17 @@
     }
     
     // Handle option selection
-    function selectOption(value, nextStep) {
+    function selectOption(value, nextStep, element) {
       answers[currentStep] = value;
 
       // Store answers in localStorage for account creation
       localStorage.setItem('hairLossQuizAnswers', JSON.stringify(answers));
 
-      // Add selection animation
-      event.target.style.background = '#059669';
-      event.target.style.color = 'white';
-      event.target.style.borderColor = '#059669';
+      // Add selection animation - use the passed element or find the clicked button
+      const clickedButton = element || event.target;
+      clickedButton.style.background = '#059669';
+      clickedButton.style.color = 'white';
+      clickedButton.style.borderColor = '#059669';
 
       setTimeout(() => {
         if (nextStep === 'results') {
