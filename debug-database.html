@@ -389,12 +389,23 @@
         console.log('Database test result:', result);
 
         if (result && result.success) {
-          addStatus(resultsEl, `✅ ${result.message}`, 'success');
+          if (result.fallback) {
+            addStatus(resultsEl, `ℹ️ ${result.message}`, 'warning');
+            addStatus(resultsEl, '📦 System operating in fallback mode (localStorage)', 'info');
+            if (result.error) {
+              const errorMsg = typeof result.error === 'string' ? result.error :
+                              (result.error?.message || JSON.stringify(result.error) || 'Unknown error');
+              addStatus(resultsEl, `📝 Network issue: ${errorMsg}`, 'info');
+            }
+          } else {
+            addStatus(resultsEl, `✅ ${result.message}`, 'success');
+          }
+
           if (result.needsSetup) {
             addStatus(resultsEl, '⚠️ Database setup required', 'warning');
           }
           if (result.step) {
-            addStatus(resultsEl, `📍 Completed step: ${result.step}`, 'info');
+            addStatus(resultsEl, `📍 Step: ${result.step}`, 'info');
           }
         } else if (result) {
           const errorMsg = typeof result.error === 'string' ? result.error :
