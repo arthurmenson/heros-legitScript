@@ -4365,7 +4365,7 @@ margin: 0rem !important;
 
                 <!-- Dual CTAs -->
                 <div style="display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;">
-                  <a href="#" onclick="startEDQuiz(); return false;" style="
+                  <a href="#" onclick="try { if (typeof startEDQuiz === 'function') { startEDQuiz(); } else { console.error('startEDQuiz not defined'); alert('Quiz not ready, please refresh page'); } } catch(e) { console.error('Quiz error:', e); alert('Quiz error: ' + e.message); } return false;" style="
                     background: #1a1a1a;
                     color: white;
                     padding: 16px 32px;
