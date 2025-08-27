@@ -6458,8 +6458,8 @@ margin: 0rem !important;
 <script src="realtime-sync-fix.js"></script>
 
 <!-- Production Preview Support -->
+<!-- OLD ED QUIZ SCRIPT REMOVED TO PREVENT CONFLICTS -->
 <script>
-  // ========= ED QUIZ SYSTEM - PRIORITY GLOBAL DEFINITION =========
   // Define ED Quiz functions IMMEDIATELY in global scope
   console.log('��� Defining ED Quiz functions globally...');
 
@@ -6488,7 +6488,7 @@ margin: 0rem !important;
   };
 
   window.selectQuizOption = function(value, nextStep) {
-    console.log('��� Quiz option selected:', value, nextStep);
+    console.log('����� Quiz option selected:', value, nextStep);
     window.quizAnswers[window.currentQuizStep] = value;
     if (nextStep === 'results') {
       window.displayQuizResults();
