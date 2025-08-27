@@ -2,10 +2,10 @@
 <html data-wf-page="ed-quiz" data-wf-site="682f5a8cf58ac9034f80ba80" lang="en">
 <head>
   <meta charset="utf-8">
-  <title>ED Assessment - 3-Minute Personalized Treatment Plan</title>
-  <meta content="Get your personalized ED treatment plan with our quick 3-minute assessment. Confidential, professional, and tailored to your specific needs." name="description">
-  <meta content="ED Assessment - 3-Minute Personalized Treatment Plan" property="og:title">
-  <meta content="Get your personalized ED treatment plan with our quick 3-minute assessment. Confidential, professional, and tailored to your specific needs." property="og:description">
+  <title>ED Assessment - Comprehensive Medical Evaluation</title>
+  <meta content="Complete your comprehensive ED evaluation. Professional, confidential, and designed by licensed physicians." name="description">
+  <meta content="ED Assessment - Comprehensive Medical Evaluation" property="og:title">
+  <meta content="Complete your comprehensive ED evaluation. Professional, confidential, and designed by licensed physicians." property="og:description">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/webflow.css" rel="stylesheet" type="text/css">
@@ -24,7 +24,7 @@
     }
     
     .quiz-container {
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 40px 20px;
       min-height: 100vh;
@@ -39,6 +39,19 @@
       padding: 32px;
       border-radius: 16px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .category-indicator {
+      display: inline-block;
+      background: linear-gradient(90deg, #e6b591 0%, #1a1a1a 100%);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     
     .quiz-progress {
@@ -107,6 +120,9 @@
       font-weight: 500;
       position: relative;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
     
     .quiz-option:hover {
@@ -118,6 +134,41 @@
     
     .quiz-option:active {
       transform: translateY(0);
+    }
+    
+    .option-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    
+    .quiz-option:hover .option-icon {
+      background: #e6b591;
+      color: white;
+    }
+    
+    .option-content {
+      flex: 1;
+    }
+    
+    .option-title {
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 4px;
+      color: #1a1a1a;
+    }
+    
+    .option-subtitle {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.4;
     }
     
     .quiz-results {
@@ -165,6 +216,7 @@
       padding: 20px;
       border-left: 4px solid #e6b591;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      margin: 16px 0;
     }
     
     .treatment-highlight p {
@@ -172,6 +224,27 @@
       font-weight: 600;
       color: #1a1a1a;
       font-size: 16px;
+    }
+    
+    .risk-factors {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+    
+    .risk-factors h4 {
+      margin: 0 0 12px 0;
+      color: #856404;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    .risk-factors ul {
+      margin: 0;
+      padding-left: 20px;
+      color: #856404;
     }
     
     .quiz-actions {
@@ -217,10 +290,11 @@
       color: #333;
     }
     
-    .benefits-list {
-      margin: 24px 0;
+    .benefits-grid {
       display: grid;
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 24px 0;
     }
     
     .benefit-item {
@@ -229,12 +303,38 @@
       gap: 12px;
       font-size: 14px;
       color: #666;
+      background: white;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
     }
     
     .benefit-check {
       color: #28a745;
       font-weight: bold;
       font-size: 16px;
+    }
+    
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 32px;
+    }
+    
+    .btn-back {
+      background: transparent;
+      border: 2px solid #e9ecef;
+      color: #666;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-back:hover {
+      border-color: #ccc;
+      color: #333;
     }
     
     @media (max-width: 768px) {
@@ -257,6 +357,16 @@
       .btn {
         min-width: auto;
       }
+      
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .option-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -265,14 +375,15 @@
   <div class="quiz-container">
     <!-- Quiz Header -->
     <div class="quiz-header">
-      <h1 style="margin: 0 0 16px 0; font-size: 36px; font-weight: 700; color: #1a1a1a;">ED Treatment Assessment</h1>
-      <p style="margin: 0; font-size: 18px; color: #666; line-height: 1.5;">Get your personalized treatment plan in just 3 minutes. Completely confidential and designed by medical professionals.</p>
+      <div class="category-indicator" id="categoryIndicator">Symptom Assessment</div>
+      <h1 style="margin: 0 0 16px 0; font-size: 36px; font-weight: 700; color: #1a1a1a;">Comprehensive ED Assessment</h1>
+      <p style="margin: 0; font-size: 18px; color: #666; line-height: 1.5;">Complete medical evaluation designed by licensed physicians. Your responses help us create a personalized treatment plan.</p>
       
       <!-- Progress Bar -->
       <div class="quiz-progress">
         <div class="quiz-progress-bar" id="progressBar"></div>
       </div>
-      <div id="progressText" style="font-size: 14px; color: #666; margin-top: 8px;">Question 1 of 5</div>
+      <div id="progressText" style="font-size: 14px; color: #666; margin-top: 8px;">Question 1 of 18</div>
     </div>
 
     <!-- Quiz Content -->
@@ -285,56 +396,640 @@
     // Quiz data and state
     let currentStep = 0;
     let answers = {};
+    let questionHistory = [];
+    
+    const categories = {
+      symptoms: "Symptom Assessment",
+      medical: "Medical History", 
+      lifestyle: "Lifestyle Factors",
+      demographics: "Personal Information",
+      goals: "Treatment Goals"
+    };
     
     const quizData = {
+      // Symptom Assessment (Questions 1-4)
       0: {
-        question: "How would you describe your current situation?",
-        subtitle: "This helps us understand your needs better",
+        category: "symptoms",
+        question: "How would you describe your current erectile function?",
+        subtitle: "Please select the option that best describes your situation",
         options: [
-          { text: "I'm experiencing erectile dysfunction", value: "has_ed", next: 1 },
-          { text: "I want to improve my performance", value: "performance", next: 2 },
-          { text: "I'm curious about treatment options", value: "curious", next: 3 },
-          { text: "I've tried treatments before", value: "tried_before", next: 4 }
+          { 
+            icon: "🔴", 
+            title: "Severe difficulty", 
+            subtitle: "Unable to achieve or maintain erections suitable for sexual activity",
+            value: "severe", 
+            next: 1 
+          },
+          { 
+            icon: "🟡", 
+            title: "Moderate difficulty", 
+            subtitle: "Sometimes able to achieve erections, but not always firm enough",
+            value: "moderate", 
+            next: 1 
+          },
+          { 
+            icon: "🟢", 
+            title: "Mild difficulty", 
+            subtitle: "Usually able to achieve erections, but not as firm as desired",
+            value: "mild", 
+            next: 1 
+          },
+          { 
+            icon: "💭", 
+            title: "Prevention/enhancement", 
+            subtitle: "Looking to maintain or improve current performance",
+            value: "prevention", 
+            next: 1 
+          }
         ]
       },
       1: {
-        question: "How long have you been experiencing ED?",
+        category: "symptoms",
+        question: "How long have you been experiencing these concerns?",
         subtitle: "Understanding duration helps determine the best treatment approach",
         options: [
-          { text: "Less than 3 months", value: "recent", next: "results" },
-          { text: "3-12 months", value: "moderate", next: "results" },
-          { text: "1-2 years", value: "long_term", next: "results" },
-          { text: "More than 2 years", value: "chronic", next: "results" }
+          { 
+            icon: "⏰", 
+            title: "Less than 3 months", 
+            subtitle: "Recent onset symptoms",
+            value: "recent", 
+            next: 2 
+          },
+          { 
+            icon: "📅", 
+            title: "3-12 months", 
+            subtitle: "Ongoing for several months",
+            value: "moderate_duration", 
+            next: 2 
+          },
+          { 
+            icon: "📆", 
+            title: "1-2 years", 
+            subtitle: "Long-term ongoing concern",
+            value: "long_term", 
+            next: 2 
+          },
+          { 
+            icon: "⏳", 
+            title: "More than 2 years", 
+            subtitle: "Chronic long-standing issue",
+            value: "chronic", 
+            next: 2 
+          }
         ]
       },
       2: {
-        question: "What aspects of performance are you looking to improve?",
-        subtitle: "Select what matters most to you",
+        category: "symptoms",
+        question: "How often do you experience erectile difficulties?",
+        subtitle: "This helps us understand the frequency and severity",
         options: [
-          { text: "Duration and stamina", value: "duration", next: "results" },
-          { text: "Confidence and reliability", value: "confidence", next: "results" },
-          { text: "Overall satisfaction", value: "satisfaction", next: "results" },
-          { text: "All of the above", value: "all_performance", next: "results" }
+          { 
+            icon: "🔄", 
+            title: "Always (100%)", 
+            subtitle: "Unable to achieve adequate erections for sexual activity",
+            value: "always", 
+            next: 3 
+          },
+          { 
+            icon: "📊", 
+            title: "Usually (75%)", 
+            subtitle: "Successful about 1 in 4 attempts",
+            value: "usually", 
+            next: 3 
+          },
+          { 
+            icon: "⚖���", 
+            title: "Sometimes (50%)", 
+            subtitle: "Successful about half the time",
+            value: "sometimes", 
+            next: 3 
+          },
+          { 
+            icon: "✅", 
+            title: "Rarely (25%)", 
+            subtitle: "Mostly successful with occasional difficulties",
+            value: "rarely", 
+            next: 3 
+          }
         ]
       },
       3: {
-        question: "What's prompting your interest in ED treatment?",
-        subtitle: "Understanding your motivation helps us provide relevant information",
+        category: "symptoms",
+        question: "How has this affected your confidence and relationships?",
+        subtitle: "Understanding the emotional impact helps us provide comprehensive care",
         options: [
-          { text: "Planning ahead for potential issues", value: "preventive", next: "results" },
-          { text: "Partner or relationship concerns", value: "relationship", next: "results" },
-          { text: "Age-related changes", value: "aging", next: "results" },
-          { text: "General health optimization", value: "health", next: "results" }
+          { 
+            icon: "😔", 
+            title: "Significantly affected", 
+            subtitle: "Major impact on confidence and intimate relationships",
+            value: "high_impact", 
+            next: 4 
+          },
+          { 
+            icon: "😐", 
+            title: "Moderately affected", 
+            subtitle: "Some impact on confidence and relationships",
+            value: "moderate_impact", 
+            next: 4 
+          },
+          { 
+            icon: "🙂", 
+            title: "Minimally affected", 
+            subtitle: "Little impact, but would like improvement",
+            value: "low_impact", 
+            next: 4 
+          },
+          { 
+            icon: "😊", 
+            title: "Not significantly affected", 
+            subtitle: "Primarily interested in enhancement",
+            value: "no_impact", 
+            next: 4 
+          }
         ]
       },
+      
+      // Medical History (Questions 5-8)
       4: {
-        question: "What treatments have you tried before?",
-        subtitle: "This helps us recommend the most suitable options",
+        category: "medical",
+        question: "Are you currently taking any medications?",
+        subtitle: "This includes prescription medications, over-the-counter drugs, and supplements",
         options: [
-          { text: "Prescription medications (Viagra, Cialis)", value: "prescriptions", next: "results" },
-          { text: "Over-the-counter supplements", value: "supplements", next: "results" },
-          { text: "Natural remedies or lifestyle changes", value: "natural", next: "results" },
-          { text: "Multiple approaches", value: "multiple", next: "results" }
+          { 
+            icon: "💊", 
+            title: "Yes, prescription medications", 
+            subtitle: "Currently taking prescription drugs",
+            value: "prescription_meds", 
+            next: 5 
+          },
+          { 
+            icon: "🌿", 
+            title: "Only supplements/vitamins", 
+            subtitle: "Taking over-the-counter supplements or vitamins",
+            value: "supplements_only", 
+            next: 5 
+          },
+          { 
+            icon: "❌", 
+            title: "No medications", 
+            subtitle: "Not currently taking any medications or supplements",
+            value: "no_medications", 
+            next: 6 
+          }
+        ]
+      },
+      5: {
+        category: "medical",
+        question: "Do you have any of these medical conditions?",
+        subtitle: "Select all that apply - this helps ensure treatment safety",
+        options: [
+          { 
+            icon: "❤️", 
+            title: "Heart conditions", 
+            subtitle: "Heart disease, high blood pressure, or heart rhythm issues",
+            value: "heart_conditions", 
+            next: 6 
+          },
+          { 
+            icon: "🩸", 
+            title: "Diabetes", 
+            subtitle: "Type 1 or Type 2 diabetes",
+            value: "diabetes", 
+            next: 6 
+          },
+          { 
+            icon: "🧠", 
+            title: "Depression/anxiety", 
+            subtitle: "Mental health conditions or taking antidepressants",
+            value: "mental_health", 
+            next: 6 
+          },
+          { 
+            icon: "✅", 
+            title: "None of these", 
+            subtitle: "No significant medical conditions",
+            value: "no_conditions", 
+            next: 6 
+          }
+        ]
+      },
+      6: {
+        category: "medical",
+        question: "Have you tried ED treatments before?",
+        subtitle: "Your previous experience helps us recommend the most effective options",
+        options: [
+          { 
+            icon: "💊", 
+            title: "Prescription ED medications", 
+            subtitle: "Viagra, Cialis, Levitra, or similar medications",
+            value: "prescription_ed", 
+            next: 7 
+          },
+          { 
+            icon: "🌿", 
+            title: "Natural supplements", 
+            subtitle: "Herbal supplements, vitamins, or natural remedies",
+            value: "natural_supplements", 
+            next: 7 
+          },
+          { 
+            icon: "🏥", 
+            title: "Medical devices/procedures", 
+            subtitle: "Pumps, injections, or surgical procedures",
+            value: "medical_devices", 
+            next: 7 
+          },
+          { 
+            icon: "❌", 
+            title: "No previous treatments", 
+            subtitle: "This would be my first time seeking ED treatment",
+            value: "no_previous_treatment", 
+            next: 7 
+          }
+        ]
+      },
+      7: {
+        category: "medical",
+        question: "Do you have any known allergies to medications?",
+        subtitle: "This ensures we recommend safe treatment options for you",
+        options: [
+          { 
+            icon: "⚠️", 
+            title: "Yes, medication allergies", 
+            subtitle: "I have known allergies to specific medications",
+            value: "medication_allergies", 
+            next: 8 
+          },
+          { 
+            icon: "🤧", 
+            title: "Environmental allergies only", 
+            subtitle: "Seasonal or environmental allergies, but no medication allergies",
+            value: "environmental_allergies", 
+            next: 8 
+          },
+          { 
+            icon: "✅", 
+            title: "No known allergies", 
+            subtitle: "No known allergies to medications or other substances",
+            value: "no_allergies", 
+            next: 8 
+          }
+        ]
+      },
+      
+      // Lifestyle Factors (Questions 9-12)
+      8: {
+        category: "lifestyle",
+        question: "How would you describe your current exercise habits?",
+        subtitle: "Physical activity can impact circulation and overall sexual health",
+        options: [
+          { 
+            icon: "🏃", 
+            title: "Very active", 
+            subtitle: "Regular vigorous exercise 4+ times per week",
+            value: "very_active", 
+            next: 9 
+          },
+          { 
+            icon: "🚶", 
+            title: "Moderately active", 
+            subtitle: "Regular moderate exercise 2-3 times per week",
+            value: "moderately_active", 
+            next: 9 
+          },
+          { 
+            icon: "🛋️", 
+            title: "Lightly active", 
+            subtitle: "Occasional light exercise or walking",
+            value: "lightly_active", 
+            next: 9 
+          },
+          { 
+            icon: "😴", 
+            title: "Sedentary", 
+            subtitle: "Minimal physical activity",
+            value: "sedentary", 
+            next: 9 
+          }
+        ]
+      },
+      9: {
+        category: "lifestyle",
+        question: "Do you smoke or use tobacco products?",
+        subtitle: "Tobacco use can significantly impact blood flow and erectile function",
+        options: [
+          { 
+            icon: "🚬", 
+            title: "Yes, regularly", 
+            subtitle: "Daily smoking or tobacco use",
+            value: "regular_smoker", 
+            next: 10 
+          },
+          { 
+            icon: "🚭", 
+            title: "Occasionally", 
+            subtitle: "Social or occasional smoking",
+            value: "occasional_smoker", 
+            next: 10 
+          },
+          { 
+            icon: "🔄", 
+            title: "Former smoker", 
+            subtitle: "Used to smoke but quit",
+            value: "former_smoker", 
+            next: 10 
+          },
+          { 
+            icon: "✅", 
+            title: "Never smoked", 
+            subtitle: "No history of tobacco use",
+            value: "never_smoked", 
+            next: 10 
+          }
+        ]
+      },
+      10: {
+        category: "lifestyle",
+        question: "How would you describe your alcohol consumption?",
+        subtitle: "Alcohol can affect erectile function and interact with medications",
+        options: [
+          { 
+            icon: "🍷", 
+            title: "Regular drinking", 
+            subtitle: "Daily or frequent alcohol consumption",
+            value: "regular_drinker", 
+            next: 11 
+          },
+          { 
+            icon: "🥂", 
+            title: "Social drinking", 
+            subtitle: "Occasional drinking in social settings",
+            value: "social_drinker", 
+            next: 11 
+          },
+          { 
+            icon: "🚫", 
+            title: "Rarely drink", 
+            subtitle: "Very infrequent alcohol consumption",
+            value: "rare_drinker", 
+            next: 11 
+          },
+          { 
+            icon: "❌", 
+            title: "Don't drink", 
+            subtitle: "No alcohol consumption",
+            value: "no_alcohol", 
+            next: 11 
+          }
+        ]
+      },
+      11: {
+        category: "lifestyle",
+        question: "How would you rate your stress levels?",
+        subtitle: "Stress and anxiety can significantly impact sexual performance",
+        options: [
+          { 
+            icon: "😰", 
+            title: "High stress", 
+            subtitle: "Frequently stressed, affects daily life",
+            value: "high_stress", 
+            next: 12 
+          },
+          { 
+            icon: "😐", 
+            title: "Moderate stress", 
+            subtitle: "Some stress, manageable most of the time",
+            value: "moderate_stress", 
+            next: 12 
+          },
+          { 
+            icon: "😌", 
+            title: "Low stress", 
+            subtitle: "Generally relaxed with occasional stress",
+            value: "low_stress", 
+            next: 12 
+          },
+          { 
+            icon: "😊", 
+            title: "Very relaxed", 
+            subtitle: "Rarely stressed, very calm lifestyle",
+            value: "very_relaxed", 
+            next: 12 
+          }
+        ]
+      },
+      
+      // Demographics (Questions 13-15)
+      12: {
+        category: "demographics",
+        question: "What is your age range?",
+        subtitle: "Age helps us recommend the most appropriate treatment options",
+        options: [
+          { 
+            icon: "👨", 
+            title: "18-29 years", 
+            subtitle: "Young adult",
+            value: "18_29", 
+            next: 13 
+          },
+          { 
+            icon: "👨‍💼", 
+            title: "30-39 years", 
+            subtitle: "Early career/family building",
+            value: "30_39", 
+            next: 13 
+          },
+          { 
+            icon: "👨‍🦳", 
+            title: "40-49 years", 
+            subtitle: "Mid-life",
+            value: "40_49", 
+            next: 13 
+          },
+          { 
+            icon: "👨‍🦲", 
+            title: "50+ years", 
+            subtitle: "Mature adult",
+            value: "50_plus", 
+            next: 13 
+          }
+        ]
+      },
+      13: {
+        category: "demographics",
+        question: "What is your relationship status?",
+        subtitle: "This helps us understand your treatment goals and preferences",
+        options: [
+          { 
+            icon: "💑", 
+            title: "In a committed relationship", 
+            subtitle: "Married or long-term partnership",
+            value: "committed_relationship", 
+            next: 14 
+          },
+          { 
+            icon: "💖", 
+            title: "Dating/seeing someone", 
+            subtitle: "Currently dating or in a newer relationship",
+            value: "dating", 
+            next: 14 
+          },
+          { 
+            icon: "🎯", 
+            title: "Single, dating", 
+            subtitle: "Single but interested in dating",
+            value: "single_dating", 
+            next: 14 
+          },
+          { 
+            icon: "🕺", 
+            title: "Single, not dating", 
+            subtitle: "Single and focused on other priorities",
+            value: "single_not_dating", 
+            next: 14 
+          }
+        ]
+      },
+      14: {
+        category: "demographics",
+        question: "How would you rate your overall health?",
+        subtitle: "Your general health affects treatment recommendations",
+        options: [
+          { 
+            icon: "💪", 
+            title: "Excellent", 
+            subtitle: "Very healthy, active lifestyle, no major health concerns",
+            value: "excellent_health", 
+            next: 15 
+          },
+          { 
+            icon: "👍", 
+            title: "Good", 
+            subtitle: "Generally healthy with minor health concerns",
+            value: "good_health", 
+            next: 15 
+          },
+          { 
+            icon: "⚖️", 
+            title: "Fair", 
+            subtitle: "Some health issues that are managed",
+            value: "fair_health", 
+            next: 15 
+          },
+          { 
+            icon: "🏥", 
+            title: "Poor", 
+            subtitle: "Multiple health concerns requiring medical management",
+            value: "poor_health", 
+            next: 15 
+          }
+        ]
+      },
+      
+      // Treatment Goals (Questions 16-18)
+      15: {
+        category: "goals",
+        question: "What is your primary goal for ED treatment?",
+        subtitle: "Understanding your goals helps us recommend the best approach",
+        options: [
+          { 
+            icon: "🎯", 
+            title: "Reliable erections", 
+            subtitle: "Consistent ability to achieve and maintain erections",
+            value: "reliability", 
+            next: 16 
+          },
+          { 
+            icon: "⚡", 
+            title: "Enhanced performance", 
+            subtitle: "Improved firmness, duration, and sexual satisfaction",
+            value: "enhancement", 
+            next: 16 
+          },
+          { 
+            icon: "💪", 
+            title: "Increased confidence", 
+            subtitle: "Reduced anxiety and increased confidence in sexual situations",
+            value: "confidence", 
+            next: 16 
+          },
+          { 
+            icon: "💑", 
+            title: "Relationship satisfaction", 
+            subtitle: "Improved intimacy and satisfaction for both partners",
+            value: "relationship", 
+            next: 16 
+          }
+        ]
+      },
+      16: {
+        category: "goals",
+        question: "What type of treatment approach interests you most?",
+        subtitle: "We offer several effective treatment options",
+        options: [
+          { 
+            icon: "💊", 
+            title: "Oral medications", 
+            subtitle: "Daily or as-needed prescription medications",
+            value: "oral_medications", 
+            next: 17 
+          },
+          { 
+            icon: "🌿", 
+            title: "Natural supplements", 
+            subtitle: "Herbal and natural enhancement options",
+            value: "natural_approach", 
+            next: 17 
+          },
+          { 
+            icon: "⚗️", 
+            title: "Compounded treatments", 
+            subtitle: "Custom-formulated medications tailored to your needs",
+            value: "compounded", 
+            next: 17 
+          },
+          { 
+            icon: "��", 
+            title: "Not sure", 
+            subtitle: "Would like professional recommendation based on my situation",
+            value: "unsure", 
+            next: 17 
+          }
+        ]
+      },
+      17: {
+        category: "goals",
+        question: "How important is privacy and discretion in your treatment?",
+        subtitle: "We offer various options to ensure your comfort and privacy",
+        options: [
+          { 
+            icon: "🔒", 
+            title: "Extremely important", 
+            subtitle: "Complete discretion is essential",
+            value: "privacy_essential", 
+            next: "results" 
+          },
+          { 
+            icon: "🛡️", 
+            title: "Very important", 
+            subtitle: "Privacy is a major concern",
+            value: "privacy_important", 
+            next: "results" 
+          },
+          { 
+            icon: "⚖️", 
+            title: "Somewhat important", 
+            subtitle: "Some privacy preferred but not critical",
+            value: "privacy_moderate", 
+            next: "results" 
+          },
+          { 
+            icon: "🤷", 
+            title: "Not a major concern", 
+            subtitle: "Comfort with standard medical processes",
+            value: "privacy_low", 
+            next: "results" 
+          }
         ]
       }
     };
@@ -349,6 +1044,9 @@
       const step = quizData[stepIndex];
       if (!step) return;
       
+      currentStep = stepIndex;
+      questionHistory.push(stepIndex);
+      
       const content = document.getElementById('quizContent');
       const totalSteps = Object.keys(quizData).length;
       const progress = ((stepIndex + 1) / totalSteps) * 100;
@@ -356,6 +1054,9 @@
       // Update progress
       document.getElementById('progressBar').style.width = progress + '%';
       document.getElementById('progressText').textContent = `Question ${stepIndex + 1} of ${totalSteps}`;
+      document.getElementById('categoryIndicator').textContent = categories[step.category];
+      
+      const showBackButton = questionHistory.length > 1;
       
       content.innerHTML = `
         <div class="quiz-question">
@@ -366,10 +1067,20 @@
         <div class="quiz-options">
           ${step.options.map((option, index) => `
             <button class="quiz-option" onclick="selectOption('${option.value}', '${option.next}')">
-              ${option.text}
+              <div class="option-icon">${option.icon}</div>
+              <div class="option-content">
+                <div class="option-title">${option.title}</div>
+                <div class="option-subtitle">${option.subtitle}</div>
+              </div>
             </button>
           `).join('')}
         </div>
+        
+        ${showBackButton ? `
+        <div class="navigation-buttons">
+          <button class="btn-back" onclick="goBack()">← Previous Question</button>
+        </div>
+        ` : ''}
       `;
     }
     
@@ -386,39 +1097,61 @@
         if (nextStep === 'results') {
           displayResults();
         } else {
-          currentStep = nextStep;
           displayQuestion(nextStep);
         }
       }, 300);
     }
     
+    // Go back to previous question
+    function goBack() {
+      if (questionHistory.length > 1) {
+        questionHistory.pop(); // Remove current question
+        const previousStep = questionHistory.pop(); // Get previous question
+        delete answers[currentStep]; // Remove current answer
+        displayQuestion(previousStep);
+      }
+    }
+    
     // Display results
     function displayResults() {
-      const recommendations = analyzeAnswers(answers);
+      const analysis = analyzeAnswers(answers);
       const content = document.getElementById('quizContent');
       
       // Update progress to 100%
       document.getElementById('progressBar').style.width = '100%';
       document.getElementById('progressText').textContent = 'Assessment Complete';
+      document.getElementById('categoryIndicator').textContent = 'Results & Recommendations';
       
       content.innerHTML = `
         <div class="quiz-results">
           <div class="completion-check">✓</div>
           
-          <h2 style="margin: 0 0 16px 0; font-size: 32px; font-weight: 700; color: #1a1a1a;">Your Personalized ED Treatment Plan</h2>
-          <p style="margin: 0 0 32px 0; font-size: 18px; color: #666; line-height: 1.5;">Based on your responses, here's what we recommend</p>
+          <h2 style="margin: 0 0 16px 0; font-size: 32px; font-weight: 700; color: #1a1a1a;">Your Comprehensive Assessment Results</h2>
+          <p style="margin: 0 0 32px 0; font-size: 18px; color: #666; line-height: 1.5;">Based on your detailed responses, here's your personalized treatment recommendation</p>
           
           <div class="recommendation-card">
-            <h3>${recommendations.title}</h3>
-            <p>${recommendations.description}</p>
+            <h3>${analysis.recommendation.title}</h3>
+            <p>${analysis.recommendation.description}</p>
             
             <div class="treatment-highlight">
-              <p>💊 ${recommendations.treatment}</p>
+              <p>💊 Recommended Treatment: ${analysis.recommendation.treatment}</p>
+            </div>
+            
+            <div class="treatment-highlight">
+              <p>⚡ Expected Timeline: ${analysis.recommendation.timeline}</p>
             </div>
           </div>
           
-          <div class="benefits-list">
-            <h4 style="margin: 0 0 16px 0; color: #1a1a1a; font-size: 18px; font-weight: 600;">What you can expect:</h4>
+          ${analysis.riskFactors.length > 0 ? `
+          <div class="risk-factors">
+            <h4>⚠️ Important Considerations</h4>
+            <ul>
+              ${analysis.riskFactors.map(factor => `<li>${factor}</li>`).join('')}
+            </ul>
+          </div>
+          ` : ''}
+          
+          <div class="benefits-grid">
             <div class="benefit-item">
               <span class="benefit-check">✓</span>
               <span>FDA-approved medications</span>
@@ -429,51 +1162,115 @@
             </div>
             <div class="benefit-item">
               <span class="benefit-check">✓</span>
-              <span>Discreet, direct-to-door delivery</span>
+              <span>Discreet packaging & delivery</span>
             </div>
             <div class="benefit-item">
               <span class="benefit-check">✓</span>
               <span>90% cheaper than brand names</span>
             </div>
+            <div class="benefit-item">
+              <span class="benefit-check">✓</span>
+              <span>Ongoing medical support</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-check">✓</span>
+              <span>Flexible treatment plans</span>
+            </div>
           </div>
           
           <div class="quiz-actions">
-            <a href="mens-ed.html" class="btn btn-primary">Start Consultation</a>
+            <a href="mens-ed.html" class="btn btn-primary">Continue to Consultation</a>
             <a href="index.html" class="btn btn-secondary">Back to Home</a>
           </div>
         </div>
       `;
     }
     
-    // Analyze answers and provide recommendations
+    // Comprehensive answer analysis
     function analyzeAnswers(answers) {
-      const firstAnswer = answers[0];
+      const severity = answers[0]; // severe, moderate, mild, prevention
+      const duration = answers[1]; // recent, moderate_duration, long_term, chronic
+      const frequency = answers[2]; // always, usually, sometimes, rarely
+      const impact = answers[3]; // high_impact, moderate_impact, low_impact, no_impact
+      const medications = answers[4]; // prescription_meds, supplements_only, no_medications
+      const conditions = answers[5]; // heart_conditions, diabetes, mental_health, no_conditions
+      const previousTreatment = answers[6]; // prescription_ed, natural_supplements, medical_devices, no_previous_treatment
+      const allergies = answers[7]; // medication_allergies, environmental_allergies, no_allergies
+      const exercise = answers[8]; // very_active, moderately_active, lightly_active, sedentary
+      const smoking = answers[9]; // regular_smoker, occasional_smoker, former_smoker, never_smoked
+      const alcohol = answers[10]; // regular_drinker, social_drinker, rare_drinker, no_alcohol
+      const stress = answers[11]; // high_stress, moderate_stress, low_stress, very_relaxed
+      const age = answers[12]; // 18_29, 30_39, 40_49, 50_plus
+      const relationship = answers[13]; // committed_relationship, dating, single_dating, single_not_dating
+      const health = answers[14]; // excellent_health, good_health, fair_health, poor_health
+      const goal = answers[15]; // reliability, enhancement, confidence, relationship
+      const approach = answers[16]; // oral_medications, natural_approach, compounded, unsure
+      const privacy = answers[17]; // privacy_essential, privacy_important, privacy_moderate, privacy_low
       
-      if (firstAnswer === 'has_ed') {
-        return {
-          title: "Targeted ED Treatment",
-          description: "Based on your responses, you would benefit from our specialized ED treatment program. Our physicians will work with you to find the most effective solution tailored to your specific situation.",
-          treatment: "Prescription ED medications with personalized dosing"
+      let recommendation = {};
+      let riskFactors = [];
+      
+      // Determine primary recommendation based on severity and other factors
+      if (severity === 'severe' || frequency === 'always') {
+        recommendation = {
+          title: "Comprehensive ED Treatment Program",
+          description: "Based on your responses, you would benefit from our most comprehensive treatment approach. We recommend starting with prescription ED medications under physician supervision, with ongoing monitoring and potential combination therapies.",
+          treatment: "Prescription ED medications (Sildenafil or Tadalafil) with physician monitoring",
+          timeline: "Initial consultation within 24-48 hours, treatment effects typically seen within 30-60 minutes of first dose"
         };
-      } else if (firstAnswer === 'performance') {
-        return {
-          title: "Performance Enhancement Program",
-          description: "Our performance optimization approach can help you achieve your goals with confidence and reliability. We focus on both immediate results and long-term satisfaction.",
-          treatment: "Performance enhancement medications and lifestyle optimization"
+      } else if (severity === 'moderate' || frequency === 'usually') {
+        recommendation = {
+          title: "Targeted ED Treatment Plan",
+          description: "Your assessment indicates moderate erectile dysfunction that should respond well to targeted treatment. We recommend prescription ED medications with lifestyle optimization support.",
+          treatment: "Prescription ED medications with dosage optimization and lifestyle counseling",
+          timeline: "Consultation within 24 hours, treatment optimization over 2-4 weeks"
         };
-      } else if (firstAnswer === 'curious') {
-        return {
-          title: "Educational Consultation",
-          description: "Let's discuss your options and help you understand what's available. Knowledge is the first step to better health, and we're here to guide you through all available treatments.",
-          treatment: "Comprehensive consultation with treatment options review"
+      } else if (severity === 'mild' || frequency === 'sometimes') {
+        recommendation = {
+          title: "Performance Enhancement Program", 
+          description: "Your responses suggest mild erectile concerns that can be effectively addressed with targeted treatment and lifestyle optimization. Our approach focuses on both immediate relief and long-term improvement.",
+          treatment: "Low-dose prescription medications or natural enhancement options",
+          timeline: "Consultation within 24 hours, effects typically seen immediately"
         };
       } else {
-        return {
-          title: "Advanced Treatment Options",
-          description: "Since you've tried treatments before, let's explore advanced options that might work better for your specific situation. Our specialists can recommend alternative approaches.",
-          treatment: "Advanced ED therapies and combination treatments"
+        recommendation = {
+          title: "Prevention & Enhancement Program",
+          description: "Based on your goals, our prevention-focused approach will help maintain and enhance your current function while addressing any concerns before they become problematic.",
+          treatment: "Preventive care with enhancement options and lifestyle optimization",
+          timeline: "Consultation at your convenience, preventive benefits seen over 2-8 weeks"
         };
       }
+      
+      // Add risk factors based on responses
+      if (conditions === 'heart_conditions') {
+        riskFactors.push("Heart condition requires careful medication selection and monitoring");
+      }
+      if (conditions === 'diabetes') {
+        riskFactors.push("Diabetes may require adjusted dosing and additional monitoring");
+      }
+      if (conditions === 'mental_health') {
+        riskFactors.push("Mental health medications may interact with ED treatments");
+      }
+      if (medications === 'prescription_meds') {
+        riskFactors.push("Current medications will be reviewed for interactions");
+      }
+      if (allergies === 'medication_allergies') {
+        riskFactors.push("Medication allergies require careful treatment selection");
+      }
+      if (smoking === 'regular_smoker') {
+        riskFactors.push("Smoking significantly impacts blood flow and treatment effectiveness");
+      }
+      if (alcohol === 'regular_drinker') {
+        riskFactors.push("Regular alcohol use may interact with ED medications");
+      }
+      if (health === 'poor_health') {
+        riskFactors.push("Multiple health conditions require comprehensive medical review");
+      }
+      
+      return {
+        recommendation,
+        riskFactors
+      };
     }
     
     // Start the quiz when page loads
