@@ -397,6 +397,7 @@
     let currentStep = 0;
     let answers = {};
     let questionHistory = [];
+    let questionSequence = []; // Track the order of questions visited
     
     const categories = {
       symptoms: "Symptom Assessment",
@@ -526,7 +527,7 @@
             next: 4 
           },
           { 
-            icon: "😐", 
+            icon: "���", 
             title: "Moderately affected", 
             subtitle: "Some impact on confidence and relationships",
             value: "moderate_impact", 
@@ -1040,20 +1041,32 @@
     }
     
     // Display a question
-    function displayQuestion(stepIndex) {
+    function displayQuestion(stepIndex, isBackNavigation = false) {
       const step = quizData[stepIndex];
       if (!step) return;
-      
+
       currentStep = stepIndex;
-      questionHistory.push(stepIndex);
-      
+
+      // Manage question sequence properly
+      if (!isBackNavigation) {
+        if (!questionHistory.includes(stepIndex)) {
+          questionHistory.push(stepIndex);
+        }
+        // Track the sequential order
+        if (!questionSequence.includes(stepIndex)) {
+          questionSequence.push(stepIndex);
+        }
+      }
+
       const content = document.getElementById('quizContent');
-      const totalSteps = Object.keys(quizData).length;
-      const progress = ((stepIndex + 1) / totalSteps) * 100;
-      
-      // Update progress
+      const totalSteps = Object.keys(quizData).filter(key => !isNaN(key)).length;
+
+      // Use position in sequence for numbering
+      const currentQuestionNumber = questionSequence.indexOf(stepIndex) + 1;
+      const progress = (currentQuestionNumber / totalSteps) * 100;
+
       document.getElementById('progressBar').style.width = progress + '%';
-      document.getElementById('progressText').textContent = `Question ${stepIndex + 1} of ${totalSteps}`;
+      document.getElementById('progressText').textContent = `Question ${currentQuestionNumber} of ${totalSteps}`;
       document.getElementById('categoryIndicator').textContent = categories[step.category];
       
       const showBackButton = questionHistory.length > 1;
@@ -1104,11 +1117,11 @@
     
     // Go back to previous question
     function goBack() {
-      if (questionHistory.length > 1) {
-        questionHistory.pop(); // Remove current question
-        const previousStep = questionHistory.pop(); // Get previous question
+      const currentIndex = questionSequence.indexOf(currentStep);
+      if (currentIndex > 0) {
+        const previousStep = questionSequence[currentIndex - 1];
         delete answers[currentStep]; // Remove current answer
-        displayQuestion(previousStep);
+        displayQuestion(previousStep, true);
       }
     }
     
