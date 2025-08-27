@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Database Debug & Diagnostics</title>
+  <script src="js/database.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f8f9fa;
+      line-height: 1.6;
+    }
+    
+    .debug-container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .section {
+      margin: 30px 0;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      background: #fafafa;
+    }
+    
+    .section h3 {
+      margin-top: 0;
+      color: #333;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+    }
+    
+    .status {
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin: 10px 0;
+      font-weight: 500;
+      font-family: monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    
+    .success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    .warning {
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeaa7;
+    }
+    
+    .info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+    
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 8px 8px 8px 0;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    
+    button:hover {
+      background: #0056b3;
+    }
+    
+    button:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+    }
+    
+    button.danger {
+      background: #dc3545;
+    }
+    
+    button.danger:hover {
+      background: #c82333;
+    }
+    
+    button.success {
+      background: #28a745;
+    }
+    
+    button.success:hover {
+      background: #218838;
+    }
+    
+    .log {
+      background: #2d3748;
+      color: #e2e8f0;
+      border: 1px solid #4a5568;
+      border-radius: 6px;
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      max-height: 400px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    
+    .config-display {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      padding: 12px;
+      font-family: monospace;
+      font-size: 14px;
+      margin: 10px 0;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e9ecef;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: #007bff;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+    
+    .metric {
+      background: white;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      text-align: center;
+    }
+    
+    .metric-value {
+      font-size: 28px;
+      font-weight: bold;
+      color: #007bff;
+    }
+    
+    .metric-label {
+      font-size: 14px;
+      color: #666;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="debug-container">
+    <h1>🔍 Database Debug & Diagnostics</h1>
+    <p>Comprehensive debugging tool for Supabase database connection issues.</p>
+    
+    <!-- Configuration Display -->
+    <div class="section">
+      <h3>📋 Configuration</h3>
+      <div class="config-display" id="configDisplay">Loading configuration...</div>
+      <button onclick="showConfig()">Refresh Config</button>
+    </div>
+    
+    <!-- Connection Testing -->
+    <div class="section">
+      <h3>🔗 Connection Tests</h3>
+      <div class="progress-bar">
+        <div class="progress-fill" id="testProgress"></div>
+      </div>
+      <div id="connectionResults">
+        <div class="status info">Click "Run All Tests" to begin diagnostic sequence...</div>
+      </div>
+      <button onclick="runAllTests()">Run All Tests</button>
+      <button onclick="testStep(1)">1. Basic Setup</button>
+      <button onclick="testStep(2)">2. Network</button>
+      <button onclick="testStep(3)">3. Auth</button>
+      <button onclick="testStep(4)">4. Database</button>
+    </div>
+    
+    <!-- User Operations -->
+    <div class="section">
+      <h3>👤 User Operations Test</h3>
+      <div id="userTestResults">
+        <div class="status info">Ready to test user operations...</div>
+      </div>
+      <button onclick="testUserOperations()">Test User Creation</button>
+      <button onclick="showLocalUsers()">Show Local Users</button>
+      <button onclick="clearLocalUsers()" class="danger">Clear Local Data</button>
+    </div>
+    
+    <!-- Metrics -->
+    <div class="section">
+      <h3>📊 System Metrics</h3>
+      <div class="grid">
+        <div class="metric">
+          <div class="metric-value" id="localUserCount">-</div>
+          <div class="metric-label">Local Users</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value" id="dbStatus">-</div>
+          <div class="metric-label">DB Status</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value" id="lastTest">-</div>
+          <div class="metric-label">Last Test</div>
+        </div>
+      </div>
+      <button onclick="updateMetrics()">Refresh Metrics</button>
+    </div>
+    
+    <!-- Console Logs -->
+    <div class="section">
+      <h3>��� Console Logs</h3>
+      <button onclick="clearLogs()">Clear Logs</button>
+      <button onclick="exportLogs()" class="success">Export Logs</button>
+      <div id="consoleLogs" class="log"></div>
+    </div>
+  </div>
+
+  <script>
+    let logContainer = document.getElementById('consoleLogs');
+    let testProgress = 0;
+    let totalTests = 4;
+    
+    // Enhanced console capturing
+    const originalLog = console.log;
+    const originalError = console.error;
+    const originalWarn = console.warn;
+    
+    function addToLog(message, type = 'log') {
+      const timestamp = new Date().toLocaleTimeString();
+      const logMessage = `[${timestamp}] ${type.toUpperCase()}: ${message}`;
+      
+      // Add to our log display
+      logContainer.textContent += logMessage + '\\n';
+      logContainer.scrollTop = logContainer.scrollHeight;
+      
+      // Also log to actual console
+      if (type === 'error') {
+        originalError(logMessage);
+      } else if (type === 'warn') {
+        originalWarn(logMessage);
+      } else {
+        originalLog(logMessage);
+      }
+    }
+    
+    // Override console methods
+    console.log = function(...args) {
+      addToLog(args.join(' '), 'log');
+    };
+    
+    console.error = function(...args) {
+      addToLog(args.join(' '), 'error');
+    };
+    
+    console.warn = function(...args) {
+      addToLog(args.join(' '), 'warn');
+    };
+    
+    // Configuration display
+    function showConfig() {
+      const configEl = document.getElementById('configDisplay');
+      
+      const config = {
+        'Database URL': window.db ? 'Configured' : 'Not configured',
+        'Initialized': window.db ? window.db.isInitialized : false,
+        'Supabase Client': window.db?.supabase ? 'Available' : 'Not available',
+        'Local Storage': localStorage ? 'Available' : 'Not available',
+        'Browser': navigator.userAgent.split(' ').slice(-2).join(' ')
+      };
+      
+      configEl.innerHTML = Object.entries(config)
+        .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+        .join('\\n');
+    }
+    
+    // Individual test steps
+    async function testStep(step) {
+      const resultsEl = document.getElementById('connectionResults');
+      
+      switch(step) {
+        case 1:
+          await testBasicSetup(resultsEl);
+          break;
+        case 2:
+          await testNetwork(resultsEl);
+          break;
+        case 3:
+          await testAuth(resultsEl);
+          break;
+        case 4:
+          await testDatabase(resultsEl);
+          break;
+      }
+      
+      updateTestProgress(step);
+    }
+    
+    async function testBasicSetup(resultsEl) {
+      addStatus(resultsEl, 'Testing basic setup...', 'info');
+      
+      if (!window.db) {
+        addStatus(resultsEl, '❌ Database manager not found', 'error');
+        return false;
+      }
+      
+      addStatus(resultsEl, '✅ Database manager loaded', 'success');
+      return true;
+    }
+    
+    async function testNetwork(resultsEl) {
+      addStatus(resultsEl, 'Testing network connectivity...', 'info');
+      
+      try {
+        const response = await fetch('https://bvpyedvojwfnlztwqile.supabase.co/rest/v1/', {
+          method: 'HEAD',
+          mode: 'no-cors'
+        });
+        addStatus(resultsEl, '✅ Network connectivity OK', 'success');
+        return true;
+      } catch (error) {
+        addStatus(resultsEl, `❌ Network error: ${error.message}`, 'error');
+        return false;
+      }
+    }
+    
+    async function testAuth(resultsEl) {
+      addStatus(resultsEl, 'Testing authentication...', 'info');
+      
+      try {
+        const response = await fetch('https://bvpyedvojwfnlztwqile.supabase.co/rest/v1/', {
+          headers: {
+            'apikey': 'test-key'
+          }
+        });
+        
+        if (response.status === 401) {
+          addStatus(resultsEl, '⚠️ Auth key invalid (expected)', 'warning');
+        } else if (response.status === 200 || response.status === 404) {
+          addStatus(resultsEl, '✅ Auth endpoint responsive', 'success');
+        } else {
+          addStatus(resultsEl, `⚠️ Unexpected response: ${response.status}`, 'warning');
+        }
+        return true;
+      } catch (error) {
+        addStatus(resultsEl, `❌ Auth test failed: ${error.message}`, 'error');
+        return false;
+      }
+    }
+    
+    async function testDatabase(resultsEl) {
+      addStatus(resultsEl, 'Testing database connection...', 'info');
+      
+      try {
+        const result = await window.db.testConnection();
+        
+        if (result.success) {
+          addStatus(resultsEl, `✅ ${result.message}`, 'success');
+          if (result.needsSetup) {
+            addStatus(resultsEl, '⚠️ Database setup required', 'warning');
+          }
+        } else {
+          addStatus(resultsEl, `❌ ${result.message}: ${result.error}`, 'error');
+        }
+        
+        return result.success;
+      } catch (error) {
+        addStatus(resultsEl, `❌ Database test failed: ${error.message}`, 'error');
+        return false;
+      }
+    }
+    
+    // Run all tests sequentially
+    async function runAllTests() {
+      const resultsEl = document.getElementById('connectionResults');
+      resultsEl.innerHTML = '';
+      testProgress = 0;
+      updateTestProgress(0);
+      
+      addStatus(resultsEl, '🚀 Starting comprehensive diagnostic tests...', 'info');
+      
+      const tests = [
+        () => testStep(1),
+        () => testStep(2),
+        () => testStep(3),
+        () => testStep(4)
+      ];
+      
+      for (let i = 0; i < tests.length; i++) {
+        await tests[i]();
+        await new Promise(resolve => setTimeout(resolve, 500)); // Small delay
+      }
+      
+      addStatus(resultsEl, '🏁 All tests completed', 'info');
+      updateMetrics();
+    }
+    
+    // Test user operations
+    async function testUserOperations() {
+      const resultsEl = document.getElementById('userTestResults');
+      resultsEl.innerHTML = '';
+      
+      addStatus(resultsEl, 'Testing user creation...', 'info');
+      
+      const testUser = {
+        firstName: 'Debug',
+        lastName: 'Test',
+        email: `debug.test.${Date.now()}@example.com`,
+        dateOfBirth: '1990-01-01',
+        accountType: 'test'
+      };
+      
+      try {
+        const result = await window.db.createUser(testUser);
+        
+        if (result.success) {
+          addStatus(resultsEl, `✅ User created: ${result.user.id}`, 'success');
+          addStatus(resultsEl, `📦 Storage: ${result.storage}`, 'info');
+        } else {
+          addStatus(resultsEl, `❌ User creation failed: ${result.error}`, 'error');
+        }
+      } catch (error) {
+        addStatus(resultsEl, `❌ Exception: ${error.message}`, 'error');
+      }
+      
+      updateMetrics();
+    }
+    
+    // Show local users
+    function showLocalUsers() {
+      const resultsEl = document.getElementById('userTestResults');
+      const users = window.db.getLocalUsers();
+      
+      resultsEl.innerHTML = '';
+      addStatus(resultsEl, `📋 Local Users (${users.length}):`, 'info');
+      
+      users.forEach((user, index) => {
+        addStatus(resultsEl, `${index + 1}. ${user.first_name} ${user.last_name} (${user.email})`, 'info');
+      });
+      
+      if (users.length === 0) {
+        addStatus(resultsEl, 'No local users found', 'warning');
+      }
+    }
+    
+    // Clear local users
+    function clearLocalUsers() {
+      if (confirm('Are you sure you want to clear all local user data?')) {
+        localStorage.removeItem('hero_users');
+        addToLog('Local user data cleared', 'warn');
+        updateMetrics();
+      }
+    }
+    
+    // Update metrics
+    function updateMetrics() {
+      const localUsers = window.db ? window.db.getLocalUsers() : [];
+      document.getElementById('localUserCount').textContent = localUsers.length;
+      
+      const dbStatus = window.db?.isInitialized ? 'Connected' : 'Disconnected';
+      document.getElementById('dbStatus').textContent = dbStatus;
+      
+      document.getElementById('lastTest').textContent = new Date().toLocaleTimeString();
+    }
+    
+    // Helper functions
+    function addStatus(container, message, type) {
+      const statusDiv = document.createElement('div');
+      statusDiv.className = `status ${type}`;
+      statusDiv.textContent = message;
+      container.appendChild(statusDiv);
+    }
+    
+    function updateTestProgress(step) {
+      testProgress = step;
+      const percentage = (step / totalTests) * 100;
+      document.getElementById('testProgress').style.width = percentage + '%';
+    }
+    
+    function clearLogs() {
+      logContainer.textContent = '';
+    }
+    
+    function exportLogs() {
+      const logs = logContainer.textContent;
+      const blob = new Blob([logs], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `database-debug-${new Date().toISOString().split('T')[0]}.log`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+    
+    // Initialize
+    window.addEventListener('load', () => {
+      console.log('🔧 Debug page loaded');
+      showConfig();
+      updateMetrics();
+      
+      // Add initial status
+      addToLog('Debug page initialized', 'log');
+      addToLog('Ready for testing', 'log');
+    });
+  </script>
+</body>
+</html>
