@@ -599,14 +599,27 @@
     // Test database connection on page load
     window.addEventListener('load', async () => {
       try {
+        if (!window.db) {
+          console.warn('⚠️ Database manager not available');
+          return;
+        }
+
         const connectionTest = await window.db.testConnection();
-        if (connectionTest.success) {
+        if (connectionTest && connectionTest.success) {
           console.log('✅ Database ready for account creation');
+          if (connectionTest.needsSetup) {
+            console.log('ℹ️ Database setup required but connection works');
+          }
+        } else if (connectionTest) {
+          const errorMsg = typeof connectionTest.error === 'string' ? connectionTest.error :
+                          (connectionTest.error?.message || 'Unknown error');
+          console.warn('⚠️ Database connection issue:', errorMsg);
         } else {
-          console.warn('⚠️ Database connection issue:', connectionTest.error);
+          console.warn('⚠️ No response from database test');
         }
       } catch (error) {
-        console.warn('⚠️ Could not test database connection:', error);
+        const errorMsg = error?.message || (typeof error === 'string' ? error : 'Unknown error');
+        console.warn('⚠️ Could not test database connection:', errorMsg);
       }
     });
   </script>
