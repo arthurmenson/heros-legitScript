@@ -807,10 +807,11 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = { DatabaseManager, db: window.db };
 }
 
-// Auto-initialize on load
+// Auto-initialize on load with proper error handling
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🔄 Initializing database connection...');
   window.db.init().catch(error => {
-    console.error('Failed to initialize database:', error);
+    const errorMsg = window.db.getErrorMessage(error);
+    console.error('Failed to initialize database:', errorMsg);
   });
 });
