@@ -211,12 +211,21 @@
         console.log('Test connection result:', result);
 
         if (result && result.success) {
-          let message = '✅ Database connection successful!';
-          if (result.needsSetup) {
-            message += ' (Database setup required)';
+          if (result.fallback) {
+            let message = 'ℹ️ Using fallback storage (localStorage)';
+            if (result.needsSetup) {
+              message += ' - Database setup available';
+            }
+            statusEl.textContent = message;
+            statusEl.className = 'status warning';
+          } else {
+            let message = '✅ Database connection successful!';
+            if (result.needsSetup) {
+              message += ' (Database setup required)';
+            }
+            statusEl.textContent = message;
+            statusEl.className = 'status success';
           }
-          statusEl.textContent = message;
-          statusEl.className = 'status success';
         } else if (result) {
           const errorMsg = safeStringify(result.error || result.message || 'Unknown error');
           statusEl.textContent = `❌ Connection failed: ${errorMsg}`;
