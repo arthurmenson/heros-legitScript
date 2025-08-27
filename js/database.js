@@ -180,62 +180,89 @@ class DatabaseManager {
     return await this.testBasicConnectionWithTimeout();
   }
 
-  // Helper to extract error messages properly
+  // Helper to extract error messages properly with enhanced debugging
   getErrorMessage(error) {
+    // Debug logging
+    console.debug('🔍 Processing error:', typeof error, error);
+
+    let result;
+
     // Handle null/undefined
-    if (error == null) return 'Unknown error';
-
+    if (error == null) {
+      result = 'Unknown error (null/undefined)';
+    }
     // Handle string errors
-    if (typeof error === 'string') return error;
-
+    else if (typeof error === 'string') {
+      result = error || 'Empty string error';
+    }
     // Handle Error objects
-    if (error instanceof Error) {
-      return error.message || error.toString();
+    else if (error instanceof Error) {
+      result = error.message || error.toString() || 'Error object without message';
     }
-
     // Handle objects with message property
-    if (error?.message && typeof error.message === 'string') {
-      return error.message;
+    else if (error?.message && typeof error.message === 'string') {
+      result = error.message;
     }
-
     // Handle objects with error property
-    if (error?.error && typeof error.error === 'string') {
-      return error.error;
+    else if (error?.error && typeof error.error === 'string') {
+      result = error.error;
     }
-
     // Handle objects with details property
-    if (error?.details && typeof error.details === 'string') {
-      return error.details;
+    else if (error?.details && typeof error.details === 'string') {
+      result = error.details;
     }
-
-    // Handle Supabase-style errors
-    if (error?.message && typeof error.message === 'object') {
-      return JSON.stringify(error.message);
+    // Handle Supabase-style errors with object messages
+    else if (error?.message && typeof error.message === 'object') {
+      try {
+        result = JSON.stringify(error.message);
+      } catch (e) {
+        result = 'Supabase error with unstringifiable message';
+      }
     }
-
-    // Last resort: try to stringify with more robust handling
-    try {
-      if (typeof error === 'object') {
-        // Try to get meaningful properties
+    // Handle other objects
+    else if (typeof error === 'object') {
+      try {
+        // Try to get meaningful properties first
         const errorObj = {};
-        for (const key of ['message', 'error', 'details', 'code', 'status', 'statusText']) {
+        const meaningfulKeys = ['message', 'error', 'details', 'code', 'status', 'statusText', 'name'];
+
+        for (const key of meaningfulKeys) {
           if (error[key] !== undefined) {
             errorObj[key] = error[key];
           }
         }
 
         if (Object.keys(errorObj).length > 0) {
-          return JSON.stringify(errorObj);
+          result = JSON.stringify(errorObj);
+        } else {
+          // Try full serialization
+          result = JSON.stringify(error, Object.getOwnPropertyNames(error));
+
+          // If result is empty object, try toString
+          if (result === '{}') {
+            const toStringResult = error.toString();
+            result = toStringResult !== '[object Object]' ? toStringResult :
+                     `Object of type ${error.constructor?.name || 'Unknown'}`;
+          }
         }
-
-        // Fall back to full object serialization
-        return JSON.stringify(error, Object.getOwnPropertyNames(error));
+      } catch (stringifyError) {
+        // Fallback for unstringifiable objects
+        result = `Error object (${error.constructor?.name || 'Unknown type'}) - could not stringify`;
       }
-
-      return String(error);
-    } catch (stringifyError) {
-      return `[Error object - could not stringify: ${typeof error}]`;
     }
+    // Handle primitives
+    else {
+      result = String(error);
+    }
+
+    // Final safety check to prevent [object Object]
+    if (result === '[object Object]') {
+      console.warn('⚠️ Prevented [object Object] error display for:', error);
+      result = `Error (${typeof error}): Could not extract readable message`;
+    }
+
+    console.debug('✅ Error message result:', result);
+    return result;
   }
 
   // Ensure required tables exist
