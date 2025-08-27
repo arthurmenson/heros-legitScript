@@ -378,22 +378,40 @@
     
     async function testDatabase(resultsEl) {
       addStatus(resultsEl, 'Testing database connection...', 'info');
-      
+
       try {
+        if (!window.db) {
+          addStatus(resultsEl, '❌ Database manager not found', 'error');
+          return false;
+        }
+
         const result = await window.db.testConnection();
-        
-        if (result.success) {
+        console.log('Database test result:', result);
+
+        if (result && result.success) {
           addStatus(resultsEl, `✅ ${result.message}`, 'success');
           if (result.needsSetup) {
             addStatus(resultsEl, '⚠️ Database setup required', 'warning');
           }
+          if (result.step) {
+            addStatus(resultsEl, `📍 Completed step: ${result.step}`, 'info');
+          }
+        } else if (result) {
+          const errorMsg = typeof result.error === 'string' ? result.error :
+                          (result.error?.message || JSON.stringify(result.error) || 'Unknown error');
+          addStatus(resultsEl, `❌ ${result.message}: ${errorMsg}`, 'error');
+          if (result.step) {
+            addStatus(resultsEl, `📍 Failed at step: ${result.step}`, 'error');
+          }
         } else {
-          addStatus(resultsEl, `❌ ${result.message}: ${result.error}`, 'error');
+          addStatus(resultsEl, '❌ No result returned from database test', 'error');
         }
-        
-        return result.success;
+
+        return result?.success || false;
       } catch (error) {
-        addStatus(resultsEl, `❌ Database test failed: ${error.message}`, 'error');
+        console.error('Database test error:', error);
+        const errorMsg = error?.message || (typeof error === 'string' ? error : JSON.stringify(error));
+        addStatus(resultsEl, `❌ Database test failed: ${errorMsg}`, 'error');
         return false;
       }
     }
