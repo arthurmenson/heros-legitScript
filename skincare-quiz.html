@@ -397,6 +397,7 @@
     let currentStep = 0;
     let answers = {};
     let questionHistory = [];
+    let questionNumber = 1;
     
     const categories = {
       concerns: "Skin Concerns",
@@ -526,7 +527,7 @@
             next: 4 
           },
           { 
-            icon: "🕷️", 
+            icon: "🕷���", 
             title: "Broken capillaries/redness", 
             subtitle: "Visible blood vessels, rosacea, general redness",
             value: "redness", 
@@ -1065,9 +1066,10 @@
       const totalSteps = Object.keys(quizData).filter(key => !isNaN(key)).length;
       const progress = ((stepIndex + 1) / totalSteps) * 100;
       
-      // Update progress
-      document.getElementById('progressBar').style.width = progress + '%';
-      document.getElementById('progressText').textContent = `Question ${stepIndex + 1} of ${totalSteps}`;
+      // Update progress based on actual question sequence
+      const currentQuestionNumber = questionHistory.length;
+      document.getElementById('progressBar').style.width = (currentQuestionNumber / totalSteps) * 100 + '%';
+      document.getElementById('progressText').textContent = `Question ${currentQuestionNumber} of ${totalSteps}`;
       document.getElementById('categoryIndicator').textContent = categories[step.category];
       
       const showBackButton = questionHistory.length > 1;
