@@ -167,24 +167,72 @@
       addToLog(args.join(' '), 'warn');
     };
     
+    // Enhanced error handling function
+    function safeStringify(obj) {
+      if (obj == null) return 'null';
+      if (typeof obj === 'string') return obj;
+      if (typeof obj === 'number' || typeof obj === 'boolean') return String(obj);
+
+      if (obj instanceof Error) {
+        return obj.message || obj.toString();
+      }
+
+      if (typeof obj === 'object') {
+        try {
+          // Try to extract meaningful properties
+          if (obj.message) return String(obj.message);
+          if (obj.error) return String(obj.error);
+          if (obj.details) return String(obj.details);
+
+          // Fallback to JSON stringify
+          return JSON.stringify(obj);
+        } catch (e) {
+          return '[Object - could not stringify]';
+        }
+      }
+
+      return String(obj);
+    }
+
     // Test functions
     async function testConnection() {
       const statusEl = document.getElementById('connectionStatus');
       statusEl.textContent = 'Testing connection...';
       statusEl.className = 'status info';
-      
+
       try {
+        console.log('Starting test connection...');
+
+        if (!window.db) {
+          throw new Error('Database manager not found');
+        }
+
         const result = await window.db.testConnection();
-        
-        if (result.success) {
-          statusEl.textContent = '✅ Database connection successful!';
+        console.log('Test connection result:', result);
+
+        if (result && result.success) {
+          let message = '✅ Database connection successful!';
+          if (result.needsSetup) {
+            message += ' (Database setup required)';
+          }
+          statusEl.textContent = message;
           statusEl.className = 'status success';
+        } else if (result) {
+          const errorMsg = safeStringify(result.error || result.message || 'Unknown error');
+          statusEl.textContent = `❌ Connection failed: ${errorMsg}`;
+          statusEl.className = 'status error';
+
+          if (result.step) {
+            statusEl.textContent += ` (Step: ${result.step})`;
+          }
         } else {
-          statusEl.textContent = `❌ Connection failed: ${result.error}`;
+          statusEl.textContent = '❌ No result returned from test';
           statusEl.className = 'status error';
         }
       } catch (error) {
-        statusEl.textContent = `❌ Connection error: ${error.message}`;
+        console.error('Test connection error:', error);
+        const errorMsg = safeStringify(error);
+        statusEl.textContent = `❌ Connection error: ${errorMsg}`;
         statusEl.className = 'status error';
       }
     }
