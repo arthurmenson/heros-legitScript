@@ -4365,7 +4365,7 @@ margin: 0rem !important;
 
                 <!-- Dual CTAs -->
                 <div style="display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;">
-                  <a href="#" onclick="try { if (typeof startEDQuiz === 'function') { startEDQuiz(); } else { console.error('startEDQuiz not defined'); alert('Quiz not ready, please refresh page'); } } catch(e) { console.error('Quiz error:', e); alert('Quiz error: ' + e.message); } return false;" style="
+                  <a href="#" onclick="try { if (typeof window.startEDQuiz === 'function') { window.startEDQuiz(); } else { console.error('startEDQuiz not defined on window'); alert('Quiz loading... Please try again in a moment.'); } } catch(e) { console.error('Quiz error:', e); alert('Quiz error: ' + e.message); } return false;" style="
                     background: #1a1a1a;
                     color: white;
                     padding: 16px 32px;
@@ -4382,7 +4382,7 @@ margin: 0rem !important;
                     Start 3-Minute Assessment
                   </a>
 
-                  <a href="#" onclick="try { if (typeof startEDQuiz === 'function') { startEDQuiz(); } else { console.error('startEDQuiz not defined'); alert('Quiz not ready, please refresh page'); } } catch(e) { console.error('Quiz error:', e); alert('Quiz error: ' + e.message); } return false;" style="
+                  <a href="#" onclick="try { if (typeof window.startEDQuiz === 'function') { window.startEDQuiz(); } else { console.error('startEDQuiz not defined on window'); alert('Quiz loading... Please try again in a moment.'); } } catch(e) { console.error('Quiz error:', e); alert('Quiz error: ' + e.message); } return false;" style="
                     background: transparent;
                     color: #1a1a1a;
                     padding: 16px 32px;
