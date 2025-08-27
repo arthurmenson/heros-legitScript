@@ -434,7 +434,15 @@
     // Add event listeners for real-time validation
     Object.keys(inputs).forEach(fieldName => {
       const input = inputs[fieldName];
-      const errorElement = document.getElementById(fieldName + 'Error');
+
+      // Handle special case for dateOfBirth which has ID 'dobError' instead of 'dateOfBirthError'
+      const errorElementId = fieldName === 'dateOfBirth' ? 'dobError' : fieldName + 'Error';
+      const errorElement = document.getElementById(errorElementId);
+
+      if (!errorElement) {
+        console.error(`Error element not found for field: ${fieldName} (looking for ID: ${errorElementId})`);
+        return;
+      }
 
       input.addEventListener('blur', () => validateField(fieldName));
       input.addEventListener('input', () => {
@@ -446,7 +454,17 @@
 
     function validateField(fieldName) {
       const input = inputs[fieldName];
-      const errorElement = document.getElementById(fieldName + 'Error');
+
+      // Handle special case for dateOfBirth which has ID 'dobError' instead of 'dateOfBirthError'
+      const errorElementId = fieldName === 'dateOfBirth' ? 'dobError' : fieldName + 'Error';
+      const errorElement = document.getElementById(errorElementId);
+
+      // Safety check to ensure errorElement exists
+      if (!errorElement) {
+        console.error(`Error element not found for field: ${fieldName} (looking for ID: ${errorElementId})`);
+        return false;
+      }
+
       const isValid = validators[fieldName](input.value);
 
       if (isValid) {
