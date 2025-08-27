@@ -218,9 +218,21 @@
         rawEl.textContent = safeStringify(result);
         
         if (result && result.success) {
-          addStatus(resultsEl, `✅ ${result.message}`, 'success');
+          if (result.fallback) {
+            addStatus(resultsEl, `ℹ️ ${result.message}`, 'warning');
+            addStatus(resultsEl, '📦 System is using localStorage for data storage', 'info');
+            if (result.error) {
+              addStatus(resultsEl, `📝 Original error: ${window.db.getErrorMessage(result.error)}`, 'info');
+            }
+          } else {
+            addStatus(resultsEl, `✅ ${result.message}`, 'success');
+          }
+
           if (result.needsSetup) {
             addStatus(resultsEl, '⚠️ Database setup required', 'warning');
+          }
+          if (result.step) {
+            addStatus(resultsEl, `📍 Step: ${result.step}`, 'info');
           }
         } else if (result) {
           const errorMsg = window.db.getErrorMessage(result.error);
