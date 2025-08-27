@@ -4404,7 +4404,7 @@ margin: 0rem !important;
                 <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <div style="display: flex; gap: 2px;">
-                      <span style="color: #ffd700; font-size: 14px;">���</span>
+                      <span style="color: #ffd700; font-size: 14px;"></span>
                       <span style="color: #ffd700; font-size: 14px;">★</span>
                       <span style="color: #ffd700; font-size: 14px;">★</span>
                       <span style="color: #ffd700; font-size: 14px;">★</span>
@@ -4519,7 +4519,7 @@ margin: 0rem !important;
                       <span style="color: #FFD700; font-size: 14px;">★</span>
                       <span style="color: #FFD700; font-size: 14px;">★</span>
                       <span style="color: #FFD700; font-size: 14px;">★</span>
-                      <span style="color: #FFD700; font-size: 14px;">���</span>
+                      <span style="color: #FFD700; font-size: 14px;"></span>
                     </div>
                     <span style="color: #666; font-size: 13px; font-weight: 500;">4.8/5 from 12,000+ users</span>
                   </div>
@@ -4574,7 +4574,7 @@ margin: 0rem !important;
                     <p style="font-style: italic; margin-bottom: 12px; color: #333; font-size: 16px; line-height: 24px;">
                       "I saw dramatic improvements in just 3 weeks. My confidence is back and the process was incredibly easy."
                     </p>
-                    <div style="font-weight: 600; color: #70978F; font-size: 14px;">�� Sarah M., verified patient</div>
+                    <div style="font-weight: 600; color: #70978F; font-size: 14px;"> Sarah M., verified patient</div>
                   </div>
 
                   <!-- Dual CTAs -->
@@ -4697,7 +4697,7 @@ margin: 0rem !important;
                       <!-- Key Benefits -->
                       <div style="font-weight: 400; margin-bottom: 32px; pointer-events: auto;">
                         <div style="display: flex; align-items: center; font-weight: 400; gap: 12px; margin-bottom: 16px; pointer-events: auto;">
-                          <div style="color: rgb(255, 255, 255); font-size: 12px; font-weight: 400; pointer-events: auto; background-color: rgb(112, 151, 143); border-radius: 50%; height: 20px; width: 20px; display: flex; align-items: center; justify-content: center;">��</div>
+                          <div style="color: rgb(255, 255, 255); font-size: 12px; font-weight: 400; pointer-events: auto; background-color: rgb(112, 151, 143); border-radius: 50%; height: 20px; width: 20px; display: flex; align-items: center; justify-content: center;"></div>
                           <span style="color: rgb(26, 26, 26); font-weight: 500; pointer-events: auto;">Increase cellular energy by up to 300%</span>
                         </div>
                         <div style="display: flex; align-items: center; font-weight: 400; gap: 12px; margin-bottom: 16px; pointer-events: auto;">
@@ -5553,7 +5553,7 @@ margin: 0rem !important;
       }
 
       // Site Features
-      console.log('��️ Applying site feature settings...');
+      console.log(' Applying site feature settings...');
       try {
         applySiteFeatureSettings(settings);
         // Silent success
@@ -5646,7 +5646,7 @@ margin: 0rem !important;
             element.setAttribute('data-heros-hidden', 'true');
             element.setAttribute('aria-hidden', 'true');
 
-            console.log(`�� Hidden menu item ${index + 1}: ${settingKey}`);
+            console.log(` Hidden menu item ${index + 1}: ${settingKey}`);
 
             // Verify the hiding worked
             setTimeout(() => {
@@ -5673,7 +5673,7 @@ margin: 0rem !important;
             element.removeAttribute('aria-hidden');
             element.classList.remove('heros-force-hidden');
 
-            console.log(`����� Shown menu item ${index + 1}: ${settingKey} (display: ${originalDisplay})`);
+            console.log(` Shown menu item ${index + 1}: ${settingKey} (display: ${originalDisplay})`);
           }
         });
       } else {
@@ -5779,7 +5779,7 @@ margin: 0rem !important;
           console.log('🙈 Hidden ED Meds section container');
         } else {
           edMedsGrid.style.display = 'none';
-          console.log('�� Hidden ED Meds grid directly');
+          console.log(' Hidden ED Meds grid directly');
         }
       }
     }
@@ -5877,7 +5877,7 @@ margin: 0rem !important;
             element.removeAttribute('aria-hidden');
             element.classList.remove('heros-force-hidden');
 
-            console.log(`👁�� Shown carousel item ${index + 1}: ${settingKey} (display: ${originalDisplay})`);
+            console.log(`👁 Shown carousel item ${index + 1}: ${settingKey} (display: ${originalDisplay})`);
           }
         });
       } else {
@@ -6189,7 +6189,7 @@ margin: 0rem !important;
 <!-- ED Quiz moved to dedicated page: ed-quiz.html -->
 <script>
   // Handle preview mode for production domains
-  console.log('��� Defining ED Quiz functions globally...');
+  console.log(' Defining ED Quiz functions globally...');
 
   // Quiz state variables
   window.currentQuizStep = 0;
@@ -6205,7 +6205,7 @@ margin: 0rem !important;
   };
 
   window.selectQuizOption = function(value, nextStep) {
-    console.log('����� Quiz option selected:', value, nextStep);
+    console.log('Quiz option selected:', value, nextStep);
     window.quizAnswers[window.currentQuizStep] = value;
     if (nextStep === 'results') {
       window.displayQuizResults();
@@ -6564,7 +6564,7 @@ margin: 0rem !important;
       const settingsData = localStorage.getItem('herosSiteSettings');
       if (settingsData && typeof applySettings === 'function') {
         applySettings();
-        console.log('��� Preview settings applied');
+        console.log(' Preview settings applied');
       }
     };
 
@@ -6685,7 +6685,7 @@ margin: 0rem !important;
           <button onclick="closeExitIntent()" style="position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: #999;">×</button>
 
           <div style="text-align: center;">
-            <div style="background: linear-gradient(135deg, #e6b591, #d4a574); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 24px;">���</div>
+            <div style="background: linear-gradient(135deg, #e6b591, #d4a574); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 24px;"></div>
 
             <h3 style="margin: 0 0 16px; font-size: 24px; font-weight: 700; color: #1a1a1a;">Wait! Don't Miss Out</h3>
             <p style="margin: 0 0 24px; color: #666; line-height: 1.5;">Get personalized health insights with our free assessment. Join 50,000+ patients who transformed their health.</p>
@@ -7070,7 +7070,7 @@ margin: 0rem !important;
                 <h3 style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin: 0 0 8px;">Dr. Sarah Williams</h3>
                 <p style="font-size: 14px; color: #e6b591; font-weight: 600; margin: 0 0 12px;">Dermatologist • 15 years</p>
                 <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 12px;">
-                  <span style="color: #ffd700; font-size: 16px;">★★���★★</span>
+                  <span style="color: #ffd700; font-size: 16px;">★★★★</span>
                 </div>
                 <p style="font-size: 13px; color: #666; margin: 0; line-height: 1.4;">"Expert in anti-aging and acne treatments. Johns Hopkins Medical School."</p>
               </div>
@@ -7080,7 +7080,7 @@ margin: 0rem !important;
                 <h3 style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin: 0 0 8px;">Dr. James Rodriguez</h3>
                 <p style="font-size: 14px; color: #e6b591; font-weight: 600; margin: 0 0 12px;">Hair Specialist • 20 years</p>
                 <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 12px;">
-                  <span style="color: #ffd700; font-size: 16px;">���★���★★</span>
+                  <span style="color: #ffd700; font-size: 16px;">★★★</span>
                 </div>
                 <p style="font-size: 13px; color: #666; margin: 0; line-height: 1.4;">"Leading hair restoration expert. Stanford Medical School graduate."</p>
               </div>
