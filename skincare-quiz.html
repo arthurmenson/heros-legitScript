@@ -1114,12 +1114,15 @@
     // Handle option selection
     function selectOption(value, nextStep) {
       answers[currentStep] = value;
-      
+
+      // Store answers in localStorage for account creation
+      localStorage.setItem('skincareQuizAnswers', JSON.stringify(answers));
+
       // Add selection animation
       event.target.style.background = '#ff6b6b';
       event.target.style.color = 'white';
       event.target.style.borderColor = '#ff6b6b';
-      
+
       setTimeout(() => {
         if (nextStep === 'results') {
           displayResults();
