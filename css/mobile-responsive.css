@@ -1,8 +1,16 @@
 /* Mobile/Tablet Responsive Styles - Based on Figma Design */
 
-/* Mobile-first approach with responsive design */
+/* Hide desktop content on mobile */
 @media (max-width: 991px) {
-  
+  .main-wrapper,
+  .nav_component {
+    display: none !important;
+  }
+
+  .mobile-layout {
+    display: block !important;
+  }
+
   /* Base mobile container */
   .mobile-layout {
     width: 100%;
