@@ -4404,7 +4404,7 @@ margin: 0rem !important;
                 <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <div style="display: flex; gap: 2px;">
-                      <span style="color: #ffd700; font-size: 14px;">★</span>
+                      <span style="color: #ffd700; font-size: 14px;">���</span>
                       <span style="color: #ffd700; font-size: 14px;">★</span>
                       <span style="color: #ffd700; font-size: 14px;">★</span>
                       <span style="color: #ffd700; font-size: 14px;">★</span>
@@ -6261,15 +6261,6 @@ margin: 0rem !important;
   window.quizAnswers = {};
 
     console.log('🚀 startEDQuiz called!');
-    try {
-      window.initEDQuizModal();
-    } catch (error) {
-      console.error('Error in startEDQuiz:', error);
-      alert('Quiz initialization failed: ' + error.message);
-    }
-  };
-
-  window.closeEDQuiz = function() {
     console.log('❌ Closing ED Quiz');
     const modal = document.getElementById('ed-quiz-modal');
     if (modal) {
