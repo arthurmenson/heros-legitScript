@@ -527,7 +527,7 @@
             next: 4 
           },
           { 
-            icon: "���", 
+            icon: "😐", 
             title: "Moderately affected", 
             subtitle: "Some impact on confidence and relationships",
             value: "moderate_impact", 
@@ -1100,12 +1100,15 @@
     // Handle option selection
     function selectOption(value, nextStep) {
       answers[currentStep] = value;
-      
+
+      // Store answers in localStorage for account creation
+      localStorage.setItem('edQuizAnswers', JSON.stringify(answers));
+
       // Add selection animation
       event.target.style.background = '#e6b591';
       event.target.style.color = 'white';
       event.target.style.borderColor = '#e6b591';
-      
+
       setTimeout(() => {
         if (nextStep === 'results') {
           displayResults();
