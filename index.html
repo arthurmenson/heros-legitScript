@@ -7068,9 +7068,141 @@ margin: 0rem !important;
     }
   }
 
+  // Simple displayQuizStep function
+  function displayQuizStep(stepNumber) {
+    const step = edQuizData[stepNumber];
+    const quizContent = document.getElementById('quiz-content');
+
+    if (!step || step.isResult) {
+      displayQuizResults();
+      return;
+    }
+
+    // Progress calculation
+    const progress = ((stepNumber + 1) / 17) * 100;
+
+    quizContent.innerHTML = `
+      <!-- Progress bar -->
+      <div style="
+        width: 100%;
+        height: 4px;
+        background: #f0f0f0;
+        border-radius: 2px;
+        margin-bottom: 32px;
+      ">
+        <div style="
+          width: ${progress}%;
+          height: 100%;
+          background: linear-gradient(90deg, #1a1a1a, #333);
+          border-radius: 2px;
+          transition: width 0.3s ease;
+        "></div>
+      </div>
+
+      <!-- Question -->
+      <div style="margin-bottom: 32px;">
+        <h2 style="
+          font-size: 28px;
+          font-weight: 600;
+          color: #1a1a1a;
+          margin-bottom: 12px;
+          line-height: 1.3;
+        ">${step.question}</h2>
+        <p style="
+          font-size: 16px;
+          color: #666;
+          margin: 0;
+          line-height: 1.5;
+        ">${step.subtitle}</p>
+      </div>
+
+      <!-- Options -->
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        ${step.options.map((option, index) => `
+          <button onclick="selectQuizOption('${option.value}', '${option.next}')" style="
+            background: white;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 16px;
+            font-weight: 500;
+            color: #1a1a1a;
+          " onmouseover="
+            this.style.borderColor='#1a1a1a';
+            this.style.background='#f8f9fa';
+            this.style.transform='translateY(-2px)';
+            this.style.boxShadow='0 4px 12px rgba(0, 0, 0, 0.1)';
+          " onmouseout="
+            this.style.borderColor='#e1e5e9';
+            this.style.background='white';
+            this.style.transform='translateY(0)';
+            this.style.boxShadow='none';
+          ">
+            ${option.text}
+          </button>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function selectQuizOption(value, nextStep) {
+    quizAnswers[currentQuizStep] = value;
+
+    setTimeout(() => {
+      if (nextStep === 'results' || !edQuizData[nextStep]) {
+        displayQuizResults();
+      } else {
+        currentQuizStep = parseInt(nextStep);
+        displayQuizStep(currentQuizStep);
+      }
+    }, 300);
+  }
+
+  function displayQuizResults() {
+    const quizContent = document.getElementById('quiz-content');
+
+    quizContent.innerHTML = `
+      <div style="text-align: center;">
+        <h2 style="font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 24px;">Quiz Complete!</h2>
+        <p style="font-size: 18px; color: #666; margin-bottom: 32px;">Thank you for completing our assessment.</p>
+        <button onclick="proceedToConsultation()" style="
+          background: #1a1a1a;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          padding: 16px 32px;
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+          margin-right: 12px;
+        ">Start Consultation</button>
+        <button onclick="closeEDQuiz()" style="
+          background: transparent;
+          color: #1a1a1a;
+          border: 2px solid #1a1a1a;
+          border-radius: 8px;
+          padding: 14px 32px;
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+        ">Close</button>
+      </div>
+    `;
+  }
+
+  function proceedToConsultation() {
+    closeEDQuiz();
+    window.location.href = 'mens-ed.html';
+  }
+
   // Make functions available immediately
   window.startEDQuiz = startEDQuiz;
   window.closeEDQuiz = closeEDQuiz;
+  window.selectQuizOption = selectQuizOption;
+  window.proceedToConsultation = proceedToConsultation;
 
   // Initialize all widgets
   function initializeWidgets() {
