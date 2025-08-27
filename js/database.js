@@ -69,9 +69,14 @@ class DatabaseManager {
 
       return this.supabase;
     } catch (error) {
-      console.error('❌ Database initialization failed:', this.getErrorMessage(error));
+      const errorMsg = this.getErrorMessage(error);
+      console.error('❌ Database initialization failed:', errorMsg);
       this.isInitialized = false;
-      throw error;
+
+      // Create a more descriptive error
+      const enhancedError = new Error(`Database initialization failed: ${errorMsg}`);
+      enhancedError.originalError = error;
+      throw enhancedError;
     }
   }
 
@@ -113,11 +118,60 @@ class DatabaseManager {
 
   // Helper to extract error messages properly
   getErrorMessage(error) {
+    // Handle null/undefined
+    if (error == null) return 'Unknown error';
+
+    // Handle string errors
     if (typeof error === 'string') return error;
-    if (error?.message) return error.message;
-    if (error?.error) return error.error;
-    if (error?.details) return error.details;
-    return JSON.stringify(error, Object.getOwnPropertyNames(error));
+
+    // Handle Error objects
+    if (error instanceof Error) {
+      return error.message || error.toString();
+    }
+
+    // Handle objects with message property
+    if (error?.message && typeof error.message === 'string') {
+      return error.message;
+    }
+
+    // Handle objects with error property
+    if (error?.error && typeof error.error === 'string') {
+      return error.error;
+    }
+
+    // Handle objects with details property
+    if (error?.details && typeof error.details === 'string') {
+      return error.details;
+    }
+
+    // Handle Supabase-style errors
+    if (error?.message && typeof error.message === 'object') {
+      return JSON.stringify(error.message);
+    }
+
+    // Last resort: try to stringify with more robust handling
+    try {
+      if (typeof error === 'object') {
+        // Try to get meaningful properties
+        const errorObj = {};
+        for (const key of ['message', 'error', 'details', 'code', 'status', 'statusText']) {
+          if (error[key] !== undefined) {
+            errorObj[key] = error[key];
+          }
+        }
+
+        if (Object.keys(errorObj).length > 0) {
+          return JSON.stringify(errorObj);
+        }
+
+        // Fall back to full object serialization
+        return JSON.stringify(error, Object.getOwnPropertyNames(error));
+      }
+
+      return String(error);
+    } catch (stringifyError) {
+      return `[Error object - could not stringify: ${typeof error}]`;
+    }
   }
 
   // Ensure required tables exist
@@ -487,51 +541,93 @@ class DatabaseManager {
     }
   }
 
-  // Test database connection
+  // Test database connection with enhanced error handling
   async testConnection() {
+    console.log('🧪 Starting comprehensive connection test...');
+
     try {
-      console.log('🧪 Starting comprehensive connection test...');
-
+      // Step 1: Check if database manager is initialized
       if (!this.isInitialized) {
-        console.log('🔄 Database not initialized, initializing now...');
-        await this.init();
+        console.log('🔄 Database not initialized, attempting initialization...');
+        try {
+          await this.init();
+          console.log('✅ Database initialization completed');
+        } catch (initError) {
+          const initErrorMsg = this.getErrorMessage(initError);
+          console.error('❌ Database initialization failed:', initErrorMsg);
+          return {
+            success: false,
+            error: initErrorMsg,
+            message: 'Database initialization failed',
+            step: 'initialization'
+          };
+        }
       }
 
+      // Step 2: Check if Supabase client is available
       if (!this.supabase) {
-        throw new Error('Supabase client not available');
+        const errorMsg = 'Supabase client not available after initialization';
+        console.error('❌', errorMsg);
+        return {
+          success: false,
+          error: errorMsg,
+          message: 'Database client unavailable',
+          step: 'client_check'
+        };
       }
 
-      console.log('🔍 Testing table access...');
+      console.log('🔍 Testing database table access...');
 
-      // Try to access the users table
-      const { data, error } = await this.supabase
-        .from('users')
-        .select('count')
-        .limit(1);
+      // Step 3: Try to access the users table
+      let tableTestResult;
+      try {
+        tableTestResult = await this.supabase
+          .from('users')
+          .select('count')
+          .limit(1);
+      } catch (tableError) {
+        const tableErrorMsg = this.getErrorMessage(tableError);
+        console.error('❌ Table query failed:', tableErrorMsg);
+        return {
+          success: false,
+          error: tableErrorMsg,
+          message: 'Database table query failed',
+          step: 'table_query'
+        };
+      }
+
+      const { data, error } = tableTestResult;
 
       if (error) {
-        console.log('📋 Table access error:', this.getErrorMessage(error));
+        const errorMsg = this.getErrorMessage(error);
+        console.log('📋 Table access error:', errorMsg);
+        console.log('📋 Error code:', error.code);
+        console.log('📋 Error details:', error.details);
 
-        if (error.code === 'PGRST116') {
+        // Handle specific error codes
+        if (error.code === 'PGRST116' || error.code === '42P01') {
           console.log('ℹ️ Users table does not exist - this is expected for first setup');
           return {
             success: true,
-            message: 'Connection successful (table needs to be created)',
-            needsSetup: true
-          };
-        } else if (error.code === '42P01') {
-          console.log('ℹ️ Table does not exist - setup required');
-          return {
-            success: true,
             message: 'Connection successful (database setup required)',
-            needsSetup: true
+            needsSetup: true,
+            step: 'table_missing'
           };
-        } else {
-          console.error('❌ Database access error:', this.getErrorMessage(error));
+        } else if (error.code === '42501') {
+          console.log('ℹ️ Permission denied - check Supabase RLS policies');
           return {
             success: false,
-            error: this.getErrorMessage(error),
-            message: 'Database connection failed'
+            error: 'Permission denied - check database policies',
+            message: 'Database permission error',
+            step: 'permissions'
+          };
+        } else {
+          console.error('❌ Database access error:', errorMsg);
+          return {
+            success: false,
+            error: errorMsg,
+            message: 'Database access failed',
+            step: 'table_access'
           };
         }
       }
@@ -539,17 +635,21 @@ class DatabaseManager {
       console.log('✅ Database connection and table access successful');
       return {
         success: true,
-        message: 'Connection and table access successful',
-        data: data
+        message: 'Full database connection successful',
+        data: data,
+        step: 'complete'
       };
 
-    } catch (error) {
-      const errorMsg = this.getErrorMessage(error);
-      console.error('❌ Database connection test failed:', errorMsg);
+    } catch (generalError) {
+      const errorMsg = this.getErrorMessage(generalError);
+      console.error('❌ Database connection test failed with general error:', errorMsg);
+      console.error('❌ Error stack:', generalError?.stack);
+
       return {
         success: false,
         error: errorMsg,
-        message: 'Database connection test failed'
+        message: 'Database connection test failed',
+        step: 'general_error'
       };
     }
   }
