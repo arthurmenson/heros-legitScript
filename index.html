@@ -5913,7 +5913,7 @@ margin: 0rem !important;
             element.setAttribute('data-heros-hidden', 'true');
             element.setAttribute('aria-hidden', 'true');
 
-            console.log(`�� Hidden carousel item ${index + 1}: ${settingKey}`);
+            console.log(`🙈 Hidden carousel item ${index + 1}: ${settingKey}`);
 
             // Verify hiding worked for carousel items
             setTimeout(() => {
@@ -7262,11 +7262,18 @@ const edQuizData = {
     window.location.href = 'mens-ed.html';
   }
 
-  // Make functions available immediately
+// Make functions globally available immediately
+if (typeof window !== 'undefined') {
   window.startEDQuiz = startEDQuiz;
   window.closeEDQuiz = closeEDQuiz;
   window.selectQuizOption = selectQuizOption;
   window.proceedToConsultation = proceedToConsultation;
+
+  // Also assign directly to global scope for extra safety
+  window.edQuizFunctionsReady = true;
+
+  console.log('ED Quiz functions loaded successfully');
+}
 
   // Initialize all widgets
   function initializeWidgets() {
