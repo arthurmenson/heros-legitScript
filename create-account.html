@@ -545,11 +545,26 @@
         let errorMessage = 'Account creation failed. Please try again.';
         if (error.message.includes('email already exists')) {
           errorMessage = 'An account with this email address already exists. Please use a different email or try logging in.';
-        } else if (error.message.includes('Database error')) {
-          errorMessage = 'There was a problem connecting to our servers. Please check your internet connection and try again.';
+        } else if (error.message.includes('Database error') || error.message.includes('Failed to connect')) {
+          errorMessage = 'There was a problem connecting to our servers. Your account has been saved locally and will be synchronized when the connection is restored.';
+        } else if (error.message.includes('Missing required fields')) {
+          errorMessage = 'Please fill in all required fields correctly.';
         }
 
-        alert(errorMessage);
+        // Show error in a more user-friendly way
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.style.cssText = 'background: #f8d7da; color: #721c24; padding: 12px; border-radius: 6px; margin: 10px 0; border: 1px solid #f5c6cb;';
+        errorDiv.textContent = errorMessage;
+
+        form.insertBefore(errorDiv, form.firstChild);
+
+        // Auto-hide error after 10 seconds
+        setTimeout(() => {
+          if (errorDiv.parentNode) {
+            errorDiv.parentNode.removeChild(errorDiv);
+          }
+        }, 10000);
 
         // Reset button state
         submitBtn.disabled = false;
