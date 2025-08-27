@@ -7003,6 +7003,553 @@ margin: 0rem !important;
     setTimeout(initializeWidgets, 2000);
   }
 
+  // ====== ED QUIZ SYSTEM ======
+
+  let currentQuizStep = 0;
+  let quizAnswers = {};
+
+  const edQuizData = {
+    0: {
+      question: "How would you describe your current situation?",
+      subtitle: "This helps us understand your needs better",
+      options: [
+        { text: "I'm experiencing erectile dysfunction", value: "has_ed", next: 1 },
+        { text: "I want to improve my performance", value: "performance", next: 2 },
+        { text: "I'm curious about treatment options", value: "curious", next: 3 },
+        { text: "I've tried treatments before", value: "tried_before", next: 4 }
+      ]
+    },
+    1: {
+      question: "How long have you been experiencing ED?",
+      subtitle: "Understanding duration helps determine the best treatment approach",
+      options: [
+        { text: "Less than 3 months", value: "recent", next: 5 },
+        { text: "3-12 months", value: "moderate", next: 5 },
+        { text: "1-2 years", value: "long_term", next: 6 },
+        { text: "More than 2 years", value: "chronic", next: 6 }
+      ]
+    },
+    2: {
+      question: "What aspects of performance are you looking to improve?",
+      subtitle: "Select what matters most to you",
+      options: [
+        { text: "Duration and stamina", value: "duration", next: 7 },
+        { text: "Confidence and reliability", value: "confidence", next: 7 },
+        { text: "Overall satisfaction", value: "satisfaction", next: 8 },
+        { text: "All of the above", value: "all_performance", next: 8 }
+      ]
+    },
+    3: {
+      question: "What's prompting your interest in ED treatment?",
+      subtitle: "Understanding your motivation helps us provide relevant information",
+      options: [
+        { text: "Planning ahead for potential issues", value: "preventive", next: 9 },
+        { text: "Partner or relationship concerns", value: "relationship", next: 10 },
+        { text: "Age-related changes", value: "aging", next: 11 },
+        { text: "General health optimization", value: "health", next: 12 }
+      ]
+    },
+    4: {
+      question: "What treatments have you tried before?",
+      subtitle: "This helps us recommend the most suitable options",
+      options: [
+        { text: "Prescription medications (Viagra, Cialis)", value: "prescriptions", next: 13 },
+        { text: "Over-the-counter supplements", value: "supplements", next: 14 },
+        { text: "Natural remedies or lifestyle changes", value: "natural", next: 15 },
+        { text: "Multiple approaches", value: "multiple", next: 16 }
+      ]
+    },
+    5: {
+      question: "Have you consulted with a healthcare provider about this?",
+      subtitle: "Medical guidance is important for effective treatment",
+      options: [
+        { text: "Yes, but haven't found the right solution", value: "consulted_unsatisfied", next: "results" },
+        { text: "Yes, and following their recommendations", value: "consulted_following", next: "results" },
+        { text: "No, this would be my first step", value: "not_consulted", next: "results" },
+        { text: "I prefer to research options first", value: "research_first", next: "results" }
+      ]
+    },
+    6: {
+      question: "How has this affected your quality of life?",
+      subtitle: "Understanding impact helps prioritize treatment urgency",
+      options: [
+        { text: "Significantly - it's a major concern", value: "major_impact", next: "results" },
+        { text: "Moderately - affects relationships", value: "moderate_impact", next: "results" },
+        { text: "Mildly - occasional frustration", value: "mild_impact", next: "results" },
+        { text: "I'm managing but want improvement", value: "managing", next: "results" }
+      ]
+    },
+    7: {
+      question: "Are you currently taking any medications?",
+      subtitle: "Some medications can interact with ED treatments",
+      options: [
+        { text: "Blood pressure medications", value: "bp_meds", next: "results" },
+        { text: "Heart medications", value: "heart_meds", next: "results" },
+        { text: "Other prescriptions", value: "other_meds", next: "results" },
+        { text: "No regular medications", value: "no_meds", next: "results" }
+      ]
+    },
+    8: {
+      question: "What's your primary goal with treatment?",
+      subtitle: "This helps us tailor recommendations to your needs",
+      options: [
+        { text: "Restore natural function", value: "restore_function", next: "results" },
+        { text: "Enhance current performance", value: "enhance_performance", next: "results" },
+        { text: "Gain peace of mind", value: "peace_of_mind", next: "results" },
+        { text: "Improve relationship satisfaction", value: "relationship_satisfaction", next: "results" }
+      ]
+    },
+    9: { question: "How important is discretion in your treatment?", subtitle: "We offer completely private consultations and delivery", options: [{ text: "Very important - complete privacy needed", value: "high_privacy", next: "results" }, { text: "Somewhat important", value: "moderate_privacy", next: "results" }, { text: "Not a major concern", value: "low_privacy", next: "results" }, { text: "I value transparency", value: "transparent", next: "results" }] },
+    10: { question: "Have you discussed this with your partner?", subtitle: "Open communication can improve treatment outcomes", options: [{ text: "Yes, we're addressing it together", value: "partner_supportive", next: "results" }, { text: "Partially - still working on communication", value: "partner_aware", next: "results" }, { text: "No, I prefer to handle it privately", value: "partner_unaware", next: "results" }, { text: "It's complicated", value: "partner_complicated", next: "results" }] },
+    11: { question: "What age range are you in?", subtitle: "Age helps us recommend age-appropriate treatments", options: [{ text: "25-35", value: "young_adult", next: "results" }, { text: "36-45", value: "middle_aged", next: "results" }, { text: "46-55", value: "mature", next: "results" }, { text: "56+", value: "senior", next: "results" }] },
+    12: { question: "What other health goals are you working on?", subtitle: "ED treatment can be part of overall wellness", options: [{ text: "Fitness and exercise", value: "fitness", next: "results" }, { text: "Stress management", value: "stress", next: "results" }, { text: "Sleep optimization", value: "sleep", next: "results" }, { text: "General preventive care", value: "preventive_care", next: "results" }] },
+    13: { question: "What issues did you have with prescription medications?", subtitle: "Understanding past experiences helps us recommend better options", options: [{ text: "Side effects were problematic", value: "side_effects", next: "results" }, { text: "Not effective enough", value: "ineffective", next: "results" }, { text: "Too expensive", value: "expensive", next: "results" }, { text: "Inconvenient to obtain", value: "inconvenient", next: "results" }] },
+    14: { question: "How long did you try over-the-counter options?", subtitle: "This helps us understand what you've already explored", options: [{ text: "A few weeks", value: "short_otc", next: "results" }, { text: "A few months", value: "medium_otc", next: "results" }, { text: "6+ months", value: "long_otc", next: "results" }, { text: "Still trying them", value: "current_otc", next: "results" }] },
+    15: { question: "Which natural approaches have you tried?", subtitle: "We can complement natural approaches with medical treatment", options: [{ text: "Diet and exercise changes", value: "lifestyle", next: "results" }, { text: "Herbal supplements", value: "herbal", next: "results" }, { text: "Stress reduction techniques", value: "stress_reduction", next: "results" }, { text: "Multiple natural methods", value: "multiple_natural", next: "results" }] },
+    16: { question: "What worked best among the treatments you've tried?", subtitle: "We can build on what's been effective for you", options: [{ text: "Prescription medications", value: "prescriptions_worked", next: "results" }, { text: "Lifestyle changes", value: "lifestyle_worked", next: "results" }, { text: "Combination approach", value: "combination_worked", next: "results" }, { text: "Nothing worked consistently", value: "nothing_worked", next: "results" }] },
+    results: {
+      isResult: true,
+      title: "Your Personalized ED Treatment Plan",
+      subtitle: "Based on your responses, here's what we recommend"
+    }
+  };
+
+  function startEDQuiz() {
+    currentQuizStep = 0;
+    quizAnswers = {};
+
+    // Create quiz modal
+    const quizModal = document.createElement('div');
+    quizModal.id = 'ed-quiz-modal';
+    quizModal.innerHTML = `
+      <div style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      ">
+        <div style="
+          background: white;
+          border-radius: 16px;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+          max-width: 600px;
+          width: 90%;
+          max-height: 90vh;
+          overflow-y: auto;
+          position: relative;
+          transform: translateY(20px);
+          transition: transform 0.3s ease;
+        ">
+          <!-- Close button -->
+          <button onclick="closeEDQuiz()" style="
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #666;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+          " onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background='none'">
+            ×
+          </button>
+
+          <!-- Quiz content -->
+          <div id="quiz-content" style="padding: 40px;">
+            <!-- Content will be dynamically inserted -->
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(quizModal);
+
+    // Animate in
+    setTimeout(() => {
+      quizModal.style.opacity = '1';
+      quizModal.querySelector('div > div').style.transform = 'translateY(0)';
+    }, 10);
+
+    displayQuizStep(0);
+  }
+
+  function displayQuizStep(stepNumber) {
+    const step = edQuizData[stepNumber];
+    const quizContent = document.getElementById('quiz-content');
+
+    if (step.isResult) {
+      displayQuizResults();
+      return;
+    }
+
+    // Progress calculation
+    const progressSteps = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+    const currentIndex = progressSteps.indexOf(currentQuizStep);
+    const progress = ((currentIndex + 1) / progressSteps.length) * 100;
+
+    quizContent.innerHTML = `
+      <!-- Progress bar -->
+      <div style="
+        width: 100%;
+        height: 4px;
+        background: #f0f0f0;
+        border-radius: 2px;
+        margin-bottom: 32px;
+      ">
+        <div style="
+          width: ${progress}%;
+          height: 100%;
+          background: linear-gradient(90deg, #1a1a1a, #333);
+          border-radius: 2px;
+          transition: width 0.3s ease;
+        "></div>
+      </div>
+
+      <!-- Question -->
+      <div style="margin-bottom: 32px;">
+        <h2 style="
+          font-size: 28px;
+          font-weight: 600;
+          color: #1a1a1a;
+          margin-bottom: 12px;
+          line-height: 1.3;
+        ">${step.question}</h2>
+        <p style="
+          font-size: 16px;
+          color: #666;
+          margin: 0;
+          line-height: 1.5;
+        ">${step.subtitle}</p>
+      </div>
+
+      <!-- Options -->
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        ${step.options.map((option, index) => `
+          <button onclick="selectQuizOption('${option.value}', '${option.next}')" style="
+            background: white;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 16px;
+            font-weight: 500;
+            color: #1a1a1a;
+            position: relative;
+            overflow: hidden;
+          " onmouseover="
+            this.style.borderColor='#1a1a1a';
+            this.style.background='#f8f9fa';
+            this.style.transform='translateY(-2px)';
+            this.style.boxShadow='0 4px 12px rgba(0, 0, 0, 0.1)';
+          " onmouseout="
+            this.style.borderColor='#e1e5e9';
+            this.style.background='white';
+            this.style.transform='translateY(0)';
+            this.style.boxShadow='none';
+          ">
+            <div style="
+              display: flex;
+              align-items: center;
+              gap: 16px;
+            ">
+              <div style="
+                width: 24px;
+                height: 24px;
+                border: 2px solid #e1e5e9;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s ease;
+              ">
+                <div style="
+                  width: 12px;
+                  height: 12px;
+                  border-radius: 50%;
+                  background: transparent;
+                  transition: background 0.2s ease;
+                "></div>
+              </div>
+              <span>${option.text}</span>
+            </div>
+          </button>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function selectQuizOption(value, nextStep) {
+    quizAnswers[currentQuizStep] = value;
+
+    // Animate selection
+    const selectedButton = event.target.closest('button');
+    selectedButton.style.borderColor = '#1a1a1a';
+    selectedButton.style.background = '#1a1a1a';
+    selectedButton.style.color = 'white';
+    const radioButton = selectedButton.querySelector('div > div');
+    const radioDot = selectedButton.querySelector('div > div > div');
+    radioButton.style.borderColor = 'white';
+    radioDot.style.background = 'white';
+
+    setTimeout(() => {
+      if (nextStep === 'results' || !edQuizData[nextStep]) {
+        displayQuizResults();
+      } else {
+        currentQuizStep = parseInt(nextStep);
+        displayQuizStep(currentQuizStep);
+      }
+    }, 500);
+  }
+
+  function displayQuizResults() {
+    const quizContent = document.getElementById('quiz-content');
+
+    // Analyze answers to provide personalized recommendations
+    const recommendations = analyzeQuizAnswers();
+
+    quizContent.innerHTML = `
+      <div style="text-align: center; margin-bottom: 32px;">
+        <div style="
+          width: 80px;
+          height: 80px;
+          background: linear-gradient(135deg, #1a1a1a, #333);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 24px;
+          color: white;
+          font-size: 32px;
+        ">✓</div>
+        <h2 style="
+          font-size: 32px;
+          font-weight: 700;
+          color: #1a1a1a;
+          margin-bottom: 12px;
+        ">Your Personalized Plan</h2>
+        <p style="
+          font-size: 18px;
+          color: #666;
+          margin: 0;
+        ">Based on your responses, here's what we recommend</p>
+      </div>
+
+      <!-- Recommendations -->
+      <div style="
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 32px;
+      ">
+        <h3 style="
+          font-size: 20px;
+          font-weight: 600;
+          color: #1a1a1a;
+          margin-bottom: 16px;
+        ">Recommended Treatment Approach</h3>
+        <div style="margin-bottom: 20px;">
+          ${recommendations.treatments.map(treatment => `
+            <div style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              margin-bottom: 12px;
+            ">
+              <div style="
+                width: 20px;
+                height: 20px;
+                background: #1a1a1a;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 12px;
+                font-weight: 700;
+              ">✓</div>
+              <span style="font-size: 16px; color: #333;">${treatment}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- Pricing Info -->
+      <div style="
+        border: 1px solid #e1e5e9;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 32px;
+      ">
+        <div style="text-align: center;">
+          <h3 style="
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+          ">Transparent Pricing</h3>
+          <div style="
+            font-size: 36px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+          ">$2<span style="font-size: 18px; color: #666;">/pill</span></div>
+          <p style="
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+          ">vs $89 at traditional pharmacies</p>
+        </div>
+      </div>
+
+      <!-- Next Steps -->
+      <div style="
+        background: linear-gradient(135deg, #1a1a1a, #333);
+        border-radius: 12px;
+        padding: 24px;
+        color: white;
+        text-align: center;
+      ">
+        <h3 style="
+          font-size: 20px;
+          font-weight: 600;
+          margin-bottom: 16px;
+          color: white;
+        ">Ready to Get Started?</h3>
+        <p style="
+          font-size: 16px;
+          margin-bottom: 24px;
+          opacity: 0.9;
+        ">Connect with a licensed physician for a personalized consultation</p>
+        <button onclick="proceedToConsultation()" style="
+          background: white;
+          color: #1a1a1a;
+          border: none;
+          border-radius: 8px;
+          padding: 16px 32px;
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          margin-right: 12px;
+        " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+          Start Consultation
+        </button>
+        <button onclick="closeEDQuiz()" style="
+          background: transparent;
+          color: white;
+          border: 2px solid white;
+          border-radius: 8px;
+          padding: 14px 32px;
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        " onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">
+          Save for Later
+        </button>
+      </div>
+    `;
+  }
+
+  function analyzeQuizAnswers() {
+    // Analyze quiz answers to provide personalized recommendations
+    const recommendations = {
+      treatments: []
+    };
+
+    // Add recommendations based on answers
+    const hasED = Object.values(quizAnswers).includes('has_ed');
+    const isPerformanceSeeker = Object.values(quizAnswers).includes('performance');
+    const isCurious = Object.values(quizAnswers).includes('curious');
+    const hasTriedBefore = Object.values(quizAnswers).includes('tried_before');
+    const hasTriedPrescriptions = Object.values(quizAnswers).includes('prescriptions');
+    const hasSideEffects = Object.values(quizAnswers).includes('side_effects');
+    const needsPrivacy = Object.values(quizAnswers).includes('high_privacy');
+
+    if (hasED) {
+      recommendations.treatments.push('FDA-approved ED medication (Sildenafil or Tadalafil)');
+      recommendations.treatments.push('Licensed physician consultation');
+      recommendations.treatments.push('Personalized dosage recommendations');
+      if (needsPrivacy) {
+        recommendations.treatments.push('Completely private consultation and delivery');
+      }
+    } else if (isPerformanceSeeker) {
+      recommendations.treatments.push('Performance enhancement consultation');
+      recommendations.treatments.push('Lifestyle optimization guidance');
+      recommendations.treatments.push('Optional medication for confidence');
+    } else if (isCurious) {
+      recommendations.treatments.push('Educational consultation with physician');
+      recommendations.treatments.push('Preventive health assessment');
+      recommendations.treatments.push('Future treatment planning');
+    }
+
+    if (hasTriedBefore) {
+      if (hasTriedPrescriptions && hasSideEffects) {
+        recommendations.treatments.push('Alternative medication options with fewer side effects');
+        recommendations.treatments.push('Lower dose titration approach');
+      } else {
+        recommendations.treatments.push('Alternative medication options');
+        recommendations.treatments.push('Dosage optimization review');
+      }
+    }
+
+    // Always add these
+    recommendations.treatments.push('90-day money-back guarantee');
+    recommendations.treatments.push('24/7 medical support');
+
+    // Default recommendations if none match
+    if (recommendations.treatments.length === 0) {
+      recommendations.treatments = [
+        'Complete health assessment',
+        'Physician consultation',
+        'Personalized treatment plan',
+        '90-day money-back guarantee'
+      ];
+    }
+
+    return recommendations;
+  }
+
+  function closeEDQuiz() {
+    const modal = document.getElementById('ed-quiz-modal');
+    if (modal) {
+      modal.style.opacity = '0';
+      setTimeout(() => {
+        modal.remove();
+      }, 300);
+    }
+  }
+
+  function proceedToConsultation() {
+    // Close quiz and redirect to consultation
+    closeEDQuiz();
+    // You can redirect to a consultation page or open another flow
+    window.location.href = 'mens-ed.html';
+  }
+
+  // Make functions globally available
+  window.startEDQuiz = startEDQuiz;
+  window.closeEDQuiz = closeEDQuiz;
+  window.selectQuizOption = selectQuizOption;
+  window.proceedToConsultation = proceedToConsultation;
+
 </script>
 
 </body>
