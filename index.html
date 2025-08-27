@@ -4365,7 +4365,7 @@ margin: 0rem !important;
 
                 <!-- Dual CTAs -->
                 <div style="display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;">
-                  <a href="mens-ed.html" style="
+                  <a href="#" onclick="startEDQuiz(); return false;" style="
                     background: #1a1a1a;
                     color: white;
                     padding: 16px 32px;
@@ -4375,13 +4375,14 @@ margin: 0rem !important;
                     font-size: 16px;
                     transition: all 0.3s ease;
                     box-shadow: 0 4px 16px rgba(26, 26, 26, 0.2);
+                    cursor: pointer;
                   "
                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(26, 26, 26, 0.3)'"
                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 16px rgba(26, 26, 26, 0.2)'">
                     Start 3-Minute Assessment
                   </a>
 
-                  <a href="#" style="
+                  <a href="#" onclick="startEDQuiz(); return false;" style="
                     background: transparent;
                     color: #1a1a1a;
                     padding: 16px 32px;
@@ -4391,6 +4392,7 @@ margin: 0rem !important;
                     font-size: 16px;
                     border: 2px solid #e1e5e9;
                     transition: all 0.3s ease;
+                    cursor: pointer;
                   "
                   onmouseover="this.style.borderColor='#1a1a1a'; this.style.background='#f8f9fa'"
                   onmouseout="this.style.borderColor='#e1e5e9'; this.style.background='transparent'">
