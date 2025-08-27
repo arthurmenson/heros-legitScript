@@ -8012,6 +8012,40 @@ if (typeof window !== 'undefined') {
     }
   };
 
+  // Mobile Responsive Layout Toggle
+  function handleResponsiveLayout() {
+    const mobileLayout = document.querySelector('.mobile-layout');
+    const desktopContent = document.querySelector('.main-wrapper');
+    const navComponent = document.querySelector('.nav_component');
+
+    if (window.innerWidth <= 991) {
+      // Show mobile layout, hide desktop
+      if (mobileLayout) mobileLayout.style.display = 'block';
+      if (desktopContent) desktopContent.style.display = 'none';
+      if (navComponent) navComponent.style.display = 'none';
+    } else {
+      // Show desktop layout, hide mobile
+      if (mobileLayout) mobileLayout.style.display = 'none';
+      if (desktopContent) desktopContent.style.display = 'block';
+      if (navComponent) navComponent.style.display = 'block';
+    }
+  }
+
+  // Initialize responsive layout on DOM content loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    handleResponsiveLayout();
+
+    // Add resize listener
+    window.addEventListener('resize', handleResponsiveLayout);
+  });
+
+  // Also run immediately in case DOMContentLoaded has already fired
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', handleResponsiveLayout);
+  } else {
+    handleResponsiveLayout();
+  }
+
 </script>
 
 </body>
