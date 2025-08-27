@@ -648,25 +648,27 @@ class DatabaseManager {
           console.error('❌ Database initialization failed:', initErrorMsg);
 
           // Return success for fallback mode
-          return {
+          const result = {
             success: true,
             error: initErrorMsg,
             message: 'Using fallback storage (localStorage)',
             step: 'fallback_mode',
             fallback: true
           };
+          return this.sanitizeReturnObject(result);
         }
       }
 
       // Step 2: Check if Supabase client is available
       if (!this.supabase) {
         console.log('ℹ️ Supabase client not available - using fallback mode');
-        return {
+        const result = {
           success: true,
           message: 'Using fallback storage (localStorage)',
           step: 'fallback_mode',
           fallback: true
         };
+        return this.sanitizeReturnObject(result);
       }
 
       console.log('🔍 Testing database table access...');
@@ -691,13 +693,14 @@ class DatabaseManager {
         console.warn('⚠️ Table query failed, using fallback:', tableErrorMsg);
 
         // Return success for fallback mode instead of failure
-        return {
+        const result = {
           success: true,
           error: tableErrorMsg,
           message: 'Database query failed, using fallback storage (localStorage)',
           step: 'fallback_after_query_error',
           fallback: true
         };
+        return this.sanitizeReturnObject(result);
       }
 
       const { data, error } = tableTestResult;
@@ -710,40 +713,44 @@ class DatabaseManager {
         // Handle specific error codes
         if (error.code === 'PGRST116' || error.code === '42P01') {
           console.log('ℹ️ Users table does not exist - this is expected for first setup');
-          return {
+          const result = {
             success: true,
             message: 'Connection successful (database setup required)',
             needsSetup: true,
             step: 'table_missing'
           };
+          return this.sanitizeReturnObject(result);
         } else if (error.code === '42501') {
           console.log('ℹ️ Permission denied - using fallback mode');
-          return {
+          const result = {
             success: true,
             error: 'Permission denied - check database policies',
             message: 'Database permission error, using fallback storage',
             step: 'fallback_permissions',
             fallback: true
           };
+          return this.sanitizeReturnObject(result);
         } else {
           console.warn('⚠️ Database access error, using fallback:', errorMsg);
-          return {
+          const result = {
             success: true,
             error: errorMsg,
             message: 'Database access failed, using fallback storage (localStorage)',
             step: 'fallback_after_access_error',
             fallback: true
           };
+          return this.sanitizeReturnObject(result);
         }
       }
 
       console.log('✅ Database connection and table access successful');
-      return {
+      const result = {
         success: true,
         message: 'Full database connection successful',
         data: data,
         step: 'complete'
       };
+      return this.sanitizeReturnObject(result);
 
     } catch (generalError) {
       const errorMsg = this.getErrorMessage(generalError);
