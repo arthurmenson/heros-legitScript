@@ -1086,7 +1086,7 @@
         
         <div class="quiz-options">
           ${step.options.map((option, index) => `
-            <button class="quiz-option" onclick="selectOption('${option.value}', '${option.next}')">
+            <button class="quiz-option" onclick="selectOption('${option.value}', '${option.next}', this)">
               <div class="option-icon">${option.icon}</div>
               <div class="option-content">
                 <div class="option-title">${option.title}</div>
