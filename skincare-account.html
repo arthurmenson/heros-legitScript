@@ -546,8 +546,13 @@
         // Clear quiz data from localStorage after successful account creation
         localStorage.removeItem('skincareQuizAnswers');
 
-        // Show success message
-        successMessage.innerHTML = `<strong>✓ Skincare account created successfully!</strong> Welcome ${userData.firstName}! Your personalized skincare profile is ready. Redirecting to your consultation...`;
+        // Show success message with storage info
+        let successMsg = `<strong>✓ Skincare account created successfully!</strong> Welcome ${userData.firstName}! Your personalized skincare profile is ready.`;
+        if (result.storage === 'localStorage') {
+          successMsg += ' <em>(Stored securely on your device)</em>';
+        }
+        successMsg += ' Redirecting to your consultation...';
+        successMessage.innerHTML = successMsg;
         successMessage.style.display = 'block';
         form.style.display = 'none';
 
