@@ -4382,7 +4382,7 @@ margin: 0rem !important;
                     Start 3-Minute Assessment
                   </a>
 
-                  <a href="#" onclick="startEDQuiz(); return false;" style="
+                  <a href="#" onclick="if(typeof startEDQuiz === 'function') { startEDQuiz(); } else { alert('Quiz function not loaded'); } return false;" style="
                     background: transparent;
                     color: #1a1a1a;
                     padding: 16px 32px;
@@ -5708,7 +5708,7 @@ margin: 0rem !important;
             element.setAttribute('data-heros-hidden', 'true');
             element.setAttribute('aria-hidden', 'true');
 
-            console.log(`��� Hidden menu item ${index + 1}: ${settingKey}`);
+            console.log(`�� Hidden menu item ${index + 1}: ${settingKey}`);
 
             // Verify the hiding worked
             setTimeout(() => {
