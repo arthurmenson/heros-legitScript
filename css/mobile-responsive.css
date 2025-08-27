@@ -1,6 +1,11 @@
 /* Mobile/Tablet Responsive Styles - Based on Figma Design */
 
-/* Hide desktop content on mobile */
+/* Default: Hide mobile layout on all screens */
+.mobile-layout {
+  display: none !important;
+}
+
+/* Show mobile layout and hide desktop content only on mobile */
 @media (max-width: 991px) {
   .main-wrapper,
   .nav_component {
