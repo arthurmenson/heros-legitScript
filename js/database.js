@@ -183,14 +183,28 @@ class DatabaseManager {
 
   // Create a new user account
   async createUser(userData) {
-    if (!this.isInitialized) {
-      await this.init();
-    }
-
     try {
+      console.log('📄 Creating user account...');
+
       // Validate required fields
       if (!userData.firstName || !userData.lastName || !userData.email || !userData.dateOfBirth) {
-        throw new Error('Missing required fields');
+        throw new Error('Missing required fields: firstName, lastName, email, dateOfBirth');
+      }
+
+      // Try to initialize database if not already done
+      if (!this.isInitialized) {
+        console.log('🔄 Initializing database for user creation...');
+        try {
+          await this.init();
+        } catch (initError) {
+          console.warn('⚠️ Database initialization failed, using fallback storage');
+          return this.createUserFallback(userData);
+        }
+      }
+
+      if (!this.supabase) {
+        console.warn('⚠️ Supabase client not available, using fallback storage');
+        return this.createUserFallback(userData);
       }
 
       // Prepare data for insertion
@@ -203,6 +217,8 @@ class DatabaseManager {
         quiz_data: userData.quizData || null
       };
 
+      console.log('💾 Inserting user record into database...');
+
       // Insert user into database
       const { data, error } = await this.supabase
         .from('users')
@@ -211,45 +227,162 @@ class DatabaseManager {
         .single();
 
       if (error) {
+        console.error('❌ Database insertion error:', this.getErrorMessage(error));
+
         if (error.code === '23505') { // Unique constraint violation
           throw new Error('An account with this email already exists');
+        } else if (error.code === '42P01') { // Table does not exist
+          console.warn('⚠️ Users table does not exist, using fallback storage');
+          return this.createUserFallback(userData);
+        } else {
+          // For any other database error, fall back to local storage
+          console.warn('⚠️ Database error, using fallback storage:', this.getErrorMessage(error));
+          return this.createUserFallback(userData);
         }
-        throw new Error(`Database error: ${error.message}`);
       }
 
-      console.log('✅ User created successfully:', data.id);
+      console.log('✅ User created successfully in database:', data.id);
       return {
         success: true,
         user: data,
-        message: 'Account created successfully'
+        message: 'Account created successfully',
+        storage: 'database'
       };
 
     } catch (error) {
-      console.error('❌ User creation failed:', error);
+      const errorMsg = this.getErrorMessage(error);
+      console.error('❌ User creation failed:', errorMsg);
+
+      // If it's a validation error, don't use fallback
+      if (errorMsg.includes('Missing required fields') || errorMsg.includes('email already exists')) {
+        return {
+          success: false,
+          error: errorMsg,
+          message: 'Failed to create account'
+        };
+      }
+
+      // For other errors, try fallback
+      console.log('🔄 Attempting fallback storage...');
+      return this.createUserFallback(userData);
+    }
+  }
+
+  // Fallback user creation using localStorage
+  createUserFallback(userData) {
+    try {
+      console.log('💾 Using fallback storage (localStorage)...');
+
+      // Generate a unique ID
+      const userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+
+      // Check if email already exists in localStorage
+      const existingUsers = this.getLocalUsers();
+      const emailExists = existingUsers.some(user =>
+        user.email.toLowerCase() === userData.email.trim().toLowerCase()
+      );
+
+      if (emailExists) {
+        return {
+          success: false,
+          error: 'An account with this email already exists',
+          message: 'Failed to create account'
+        };
+      }
+
+      const userRecord = {
+        id: userId,
+        first_name: userData.firstName.trim(),
+        last_name: userData.lastName.trim(),
+        email: userData.email.trim().toLowerCase(),
+        date_of_birth: userData.dateOfBirth,
+        account_type: userData.accountType || 'general',
+        quiz_data: userData.quizData || null,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        storage: 'localStorage'
+      };
+
+      // Add to existing users
+      existingUsers.push(userRecord);
+      localStorage.setItem('hero_users', JSON.stringify(existingUsers));
+
+      console.log('✅ User created successfully in localStorage:', userId);
+      return {
+        success: true,
+        user: userRecord,
+        message: 'Account created successfully (stored locally)',
+        storage: 'localStorage'
+      };
+
+    } catch (error) {
+      console.error('❌ Fallback user creation failed:', this.getErrorMessage(error));
       return {
         success: false,
-        error: error.message,
+        error: this.getErrorMessage(error),
         message: 'Failed to create account'
       };
     }
   }
 
+  // Get users from localStorage
+  getLocalUsers() {
+    try {
+      const usersJson = localStorage.getItem('hero_users');
+      return usersJson ? JSON.parse(usersJson) : [];
+    } catch (error) {
+      console.warn('⚠️ Could not parse local users:', error);
+      return [];
+    }
+  }
+
   // Check if email already exists
   async checkEmailExists(email) {
-    if (!this.isInitialized) {
-      await this.init();
-    }
-
     try {
+      console.log('🔍 Checking if email exists:', email);
+
+      // Check localStorage first (for fallback users)
+      const localUsers = this.getLocalUsers();
+      const existsLocally = localUsers.some(user =>
+        user.email.toLowerCase() === email.trim().toLowerCase()
+      );
+
+      if (existsLocally) {
+        console.log('✅ Email found in local storage');
+        return true;
+      }
+
+      // Try database if available
+      if (!this.isInitialized) {
+        try {
+          await this.init();
+        } catch (initError) {
+          console.warn('⚠️ Database not available, only checked local storage');
+          return false;
+        }
+      }
+
+      if (!this.supabase) {
+        console.warn('⚠️ Supabase client not available, only checked local storage');
+        return false;
+      }
+
       const { data, error } = await this.supabase
         .from('users')
         .select('id')
         .eq('email', email.trim().toLowerCase())
         .single();
 
-      return !error && data !== null;
+      if (error && error.code !== 'PGRST116' && error.code !== '42P01') {
+        console.warn('⚠️ Database error checking email:', this.getErrorMessage(error));
+      }
+
+      const existsInDatabase = !error && data !== null;
+      console.log(existsInDatabase ? '✅ Email found in database' : 'ℹ️ Email not found in database');
+
+      return existsInDatabase;
     } catch (error) {
-      console.error('Error checking email:', error);
+      console.error('❌ Error checking email:', this.getErrorMessage(error));
       return false;
     }
   }
