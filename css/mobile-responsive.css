@@ -1,18 +1,8 @@
-/* Mobile/Tablet Responsive Styles - Based on Figma Design */
+/* Mobile Responsive Styles - Clean and Optimized */
 
-/* Default: Hide mobile layout on all screens */
+/* Default: Hide mobile layout on desktop */
 .mobile-layout {
   display: none !important;
-}
-
-/* Desktop view: Ensure desktop content is shown and mobile is hidden */
-.desktop-view .mobile-layout {
-  display: none !important;
-}
-
-.desktop-view .main-wrapper,
-.desktop-view .nav_component {
-  display: block !important;
 }
 
 /* Mobile view: Show mobile layout and hide desktop content */
@@ -25,16 +15,14 @@
   display: none !important;
 }
 
-/* Ensure desktop content is visible on larger screens */
-@media (min-width: 992px) {
-  .mobile-layout {
-    display: none !important;
-  }
-  
-  .main-wrapper,
-  .nav_component {
-    display: block !important;
-  }
+/* Desktop view: Hide mobile layout */
+.desktop-view .mobile-layout {
+  display: none !important;
+}
+
+.desktop-view .main-wrapper,
+.desktop-view .nav_component {
+  display: block !important;
 }
 
 /* Mobile Styles */
@@ -47,83 +35,73 @@
   
   .mobile-layout {
     display: block !important;
-  }
-
-  /* Base mobile container */
-  .mobile-layout {
     width: 100%;
-    max-width: 375px;
     margin: 0 auto;
     background: #fff;
     position: relative;
+    font-family: 'Rethink', sans-serif;
   }
 
-  /* Top Banner */
+  /* Mobile Top Banner */
   .mobile-top-banner {
-    width: 100%;
-    height: 40px;
     background: #f1ede7;
+    padding: 8px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 20px;
-    box-sizing: border-box;
+    font-size: 12px;
+    color: #333;
+    gap: 16px;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 
   .mobile-banner-content {
     display: flex;
-    justify-content: center;
+    gap: 16px;
     align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .mobile-banner-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .mobile-banner-icon {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
   }
 
   .mobile-banner-text {
-    color: #333;
-    font-family: 'Rethink', sans-serif;
-    font-size: 12px;
     font-weight: 600;
-    line-height: 120%;
-    letter-spacing: -0.36px;
     opacity: 0.8;
+    flex-shrink: 0;
   }
 
   /* Mobile Navigation */
   .mobile-nav {
     display: flex;
-    padding: 12px 20px;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #eaeaea;
-    background: #fff;
+    padding: 16px 20px;
+    border-bottom: 1px solid #eee;
+    background: white;
   }
 
   .mobile-logo {
-    color: #000;
     font-family: 'Recoleta', serif;
     font-size: 24px;
     font-weight: 600;
-    line-height: 32px;
-    letter-spacing: -0.72px;
+    color: #000;
+    text-decoration: none;
+    letter-spacing: -0.5px;
   }
 
   .mobile-nav-right {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
+  }
+
+  .mobile-login-btn {
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
   }
 
   .mobile-nav-icon {
@@ -131,415 +109,236 @@
     height: 40px;
     border-radius: 50%;
     border: 1px solid rgba(0, 0, 0, 0.2);
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: transparent;
+    cursor: pointer;
   }
 
   /* Mobile Hero Section */
   .mobile-hero {
-    display: flex;
-    width: 334px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 16px;
-    margin: 48px auto 0;
-    padding: 0 21px;
+    padding: 48px 20px;
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .mobile-typed-container {
+    margin-bottom: 16px;
+  }
+
+  .mobile-typed-words {
+    color: #d5b331;
+    font-family: 'Recoleta', serif;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.2;
   }
 
   .mobile-hero-title {
-    width: 100%;
     font-family: 'Recoleta', serif;
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 600;
-    line-height: 35px;
-    letter-spacing: -0.96px;
+    line-height: 1.1;
+    color: #000;
+    margin: 0 0 16px 0;
+    letter-spacing: -1px;
   }
 
-  .mobile-hero-title .highlight-text {
+  .highlight-text {
     color: #d5b331;
   }
 
   .mobile-hero-subtitle {
-    width: 100%;
-    color: #000;
-    font-family: 'Rethink', sans-serif;
-    font-size: 16px;
+    font-size: 18px;
+    color: #666;
+    line-height: 1.5;
+    margin: 0;
     font-weight: 500;
-    line-height: 28px;
-    letter-spacing: -0.48px;
   }
 
-  /* Mobile Service Cards */
-  .mobile-service-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 48px 20px;
-    max-width: 375px;
-    margin: 0 auto;
-  }
-
-  /* Card Grid Layout for Top Services */
+  /* Mobile Services Grid */
   .mobile-top-services {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin: 0 auto 16px;
+    gap: 12px;
+    margin: 0 auto 24px;
     padding: 0 20px;
-    max-width: 375px;
+    max-width: 600px;
   }
 
-  .mobile-top-services .mobile-weight-loss-card {
-    grid-column: 1;
-    margin: 0;
-  }
-
-  .mobile-top-services .mobile-mens-ed-card {
-    grid-column: 2;
-    margin: 0;
-  }
-
-  /* Weight Loss Card - Special Layout */
-  .mobile-weight-loss-card {
-    display: flex;
-    align-items: flex-end;
-    width: 164px;
-    height: 250px;
+  .mobile-weight-loss-card,
+  .mobile-mens-ed-card {
     border-radius: 16px;
     background: #f1ede7;
     position: relative;
     overflow: hidden;
-  }
-
-  .mobile-weight-loss-card .card-image {
-    width: 153px;
-    height: 183px;
-    border-radius: 0 0 16px 16px;
-    position: absolute;
-    left: 1px;
-    top: 21px;
-    object-fit: cover;
-  }
-
-  .mobile-weight-loss-card .card-title {
-    position: absolute;
-    left: 29px;
-    top: 220px;
-    color: #000;
-    text-align: center;
-    font-family: 'Recoleta', serif;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 28px;
-    letter-spacing: -0.6px;
-  }
-
-  .mobile-weight-loss-card .card-cta {
-    position: absolute;
-    left: 36px;
-    bottom: 16px;
-    display: inline-flex;
-    padding: 7px 16px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 32px;
-    border: 1px solid #eb1f1f;
-    background: transparent;
-    text-decoration: none;
-  }
-
-  .mobile-weight-loss-card .card-cta-text {
-    color: #000;
-    text-align: center;
-    font-family: 'Rethink', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 18px;
-    letter-spacing: -0.36px;
-  }
-
-  /* Men's ED Card - Special Layout */
-  .mobile-mens-ed-card {
-    width: 163px;
-    height: 250px;
-    border-radius: 16px;
-    background: #f2ece4;
-    position: relative;
-    overflow: hidden;
-    margin-left: auto;
-  }
-
-  .mobile-mens-ed-card .card-image {
-    width: 163px;
-    height: 250px;
-    border-radius: 16px;
-    object-fit: cover;
-  }
-
-  .mobile-mens-ed-card .card-content {
-    position: absolute;
-    top: 20px;
-    left: 41px;
+    aspect-ratio: 4/5;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 6px;
+    justify-content: space-between;
+    padding: 20px;
   }
 
-  .mobile-mens-ed-card .card-title {
-    color: #000;
-    text-align: center;
-    font-family: 'Recoleta', serif;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 28px;
-    letter-spacing: -0.6px;
-  }
-
-  .mobile-mens-ed-card .card-cta {
+  .mobile-weight-loss-card .card-image,
+  .mobile-mens-ed-card .card-image {
     position: absolute;
-    left: 35px;
-    bottom: 36px;
-    display: inline-flex;
-    padding: 7px 16px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 32px;
-    border: 1px solid #eb1f1f;
-    background: transparent;
-    text-decoration: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    object-fit: cover;
+    border-radius: 16px 16px 0 0;
   }
 
-  /* Horizontal Service Cards */
-  .mobile-service-card-horizontal {
-    width: 335px;
-    height: 114px;
-    border-radius: 16px;
-    background: #f1ede7;
+  .mobile-weight-loss-card .card-title,
+  .mobile-mens-ed-card .card-title {
+    font-family: 'Recoleta', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    margin-top: auto;
+    padding-top: 10px;
+  }
+
+  .mobile-weight-loss-card .card-cta,
+  .mobile-mens-ed-card .card-cta {
+    background: transparent;
+    border: 1px solid #000;
+    border-radius: 20px;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #000;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 8px;
+    position: relative;
+    z-index: 2;
+    align-self: flex-start;
+  }
+
+  .mobile-service-grid {
     display: flex;
-    align-items: center;
-    padding: 0;
-    overflow: hidden;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 20px;
+    max-width: 600px;
     margin: 0 auto;
   }
 
+  .mobile-service-card-horizontal {
+    display: flex;
+    border-radius: 16px;
+    background: #f1ede7;
+    overflow: hidden;
+    height: 120px;
+  }
+
   .mobile-service-card-horizontal .card-image {
-    width: 137px;
-    height: 114px;
+    width: 120px;
+    height: 120px;
     object-fit: cover;
     flex-shrink: 0;
   }
 
   .mobile-service-card-horizontal .card-gradient {
-    width: 112px;
-    height: 114px;
-    background: linear-gradient(270deg, rgba(244, 238, 230, 0.00) 0%, #f1eae3 100%);
+    flex: 1;
     position: relative;
+    padding: 20px;
+    display: flex;
+    align-items: center;
   }
 
   .mobile-service-card-horizontal .card-content {
-    display: flex;
-    width: 142px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
+    width: 100%;
   }
 
   .mobile-service-card-horizontal .card-title {
-    color: #000;
     font-family: 'Recoleta', serif;
     font-size: 18px;
     font-weight: 600;
-    line-height: 24px;
-    letter-spacing: -0.54px;
+    color: #000;
+    margin: 0 0 12px 0;
   }
 
   .mobile-service-card-horizontal .card-actions {
     display: flex;
-    align-items: center;
-    gap: 4px;
-    width: 100%;
+    gap: 8px;
+  }
+
+  .mobile-service-card-horizontal .card-cta-secondary,
+  .mobile-service-card-horizontal .card-cta-primary {
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    min-width: 80px;
   }
 
   .mobile-service-card-horizontal .card-cta-secondary {
-    display: flex;
-    padding: 7px 16px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 32px;
-    border: 1px solid #d9d9d9;
     background: transparent;
-    text-decoration: none;
+    border: 1px solid #ccc;
+    color: #000;
   }
 
   .mobile-service-card-horizontal .card-cta-primary {
-    display: flex;
-    padding: 8px 16px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 32px;
     background: #000;
-    text-decoration: none;
-  }
-
-  .mobile-service-card-horizontal .card-cta-text {
-    color: #000;
-    text-align: center;
-    font-family: 'Rethink', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 18px;
-    letter-spacing: -0.36px;
-  }
-
-  .mobile-service-card-horizontal .card-cta-primary .card-cta-text {
-    color: #fff;
-  }
-
-  /* RPM Card Special Styling */
-  .rpm-card-image-1 {
-    transform: rotate(45deg);
-  }
-
-  .rpm-card-image-2 {
-    transform: rotate(-30deg);
-    position: absolute;
-    left: 17px;
-    top: -10px;
-  }
-
-  /* Touch target optimization */
-  .mobile-nav-icon,
-  .card-cta,
-  .card-cta-primary,
-  .card-cta-secondary {
-    min-height: 44px;
-    min-width: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    touch-action: manipulation;
-  }
-
-  /* Hero Cards */
-  .mobile-hero-card {
-    width: 335px;
-    height: 332px;
-    border-radius: 16px;
-    position: relative;
-    overflow: hidden;
-    margin: 16px auto;
-  }
-
-  .mobile-hero-card .hero-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .mobile-hero-card .hero-content {
-    position: absolute;
-    left: 20px;
-    bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    max-width: 280px;
-  }
-
-  .mobile-hero-card .hero-title {
-    color: #000;
-    font-family: 'Recoleta', serif;
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 40px;
-    letter-spacing: -0.96px;
-  }
-
-  .mobile-hero-card.dark .hero-title {
-    color: #fff;
-  }
-
-  .mobile-hero-card .hero-subtitle {
-    font-family: 'Rethink', sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: -0.54px;
-    color: #000;
-  }
-
-  .mobile-hero-card.dark .hero-subtitle {
-    color: #fff;
-  }
-
-  .mobile-hero-card .hero-actions {
-    display: flex;
-    align-items: center;
-    gap: 4px;
+    color: white;
+    border: 1px solid #000;
   }
 
   /* Section Titles */
   .mobile-section-title {
-    color: #000;
-    text-align: center;
     font-family: 'Recoleta', serif;
     font-size: 32px;
     font-weight: 600;
-    line-height: 40px;
-    letter-spacing: -0.96px;
+    text-align: center;
+    color: #000;
+    line-height: 1.2;
     margin: 48px auto 32px;
-    max-width: 320px;
-    padding: 0 28px;
+    padding: 0 20px;
+    max-width: 600px;
   }
 
   /* How It Works Section */
   .mobile-how-it-works {
     padding: 48px 20px;
-    max-width: 375px;
+    max-width: 600px;
     margin: 0 auto;
   }
 
   .mobile-how-it-works .section-header {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom: 32px;
+    text-align: center;
+    margin-bottom: 40px;
   }
 
   .mobile-how-it-works .section-title {
-    color: #000;
     font-family: 'Recoleta', serif;
     font-size: 32px;
     font-weight: 600;
-    line-height: 48px;
-    letter-spacing: -0.96px;
+    color: #000;
+    margin: 0 0 16px 0;
+    line-height: 1.2;
   }
 
   .mobile-how-it-works .section-subtitle {
-    color: #000;
-    font-family: 'Rethink', sans-serif;
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 28px;
-    letter-spacing: -0.6px;
+    font-size: 18px;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
   }
 
   .mobile-how-it-works .steps-container {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 24px;
   }
 
   .mobile-how-it-works .step-item {
@@ -549,13 +348,13 @@
   }
 
   .mobile-how-it-works .step-icon {
-    display: flex;
     width: 48px;
     height: 48px;
-    padding: 6px;
-    justify-content: center;
-    align-items: center;
     border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
     flex-shrink: 0;
   }
 
@@ -572,169 +371,122 @@
   }
 
   .mobile-how-it-works .step-icon.delivery {
-    background: #adc9c4;
+    background: #e8f5f0;
   }
 
   .mobile-how-it-works .step-content {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex-grow: 1;
+    flex: 1;
   }
 
   .mobile-how-it-works .step-title {
-    color: #000;
     font-family: 'Recoleta', serif;
     font-size: 20px;
     font-weight: 600;
-    line-height: 28px;
-    letter-spacing: -1px;
+    color: #000;
+    margin: 0 0 8px 0;
   }
 
   .mobile-how-it-works .step-description {
-    color: #7b7b7b;
-    font-family: 'Rethink', sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: -0.54px;
-    max-width: 227px;
-  }
-
-  /* Video Placeholder */
-  .mobile-video-placeholder {
-    width: 335px;
-    height: 230px;
-    border-radius: 16px;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 16px auto;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .mobile-video-placeholder .video-background {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .mobile-video-placeholder .play-button {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
-  }
-
-  .mobile-video-placeholder .play-icon {
-    width: 0;
-    height: 0;
-    border-left: 12px solid #000;
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    margin-left: 4px;
+    font-size: 16px;
+    color: #666;
+    line-height: 1.5;
+    margin: 0;
   }
 
   /* CTA Section */
   .mobile-cta-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    padding: 32px 20px;
-    max-width: 375px;
+    text-align: center;
+    padding: 48px 20px;
+    max-width: 600px;
     margin: 0 auto;
   }
 
   .mobile-cta-section .cta-title {
-    color: #000;
-    text-align: center;
     font-family: 'Recoleta', serif;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
-    line-height: 24px;
-    max-width: 163px;
+    color: #000;
+    margin: 0 0 24px 0;
+    line-height: 1.3;
   }
 
   .mobile-cta-section .cta-button {
-    display: flex;
-    padding: 12px 24px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 32px;
     background: #000;
-    color: #fff;
+    color: white;
+    padding: 16px 32px;
+    border-radius: 25px;
     text-decoration: none;
-    font-family: 'Rethink', sans-serif;
-    font-size: 16px;
     font-weight: 700;
-    line-height: 24px;
-    letter-spacing: -0.48px;
+    font-size: 16px;
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+
+  .mobile-cta-section .cta-button:hover {
+    transform: translateY(-2px);
   }
 
   /* Footer */
   .mobile-footer {
-    width: 375px;
-    height: 110px;
-    opacity: 0.6;
+    background: #f8f9fa;
+    padding: 40px 20px;
+    text-align: center;
+    max-width: 600px;
     margin: 0 auto;
+  }
+
+  .mobile-footer .footer-content {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 16px;
   }
 
   .mobile-footer .footer-logo {
-    width: 375px;
-    height: 110px;
+    font-family: 'Recoleta', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #000;
+  }
+
+  .mobile-footer .footer-text {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
   }
 
   /* Utility Classes */
-.mobile-hidden {
-  display: none !important;
-}
+  .mobile-hidden {
+    display: none !important;
+  }
 
-.mobile-visible {
-  display: block !important;
-}
+  .mobile-visible {
+    display: block !important;
+  }
 
-/* Hide desktop elements on mobile */
-.desktop-only {
-  display: none !important;
-}
+  .desktop-only {
+    display: none !important;
+  }
 
-/* Show mobile elements only on mobile */
-.mobile-only {
-  display: block !important;
-}
+  .mobile-only {
+    display: block !important;
+  }
 
-/* Development Helper Classes */
-.dev-mobile-outline {
-  outline: 2px solid red !important;
-}
-
-.dev-desktop-outline {
-  outline: 2px solid blue !important;
-}
-
-/* Quick layout debugging */
-.debug-mobile * {
-  outline: 1px solid rgba(255, 0, 0, 0.3) !important;
-}
-
-.debug-desktop * {
-  outline: 1px solid rgba(0, 0, 255, 0.3) !important;
-}
+  /* Touch targets - ensure all interactive elements are at least 44px */
+  .mobile-nav-icon,
+  .mobile-login-btn,
+  .card-cta,
+  .card-cta-primary,
+  .card-cta-secondary,
+  .cta-button {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    cursor: pointer;
+  }
 }
 
 /* Tablet adjustments */
@@ -743,38 +495,43 @@
     max-width: 768px;
   }
 
-  .mobile-service-grid {
-    max-width: 768px;
-    padding: 48px 40px;
-  }
-
   .mobile-hero {
-    max-width: 600px;
-    padding: 0 40px;
+    padding: 60px 40px;
   }
 
-  .mobile-hero-card,
-  .mobile-power-card,
-  .mobile-testimonial-card,
-  .mobile-bmi-calculator,
-  .mobile-video-placeholder {
-    width: 100%;
-    max-width: 600px;
+  .mobile-hero-title {
+    font-size: 48px;
   }
 
-  .mobile-service-card-horizontal {
-    width: 100%;
-    max-width: 600px;
+  .mobile-typed-words {
+    font-size: 36px;
+  }
+
+  .mobile-service-grid,
+  .mobile-how-it-works,
+  .mobile-cta-section {
+    padding-left: 40px;
+    padding-right: 40px;
   }
 
   .mobile-top-services {
-    max-width: 768px;
     padding: 0 40px;
     gap: 16px;
   }
 
-  .mobile-how-it-works {
-    max-width: 768px;
-    padding: 48px 40px;
+  .mobile-section-title {
+    font-size: 40px;
+  }
+}
+
+/* Desktop styles - hide mobile layout */
+@media (min-width: 992px) {
+  .mobile-layout {
+    display: none !important;
+  }
+  
+  .main-wrapper,
+  .nav_component {
+    display: block !important;
   }
 }
