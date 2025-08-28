@@ -675,23 +675,41 @@
   }
 
   /* Utility Classes */
-  .mobile-hidden {
-    display: none !important;
-  }
+.mobile-hidden {
+  display: none !important;
+}
 
-  .mobile-visible {
-    display: block !important;
-  }
+.mobile-visible {
+  display: block !important;
+}
 
-  /* Hide desktop elements on mobile */
-  .desktop-only {
-    display: none !important;
-  }
+/* Hide desktop elements on mobile */
+.desktop-only {
+  display: none !important;
+}
 
-  /* Show mobile elements only on mobile */
-  .mobile-only {
-    display: block !important;
-  }
+/* Show mobile elements only on mobile */
+.mobile-only {
+  display: block !important;
+}
+
+/* Development Helper Classes */
+.dev-mobile-outline {
+  outline: 2px solid red !important;
+}
+
+.dev-desktop-outline {
+  outline: 2px solid blue !important;
+}
+
+/* Quick layout debugging */
+.debug-mobile * {
+  outline: 1px solid rgba(255, 0, 0, 0.3) !important;
+}
+
+.debug-desktop * {
+  outline: 1px solid rgba(0, 0, 255, 0.3) !important;
+}
 }
 
 /* Tablet adjustments */
