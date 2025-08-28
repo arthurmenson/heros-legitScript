@@ -5,13 +5,46 @@
   display: none !important;
 }
 
-/* Show mobile layout and hide desktop content only on mobile */
+/* Desktop view: Ensure desktop content is shown and mobile is hidden */
+.desktop-view .mobile-layout {
+  display: none !important;
+}
+
+.desktop-view .main-wrapper,
+.desktop-view .nav_component {
+  display: block !important;
+}
+
+/* Mobile view: Show mobile layout and hide desktop content */
+.mobile-view .mobile-layout {
+  display: block !important;
+}
+
+.mobile-view .main-wrapper,
+.mobile-view .nav_component {
+  display: none !important;
+}
+
+/* Ensure desktop content is visible on larger screens */
+@media (min-width: 992px) {
+  .mobile-layout {
+    display: none !important;
+  }
+  
+  .main-wrapper,
+  .nav_component {
+    display: block !important;
+  }
+}
+
+/* Mobile Styles */
 @media (max-width: 991px) {
+  /* Force mobile layout visibility and hide desktop */
   .main-wrapper,
   .nav_component {
     display: none !important;
   }
-
+  
   .mobile-layout {
     display: block !important;
   }
@@ -147,6 +180,26 @@
     padding: 48px 20px;
     max-width: 375px;
     margin: 0 auto;
+  }
+
+  /* Card Grid Layout for Top Services */
+  .mobile-top-services {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 0 auto 16px;
+    padding: 0 20px;
+    max-width: 375px;
+  }
+
+  .mobile-top-services .mobile-weight-loss-card {
+    grid-column: 1;
+    margin: 0;
+  }
+
+  .mobile-top-services .mobile-mens-ed-card {
+    grid-column: 2;
+    margin: 0;
   }
 
   /* Weight Loss Card - Special Layout */
@@ -412,127 +465,6 @@
     gap: 4px;
   }
 
-  /* Power Performance Card */
-  .mobile-power-card {
-    width: 335px;
-    height: 495px;
-    border-radius: 16px;
-    background: #adc9c4;
-    position: relative;
-    margin: 16px auto;
-    overflow: hidden;
-  }
-
-  .mobile-power-card .power-content {
-    position: absolute;
-    left: 20px;
-    top: 32px;
-    color: #fff;
-  }
-
-  .mobile-power-card .power-title {
-    font-family: 'Recoleta', serif;
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 40px;
-    letter-spacing: -0.96px;
-    margin-bottom: 16px;
-  }
-
-  .mobile-power-card .power-subtitle {
-    font-family: 'Recoleta', serif;
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 40px;
-    letter-spacing: -0.96px;
-    color: #000;
-    margin-bottom: 32px;
-  }
-
-  .mobile-power-card .power-cta {
-    display: inline-flex;
-    padding: 12px 24px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 32px;
-    border: 1px solid #fff;
-    background: transparent;
-    color: #fff;
-    text-decoration: none;
-    font-family: 'Rethink', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 18px;
-    letter-spacing: -0.36px;
-  }
-
-  /* Testimonial Card */
-  .mobile-testimonial-card {
-    width: 335px;
-    height: 332px;
-    border-radius: 16px;
-    background: #fbfbfb;
-    padding: 32px 20px;
-    margin: 16px auto;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .mobile-testimonial-card .testimonial-logo {
-    width: 89px;
-    height: 26px;
-  }
-
-  .mobile-testimonial-card .testimonial-text {
-    color: #000;
-    font-family: 'Rethink', sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: -0.54px;
-    flex-grow: 1;
-  }
-
-  .mobile-testimonial-card .testimonial-author {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .mobile-testimonial-card .author-image {
-    width: 52px;
-    height: 52px;
-    border-radius: 50px;
-    object-fit: cover;
-  }
-
-  .mobile-testimonial-card .author-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .mobile-testimonial-card .author-name {
-    color: #0c0c0c;
-    font-family: 'Rethink', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 28px;
-    letter-spacing: -0.72px;
-  }
-
-  .mobile-testimonial-card .author-title {
-    color: #0c0c0c;
-    font-family: 'Rethink', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-    letter-spacing: -0.56px;
-    opacity: 0.6;
-  }
-
   /* Section Titles */
   .mobile-section-title {
     color: #000;
@@ -545,75 +477,6 @@
     margin: 48px auto 32px;
     max-width: 320px;
     padding: 0 28px;
-  }
-
-  /* BMI Calculator */
-  .mobile-bmi-calculator {
-    width: 335px;
-    height: 316px;
-    border-radius: 24px;
-    background: #fff2c0;
-    padding: 20px;
-    margin: 16px auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .mobile-bmi-calculator .bmi-title {
-    color: #000;
-    font-family: 'Recoleta', serif;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 24px;
-    letter-spacing: -0.6px;
-    max-width: 145px;
-  }
-
-  .mobile-bmi-calculator .bmi-scale {
-    width: 100%;
-    height: 116px;
-    margin: 16px 0;
-  }
-
-  .mobile-bmi-calculator .bmi-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .mobile-bmi-calculator .bmi-label {
-    color: #000;
-    font-family: 'Rethink', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 24px;
-    letter-spacing: -0.48px;
-  }
-
-  .mobile-bmi-calculator .bmi-inputs {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .mobile-bmi-calculator .bmi-input {
-    width: 130px;
-    height: 44px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.60);
-    background: rgba(255, 255, 255, 0.24);
-    padding: 0 14px;
-    font-family: 'Rethink', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 16px;
-    letter-spacing: -0.36px;
-    color: #000;
-  }
-
-  .mobile-bmi-calculator .bmi-input::placeholder {
-    color: rgba(0, 0, 0, 0.7);
   }
 
   /* How It Works Section */
@@ -829,27 +692,6 @@
   .mobile-only {
     display: block !important;
   }
-
-  /* Card Grid Layout for Top Services */
-  .mobile-top-services {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin: 0 auto 16px;
-    padding: 0 20px;
-    max-width: 375px;
-  }
-
-  .mobile-top-services .mobile-weight-loss-card {
-    grid-column: 1;
-    margin: 0;
-  }
-
-  .mobile-top-services .mobile-mens-ed-card {
-    grid-column: 2;
-    margin: 0;
-  }
-
 }
 
 /* Tablet adjustments */
