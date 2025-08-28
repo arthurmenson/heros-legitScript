@@ -8014,35 +8014,33 @@ if (typeof window !== 'undefined') {
 
   // Mobile Responsive Layout Toggle
   function handleResponsiveLayout() {
-    const mobileLayout = document.querySelector('.mobile-layout');
-    const desktopContent = document.querySelector('.main-wrapper');
-    const navComponent = document.querySelector('.nav_component');
+    const body = document.body;
 
     if (window.innerWidth <= 991) {
-      // Show mobile layout, hide desktop
-      if (mobileLayout) mobileLayout.style.display = 'block';
-      if (desktopContent) desktopContent.style.display = 'none';
-      if (navComponent) navComponent.style.display = 'none';
+      // Add mobile class to body
+      body.classList.add('mobile-view');
+      body.classList.remove('desktop-view');
     } else {
-      // Show desktop layout, hide mobile
-      if (mobileLayout) mobileLayout.style.display = 'none';
-      if (desktopContent) desktopContent.style.display = 'block';
-      if (navComponent) navComponent.style.display = 'block';
+      // Add desktop class to body
+      body.classList.add('desktop-view');
+      body.classList.remove('mobile-view');
     }
   }
 
-  // Initialize responsive layout on DOM content loaded
+  // Initialize responsive layout
   document.addEventListener('DOMContentLoaded', function() {
     handleResponsiveLayout();
 
-    // Add resize listener
-    window.addEventListener('resize', handleResponsiveLayout);
+    // Add resize listener with throttling
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(handleResponsiveLayout, 100);
+    });
   });
 
-  // Also run immediately in case DOMContentLoaded has already fired
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', handleResponsiveLayout);
-  } else {
+  // Run immediately if DOM is already ready
+  if (document.readyState !== 'loading') {
     handleResponsiveLayout();
   }
 
