@@ -17,9 +17,15 @@
   <!-- Mobile Development Helper (only loads in development) -->
   <script>
     if (window.location.hostname === 'localhost' || window.location.hostname.includes('127.0.0.1') || window.location.hostname.includes('.fly.dev')) {
-      const script = document.createElement('script');
-      script.src = 'mobile-dev-helper.js';
-      document.head.appendChild(script);
+      // Load development tools
+      const devHelper = document.createElement('script');
+      devHelper.src = 'mobile-dev-helper.js';
+      document.head.appendChild(devHelper);
+
+      // Load test suite
+      const testSuite = document.createElement('script');
+      testSuite.src = 'mobile-test-suite.js';
+      document.head.appendChild(testSuite);
     }
   </script>
   <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
@@ -7253,7 +7259,7 @@ margin: 0rem !important;
       const content = document.getElementById('assessment-content');
       content.innerHTML = `
         <div style="text-align: center;">
-          <div style="background: #e6f7ff; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px;">���</div>
+          <div style="background: #e6f7ff; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px;">✓</div>
           <h4 style="margin: 0 0 8px; color: #1a1a1a;">Perfect!</h4>
           <p style="margin: 0 0 20px; color: #666; font-size: 14px;">We've personalized your experience. Start your consultation now.</p>
           <button onclick="window.open('${redirectUrl}', '_blank')" style="background: #e6b591; border: none; border-radius: 32px; padding: 14px 28px; color: white; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
