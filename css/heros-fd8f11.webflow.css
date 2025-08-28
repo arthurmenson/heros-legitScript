@@ -4684,6 +4684,7 @@ figcaption {
     padding-right: 0;
   }
 
+  .hide-mobile-landscape {
     display: none;
   }
 
@@ -4713,6 +4714,7 @@ figcaption {
     font-size: 2rem;
   }
 
+  .max-width-full-mobile-landscape {
     width: 100%;
     max-width: none;
   }
@@ -4909,6 +4911,7 @@ figcaption {
     flex-wrap: wrap;
   }
 
+  .max-width-full-mobile-portrait {
     width: 100%;
     max-width: none;
   }
@@ -4922,6 +4925,7 @@ figcaption {
     padding-right: 0;
   }
 
+  .hide-mobile-portrait {
     display: none;
   }
 
