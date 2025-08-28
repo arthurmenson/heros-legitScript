@@ -407,6 +407,31 @@
     color: #fff;
   }
 
+  /* RPM Card Special Styling */
+  .rpm-card-image-1 {
+    transform: rotate(45deg);
+  }
+
+  .rpm-card-image-2 {
+    transform: rotate(-30deg);
+    position: absolute;
+    left: 17px;
+    top: -10px;
+  }
+
+  /* Touch target optimization */
+  .mobile-nav-icon,
+  .card-cta,
+  .card-cta-primary,
+  .card-cta-secondary {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+  }
+
   /* Hero Cards */
   .mobile-hero-card {
     width: 335px;
