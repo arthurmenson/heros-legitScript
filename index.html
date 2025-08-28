@@ -7350,32 +7350,11 @@ if (typeof window !== 'undefined') {
     }
   };
 
-  // Mobile Responsive Layout Toggle
-  function handleResponsiveLayout() {
-    const body = document.body;
-
-    if (window.innerWidth <= 991) {
-      // Add mobile class to body
-      body.classList.add('mobile-view');
-      body.classList.remove('desktop-view');
-      console.log('🔥 Mobile layout activated! Screen width:', window.innerWidth);
-    } else {
-      // Add desktop class to body
-      body.classList.add('desktop-view');
-      body.classList.remove('mobile-view');
-      console.log('💻 Desktop layout activated! Screen width:', window.innerWidth);
-    }
-  }
-
-  // Initialize responsive layout
-  document.addEventListener('DOMContentLoaded', function() {
-    handleResponsiveLayout();
 
     // Add resize listener with throttling
     let resizeTimeout;
     window.addEventListener('resize', function() {
       clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(handleResponsiveLayout, 100);
     });
   });
 
