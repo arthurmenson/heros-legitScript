@@ -1,0 +1,441 @@
+/* Mobile Responsive Layout - Based on Desktop Design */
+
+@media (max-width: 991px) {
+  /* Mobile Banner Component */
+  .mobile-banner-component {
+    background: #f8f9fa;
+    padding: 8px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .mobile-scrolling-banner {
+    display: flex;
+    animation: scroll-left-mobile 30s linear infinite;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .mobile-banner-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .mobile-banner-text {
+    color: #333;
+    font-family: 'Rethink', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    opacity: 0.8;
+  }
+
+  @keyframes scroll-left-mobile {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* Mobile Navigation Component */
+  .mobile-nav-component {
+    background: white;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 12px 0;
+  }
+
+  .mobile-nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    max-width: 375px;
+    margin: 0 auto;
+  }
+
+  .mobile-nav-brand {
+    text-decoration: none;
+  }
+
+  .mobile-logo {
+    color: #000;
+    font-family: 'Recoleta', serif;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.72px;
+  }
+
+  .mobile-nav-menu {
+    display: none; /* Hidden by default, shows on menu toggle */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #f0f0f0;
+    padding: 20px;
+    z-index: 1000;
+  }
+
+  .mobile-nav-link {
+    display: block;
+    padding: 12px 0;
+    color: #000;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .mobile-nav-link:last-child {
+    border-bottom: none;
+  }
+
+  .mobile-nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mobile-login-btn,
+  .mobile-cart-btn,
+  .mobile-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: transparent;
+    text-decoration: none;
+    color: #000;
+    font-size: 14px;
+  }
+
+  .mobile-login-btn {
+    border-radius: 20px;
+    padding: 8px 16px;
+    min-width: auto;
+  }
+
+  /* Mobile Hero Section */
+  .mobile-hero-section {
+    padding: 60px 20px 40px;
+    text-align: center;
+    max-width: 375px;
+    margin: 0 auto;
+  }
+
+  .mobile-hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mobile-typed-container {
+    margin-bottom: 8px;
+  }
+
+  .mobile-typed-words {
+    color: #4c9183;
+    font-family: 'Recoleta', serif;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .mobile-main-heading {
+    color: #000;
+    font-family: 'Recoleta', serif;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .mobile-hero-tagline {
+    color: #666;
+    font-family: 'Rethink', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Mobile ED Section */
+  .mobile-ed-section {
+    padding: 40px 20px;
+    max-width: 375px;
+    margin: 0 auto;
+  }
+
+  .mobile-ed-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .mobile-ed-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .mobile-ed-img-left {
+    grid-row: span 2;
+    border-radius: 12px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .mobile-ed-img-right,
+  .mobile-ed-img-bottom {
+    border-radius: 12px;
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+  }
+
+  .mobile-trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(26, 26, 26, 0.05);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+  }
+
+  .trust-indicator {
+    width: 8px;
+    height: 8px;
+    background: #2ecc71;
+    border-radius: 50%;
+  }
+
+  .trust-indicator.skincare {
+    background: #e6b591;
+  }
+
+  .trust-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .mobile-section-heading {
+    color: #000;
+    font-family: 'Recoleta', serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 16px 0;
+  }
+
+  .mobile-section-description {
+    color: #666;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 0 0 24px 0;
+  }
+
+  .mobile-benefits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .mobile-benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .benefit-check {
+    width: 20px;
+    height: 20px;
+    background: #1a1a1a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .benefit-check.skincare {
+    background: #e6b591;
+  }
+
+  .mobile-benefit-item span {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1a1a1a;
+  }
+
+  .mobile-cta-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .mobile-cta-primary {
+    background: #1a1a1a;
+    color: white;
+    padding: 16px 24px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(26, 26, 26, 0.2);
+    border: none;
+  }
+
+  .mobile-cta-primary.skincare {
+    background: #e6b591;
+    color: white;
+  }
+
+  .mobile-cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(26, 26, 26, 0.3);
+  }
+
+  .mobile-cta-secondary {
+    background: transparent;
+    color: #1a1a1a;
+    padding: 16px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+    border: 2px solid #e1e5e9;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-cta-secondary:hover {
+    border-color: #1a1a1a;
+    background: #f8f9fa;
+  }
+
+  .mobile-social-proof {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .mobile-rating,
+  .mobile-urgency {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .rating-stars {
+    color: #ffd700;
+    font-size: 14px;
+  }
+
+  .rating-text,
+  .mobile-urgency span {
+    color: #666;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .urgency-dot {
+    width: 8px;
+    height: 8px;
+    background: #2ecc71;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+
+  .mobile-disclaimer {
+    color: #999;
+    font-size: 12px;
+    margin: 16px 0 0 0;
+    font-style: italic;
+  }
+
+  /* Mobile Skin Care Section */
+  .mobile-skincare-section {
+    padding: 40px 20px;
+    max-width: 375px;
+    margin: 0 auto;
+    background: #faf9f7;
+  }
+
+  .mobile-skincare-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* Responsive breakpoints */
+  @media (min-width: 480px) {
+    .mobile-nav-container,
+    .mobile-hero-section,
+    .mobile-ed-section,
+    .mobile-skincare-section {
+      max-width: 100%;
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .mobile-nav-container,
+    .mobile-hero-section,
+    .mobile-ed-section,
+    .mobile-skincare-section {
+      max-width: 768px;
+      margin: 0 auto;
+    }
+
+    .mobile-main-heading {
+      font-size: 48px;
+    }
+
+    .mobile-section-heading {
+      font-size: 40px;
+    }
+
+    .mobile-cta-group {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .mobile-cta-primary,
+    .mobile-cta-secondary {
+      flex: 0 0 auto;
+      min-width: 200px;
+    }
+  }
+}
+
+/* Hide mobile layout on desktop */
+@media (min-width: 992px) {
+  .mobile-layout {
+    display: none !important;
+  }
+}
