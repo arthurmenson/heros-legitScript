@@ -8,7 +8,6 @@
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/webflow.css" rel="stylesheet" type="text/css">
   <link href="css/heros-fd8f11.webflow.css" rel="stylesheet" type="text/css">
-  <link href="css/mobile-responsive.css" rel="stylesheet" type="text/css">
   <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
 
   <!-- Mobile View Manager (always loads) -->
@@ -3079,6 +3078,259 @@
 <body>
   <div class="page-wrapper">
 
+    <!-- Mobile/Tablet Layout (Hidden on Desktop) -->
+    <div class="mobile-layout mobile-only" style="display: none;">
+
+      <!-- Mobile Top Banner (matching desktop animated banner) -->
+      <div class="mobile-banner-component">
+        <div class="mobile-scrolling-banner">
+          <div class="mobile-banner-item">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5008 5.31968C12.6231 5.57162 12.4341 5.85113 12.1562 5.88623C9.14903 6.26604 6.76604 8.64903 6.38623 11.6562C6.35113 11.9341 6.07162 12.1231 5.81968 12.0008C4.15065 11.1908 3 9.47979 3 7.5C3 4.73858 5.23858 2.5 8 2.5C9.97979 2.5 11.6908 3.65065 12.5008 5.31968Z" fill="currentcolor"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8971 8.42438C15.0798 7.84233 14.0799 7.5 13 7.5C10.2386 7.5 8 9.73858 8 12.5C8 13.5799 8.34233 14.5798 8.92438 15.3971L15.8971 8.42438ZM17.0756 9.60289L10.1029 16.5756C10.9202 17.1577 11.9201 17.5 13 17.5C15.7614 17.5 18 15.2614 18 12.5C18 11.4201 17.6577 10.4202 17.0756 9.60289Z" fill="currentcolor"/>
+            </svg>
+            <span class="mobile-banner-text">2,000,000+ members treated</span>
+          </div>
+          <div class="mobile-banner-item">
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M13 3.33333H11.3333V2C11.3333 1.26667 10.7333 0.666667 9.99999 0.666667H1.99999C1.26666 0.666667 0.666656 1.26667 0.666656 2V8C0.666656 8.73333 1.26666 9.33333 1.99999 9.33333C1.99999 10.44 2.89332 11.3333 3.99999 11.3333C5.10666 11.3333 5.99999 10.44 5.99999 9.33333H9.99999C9.99999 10.44 10.8933 11.3333 12 11.3333C13.1067 11.3333 14 10.44 14 9.33333H14.6667C15.0333 9.33333 15.3333 9.03333 15.3333 8.66667V6.44667C15.3333 6.16 15.24 5.88 15.0667 5.64667L13.5333 3.6C13.4067 3.43333 13.2067 3.33333 13 3.33333ZM3.99999 10C3.63332 10 3.33332 9.7 3.33332 9.33333C3.33332 8.96667 3.63332 8.66667 3.99999 8.66667C4.36666 8.66667 4.66666 8.96667 4.66666 9.33333C4.66666 9.7 4.36666 10 3.99999 10ZM13 4.33333L14.3067 6H11.3333V4.33333H13ZM12 10C11.6333 10 11.3333 9.7 11.3333 9.33333C11.3333 8.96667 11.6333 8.66667 12 8.66667C12.3667 8.66667 12.6667 8.96667 12.6667 9.33333C12.6667 9.7 12.3667 10 12 10Z" fill="currentcolor"/>
+            </svg>
+            <span class="mobile-banner-text">Free and discreet shipping</span>
+          </div>
+          <div class="mobile-banner-item">
+            <span class="mobile-banner-text">100% online process</span>
+          </div>
+          <div class="mobile-banner-item">
+            <span class="mobile-banner-text">No insurance required</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Navigation (matching desktop nav) -->
+      <div class="mobile-nav-component">
+        <div class="mobile-nav-container">
+          <a href="index.html" class="mobile-nav-brand">
+            <div class="mobile-logo">heros.</div>
+          </a>
+          <div class="mobile-nav-menu">
+            <a href="mens-ed.html" class="mobile-nav-link">Men's ED</a>
+            <a href="skin-care.html" class="mobile-nav-link">Skin Care</a>
+            <a href="hair-regrowth.html" class="mobile-nav-link">Hair Regrowth</a>
+            <a href="nad-plus.html" class="mobile-nav-link">NAD+</a>
+          </div>
+          <div class="mobile-nav-buttons">
+            <a href="#" class="mobile-login-btn" aria-label="Log in">
+              <span>Log in</span>
+            </a>
+            <button class="mobile-cart-btn" aria-label="Shopping cart">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 5.11333V4.46666C5 2.96666 6.20667 1.49333 7.70667 1.35333C9.49333 1.18 11 2.58666 11 4.34V5.26" stroke="currentcolor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5.99988 14.6667H9.99988C12.6799 14.6667 13.1599 13.5933 13.2999 12.2867L13.7999 8.28667C13.9799 6.66 13.5132 5.33334 10.6666 5.33334H5.33322C2.48655 5.33334 2.01988 6.66 2.19988 8.28667L2.69988 12.2867C2.83988 13.5933 3.31988 14.6667 5.99988 14.6667Z" stroke="black" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10.3302 8H10.3361" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5.66317 8H5.66916" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button class="mobile-menu-toggle" aria-label="Open navigation menu">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.5 4.5H13.5M2.5 8H13.5M2.5 11.5H13.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Hero Section (matching desktop hero) -->
+      <div class="mobile-hero-section">
+        <div class="mobile-hero-content">
+          <div class="mobile-typed-container">
+            <div class="mobile-typed-words">Grow the hair</div>
+          </div>
+          <h1 class="mobile-main-heading">Personalized. Powerful.</h1>
+          <div class="mobile-hero-tagline">All science. No shame. All HEROS.</div>
+        </div>
+      </div>
+
+      <!-- Mobile ED Meds Section (matching desktop) -->
+      <div class="mobile-ed-section">
+        <div class="mobile-ed-content">
+          <!-- Mobile Image Grid -->
+          <div class="mobile-ed-images">
+            <img src="images/Frame-2085667809_1.avif" loading="lazy" alt="ED treatment consultation" class="mobile-ed-img-right">
+            <img src="images/Frame-2085667765_1.avif" loading="lazy" alt="ED medication options" class="mobile-ed-img-left">
+            <img src="images/Frame-2085667810_1.avif" loading="lazy" alt="Discreet packaging" class="mobile-ed-img-bottom">
+          </div>
+
+          <!-- Trust Badge -->
+          <div class="mobile-trust-badge">
+            <div class="trust-indicator"></div>
+            <span class="trust-text">Trusted by 500K+ men</span>
+          </div>
+
+          <h2 class="mobile-section-heading">Reclaim Your Confidence.<br>Discreet ED Treatment.</h2>
+          <p class="mobile-section-description">FDA-approved ED medication prescribed online.<br>Delivered discreetly to your door.</p>
+
+          <!-- Mobile Key Benefits -->
+          <div class="mobile-benefits-list">
+            <div class="mobile-benefit-item">
+              <div class="benefit-check">✓</div>
+              <span>Works in as little as 30 minutes</span>
+            </div>
+            <div class="mobile-benefit-item">
+              <div class="benefit-check">✓</div>
+              <span>Same active ingredients as Viagra & Cialis</span>
+            </div>
+            <div class="mobile-benefit-item">
+              <div class="benefit-check">✓</div>
+              <span>90% cheaper than brand names</span>
+            </div>
+          </div>
+
+          <!-- Mobile CTAs -->
+          <div class="mobile-cta-group">
+            <a href="https://heros-health.mybaskhealth.com/start-online-visit/mensed" class="mobile-cta-primary">
+              Start Comprehensive Assessment
+            </a>
+            <a href="https://heros-health.mybaskhealth.com/start-online-visit/mensed" class="mobile-cta-secondary">
+              Check Eligibility
+            </a>
+          </div>
+
+          <!-- Mobile Social Proof -->
+          <div class="mobile-social-proof">
+            <div class="mobile-rating">
+              <div class="rating-stars">★★★★★</div>
+              <span class="rating-text">4.8/5 from 12,000+ reviews</span>
+            </div>
+            <div class="mobile-urgency">
+              <div class="urgency-dot"></div>
+              <span>247 men started treatment today</span>
+            </div>
+          </div>
+
+          <p class="mobile-disclaimer">*Results may vary. Prescription required. No insurance needed.</p>
+        </div>
+      </div>
+
+      <!-- Mobile Skin Care Section -->
+      <div class="mobile-skincare-section">
+        <div class="mobile-skincare-content">
+          <!-- Trust Badge -->
+          <div class="mobile-trust-badge skincare">
+            <div class="trust-indicator skincare"></div>
+            <span class="trust-text">FDA-approved dermatology solutions</span>
+          </div>
+
+          <h2 class="mobile-section-heading">Clear, Radiant Skin in Just 2-4 Weeks</h2>
+          <p class="mobile-section-description">Personalized prescription treatments for acne, wrinkles, dark spots, and aging—delivered by board-certified dermatologists.</p>
+
+          <!-- Mobile Benefits -->
+          <div class="mobile-benefits-list">
+            <div class="mobile-benefit-item">
+              <div class="benefit-check skincare">✓</div>
+              <span>Visible results in 2-4 weeks</span>
+            </div>
+            <div class="mobile-benefit-item">
+              <div class="benefit-check skincare">✓</div>
+              <span>Board-certified dermatologists</span>
+            </div>
+            <div class="mobile-benefit-item">
+              <div class="benefit-check skincare">✓</div>
+              <span>90-day money-back guarantee</span>
+            </div>
+          </div>
+
+          <!-- Mobile CTAs -->
+          <div class="mobile-cta-group">
+            <a href="https://heros-health.mybaskhealth.com/start-online-visit/skincare" class="mobile-cta-primary skincare">
+              Start Skin Assessment
+            </a>
+            <a href="skin-care.html" class="mobile-cta-secondary">
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Cards -->
+      <div class="mobile-hero-card">
+        <img src="https://api.builder.io/api/v1/image/assets/TEMP/be34c3beacd6faa30ae27f6b58dab76b53f822bd?width=670" alt="Hero" class="hero-image">
+        <svg class="hero-logo" style="position: absolute; left: 20px; top: 20px;" width="90" height="27" viewBox="0 0 90 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M86.3987 26.2399C85.4853 26.2399 84.7317 26.0002 84.138 25.5206C83.5443 25.0183 83.2475 24.3104 83.2475 23.397C83.2475 22.4836 83.5443 21.7872 84.138 21.3076C84.7317 20.8053 85.4853 20.5541 86.3987 20.5541C87.2892 20.5541 88.0314 20.8053 88.6251 21.3076C89.2188 21.7872 89.5156 22.4836 89.5156 23.397C89.5156 24.3104 89.2188 25.0183 88.6251 25.5206C88.0314 26.0002 87.2892 26.2399 86.3987 26.2399Z" fill="black"/>
+          <!-- Add rest of logo path elements -->
+        </svg>
+        <div class="hero-content">
+          <h2 class="hero-title">Unlock Your Best Self.</h2>
+          <p class="hero-subtitle">A real hero doesn't wait for change-he creates it.</p>
+          <div class="hero-actions">
+            <a href="#" class="card-cta-secondary">
+              <span class="card-cta-text">Learn More</span>
+            </a>
+            <a href="#" class="card-cta-primary">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 3L14 8M14 8L9 13M14 8H2" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust Section -->
+      <h2 class="mobile-section-title">Doctor-trusted solutions, personalized to you</h2>
+
+      <!-- How It Works Section -->
+      <div class="mobile-how-it-works">
+        <div class="section-header">
+          <h2 class="section-title">How it works</h2>
+          <p class="section-subtitle">Simple, secure, and personalized healthcare</p>
+        </div>
+        <div class="steps-container">
+          <div class="step-item">
+            <div class="step-icon quiz">📋</div>
+            <div class="step-content">
+              <h3 class="step-title">Take a quiz</h3>
+              <p class="step-description">Answer questions about your health and lifestyle</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-icon expert">👨‍⚕️</div>
+            <div class="step-content">
+              <h3 class="step-title">Talk to an expert</h3>
+              <p class="step-description">Connect with licensed healthcare providers</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-icon plan">📝</div>
+            <div class="step-content">
+              <h3 class="step-title">Get your plan</h3>
+              <p class="step-description">Receive a personalized treatment plan</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-icon delivery">📦</div>
+            <div class="step-content">
+              <h3 class="step-title">Delivered to you</h3>
+              <p class="step-description">Discreet delivery to your door</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="mobile-cta-section">
+        <h3 class="cta-title">Ready to start your journey?</h3>
+        <a href="#" class="cta-button">Get Started Today</a>
+      </div>
+
+      <!-- Footer -->
+      <div class="mobile-footer">
+        <div class="footer-content">
+          <div class="footer-logo">heros.</div>
+          <p class="footer-text">Personalized healthcare, delivered.</p>
+        </div>
+      </div>
+
+    </div>
+    <!-- End Mobile Layout -->
 
     <div class="global-styles w-embed">
       <style>
@@ -6600,7 +6852,7 @@ margin: 0rem !important;
     // Listen for messages from settings page
     window.addEventListener('message', (event) => {
       if (event.data && event.data.type === 'heroSettingChanged') {
-        console.log('📨 Preview received settings change:', event.data);
+        console.log('��� Preview received settings change:', event.data);
         setTimeout(enhancedPreviewSync, 100);
       }
     });
