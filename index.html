@@ -5861,7 +5861,7 @@ margin: 0rem !important;
             setTimeout(() => {
               const computedStyle = window.getComputedStyle(element);
               if (computedStyle.display !== 'none') {
-                console.warn(`⚠��� Display override may not be working for carousel ${settingKey}`);
+                console.warn(`⚠️ Display override may not be working for carousel ${settingKey}`);
                 element.classList.add('heros-force-hidden');
               }
             }, 50);
@@ -6722,7 +6722,7 @@ margin: 0rem !important;
   // 4. Trust Badge Carousel
   function initTrustBadgeCarousel() {
     const trustBadges = [
-      { icon: "🏥", text: "FDA‑approved when prescribed", subtext: "From licensed pharmacies" },
+      { icon: "🏥", text: "Licensed U.S. pharmacies", subtext: "State‑licensed dispensing" },
       { icon: "👨‍⚕️", text: "Board Certified", subtext: "Licensed doctors" },
       { icon: "🔒", text: "HIPAA Compliant", subtext: "Your privacy protected" },
       { icon: "📦", text: "Free Shipping", subtext: "Discreet delivery" },
@@ -6734,8 +6734,8 @@ margin: 0rem !important;
       <div id="trust-carousel" style="position: fixed; top: 50%; right: 0; transform: translateY(-50%); background: white; border-radius: 12px 0 0 12px; box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1); z-index: 999; padding: 20px 16px; width: 200px;">
         <div id="trust-badge-content" style="text-align: center; transition: all 0.3s ease;">
           <div style="font-size: 24px; margin-bottom: 8px;">🏥</div>
-          <div style="font-weight: 700; font-size: 14px; color: #1a1a1a; margin-bottom: 4px;">FDA‑approved when prescribed</div>
-          <div style="font-size: 12px; color: #666;">From licensed pharmacies</div>
+          <div style="font-weight: 700; font-size: 14px; color: #1a1a1a; margin-bottom: 4px;">Licensed U.S. pharmacies</div>
+          <div style="font-size: 12px; color: #666;">State‑licensed dispensing</div>
         </div>
         <div style="display: flex; justify-content: center; gap: 4px; margin-top: 12px;">
           ${trustBadges.map((_, i) => `<div class="trust-dot" style="width: 6px; height: 6px; border-radius: 50%; background: ${i === 0 ? '#e6b591' : '#ddd'}; transition: all 0.3s ease;"></div>`).join('')}
