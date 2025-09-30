@@ -17,6 +17,9 @@
   ],
   "author": "Heros Health, Inc.",
   "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.0"
+  },
   "devDependencies": {
     "http-server": "^14.1.1"
   },

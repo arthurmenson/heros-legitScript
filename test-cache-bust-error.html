@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cache-Busting Error Test</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+    
+    .test-container {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    
+    .status {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin: 10px 0;
+      font-weight: 500;
+      border: 1px solid;
+    }
+    
+    .success {
+      background: #d4edda;
+      color: #155724;
+      border-color: #c3e6cb;
+    }
+    
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+      border-color: #f5c6cb;
+    }
+    
+    .warning {
+      background: #fff3cd;
+      color: #856404;
+      border-color: #ffeaa7;
+    }
+    
+    .info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border-color: #bee5eb;
+    }
+    
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 8px 8px 8px 0;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    button:hover {
+      background: #0056b3;
+    }
+    
+    .log {
+      background: #2d3748;
+      color: #e2e8f0;
+      border: 1px solid #4a5568;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      max-height: 400px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin: 15px 0;
+    }
+    
+    .highlight {
+      background: #fff3cd;
+      color: #856404;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #ffeaa7;
+      margin: 15px 0;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <h1>🔄 Cache-Busting Error Test</h1>
+    <p>This test force-reloads the database.js file to ensure we're testing the latest code.</p>
+    
+    <div class="highlight">
+      🎯 Goal: Verify "[object Object]" errors are completely eliminated
+    </div>
+    
+    <div id="results">
+      <div class="status info">Ready to test with fresh database.js...</div>
+    </div>
+    
+    <button onclick="runFreshTest()">🔄 Force Reload & Test</button>
+    <button onclick="testErrorHandling()">🧪 Test Error Handling</button>
+    <button onclick="clearResults()">🗑️ Clear Results</button>
+    
+    <div id="logOutput" class="log">Test output will appear here...</div>
+  </div>
+
+  <script>
+    const timestamp = Date.now();
+    let logContainer = document.getElementById('logOutput');
+    let resultsContainer = document.getElementById('results');
+    
+    // Enhanced console capture
+    const originalLog = console.log;
+    const originalError = console.error;
+    const originalWarn = console.warn;
+    const originalDebug = console.debug;
+    
+    function addToLog(message, type = 'log') {
+      const time = new Date().toLocaleTimeString();
+      const logMessage = `[${time}] ${type.toUpperCase()}: ${message}`;
+      logContainer.textContent += logMessage + '\\n';
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+    
+    console.log = function(...args) {
+      originalLog.apply(console, args);
+      addToLog(args.join(' '), 'log');
+    };
+    
+    console.error = function(...args) {
+      originalError.apply(console, args);
+      addToLog(args.join(' '), 'error');
+    };
+    
+    console.warn = function(...args) {
+      originalWarn.apply(console, args);
+      addToLog(args.join(' '), 'warn');
+    };
+    
+    console.debug = function(...args) {
+      originalDebug.apply(console, args);
+      addToLog(args.join(' '), 'debug');
+    };
+    
+    function addStatus(message, type, icon = '') {
+      const statusDiv = document.createElement('div');
+      statusDiv.className = `status ${type}`;
+      statusDiv.innerHTML = `${icon} ${message}`;
+      resultsContainer.appendChild(statusDiv);
+    }
+    
+    function clearResults() {
+      resultsContainer.innerHTML = '';
+      logContainer.textContent = '';
+      addStatus('Results cleared', 'info', '🗑️');
+    }
+    
+    function removeOldScript() {
+      // Remove any existing database.js scripts
+      const existingScripts = document.querySelectorAll('script[src*="database.js"]');
+      existingScripts.forEach(script => {
+        script.remove();
+        console.log('Removed old database.js script');
+      });
+      
+      // Clear window.db
+      if (window.db) {
+        delete window.db;
+        console.log('Cleared window.db');
+      }
+    }
+    
+    function loadFreshDatabaseJS() {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = `js/database.js?v=${timestamp}&bust=${Math.random()}`;
+        
+        script.onload = function() {
+          console.log('✅ Fresh database.js loaded');
+          addStatus('Fresh database.js loaded successfully', 'success', '✅');
+          resolve();
+        };
+        
+        script.onerror = function() {
+          console.error('❌ Failed to load fresh database.js');
+          addStatus('Failed to load fresh database.js', 'error', '❌');
+          reject(new Error('Script load failed'));
+        };
+        
+        document.head.appendChild(script);
+      });
+    }
+    
+    async function runFreshTest() {
+      clearResults();
+      addStatus('Starting fresh test with cache-busted database.js...', 'info', '🔄');
+      
+      try {
+        // Step 1: Remove old script and global
+        removeOldScript();
+        addStatus('Removed old database.js references', 'success', '🗑️');
+        
+        // Step 2: Load fresh script
+        await loadFreshDatabaseJS();
+        
+        // Step 3: Wait a moment for initialization
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Step 4: Test the fresh instance
+        if (window.db) {
+          addStatus('Database manager available', 'success', '✅');
+          
+          console.log('🧪 Testing fresh database connection...');
+          const result = await window.db.testConnection();
+          
+          console.log('📋 Connection test result:', result);
+          
+          // Check for [object Object] in the result
+          const resultStr = JSON.stringify(result, null, 2);
+          if (resultStr.includes('[object Object]')) {
+            addStatus('❌ FOUND [object Object] in result!', 'error', '🚨');
+            console.error('Result contains [object Object]:', result);
+          } else {
+            addStatus('✅ No [object Object] found in result', 'success', '🎉');
+          }
+          
+          // Display result details
+          if (result) {
+            addStatus(`Success: ${result.success}`, result.success ? 'success' : 'error', '📊');
+            addStatus(`Message: ${result.message}`, 'info', '💬');
+            
+            if (result.error) {
+              addStatus(`Error: ${result.error}`, 'warning', '⚠️');
+              
+              // Check if error message contains [object Object]
+              if (result.error.includes('[object Object]')) {
+                addStatus('🚨 ERROR MESSAGE CONTAINS [object Object]!', 'error', '🚨');
+              }
+            }
+            
+            if (result.fallback) {
+              addStatus('System running in fallback mode', 'warning', '📦');
+            }
+            
+            if (result.step) {
+              addStatus(`Step: ${result.step}`, 'info', '👣');
+            }
+          } else {
+            addStatus('No result returned from testConnection', 'error', '❌');
+          }
+          
+        } else {
+          addStatus('Database manager not found after loading', 'error', '❌');
+        }
+        
+      } catch (error) {
+        console.error('Fresh test failed:', error);
+        addStatus(`Fresh test failed: ${error.message}`, 'error', '❌');
+      }
+    }
+    
+    function testErrorHandling() {
+      addStatus('Testing error message handling...', 'info', '🧪');
+      
+      if (!window.db) {
+        addStatus('Database manager not available', 'error', '❌');
+        return;
+      }
+      
+      // Test the getErrorMessage function directly
+      const testErrors = [
+        null,
+        undefined,
+        '',
+        'string error',
+        new Error('error object'),
+        { message: 'object with message' },
+        { error: 'object with error' },
+        { nested: { error: 'nested error' } },
+        { toString: () => '[object Object]' }, // This should be caught
+        {},
+        []
+      ];
+      
+      let allPassed = true;
+      
+      testErrors.forEach((testError, index) => {
+        try {
+          const result = window.db.getErrorMessage(testError);
+          
+          if (result.includes('[object Object]')) {
+            addStatus(`❌ Test ${index + 1}: Found [object Object] in result: "${result}"`, 'error', '🚨');
+            allPassed = false;
+          } else {
+            addStatus(`✅ Test ${index + 1}: Clean result: "${result}"`, 'success', '✅');
+          }
+        } catch (e) {
+          addStatus(`❌ Test ${index + 1}: Exception: ${e.message}`, 'error', '💥');
+          allPassed = false;
+        }
+      });
+      
+      if (allPassed) {
+        addStatus('🎉 All error handling tests passed!', 'success', '🎉');
+      } else {
+        addStatus('❌ Some error handling tests failed', 'error', '❌');
+      }
+    }
+    
+    // Initialize
+    window.addEventListener('load', () => {
+      console.log('Cache-busting error test page loaded');
+      addStatus('Page loaded - ready for fresh testing', 'info', '🚀');
+    });
+  </script>
+</body>
+</html>

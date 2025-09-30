@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error Handling Test</title>
+  <script src="js/database.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f8f9fa;
+    }
+    
+    .test-container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .test-section {
+      margin: 20px 0;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      background: #fafafa;
+    }
+    
+    .status {
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin: 10px 0;
+      font-weight: 500;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    
+    .success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    .warning {
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeaa7;
+    }
+    
+    .info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+    
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 8px 8px 8px 0;
+      font-weight: 500;
+    }
+    
+    button:hover {
+      background: #0056b3;
+    }
+    
+    button:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+    }
+    
+    .log {
+      background: #2d3748;
+      color: #e2e8f0;
+      border: 1px solid #4a5568;
+      border-radius: 6px;
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      max-height: 300px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    
+    .result-display {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 16px;
+      margin: 10px 0;
+      font-family: monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <h1>🔧 Error Handling Test</h1>
+    <p>This page tests the improved error handling to prevent "[object Object]" errors.</p>
+    
+    <div class="test-section">
+      <h3>🧪 Database Connection Test</h3>
+      <div id="dbTestResults">Ready to test...</div>
+      <button onclick="testDatabaseConnection()">Test Database Connection</button>
+      <button onclick="testDatabaseConnectionDetailed()">Detailed Test</button>
+    </div>
+    
+    <div class="test-section">
+      <h3>⚠️ Error Message Handling Test</h3>
+      <div id="errorTestResults">Ready to test...</div>
+      <button onclick="testErrorHandling()">Test Error Messages</button>
+    </div>
+    
+    <div class="test-section">
+      <h3>🔍 Raw Result Display</h3>
+      <div id="rawResults" class="result-display">No results yet...</div>
+    </div>
+    
+    <div class="test-section">
+      <h3>📝 Console Logs</h3>
+      <button onclick="clearLogs()">Clear Logs</button>
+      <div id="consoleLogs" class="log"></div>
+    </div>
+  </div>
+
+  <script>
+    let logContainer = document.getElementById('consoleLogs');
+    
+    // Enhanced console capturing
+    const originalLog = console.log;
+    const originalError = console.error;
+    const originalWarn = console.warn;
+    
+    function addToLog(message, type = 'log') {
+      const timestamp = new Date().toLocaleTimeString();
+      const logMessage = `[${timestamp}] ${type.toUpperCase()}: ${message}`;
+      logContainer.textContent += logMessage + '\\n';
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+    
+    console.log = function(...args) {
+      originalLog.apply(console, args);
+      addToLog(args.join(' '), 'log');
+    };
+    
+    console.error = function(...args) {
+      originalError.apply(console, args);
+      addToLog(args.join(' '), 'error');
+    };
+    
+    console.warn = function(...args) {
+      originalWarn.apply(console, args);
+      addToLog(args.join(' '), 'warn');
+    };
+    
+    // Safe stringify function for displaying results
+    function safeStringify(obj, indent = 2) {
+      if (obj == null) return 'null';
+      if (typeof obj === 'string') return obj;
+      if (typeof obj === 'number' || typeof obj === 'boolean') return String(obj);
+      
+      if (obj instanceof Error) {
+        return `Error: ${obj.message}\\nStack: ${obj.stack}`;
+      }
+      
+      try {
+        return JSON.stringify(obj, null, indent);
+      } catch (e) {
+        return `[Object - could not stringify: ${e.message}]`;
+      }
+    }
+    
+    function addStatus(container, message, type) {
+      const statusDiv = document.createElement('div');
+      statusDiv.className = `status ${type}`;
+      statusDiv.textContent = message;
+      container.appendChild(statusDiv);
+    }
+    
+    function clearResults(containerId) {
+      document.getElementById(containerId).innerHTML = '';
+    }
+    
+    // Test database connection
+    async function testDatabaseConnection() {
+      const resultsEl = document.getElementById('dbTestResults');
+      const rawEl = document.getElementById('rawResults');
+      clearResults('dbTestResults');
+      
+      addStatus(resultsEl, '🔄 Testing database connection...', 'info');
+      
+      try {
+        if (!window.db) {
+          addStatus(resultsEl, '❌ Database manager not found', 'error');
+          rawEl.textContent = 'Database manager: null';
+          return;
+        }
+        
+        console.log('Starting database connection test...');
+        const result = await window.db.testConnection();
+        
+        // Display raw result
+        rawEl.textContent = safeStringify(result);
+        
+        if (result && result.success) {
+          if (result.fallback) {
+            addStatus(resultsEl, `ℹ️ ${result.message}`, 'warning');
+            addStatus(resultsEl, '📦 System is using localStorage for data storage', 'info');
+            if (result.error) {
+              addStatus(resultsEl, `📝 Original error: ${window.db.getErrorMessage(result.error)}`, 'info');
+            }
+          } else {
+            addStatus(resultsEl, `✅ ${result.message}`, 'success');
+          }
+
+          if (result.needsSetup) {
+            addStatus(resultsEl, '⚠️ Database setup required', 'warning');
+          }
+          if (result.step) {
+            addStatus(resultsEl, `📍 Step: ${result.step}`, 'info');
+          }
+        } else if (result) {
+          const errorMsg = window.db.getErrorMessage(result.error);
+          addStatus(resultsEl, `❌ ${result.message}: ${errorMsg}`, 'error');
+        } else {
+          addStatus(resultsEl, '❌ No result returned', 'error');
+        }
+        
+      } catch (error) {
+        console.error('Test error:', error);
+        const errorMsg = window.db ? window.db.getErrorMessage(error) : String(error);
+        addStatus(resultsEl, `❌ Test failed: ${errorMsg}`, 'error');
+        rawEl.textContent = safeStringify(error);
+      }
+    }
+    
+    // Detailed database test
+    async function testDatabaseConnectionDetailed() {
+      const resultsEl = document.getElementById('dbTestResults');
+      const rawEl = document.getElementById('rawResults');
+      clearResults('dbTestResults');
+      
+      addStatus(resultsEl, '🔬 Running detailed database test...', 'info');
+      
+      try {
+        // Test 1: Check database manager
+        addStatus(resultsEl, `DB Manager exists: ${!!window.db}`, 'info');
+        
+        if (!window.db) {
+          addStatus(resultsEl, '❌ Cannot proceed without database manager', 'error');
+          return;
+        }
+        
+        // Test 2: Check initialization status
+        addStatus(resultsEl, `DB Initialized: ${window.db.isInitialized}`, 'info');
+        
+        // Test 3: Check Supabase client
+        addStatus(resultsEl, `Supabase client: ${!!window.db.supabase}`, 'info');
+        
+        // Test 4: Run actual connection test
+        const result = await window.db.testConnection();
+        rawEl.textContent = safeStringify(result);
+        
+        if (result) {
+          addStatus(resultsEl, `Success: ${result.success}`, result.success ? 'success' : 'error');
+          addStatus(resultsEl, `Message: ${result.message}`, 'info');
+          if (result.error) {
+            addStatus(resultsEl, `Error: ${window.db.getErrorMessage(result.error)}`, 'error');
+          }
+          if (result.step) {
+            addStatus(resultsEl, `Step: ${result.step}`, 'info');
+          }
+        }
+        
+      } catch (error) {
+        console.error('Detailed test error:', error);
+        const errorMsg = window.db ? window.db.getErrorMessage(error) : String(error);
+        addStatus(resultsEl, `❌ Detailed test failed: ${errorMsg}`, 'error');
+        rawEl.textContent = safeStringify(error);
+      }
+    }
+    
+    // Test error message handling
+    function testErrorHandling() {
+      const resultsEl = document.getElementById('errorTestResults');
+      const rawEl = document.getElementById('rawResults');
+      clearResults('errorTestResults');
+      
+      addStatus(resultsEl, '🧪 Testing error message handling...', 'info');
+      
+      if (!window.db) {
+        addStatus(resultsEl, '❌ Database manager not found', 'error');
+        return;
+      }
+      
+      // Test various error types
+      const testErrors = [
+        null,
+        undefined,
+        '',
+        'Simple string error',
+        new Error('Test Error object'),
+        { message: 'Object with message' },
+        { error: 'Object with error property' },
+        { details: 'Object with details' },
+        { message: { nested: 'Nested message object' } },
+        { code: 'PGRST116', message: 'Table not found' },
+        { complexObject: true, nested: { data: 'value' } }
+      ];
+      
+      testErrors.forEach((testError, index) => {
+        try {
+          const result = window.db.getErrorMessage(testError);
+          addStatus(resultsEl, `Test ${index + 1}: ${result}`, 'success');
+        } catch (e) {
+          addStatus(resultsEl, `Test ${index + 1} failed: ${e.message}`, 'error');
+        }
+      });
+      
+      rawEl.textContent = 'Error handling tests completed - see results above';
+    }
+    
+    function clearLogs() {
+      logContainer.textContent = '';
+    }
+    
+    // Initialize
+    window.addEventListener('load', () => {
+      console.log('Error handling test page loaded');
+      console.log('Database manager available:', !!window.db);
+    });
+  </script>
+</body>
+</html>

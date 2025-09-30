@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Error Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    
+    .test-container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .status {
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin: 10px 0;
+      font-weight: 500;
+      border: 1px solid;
+    }
+    
+    .success {
+      background: #d4edda;
+      color: #155724;
+      border-color: #c3e6cb;
+    }
+    
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+      border-color: #f5c6cb;
+    }
+    
+    .info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border-color: #bee5eb;
+    }
+    
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 8px 8px 8px 0;
+      font-weight: 500;
+    }
+    
+    button:hover {
+      background: #0056b3;
+    }
+    
+    .log {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 6px;
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      max-height: 300px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <h1>🔧 Simple Error Test</h1>
+    <p>Testing error handling without external dependencies.</p>
+    
+    <div id="results">
+      <div class="status info">Ready to test...</div>
+    </div>
+    
+    <button onclick="testWithoutDatabase()">Test Without Database</button>
+    <button onclick="testWithDatabase()">Test With Database</button>
+    <button onclick="clearResults()">Clear Results</button>
+    
+    <div id="logOutput" class="log">Console output will appear here...</div>
+  </div>
+
+  <script>
+    let logContainer = document.getElementById('logOutput');
+    let resultsContainer = document.getElementById('results');
+    
+    // Capture console outputs
+    const originalLog = console.log;
+    const originalError = console.error;
+    const originalWarn = console.warn;
+    
+    function addToLog(message, type = 'log') {
+      const timestamp = new Date().toLocaleTimeString();
+      const logMessage = `[${timestamp}] ${type.toUpperCase()}: ${message}`;
+      logContainer.textContent += logMessage + '\\n';
+      logContainer.scrollTop = logContainer.scrollHeight;
+      
+      // Also call original
+      if (type === 'error') {
+        originalError(logMessage);
+      } else if (type === 'warn') {
+        originalWarn(logMessage);
+      } else {
+        originalLog(logMessage);
+      }
+    }
+    
+    console.log = function(...args) {
+      addToLog(args.join(' '), 'log');
+    };
+    
+    console.error = function(...args) {
+      addToLog(args.join(' '), 'error');
+    };
+    
+    console.warn = function(...args) {
+      addToLog(args.join(' '), 'warn');
+    };
+    
+    function addStatus(message, type) {
+      const statusDiv = document.createElement('div');
+      statusDiv.className = `status ${type}`;
+      statusDiv.textContent = message;
+      resultsContainer.appendChild(statusDiv);
+    }
+    
+    function clearResults() {
+      resultsContainer.innerHTML = '';
+      logContainer.textContent = '';
+    }
+    
+    // Simple error message extraction (without database.js)
+    function simpleGetErrorMessage(error) {
+      console.log('Testing error:', typeof error, error);
+      
+      if (error == null) return 'null or undefined';
+      if (typeof error === 'string') return error;
+      if (error instanceof Error) return error.message || error.toString();
+      if (error?.message) return String(error.message);
+      if (error?.error) return String(error.error);
+      
+      // Check if it would result in [object Object]
+      const stringified = String(error);
+      if (stringified === '[object Object]') {
+        try {
+          return JSON.stringify(error);
+        } catch (e) {
+          return 'Error object (could not stringify)';
+        }
+      }
+      
+      return stringified;
+    }
+    
+    function testWithoutDatabase() {
+      clearResults();
+      addStatus('Testing error handling without database...', 'info');
+      
+      // Test various error types that might cause [object Object]
+      const testErrors = [
+        null,
+        undefined,
+        '',
+        'String error',
+        new Error('Error object'),
+        { message: 'Object with message' },
+        { error: 'Object with error' },
+        { details: 'Object with details' },
+        { nested: { error: 'Nested error' } },
+        { toString: () => 'Custom toString' },
+        { valueOf: () => 'Custom valueOf' },
+        new TypeError('Type error'),
+        new ReferenceError('Reference error'),
+        Promise.reject('Rejected promise'),
+        Symbol('symbol error')
+      ];
+      
+      testErrors.forEach((testError, index) => {
+        try {
+          const result = simpleGetErrorMessage(testError);
+          const hasObjectError = result.includes('[object Object]');
+          
+          addStatus(`Test ${index + 1}: ${result}`, hasObjectError ? 'error' : 'success');
+          
+          if (hasObjectError) {
+            console.error(`Found [object Object] in test ${index + 1}`);
+          }
+        } catch (e) {
+          addStatus(`Test ${index + 1} failed: ${e.message}`, 'error');
+        }
+      });
+    }
+    
+    async function testWithDatabase() {
+      clearResults();
+      addStatus('Testing with database.js...', 'info');
+      
+      // Force reload database.js to clear any cache
+      const script = document.createElement('script');
+      script.src = 'js/database.js?v=' + Date.now();
+      script.onload = async function() {
+        addStatus('Database.js loaded', 'success');
+        
+        try {
+          if (window.db) {
+            addStatus('Database manager found', 'success');
+            
+            // Test the connection
+            const result = await window.db.testConnection();
+            console.log('Test connection result:', result);
+            
+            if (result) {
+              // Check if any part of the result contains [object Object]
+              const resultString = JSON.stringify(result);
+              if (resultString.includes('[object Object]')) {
+                addStatus('Found [object Object] in result!', 'error');
+                console.error('Result contains [object Object]:', result);
+              } else {
+                addStatus('No [object Object] found in result', 'success');
+              }
+              
+              addStatus(`Connection result: ${result.success ? 'SUCCESS' : 'FAILED'}`, result.success ? 'success' : 'error');
+              addStatus(`Message: ${result.message}`, 'info');
+              
+              if (result.error) {
+                const errorMsg = window.db.getErrorMessage(result.error);
+                addStatus(`Error: ${errorMsg}`, 'error');
+                
+                if (errorMsg.includes('[object Object]')) {
+                  console.error('ERROR MESSAGE CONTAINS [object Object]!', result.error);
+                  addStatus('FOUND THE ISSUE: Error message contains [object Object]', 'error');
+                }
+              }
+              
+            } else {
+              addStatus('No result returned from testConnection', 'error');
+            }
+            
+          } else {
+            addStatus('Database manager not found', 'error');
+          }
+        } catch (error) {
+          console.error('Test with database failed:', error);
+          addStatus(`Test failed: ${error.message}`, 'error');
+        }
+      };
+      
+      script.onerror = function() {
+        addStatus('Failed to load database.js', 'error');
+      };
+      
+      document.head.appendChild(script);
+    }
+    
+    // Initialize
+    window.addEventListener('load', () => {
+      console.log('Simple error test page loaded');
+      addStatus('Page loaded - ready for testing', 'info');
+    });
+  </script>
+</body>
+</html>

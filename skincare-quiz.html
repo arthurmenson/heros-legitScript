@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html data-wf-page="skincare-quiz" data-wf-site="682f5a8cf58ac9034f80ba80" lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Skincare Assessment - Personalized Treatment Plan</title>
+  <meta content="Complete your personalized skincare evaluation. Professional, confidential assessment designed by licensed dermatologists." name="description">
+  <meta content="Skincare Assessment - Personalized Treatment Plan" property="og:title">
+  <meta content="Complete your personalized skincare evaluation. Professional, confidential assessment designed by licensed dermatologists." property="og:description">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link href="css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="css/heros-fd8f11.webflow.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
+  <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
+  <link href="images/webclip.png" rel="apple-touch-icon">
+  
+  <style>
+    body {
+      font-family: 'RethinkSans', Arial, sans-serif;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    
+    .quiz-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .quiz-header {
+      text-align: center;
+      margin-bottom: 40px;
+      background: white;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .category-indicator {
+      display: inline-block;
+      background: linear-gradient(90deg, #ff6b6b 0%, #4ecdc4 100%);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .quiz-progress {
+      width: 100%;
+      height: 8px;
+      background: #e9ecef;
+      border-radius: 4px;
+      margin: 20px 0;
+      overflow: hidden;
+    }
+    
+    .quiz-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #ff6b6b 0%, #4ecdc4 100%);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+    
+    .quiz-content {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .quiz-question {
+      margin-bottom: 32px;
+    }
+    
+    .quiz-question h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0 0 12px 0;
+      line-height: 1.2;
+    }
+    
+    .quiz-question p {
+      font-size: 18px;
+      color: #666;
+      margin: 0;
+      line-height: 1.5;
+    }
+    
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .quiz-option {
+      background: white;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 16px;
+      color: #1a1a1a;
+      font-weight: 500;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .quiz-option:hover {
+      border-color: #ff6b6b;
+      background: #fafafa;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 107, 107, 0.2);
+    }
+    
+    .quiz-option:active {
+      transform: translateY(0);
+    }
+    
+    .option-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    
+    .quiz-option:hover .option-icon {
+      background: #ff6b6b;
+      color: white;
+    }
+    
+    .option-content {
+      flex: 1;
+    }
+    
+    .option-title {
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 4px;
+      color: #1a1a1a;
+    }
+    
+    .option-subtitle {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.4;
+    }
+    
+    .quiz-results {
+      text-align: center;
+    }
+    
+    .quiz-results .completion-check {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      color: white;
+    }
+    
+    .recommendation-card {
+      background: linear-gradient(135deg, #fff5f5 0%, #f0fdfa 100%);
+      border-radius: 12px;
+      padding: 32px;
+      margin: 32px 0;
+      text-align: left;
+    }
+    
+    .recommendation-card h3 {
+      margin: 0 0 16px 0;
+      color: #1a1a1a;
+      font-size: 24px;
+      font-weight: 600;
+    }
+    
+    .recommendation-card p {
+      margin: 0 0 20px 0;
+      color: #666;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    
+    .treatment-highlight {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      border-left: 4px solid #ff6b6b;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      margin: 16px 0;
+    }
+    
+    .treatment-highlight p {
+      margin: 0;
+      font-weight: 600;
+      color: #1a1a1a;
+      font-size: 16px;
+    }
+    
+    .skin-concerns {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+    
+    .skin-concerns h4 {
+      margin: 0 0 12px 0;
+      color: #856404;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    .skin-concerns ul {
+      margin: 0;
+      padding-left: 20px;
+      color: #856404;
+    }
+    
+    .quiz-actions {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      flex: 1;
+      min-width: 200px;
+      text-align: center;
+      display: inline-block;
+    }
+    
+    .btn-primary {
+      background: #ff6b6b;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(255, 107, 107, 0.3);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: #666;
+      border: 2px solid #e9ecef;
+    }
+    
+    .btn-secondary:hover {
+      border-color: #ccc;
+      color: #333;
+    }
+    
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 24px 0;
+    }
+    
+    .benefit-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: #666;
+      background: white;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+    }
+    
+    .benefit-check {
+      color: #28a745;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 32px;
+    }
+    
+    .btn-back {
+      background: transparent;
+      border: 2px solid #e9ecef;
+      color: #666;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-back:hover {
+      border-color: #ccc;
+      color: #333;
+    }
+    
+    @media (max-width: 768px) {
+      .quiz-container {
+        padding: 20px 16px;
+      }
+      
+      .quiz-content {
+        padding: 24px;
+      }
+      
+      .quiz-question h2 {
+        font-size: 24px;
+      }
+      
+      .quiz-actions {
+        flex-direction: column;
+      }
+      
+      .btn {
+        min-width: auto;
+      }
+      
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .option-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="quiz-container">
+    <!-- Quiz Header -->
+    <div class="quiz-header">
+      <div class="category-indicator" id="categoryIndicator">Skin Concerns</div>
+      <h1 style="margin: 0 0 16px 0; font-size: 36px; font-weight: 700; color: #1a1a1a;">Personalized Skincare Assessment</h1>
+      <p style="margin: 0; font-size: 18px; color: #666; line-height: 1.5;">Complete dermatologist-designed evaluation. Takes 5-7 minutes to complete. Your responses help us create a personalized skincare plan.</p>
+      
+      <!-- Progress Bar -->
+      <div class="quiz-progress">
+        <div class="quiz-progress-bar" id="progressBar"></div>
+      </div>
+      <div id="progressText" style="font-size: 14px; color: #666; margin-top: 8px;">Question 1 of 18</div>
+    </div>
+
+    <!-- Quiz Content -->
+    <div class="quiz-content" id="quizContent">
+      <!-- Questions will be inserted here by JavaScript -->
+    </div>
+  </div>
+
+  <script>
+    // Quiz data and state
+    let currentStep = 0;
+    let answers = {};
+    let questionHistory = [];
+    let questionSequence = []; // Track the order of questions visited
+    
+    const categories = {
+      concerns: "Skin Concerns",
+      history: "Skin History", 
+      lifestyle: "Lifestyle & Habits",
+      demographics: "Personal Information",
+      goals: "Treatment Goals"
+    };
+    
+    const quizData = {
+      // Skin Concerns (Questions 1-4)
+      0: {
+        category: "concerns",
+        question: "What is your primary skin concern?",
+        subtitle: "Select the issue that bothers you most about your skin",
+        options: [
+          { 
+            icon: "🧓", 
+            title: "Aging & wrinkles", 
+            subtitle: "Fine lines, wrinkles, loss of firmness, age spots",
+            value: "aging", 
+            next: 1 
+          },
+          { 
+            icon: "🔴", 
+            title: "Acne & breakouts", 
+            subtitle: "Active acne, blackheads, whiteheads, clogged pores",
+            value: "acne", 
+            next: 1 
+          },
+          { 
+            icon: "🌓", 
+            title: "Dark spots & pigmentation", 
+            subtitle: "Melasma, sun spots, post-acne marks, uneven skin tone",
+            value: "pigmentation", 
+            next: 1 
+          },
+          { 
+            icon: "💧", 
+            title: "Dryness & hydration", 
+            subtitle: "Dry, flaky skin, dehydration, rough texture",
+            value: "dryness", 
+            next: 1 
+          }
+        ]
+      },
+      1: {
+        category: "concerns",
+        question: "How severe would you rate your skin concerns?",
+        subtitle: "This helps us understand the intensity of treatment needed",
+        options: [
+          { 
+            icon: "🔴", 
+            title: "Severe", 
+            subtitle: "Significantly impacts confidence and daily life",
+            value: "severe", 
+            next: 2 
+          },
+          { 
+            icon: "🟡", 
+            title: "Moderate", 
+            subtitle: "Noticeable issues that I'd like to address",
+            value: "moderate", 
+            next: 2 
+          },
+          { 
+            icon: "🟠", 
+            title: "Mild", 
+            subtitle: "Some concerns but not major issues",
+            value: "mild", 
+            next: 2 
+          },
+          { 
+            icon: "🟢", 
+            title: "Prevention-focused", 
+            subtitle: "Want to prevent future issues and maintain healthy skin",
+            value: "prevention", 
+            next: 2 
+          }
+        ]
+      },
+      2: {
+        category: "concerns",
+        question: "How long have you been dealing with these skin concerns?",
+        subtitle: "Duration helps determine the best treatment approach",
+        options: [
+          { 
+            icon: "⏰", 
+            title: "Less than 6 months", 
+            subtitle: "Recent onset or new concerns",
+            value: "recent", 
+            next: 3 
+          },
+          { 
+            icon: "📅", 
+            title: "6 months - 2 years", 
+            subtitle: "Ongoing concerns for moderate period",
+            value: "moderate_duration", 
+            next: 3 
+          },
+          { 
+            icon: "📆", 
+            title: "2-5 years", 
+            subtitle: "Long-standing skin issues",
+            value: "long_term", 
+            next: 3 
+          },
+          { 
+            icon: "⏳", 
+            title: "More than 5 years", 
+            subtitle: "Chronic, long-standing concerns",
+            value: "chronic", 
+            next: 3 
+          }
+        ]
+      },
+      3: {
+        category: "concerns",
+        question: "Do you have any additional skin concerns?",
+        subtitle: "Select any other issues you'd like to address",
+        options: [
+          { 
+            icon: "🔍", 
+            title: "Large pores", 
+            subtitle: "Visible pores, especially on nose and cheeks",
+            value: "large_pores", 
+            next: 4 
+          },
+          { 
+            icon: "🕷���", 
+            title: "Broken capillaries/redness", 
+            subtitle: "Visible blood vessels, rosacea, general redness",
+            value: "redness", 
+            next: 4 
+          },
+          { 
+            icon: "⚫", 
+            title: "Dark circles/under-eye issues", 
+            subtitle: "Dark circles, puffiness, fine lines around eyes",
+            value: "dark_circles", 
+            next: 4 
+          },
+          { 
+            icon: "✅", 
+            title: "No additional concerns", 
+            subtitle: "Primary concern is the main focus",
+            value: "no_additional", 
+            next: 4 
+          }
+        ]
+      },
+      
+      // Skin History (Questions 5-8)
+      4: {
+        category: "history",
+        question: "What is your skin type?",
+        subtitle: "Understanding your skin type helps us recommend appropriate treatments",
+        options: [
+          { 
+            icon: "💧", 
+            title: "Dry", 
+            subtitle: "Often feels tight, flaky, or rough",
+            value: "dry", 
+            next: 5 
+          },
+          { 
+            icon: "💎", 
+            title: "Normal", 
+            subtitle: "Well-balanced, not too oily or dry",
+            value: "normal", 
+            next: 5 
+          },
+          { 
+            icon: "✨", 
+            title: "Oily", 
+            subtitle: "Shiny, especially in T-zone, prone to breakouts",
+            value: "oily", 
+            next: 5 
+          },
+          { 
+            icon: "🔄", 
+            title: "Combination", 
+            subtitle: "Oily T-zone with drier cheeks",
+            value: "combination", 
+            next: 5 
+          }
+        ]
+      },
+      5: {
+        category: "history",
+        question: "How sensitive is your skin?",
+        subtitle: "This affects which active ingredients we can recommend",
+        options: [
+          { 
+            icon: "🔴", 
+            title: "Very sensitive", 
+            subtitle: "Reacts to most products, easily irritated",
+            value: "very_sensitive", 
+            next: 6 
+          },
+          { 
+            icon: "🟡", 
+            title: "Somewhat sensitive", 
+            subtitle: "Occasional reactions to certain ingredients",
+            value: "somewhat_sensitive", 
+            next: 6 
+          },
+          { 
+            icon: "🟢", 
+            title: "Not very sensitive", 
+            subtitle: "Can tolerate most products without issues",
+            value: "not_sensitive", 
+            next: 6 
+          },
+          { 
+            icon: "💪", 
+            title: "Resilient", 
+            subtitle: "Rarely have reactions, can handle strong actives",
+            value: "resilient", 
+            next: 6 
+          }
+        ]
+      },
+      6: {
+        category: "history",
+        question: "Have you used any of these treatments before?",
+        subtitle: "Your experience helps us determine the best next steps",
+        options: [
+          { 
+            icon: "🧪", 
+            title: "Prescription treatments", 
+            subtitle: "Tretinoin, hydroquinone, prescription acne medications",
+            value: "prescription", 
+            next: 7 
+          },
+          { 
+            icon: "⚗️", 
+            title: "Professional treatments", 
+            subtitle: "Chemical peels, microneedling, laser treatments",
+            value: "professional", 
+            next: 7 
+          },
+          { 
+            icon: "🛒", 
+            title: "Over-the-counter products", 
+            subtitle: "Drugstore skincare, vitamin C, retinol products",
+            value: "otc", 
+            next: 7 
+          },
+          { 
+            icon: "❌", 
+            title: "No previous treatments", 
+            subtitle: "New to targeted skincare treatments",
+            value: "no_treatment", 
+            next: 7 
+          }
+        ]
+      },
+      7: {
+        category: "history",
+        question: "Do you have any known allergies or skin conditions?",
+        subtitle: "This ensures we recommend safe and appropriate treatments",
+        options: [
+          { 
+            icon: "⚠️", 
+            title: "Product allergies", 
+            subtitle: "Known allergies to specific skincare ingredients",
+            value: "product_allergies", 
+            next: 8 
+          },
+          { 
+            icon: "🏥", 
+            title: "Skin conditions", 
+            subtitle: "Eczema, psoriasis, rosacea, or other diagnosed conditions",
+            value: "skin_conditions", 
+            next: 8 
+          },
+          { 
+            icon: "🤧", 
+            title: "Environmental allergies only", 
+            subtitle: "Seasonal allergies but no skincare-related allergies",
+            value: "environmental_only", 
+            next: 8 
+          },
+          { 
+            icon: "✅", 
+            title: "No known allergies", 
+            subtitle: "No known allergies or skin conditions",
+            value: "no_allergies", 
+            next: 8 
+          }
+        ]
+      },
+      
+      // Lifestyle & Habits (Questions 9-12)
+      8: {
+        category: "lifestyle",
+        question: "What does your current skincare routine look like?",
+        subtitle: "Understanding your current habits helps us build on what works",
+        options: [
+          { 
+            icon: "🧴", 
+            title: "Comprehensive routine", 
+            subtitle: "Cleanser, serum, moisturizer, sunscreen + treatments",
+            value: "comprehensive", 
+            next: 9 
+          },
+          { 
+            icon: "📦", 
+            title: "Basic routine", 
+            subtitle: "Cleanser, moisturizer, and sunscreen",
+            value: "basic", 
+            next: 9 
+          },
+          { 
+            icon: "🧼", 
+            title: "Minimal routine", 
+            subtitle: "Just cleanser and moisturizer",
+            value: "minimal", 
+            next: 9 
+          },
+          { 
+            icon: "❌", 
+            title: "No consistent routine", 
+            subtitle: "Sporadic or no regular skincare routine",
+            value: "none", 
+            next: 9 
+          }
+        ]
+      },
+      9: {
+        category: "lifestyle",
+        question: "How much sun exposure do you get?",
+        subtitle: "Sun exposure significantly impacts skin health and treatment planning",
+        options: [
+          { 
+            icon: "☀️", 
+            title: "High exposure", 
+            subtitle: "Work outdoors, frequent sun activities, live in sunny climate",
+            value: "high_sun", 
+            next: 10 
+          },
+          { 
+            icon: "🌤️", 
+            title: "Moderate exposure", 
+            subtitle: "Some outdoor activities, occasional sun exposure",
+            value: "moderate_sun", 
+            next: 10 
+          },
+          { 
+            icon: "🏢", 
+            title: "Low exposure", 
+            subtitle: "Mostly indoors, limited sun exposure",
+            value: "low_sun", 
+            next: 10 
+          },
+          { 
+            icon: "🛡️", 
+            title: "Always protected", 
+            subtitle: "Consistent sunscreen use, avoid direct sun",
+            value: "protected", 
+            next: 10 
+          }
+        ]
+      },
+      10: {
+        category: "lifestyle",
+        question: "How would you describe your stress levels?",
+        subtitle: "Stress can significantly impact skin health and healing",
+        options: [
+          { 
+            icon: "😰", 
+            title: "High stress", 
+            subtitle: "Frequently stressed, affects daily life and sleep",
+            value: "high_stress", 
+            next: 11 
+          },
+          { 
+            icon: "😐", 
+            title: "Moderate stress", 
+            subtitle: "Some stress, manageable most of the time",
+            value: "moderate_stress", 
+            next: 11 
+          },
+          { 
+            icon: "😌", 
+            title: "Low stress", 
+            subtitle: "Generally relaxed with occasional stress",
+            value: "low_stress", 
+            next: 11 
+          },
+          { 
+            icon: "😊", 
+            title: "Very relaxed", 
+            subtitle: "Rarely stressed, very calm lifestyle",
+            value: "very_relaxed", 
+            next: 11 
+          }
+        ]
+      },
+      11: {
+        category: "lifestyle",
+        question: "Do any of these lifestyle factors apply to you?",
+        subtitle: "These factors can impact skin health and treatment effectiveness",
+        options: [
+          { 
+            icon: "🚬", 
+            title: "Smoker", 
+            subtitle: "Current smoker (affects circulation and healing)",
+            value: "smoker", 
+            next: 12 
+          },
+          { 
+            icon: "🍷", 
+            title: "Regular alcohol consumption", 
+            subtitle: "Frequent drinking (can cause dehydration and inflammation)",
+            value: "alcohol", 
+            next: 12 
+          },
+          { 
+            icon: "😴", 
+            title: "Poor sleep habits", 
+            subtitle: "Irregular sleep, less than 6 hours per night",
+            value: "poor_sleep", 
+            next: 12 
+          },
+          { 
+            icon: "✅", 
+            title: "Healthy lifestyle", 
+            subtitle: "Good sleep, limited alcohol, non-smoker",
+            value: "healthy", 
+            next: 12 
+          }
+        ]
+      },
+      
+      // Demographics (Questions 13-15)
+      12: {
+        category: "demographics",
+        question: "What is your age range?",
+        subtitle: "Age affects skin needs and appropriate treatments",
+        options: [
+          { 
+            icon: "👩", 
+            title: "18-25 years", 
+            subtitle: "Young adult, prevention-focused care",
+            value: "18_25", 
+            next: 13 
+          },
+          { 
+            icon: "👩‍💼", 
+            title: "26-35 years", 
+            subtitle: "Early intervention, prevention + treatment",
+            value: "26_35", 
+            next: 13 
+          },
+          { 
+            icon: "👩‍🦳", 
+            title: "36-50 years", 
+            subtitle: "Targeted anti-aging, pigmentation concerns",
+            value: "36_50", 
+            next: 13 
+          },
+          { 
+            icon: "👵", 
+            title: "50+ years", 
+            subtitle: "Mature skin, advanced anti-aging treatments",
+            value: "50_plus", 
+            next: 13 
+          }
+        ]
+      },
+      13: {
+        category: "demographics",
+        question: "How would you describe your skin tone?",
+        subtitle: "This helps us recommend appropriate treatments and avoid pigmentation issues",
+        options: [
+          { 
+            icon: "🤍", 
+            title: "Fair/Light", 
+            subtitle: "Burns easily, rarely tans, light complexion",
+            value: "fair", 
+            next: 14 
+          },
+          { 
+            icon: "🤎", 
+            title: "Medium", 
+            subtitle: "Sometimes burns, tans moderately",
+            value: "medium", 
+            next: 14 
+          },
+          { 
+            icon: "🖤", 
+            title: "Dark", 
+            subtitle: "Rarely burns, tans easily, darker complexion",
+            value: "dark", 
+            next: 14 
+          },
+          { 
+            icon: "🌍", 
+            title: "Deep/Very Dark", 
+            subtitle: "Never burns, very dark complexion",
+            value: "very_dark", 
+            next: 14 
+          }
+        ]
+      },
+      14: {
+        category: "demographics",
+        question: "What is your gender?",
+        subtitle: "Hormonal differences can affect skin needs and treatment approaches",
+        options: [
+          { 
+            icon: "👩", 
+            title: "Female", 
+            subtitle: "May have hormonal fluctuations affecting skin",
+            value: "female", 
+            next: 15 
+          },
+          { 
+            icon: "👨", 
+            title: "Male", 
+            subtitle: "Different skin thickness and oil production patterns",
+            value: "male", 
+            next: 15 
+          },
+          { 
+            icon: "🌈", 
+            title: "Non-binary", 
+            subtitle: "Individual assessment based on skin characteristics",
+            value: "non_binary", 
+            next: 15 
+          },
+          { 
+            icon: "🤷", 
+            title: "Prefer not to say", 
+            subtitle: "Focus purely on skin characteristics",
+            value: "not_specified", 
+            next: 15 
+          }
+        ]
+      },
+      
+      // Treatment Goals (Questions 16-18)
+      15: {
+        category: "goals",
+        question: "What is your primary goal for skincare treatment?",
+        subtitle: "Understanding your goals helps us create the most effective plan",
+        options: [
+          { 
+            icon: "🎯", 
+            title: "Address specific concerns", 
+            subtitle: "Target my main skin issues with proven treatments",
+            value: "address_concerns", 
+            next: 16 
+          },
+          { 
+            icon: "🛡️", 
+            title: "Prevent future issues", 
+            subtitle: "Maintain healthy skin and prevent aging/damage",
+            value: "prevention", 
+            next: 16 
+          },
+          { 
+            icon: "✨", 
+            title: "Overall skin improvement", 
+            subtitle: "General skin health, glow, and texture improvement",
+            value: "overall_improvement", 
+            next: 16 
+          },
+          { 
+            icon: "💫", 
+            title: "Anti-aging focus", 
+            subtitle: "Specifically target signs of aging and maintain youthful skin",
+            value: "anti_aging", 
+            next: 16 
+          }
+        ]
+      },
+      16: {
+        category: "goals",
+        question: "How quickly would you like to see results?",
+        subtitle: "This affects treatment intensity and approach",
+        options: [
+          { 
+            icon: "⚡", 
+            title: "As soon as possible", 
+            subtitle: "Willing to use stronger treatments for faster results",
+            value: "fast_results", 
+            next: 17 
+          },
+          { 
+            icon: "📅", 
+            title: "Within 2-3 months", 
+            subtitle: "Moderate timeline with balanced approach",
+            value: "moderate_timeline", 
+            next: 17 
+          },
+          { 
+            icon: "🌱", 
+            title: "Gradual improvement", 
+            subtitle: "Slow and steady, gentler approach preferred",
+            value: "gradual", 
+            next: 17 
+          },
+          { 
+            icon: "🔄", 
+            title: "Long-term maintenance", 
+            subtitle: "Focus on sustainable, long-term skin health",
+            value: "maintenance", 
+            next: 17 
+          }
+        ]
+      },
+      17: {
+        category: "goals",
+        question: "What type of treatment approach do you prefer?",
+        subtitle: "We offer various treatment options to match your preferences",
+        options: [
+          { 
+            icon: "💊", 
+            title: "Prescription treatments", 
+            subtitle: "Medical-grade actives prescribed by dermatologists",
+            value: "prescription", 
+            next: "results" 
+          },
+          { 
+            icon: "🌿", 
+            title: "Natural/gentle approach", 
+            subtitle: "Plant-based ingredients, minimal harsh chemicals",
+            value: "natural", 
+            next: "results" 
+          },
+          { 
+            icon: "⚗️", 
+            title: "Professional treatments", 
+            subtitle: "In-office procedures, peels, advanced treatments",
+            value: "professional", 
+            next: "results" 
+          },
+          { 
+            icon: "🤔", 
+            title: "Not sure", 
+            subtitle: "Would like professional recommendation based on my skin",
+            value: "unsure", 
+            next: "results" 
+          }
+        ]
+      }
+    };
+    
+    // Initialize quiz
+    function initQuiz() {
+      displayQuestion(0);
+    }
+    
+    // Display a question
+    function displayQuestion(stepIndex, isBackNavigation = false) {
+      const step = quizData[stepIndex];
+      if (!step) return;
+
+      currentStep = stepIndex;
+
+      // Manage question sequence properly
+      if (!isBackNavigation) {
+        if (!questionHistory.includes(stepIndex)) {
+          questionHistory.push(stepIndex);
+        }
+        // Track the sequential order
+        if (!questionSequence.includes(stepIndex)) {
+          questionSequence.push(stepIndex);
+        }
+      }
+
+      const content = document.getElementById('quizContent');
+      const totalSteps = Object.keys(quizData).filter(key => !isNaN(key)).length;
+
+      // Use position in sequence for numbering
+      const currentQuestionNumber = questionSequence.indexOf(stepIndex) + 1;
+      const progress = (currentQuestionNumber / totalSteps) * 100;
+
+      document.getElementById('progressBar').style.width = progress + '%';
+      document.getElementById('progressText').textContent = `Question ${currentQuestionNumber} of ${totalSteps}`;
+      document.getElementById('categoryIndicator').textContent = categories[step.category];
+      
+      const showBackButton = questionHistory.length > 1;
+      
+      content.innerHTML = `
+        <div class="quiz-question">
+          <h2>${step.question}</h2>
+          <p>${step.subtitle}</p>
+        </div>
+        
+        <div class="quiz-options">
+          ${step.options.map((option, index) => `
+            <button class="quiz-option" onclick="selectOption('${option.value}', '${option.next}')">
+              <div class="option-icon">${option.icon}</div>
+              <div class="option-content">
+                <div class="option-title">${option.title}</div>
+                <div class="option-subtitle">${option.subtitle}</div>
+              </div>
+            </button>
+          `).join('')}
+        </div>
+        
+        ${showBackButton ? `
+        <div class="navigation-buttons">
+          <button class="btn-back" onclick="goBack()">← Previous Question</button>
+        </div>
+        ` : ''}
+      `;
+    }
+    
+    // Handle option selection
+    function selectOption(value, nextStep) {
+      answers[currentStep] = value;
+
+      // Store answers in localStorage for account creation
+      localStorage.setItem('skincareQuizAnswers', JSON.stringify(answers));
+
+      // Add selection animation
+      event.target.style.background = '#ff6b6b';
+      event.target.style.color = 'white';
+      event.target.style.borderColor = '#ff6b6b';
+
+      setTimeout(() => {
+        if (nextStep === 'results') {
+          displayResults();
+        } else {
+          displayQuestion(nextStep);
+        }
+      }, 300);
+    }
+    
+    // Go back to previous question
+    function goBack() {
+      const currentIndex = questionSequence.indexOf(currentStep);
+      if (currentIndex > 0) {
+        const previousStep = questionSequence[currentIndex - 1];
+        delete answers[currentStep]; // Remove current answer
+        displayQuestion(previousStep, true);
+      }
+    }
+    
+    // Display results
+    function displayResults() {
+      const analysis = analyzeAnswers(answers);
+      const content = document.getElementById('quizContent');
+      
+      // Update progress to 100%
+      document.getElementById('progressBar').style.width = '100%';
+      document.getElementById('progressText').textContent = 'Assessment Complete';
+      document.getElementById('categoryIndicator').textContent = 'Results & Recommendations';
+      
+      content.innerHTML = `
+        <div class="quiz-results">
+          <div class="completion-check">✓</div>
+          
+          <h2 style="margin: 0 0 16px 0; font-size: 32px; font-weight: 700; color: #1a1a1a;">Your Personalized Skincare Plan</h2>
+          <p style="margin: 0 0 32px 0; font-size: 18px; color: #666; line-height: 1.5;">Based on your detailed assessment, here's your customized skincare recommendation</p>
+          
+          <div class="recommendation-card">
+            <h3>${analysis.recommendation.title}</h3>
+            <p>${analysis.recommendation.description}</p>
+            
+            <div class="treatment-highlight">
+              <p>✨ Recommended Treatment: ${analysis.recommendation.treatment}</p>
+            </div>
+            
+            <div class="treatment-highlight">
+              <p>⏰ Expected Timeline: ${analysis.recommendation.timeline}</p>
+            </div>
+          </div>
+          
+          ${analysis.skinConcerns.length > 0 ? `
+          <div class="skin-concerns">
+            <h4>🎯 Your Treatment Focus Areas</h4>
+            <ul>
+              ${analysis.skinConcerns.map(concern => `<li>${concern}</li>`).join('')}
+            </ul>
+          </div>
+          ` : ''}
+          
+          <div class="benefits-grid">
+            <div class="benefit-item">
+              <span class="benefit-check">✓</span>
+              <span>Dermatologist-formulated treatments</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-check">✓</span>
+              <span>Personalized to your skin type</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-check">✓</span>
+              <span>Professional consultation included</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-check">✓</span>
+              <span>Convenient monthly delivery</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-check">✓</span>
+              <span>Ongoing progress monitoring</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-check">✓</span>
+              <span>Flexible treatment adjustments</span>
+            </div>
+          </div>
+
+          <div style="margin: 16px 0; text-align: center;">
+            <p style="color: #999; font-size: 12px; line-height: 1.3;">Compounded medications are prepared by state-licensed pharmacies when clinically appropriate. Compounded drugs are not FDA-approved, and the FDA does not verify their safety, effectiveness, or quality.</p>
+          </div>
+
+          <div style="background: #f8f9fa; border-radius: 12px; padding: 24px; margin: 24px 0; text-align: center;">
+            <h4 style="margin: 0 0 12px 0; color: #1a1a1a; font-size: 18px; font-weight: 600;">🔒 Next Step: Secure Account Creation</h4>
+            <p style="margin: 0; color: #666; font-size: 16px; line-height: 1.5;">To proceed with your personalized skincare consultation, we'll create a secure account. This ensures your skin profile and treatment plan remain private and accessible for ongoing care.</p>
+          </div>
+          
+          <div class="quiz-actions">
+            <a href="skincare-account.html" class="btn btn-primary">Create Account & Continue</a>
+            <a href="skin-care.html" class="btn btn-secondary">Back to Skincare</a>
+          </div>
+        </div>
+      `;
+    }
+    
+    // Comprehensive answer analysis
+    function analyzeAnswers(answers) {
+      const primaryConcern = answers[0]; // aging, acne, pigmentation, dryness
+      const severity = answers[1]; // severe, moderate, mild, prevention
+      const duration = answers[2]; // recent, moderate_duration, long_term, chronic
+      const additionalConcerns = answers[3]; // large_pores, redness, dark_circles, no_additional
+      const skinType = answers[4]; // dry, normal, oily, combination
+      const sensitivity = answers[5]; // very_sensitive, somewhat_sensitive, not_sensitive, resilient
+      const previousTreatment = answers[6]; // prescription, professional, otc, no_treatment
+      const allergies = answers[7]; // product_allergies, skin_conditions, environmental_only, no_allergies
+      const routine = answers[8]; // comprehensive, basic, minimal, none
+      const sunExposure = answers[9]; // high_sun, moderate_sun, low_sun, protected
+      const stress = answers[10]; // high_stress, moderate_stress, low_stress, very_relaxed
+      const lifestyle = answers[11]; // smoker, alcohol, poor_sleep, healthy
+      const age = answers[12]; // 18_25, 26_35, 36_50, 50_plus
+      const skinTone = answers[13]; // fair, medium, dark, very_dark
+      const gender = answers[14]; // female, male, non_binary, not_specified
+      const goal = answers[15]; // address_concerns, prevention, overall_improvement, anti_aging
+      const timeline = answers[16]; // fast_results, moderate_timeline, gradual, maintenance
+      const approach = answers[17]; // prescription, natural, professional, unsure
+      
+      let recommendation = {};
+      let skinConcerns = [];
+      
+      // Determine primary recommendation based on concerns and severity
+      if (primaryConcern === 'aging' || goal === 'anti_aging') {
+        recommendation = {
+          title: "Advanced Anti-Aging Program",
+          description: "Your assessment indicates aging concerns that will respond well to targeted anti-aging treatments. We recommend a combination of proven ingredients like retinoids, peptides, and antioxidants to address fine lines, improve texture, and maintain youthful skin.",
+          treatment: "Retinoid therapy with peptide complex and vitamin C serum",
+          timeline: timeline === 'fast_results' ? "Visible improvements in 4-6 weeks, optimal results in 3-4 months" : "Gradual improvements over 6-12 weeks, long-term benefits with continued use"
+        };
+      } else if (primaryConcern === 'acne') {
+        recommendation = {
+          title: "Acne Treatment Program",
+          description: "Based on your responses, you'll benefit from a targeted acne treatment approach. We'll use a combination of treatments to clear current breakouts, prevent new ones, and improve overall skin texture.",
+          treatment: "Salicylic acid and/or retinoid therapy with gentle, non-comedogenic support products",
+          timeline: timeline === 'fast_results' ? "Initial improvement in 2-4 weeks, significant clearing in 6-8 weeks" : "Gradual clearing over 8-12 weeks with gentle, sustainable approach"
+        };
+      } else if (primaryConcern === 'pigmentation') {
+        recommendation = {
+          title: "Pigmentation Correction Program", 
+          description: "Your assessment shows pigmentation concerns that require targeted treatment. We'll use proven ingredients to fade dark spots, even skin tone, and prevent future pigmentation while protecting your skin barrier.",
+          treatment: "Hydroquinone or kojic acid with vitamin C and broad-spectrum sunscreen",
+          timeline: timeline === 'fast_results' ? "Noticeable fading in 4-6 weeks, significant improvement in 8-12 weeks" : "Gradual, gentle fading over 12-16 weeks"
+        };
+      } else {
+        recommendation = {
+          title: "Hydration & Barrier Repair Program",
+          description: "Your skin needs focused hydration and barrier repair. We'll use gentle, effective ingredients to restore moisture, improve texture, and strengthen your skin's natural protective barrier.",
+          treatment: "Hyaluronic acid serums with ceramides and gentle moisturizing complex",
+          timeline: "Immediate hydration boost, significant improvement in texture and comfort within 2-4 weeks"
+        };
+      }
+      
+      // Add specific concerns based on responses
+      skinConcerns.push(`Primary focus: ${primaryConcern.replace('_', ' ')}`);
+      
+      if (additionalConcerns !== 'no_additional') {
+        skinConcerns.push(`Secondary concern: ${additionalConcerns.replace('_', ' ')}`);
+      }
+      
+      if (sensitivity === 'very_sensitive') {
+        skinConcerns.push("Gentle formulations required due to skin sensitivity");
+      }
+      
+      if (sunExposure === 'high_sun') {
+        skinConcerns.push("Enhanced sun protection needed due to high exposure");
+      }
+      
+      if (skinType === 'oily') {
+        skinConcerns.push("Non-comedogenic products to prevent clogged pores");
+      } else if (skinType === 'dry') {
+        skinConcerns.push("Extra hydration and barrier support needed");
+      }
+      
+      return {
+        recommendation,
+        skinConcerns
+      };
+    }
+    
+    // Start the quiz when page loads
+    document.addEventListener('DOMContentLoaded', initQuiz);
+  </script>
+</body>
+</html>

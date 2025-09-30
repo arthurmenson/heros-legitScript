@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Database Connection Test</title>
+  <script src="js/database.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    
+    .test-container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .test-section {
+      margin: 20px 0;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+    }
+    
+    .status {
+      padding: 10px 15px;
+      border-radius: 6px;
+      margin: 10px 0;
+      font-weight: bold;
+    }
+    
+    .success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    .info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+    
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    
+    button:hover {
+      background: #0056b3;
+    }
+    
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .log {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 4px;
+      padding: 15px;
+      font-family: monospace;
+      font-size: 14px;
+      max-height: 300px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+    
+    input[type="email"], input[type="text"], input[type="date"] {
+      width: 100%;
+      padding: 8px 12px;
+      margin: 5px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <h1>🔗 Database Connection Test</h1>
+    <p>This page tests the connection to your Supabase PostgreSQL database.</p>
+    
+    <div class="test-section">
+      <h3>Connection Status</h3>
+      <div id="connectionStatus" class="status info">Testing connection...</div>
+      <button onclick="testConnection()">Test Connection</button>
+    </div>
+    
+    <div class="test-section">
+      <h3>Create Test User</h3>
+      <div class="form-row">
+        <input type="text" id="testFirstName" placeholder="First Name" value="Test">
+        <input type="text" id="testLastName" placeholder="Last Name" value="User">
+      </div>
+      <input type="email" id="testEmail" placeholder="Email" value="test@example.com">
+      <input type="date" id="testDob" value="1990-01-01">
+      <br>
+      <button onclick="createTestUser()">Create Test User</button>
+      <button onclick="checkTestEmail()">Check if Email Exists</button>
+      <div id="userTestStatus" class="status info" style="display: none;"></div>
+    </div>
+    
+    <div class="test-section">
+      <h3>Database Actions</h3>
+      <button onclick="clearLogs()">Clear Logs</button>
+      <button onclick="showDatabaseInfo()">Show Database Info</button>
+    </div>
+    
+    <div class="test-section">
+      <h3>Console Logs</h3>
+      <div id="consoleLogs" class="log"></div>
+    </div>
+  </div>
+
+  <script>
+    let logContainer = document.getElementById('consoleLogs');
+    
+    // Capture console logs
+    const originalLog = console.log;
+    const originalError = console.error;
+    const originalWarn = console.warn;
+    
+    function addToLog(message, type = 'log') {
+      const timestamp = new Date().toLocaleTimeString();
+      const logMessage = `[${timestamp}] ${type.toUpperCase()}: ${message}\n`;
+      logContainer.textContent += logMessage;
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+    
+    console.log = function(...args) {
+      originalLog.apply(console, args);
+      addToLog(args.join(' '), 'log');
+    };
+    
+    console.error = function(...args) {
+      originalError.apply(console, args);
+      addToLog(args.join(' '), 'error');
+    };
+    
+    console.warn = function(...args) {
+      originalWarn.apply(console, args);
+      addToLog(args.join(' '), 'warn');
+    };
+    
+    // Enhanced error handling function
+    function safeStringify(obj) {
+      if (obj == null) return 'null';
+      if (typeof obj === 'string') return obj;
+      if (typeof obj === 'number' || typeof obj === 'boolean') return String(obj);
+
+      if (obj instanceof Error) {
+        return obj.message || obj.toString();
+      }
+
+      if (typeof obj === 'object') {
+        try {
+          // Try to extract meaningful properties
+          if (obj.message) return String(obj.message);
+          if (obj.error) return String(obj.error);
+          if (obj.details) return String(obj.details);
+
+          // Fallback to JSON stringify
+          return JSON.stringify(obj);
+        } catch (e) {
+          return '[Object - could not stringify]';
+        }
+      }
+
+      return String(obj);
+    }
+
+    // Test functions
+    async function testConnection() {
+      const statusEl = document.getElementById('connectionStatus');
+      statusEl.textContent = 'Testing connection...';
+      statusEl.className = 'status info';
+
+      try {
+        console.log('Starting test connection...');
+
+        if (!window.db) {
+          throw new Error('Database manager not found');
+        }
+
+        const result = await window.db.testConnection();
+        console.log('Test connection result:', result);
+
+        if (result && result.success) {
+          if (result.fallback) {
+            let message = 'ℹ️ Using fallback storage (localStorage)';
+            if (result.needsSetup) {
+              message += ' - Database setup available';
+            }
+            statusEl.textContent = message;
+            statusEl.className = 'status warning';
+          } else {
+            let message = '✅ Database connection successful!';
+            if (result.needsSetup) {
+              message += ' (Database setup required)';
+            }
+            statusEl.textContent = message;
+            statusEl.className = 'status success';
+          }
+        } else if (result) {
+          const errorMsg = safeStringify(result.error || result.message || 'Unknown error');
+          statusEl.textContent = `❌ Connection failed: ${errorMsg}`;
+          statusEl.className = 'status error';
+
+          if (result.step) {
+            statusEl.textContent += ` (Step: ${result.step})`;
+          }
+        } else {
+          statusEl.textContent = '❌ No result returned from test';
+          statusEl.className = 'status error';
+        }
+      } catch (error) {
+        console.error('Test connection error:', error);
+        const errorMsg = safeStringify(error);
+        statusEl.textContent = `❌ Connection error: ${errorMsg}`;
+        statusEl.className = 'status error';
+      }
+    }
+    
+    async function createTestUser() {
+      const statusEl = document.getElementById('userTestStatus');
+      statusEl.style.display = 'block';
+      statusEl.textContent = 'Creating test user...';
+      statusEl.className = 'status info';
+      
+      try {
+        const userData = {
+          firstName: document.getElementById('testFirstName').value,
+          lastName: document.getElementById('testLastName').value,
+          email: document.getElementById('testEmail').value,
+          dateOfBirth: document.getElementById('testDob').value,
+          accountType: 'test'
+        };
+        
+        const result = await window.db.createUser(userData);
+        
+        if (result.success) {
+          statusEl.textContent = `✅ Test user created successfully! ID: ${result.user.id}`;
+          statusEl.className = 'status success';
+        } else {
+          statusEl.textContent = `❌ Failed to create user: ${result.error}`;
+          statusEl.className = 'status error';
+        }
+      } catch (error) {
+        statusEl.textContent = `❌ Error creating user: ${error.message}`;
+        statusEl.className = 'status error';
+      }
+    }
+    
+    async function checkTestEmail() {
+      const statusEl = document.getElementById('userTestStatus');
+      statusEl.style.display = 'block';
+      statusEl.textContent = 'Checking email...';
+      statusEl.className = 'status info';
+      
+      try {
+        const email = document.getElementById('testEmail').value;
+        const exists = await window.db.checkEmailExists(email);
+        
+        if (exists) {
+          statusEl.textContent = `✅ Email ${email} exists in database`;
+          statusEl.className = 'status success';
+        } else {
+          statusEl.textContent = `ℹ️ Email ${email} not found in database`;
+          statusEl.className = 'status info';
+        }
+      } catch (error) {
+        statusEl.textContent = `❌ Error checking email: ${error.message}`;
+        statusEl.className = 'status error';
+      }
+    }
+    
+    function clearLogs() {
+      logContainer.textContent = '';
+    }
+    
+    function showDatabaseInfo() {
+      console.log('Database Manager Info:');
+      console.log('Initialized:', window.db.isInitialized);
+      console.log('Supabase Client:', window.db.supabase ? 'Available' : 'Not available');
+    }
+    
+    // Auto-test connection on load
+    window.addEventListener('load', () => {
+      setTimeout(testConnection, 1000);
+    });
+    
+    // Update email field with timestamp to avoid duplicates
+    document.getElementById('testEmail').value = `test${Date.now()}@example.com`;
+  </script>
+</body>
+</html>
