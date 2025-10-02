@@ -1876,10 +1876,11 @@
   .mini-card .mini-label { font-weight: 600; color: #1a1a1a; font-size: 16px; }
   .mini-card .mini-arrow { width: 28px; height: 28px; border-radius: 50%; background: #1a1a1a; color: #fff; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .mini-card .mini-media { position: absolute; right: 10px; bottom: 8px; width: 40%; max-width: 110px; border-radius: 10px; pointer-events: none; }
-  .mini-cta { position: absolute; left: 16px; bottom: 12px; display: inline-flex; align-items: center; border-radius: 9999px; }
-  .mini-arrow-circle { width: 28px; height: 28px; border-radius: 50%; background: #1a1a1a; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; }
-  .mini-cta-text { overflow: hidden; white-space: nowrap; max-width: 0; opacity: 0; margin-left: 0; font-weight: 700; font-size: 14px; color: #1a1a1a; transition: max-width 0.3s ease, opacity 0.3s ease, margin-left 0.3s ease; }
-  .mini-card:hover .mini-cta-text { max-width: 120px; opacity: 1; margin-left: 8px; }
+  .mini-cta { position: absolute; left: 16px; bottom: 12px; display: inline-flex; align-items: center; border-radius: 9999px; background: #fff; border: 1px solid #e1e5e9; padding: 6px; overflow: hidden; transition: padding 0.3s ease, box-shadow 0.3s ease; }
+  .mini-cta:hover { padding: 6px 10px; box-shadow: 0 2px 10px rgba(26, 26, 26, 0.08); }
+  .mini-cta-text { white-space: nowrap; max-width: 0; opacity: 0; margin-left: 0; font-weight: 700; font-size: 14px; color: #1a1a1a; transition: max-width 0.3s ease, opacity 0.3s ease, margin-left 0.3s ease; }
+  .mini-arrow-circle { width: 28px; height: 28px; border-radius: 50%; background: #1a1a1a; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; margin-left: 8px; flex-shrink: 0; }
+  .mini-cta:hover .mini-cta-text { max-width: 120px; opacity: 1; margin-left: 6px; }
 
   @media (max-width: 991px) { .featured-cards-grid { grid-template-columns: 1fr; } .featured-card { min-height: 240px; } }
   @media (max-width: 768px) { .featured-mini-grid { grid-template-columns: 1fr; } }
@@ -4358,24 +4359,24 @@ margin: 0rem !important;
                       <a href="skin-care.html" class="mini-card mini-skin">
                         <span class="mini-label">Skin Care</span>
                         <div class="mini-cta">
-                          <span class="mini-arrow-circle">&#8594;</span>
                           <span class="mini-cta-text">Get Started</span>
+                          <span class="mini-arrow-circle">&#8594;</span>
                         </div>
                         <img src="images/image-82.avif" alt="Skin care product" class="mini-media">
                       </a>
                       <a href="hair-regrowth.html" class="mini-card mini-hair">
                         <span class="mini-label">Hair Regrowth</span>
                         <div class="mini-cta">
-                          <span class="mini-arrow-circle">&#8594;</span>
                           <span class="mini-cta-text">Get Started</span>
+                          <span class="mini-arrow-circle">&#8594;</span>
                         </div>
                         <img src="images/Frame-2085667765_1.avif" alt="Hair regrowth treatment" class="mini-media">
                       </a>
                       <a href="rpm.html" class="mini-card mini-rpm">
                         <span class="mini-label">RPM</span>
                         <div class="mini-cta">
-                          <span class="mini-arrow-circle">&#8594;</span>
                           <span class="mini-cta-text">Get Started</span>
+                          <span class="mini-arrow-circle">&#8594;</span>
                         </div>
                         <img src="images/Frame-2121453125.avif" alt="Remote patient monitoring" class="mini-media">
                       </a>
@@ -6277,7 +6278,7 @@ margin: 0rem !important;
     // Ensure settings exist on production
     const productionSettingsData = localStorage.getItem('herosSiteSettings');
     if (!productionSettingsData) {
-      console.log('📝 Creating default settings for production domain...');
+      console.log('���� Creating default settings for production domain...');
       const defaultProductionSettings = {
         'menu-weight-loss': true, 'menu-mens-ed': true, 'menu-skin-care': true,
         'menu-hair-regrowth': true, 'menu-nad-plus': true, 'menu-diabetes-care': true,
