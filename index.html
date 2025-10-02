@@ -1861,6 +1861,25 @@
     }
   }
 
+  /* Featured Services section (cards below hero) */
+  .featured-services { margin-top: 24px; }
+  .featured-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .featured-card { background: #faf9f8; border-radius: 16px; padding: 24px; position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 280px; text-decoration: none; color: inherit; }
+  .featured-card .card-heading { font-family: 'Recoleta', serif; font-size: 28px; line-height: 1.2; font-weight: 600; color: #1a1a1a; margin: 0 0 4px; }
+  .featured-card .card-sub { font-size: 14px; color: #666; margin: 0 0 16px; }
+  .featured-card .cta-primary { display: inline-flex; align-items: center; justify-content: center; padding: 10px 18px; border-radius: 9999px; background: #1a1a1a; color: #fff; font-weight: 700; font-size: 14px; width: fit-content; }
+  .featured-card .media-wrap { position: absolute; right: 16px; bottom: 16px; width: 45%; max-width: 260px; pointer-events: none; }
+  .featured-card .media { width: 100%; height: auto; object-fit: cover; border-radius: 12px; }
+
+  .featured-mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+  .mini-card { background: #faf9f8; border-radius: 12px; padding: 16px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; color: inherit; position: relative; overflow: hidden; min-height: 92px; border: 1px solid #f2efeb; }
+  .mini-card .mini-label { font-weight: 600; color: #1a1a1a; font-size: 16px; }
+  .mini-card .mini-arrow { width: 28px; height: 28px; border-radius: 50%; background: #1a1a1a; color: #fff; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .mini-card .mini-media { position: absolute; right: 10px; bottom: 8px; width: 40%; max-width: 110px; border-radius: 10px; pointer-events: none; }
+
+  @media (max-width: 991px) { .featured-cards-grid { grid-template-columns: 1fr; } .featured-card { min-height: 240px; } }
+  @media (max-width: 768px) { .featured-mini-grid { grid-template-columns: 1fr; } }
+
   /* Trust & Social Proof Section */
   .trust-social-proof-section {
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
@@ -4310,7 +4329,45 @@ margin: 0rem !important;
                   </div>
                 </div>
                 <div class="div-block-88">
+                  <div class="featured-services">
+                    <div class="featured-cards-grid">
+                      <a href="weight-loss.html" class="featured-card featured-card--wl">
+                        <h3 class="card-heading">Weight Loss</h3>
+                        <p class="card-sub">Starting at $159 first month</p>
+                        <span class="cta-primary">Get Started</span>
+                        <div class="media-wrap">
+                          <img src="images/Frame-145.avif" alt="Weight loss product" class="media">
+                        </div>
+                      </a>
 
+                      <a href="mens-ed.html" class="featured-card featured-card--ed">
+                        <h3 class="card-heading">Men's ED</h3>
+                        <p class="card-sub">Starting at $159 first month</p>
+                        <span class="cta-primary">Get Started</span>
+                        <div class="media-wrap">
+                          <img src="images/Ellipse-2404.avif" alt="Men's ED treatment" class="media">
+                        </div>
+                      </a>
+                    </div>
+
+                    <div class="featured-mini-grid">
+                      <a href="skin-care.html" class="mini-card mini-skin">
+                        <span class="mini-label">Skin Care</span>
+                        <span class="mini-arrow">&#8594;</span>
+                        <img src="images/image-82.avif" alt="Skin care product" class="mini-media">
+                      </a>
+                      <a href="hair-regrowth.html" class="mini-card mini-hair">
+                        <span class="mini-label">Hair Regrowth</span>
+                        <span class="mini-arrow">&#8594;</span>
+                        <img src="images/Frame-2085667765_1.avif" alt="Hair regrowth treatment" class="mini-media">
+                      </a>
+                      <a href="rpm.html" class="mini-card mini-rpm">
+                        <span class="mini-label">RPM</span>
+                        <span class="mini-arrow">&#8594;</span>
+                        <img src="images/Frame-2121453125.avif" alt="Remote patient monitoring" class="mini-media">
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
