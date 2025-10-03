@@ -2040,13 +2040,33 @@
   }
 
   /* Three Column Service Cards */
-  .service-cards-grid {
+  .service-cards-outer {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 100px;
+    padding: 20px;
+  }
+
+  .service-cards-section {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 100px;
+    width: 100%;
+    flex-grow: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .service-cards-row {
     display: inline-flex;
     align-items: center;
     gap: 24px;
-    max-width: 1280px;
+    max-width: 1682px;
+    padding-right: 20px;
     margin: 28px auto 0;
-    padding: 0 20px;
   }
 
   .service-card {
