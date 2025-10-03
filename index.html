@@ -1861,6 +1861,361 @@
     }
   }
 
+
+  /* Hero Cards Section */
+  .hero-cards-section {
+    padding: 0 0 32px;
+  }
+
+  .hero-cards-container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .hero-cards-wrapper {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 24px;
+    height: 488px;
+    margin-right: 59px;
+  }
+
+  .hero-card {
+    position: relative;
+    border-radius: 32px;
+    overflow: hidden;
+  }
+
+  .hero-card-weight-loss {
+    width: 628px;
+    height: 488px;
+    background: linear-gradient(0deg, #F5F0E8 0%, #F5F0E8 100%), linear-gradient(122deg, #D1F3ED 0%, #ADC9C4 98.28%);
+  }
+
+  .hero-card-mens-ed {
+    height: 488px;
+    flex: 1 0 0;
+    background: #F5F0E8;
+  }
+
+  .hero-card-bg-image {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-blend-mode: multiply, normal;
+    border-radius: 32px;
+  }
+
+  .hero-card-content {
+    position: absolute;
+    left: 32px;
+    top: 32px;
+    width: 219px;
+    height: 424px;
+    z-index: 2;
+  }
+
+  .hero-card-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .hero-card-title {
+    color: #000;
+    font-family: 'Recoleta', serif;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 48px;
+    letter-spacing: -1.2px;
+    margin: 0;
+  }
+
+  .hero-card-subtitle {
+    color: #000;
+    font-family: 'Rethink Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.48px;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .hero-card-cta {
+    display: inline-flex;
+    padding: 12px 48px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 32px;
+    background: #000;
+    color: #FFF;
+    text-align: center;
+    font-family: 'Rethink Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: -0.48px;
+    text-decoration: none;
+    position: absolute;
+    left: 0;
+    bottom: 48px;
+    transition: all 0.3s ease;
+  }
+
+  .hero-card-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  }
+
+  .mens-ed-image-wrapper {
+    position: absolute;
+    left: 151px;
+    top: 0;
+    width: 477px;
+    height: 488px;
+  }
+
+  .mens-ed-gradient-overlay {
+    width: 119px;
+    height: 489px;
+    background: linear-gradient(270deg, rgba(245, 240, 232, 0.00) 0%, #F5F0E8 100%);
+    position: absolute;
+    left: 151px;
+    top: 0;
+    z-index: 1;
+  }
+
+  .mens-ed-card-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 477px;
+    height: 488px;
+    border-radius: 0 32px 32px 0;
+    object-fit: cover;
+  }
+
+  @media (max-width: 991px) {
+    .hero-cards-wrapper {
+      flex-direction: column;
+      gap: 16px;
+      height: auto;
+    }
+    .hero-card-weight-loss,
+    .hero-card-mens-ed {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-cards-wrapper {
+      padding: 16px;
+      gap: 12px;
+    }
+    .hero-card-weight-loss,
+    .hero-card-mens-ed {
+      height: 400px;
+    }
+    .hero-card-content {
+      width: calc(100% - 64px);
+    }
+    .hero-card-title {
+      font-size: 32px;
+      line-height: 40px;
+    }
+    .hero-card-cta {
+      width: 140px;
+      height: 44px;
+      padding: 10px 32px;
+      bottom: 32px;
+    }
+  }
+
+  /* Three Column Service Cards */
+  .service-cards-outer {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 100px;
+    padding: 20px;
+  }
+
+  .service-cards-section {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 100px;
+    width: 100%;
+    flex-grow: 1;
+    max-width: 1410px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .service-cards-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 24px;
+    max-width: 1682px;
+    padding-right: 20px;
+    margin: 28px auto 0;
+    position: relative;
+  }
+
+  .service-card {
+    align-self: stretch;
+    border-radius: 24px;
+    background: #F9F9F9;
+    position: relative;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease;
+    min-height: 191px;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .service-card-skin {
+    width: 411px;
+    background: url('https://api.builder.io/api/v1/image/assets/TEMP/2e4b9a4358fe2dfea0e70ff72b47024636932a81?width=822') lightgray 140px -3.25px / 65.937% 106.414% no-repeat, #F9F9F9;
+    padding: 24px 286px 24px 24px;
+  }
+
+  .service-card-hair,
+  .service-card-rpm {
+    width: 410px;
+  }
+
+  .service-card-inner {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 143px;
+  }
+
+  .service-card-title {
+    color: #000;
+    font-family: 'Recoleta', serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: -0.72px;
+    margin: 0;
+  }
+
+  .service-card-arrow-btn {
+    display: flex;
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 32px;
+    background: #000;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .service-card-arrow-btn:hover {
+    transform: scale(1.05);
+  }
+
+  .service-card-arrow-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .service-card-image {
+    position: absolute;
+  }
+
+  .service-card-floating-accent {
+    width: 172px;
+    height: 172px;
+    left: 205px;
+    top: 9px;
+    object-fit: contain;
+  }
+
+  .hair-image {
+    width: 172px;
+    height: 172px;
+    left: 205px;
+    top: 9px;
+    background-blend-mode: hue, normal, normal;
+    object-fit: contain;
+  }
+
+  .rpm-image-1 {
+    width: 126px;
+    height: 104px;
+    transform: rotate(45deg);
+    left: 228px;
+    top: 5px;
+  }
+
+  .rpm-image-2 {
+    width: 151px;
+    height: 125px;
+    transform: rotate(-30deg);
+    left: 228px;
+    top: 5px;
+  }
+
+  @media (max-width: 991px) {
+    .hero-cards-wrapper {
+      margin-right: 0;
+    }
+
+    .service-cards-row {
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      padding-right: 0;
+    }
+
+    .service-card,
+    .service-card-skin,
+    .service-card-hair,
+    .service-card-rpm {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .service-card-skin {
+      padding: 24px;
+      background-position: right center;
+    }
+
+    .service-card-floating-accent {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .service-cards-outer,
+    .service-cards-section {
+      padding: 16px;
+    }
+
+    .service-cards-row {
+      gap: 12px;
+      margin-top: 16px;
+    }
+  }
+
   /* Trust & Social Proof Section */
   .trust-social-proof-section {
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
@@ -4264,6 +4619,7 @@ margin: 0rem !important;
             <div>heros.</div>
           </a>
           <nav role="navigation" class="nav_menu w-nav-menu">
+            <a href="weight-loss.html" class="nav_menu_link w-nav-link">Weight Loss</a>
             <a href="mens-ed.html" data-w-id="f9fd680a-ca8a-74f0-a721-b85847db01a0" class="nav_menu_link w-nav-link">Men’s ED</a>
             <a href="skin-care.html" class="nav_menu_link w-nav-link">Skin Care</a>
             <a href="hair-regrowth.html" class="nav_menu_link w-nav-link">Hair Regrowth</a>
@@ -4309,9 +4665,6 @@ margin: 0rem !important;
                     </div>
                   </div>
                 </div>
-                <div class="div-block-88">
-
-                </div>
               </div>
             </div>
           </div>
@@ -4319,6 +4672,92 @@ margin: 0rem !important;
 
 
       </div>
+
+      <!-- Hero Cards Section -->
+      <div class="hero-cards-section">
+        <div class="padding-global">
+          <div class="hero-cards-container">
+            <div class="hero-cards-wrapper">
+              <!-- Weight Loss Card -->
+              <a href="https://a270d32cfde64475b75360089b1149ba-5937b3ae-5aa5-40f1-bf38-4efd1f.fly.dev/weight-loss.html" class="hero-card hero-card-weight-loss">
+                <img src="https://api.builder.io/api/v1/image/assets/TEMP/0e76d1d83bf244ba98ea5b3055137f6b7dd36693?width=1256" alt="" class="hero-card-bg-image">
+                <div class="hero-card-content">
+                  <div class="hero-card-text-wrapper">
+                    <h3 class="hero-card-title">Weight Loss</h3>
+                    <p class="hero-card-subtitle">Starting at $159 first month</p>
+                  </div>
+                  <span class="hero-card-cta">Get Started</span>
+                </div>
+              </a>
+
+              <!-- Men's ED Card -->
+              <a href="https://a270d32cfde64475b75360089b1149ba-5937b3ae-5aa5-40f1-bf38-4efd1f.fly.dev/mens-ed.html" class="hero-card hero-card-mens-ed">
+                <div class="mens-ed-image-wrapper">
+                  <img src="https://api.builder.io/api/v1/image/assets/TEMP/dc5009a1caf09699beafdfd1d0d0dcfd8c642e46?width=954" alt="" class="mens-ed-card-image">
+                </div>
+                <div class="mens-ed-gradient-overlay"></div>
+                <div class="hero-card-content">
+                  <div class="hero-card-text-wrapper">
+                    <h3 class="hero-card-title">Men's ED</h3>
+                    <p class="hero-card-subtitle">Starting at $159 first month</p>
+                  </div>
+                  <span class="hero-card-cta">Get Started</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Three Column Service Cards -->
+      <div class="service-cards-outer">
+        <section class="service-cards-section">
+          <div class="service-cards-row">
+            <!-- Skin Care Card -->
+            <a href="https://a270d32cfde64475b75360089b1149ba-5937b3ae-5aa5-40f1-bf38-4efd1f.fly.dev/skin-care.html" class="service-card service-card-skin">
+              <div class="service-card-inner">
+                <h4 class="service-card-title">Skin Care</h4>
+                <button class="service-card-arrow-btn">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 3L14 8M14 8L9 13M14 8H2" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </a>
+
+            <img src="https://cdn.builder.io/api/v1/file/assets%2Fccd9f70175f8439fb03547c4e6ff8da2%2F538a59674a0b4b7ea7d0840f04ff8dc7" alt="" class="service-card-image service-card-floating-accent">
+
+            <!-- Hair Regrowth Card -->
+            <a href="https://a270d32cfde64475b75360089b1149ba-5937b3ae-5aa5-40f1-bf38-4efd1f.fly.dev/hair-regrowth.html" class="service-card service-card-hair">
+              <div class="service-card-inner">
+                <h4 class="service-card-title">Hair Regrowth</h4>
+                <button class="service-card-arrow-btn">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 3L14 8M14 8L9 13M14 8H2" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+              <img src="https://cdn.builder.io/api/v1/file/assets%2Fccd9f70175f8439fb03547c4e6ff8da2%2F538a59674a0b4b7ea7d0840f04ff8dc7" alt="" class="service-card-image hair-image">
+              <img src="https://cdn.builder.io/api/v1/file/assets%2Fccd9f70175f8439fb03547c4e6ff8da2%2F538a59674a0b4b7ea7d0840f04ff8dc7" alt="" class="service-card-image hair-image">
+            </a>
+
+            <!-- NAD+ Card -->
+            <a href="https://a270d32cfde64475b75360089b1149ba-5937b3ae-5aa5-40f1-bf38-4efd1f.fly.dev/rpm.html" class="service-card service-card-rpm">
+              <div class="service-card-inner">
+                <h4 class="service-card-title">NAD+<br></h4>
+                <button class="service-card-arrow-btn">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 3L14 8M14 8L9 13M14 8H2" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+              <img src="https://api.builder.io/api/v1/image/assets/TEMP/d6ea49c62814fd95f06276109d94afd2ed211422?width=252" alt="" class="service-card-image rpm-image-1">
+              <img src="https://api.builder.io/api/v1/image/assets/TEMP/58bf1d0eec906500e869505a7114d381e6f8179f?width=301" alt="" class="service-card-image rpm-image-2">
+            </a>
+          </div>
+        </section>
+      </div>
+
       <!-- ED Meds Section moved below BMI -->
       <div class="ed-meds-section">
         <div class="padding-global">
@@ -4519,7 +4958,7 @@ margin: 0rem !important;
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <div style="display: flex; gap: 2px;">
                       <span style="color: #FFD700; font-size: 14px;">★</span>
-                      <span style="color: #FFD700; font-size: 14px;">★</span>
+                      <span style="color: #FFD700; font-size: 14px;">���</span>
                       <span style="color: #FFD700; font-size: 14px;">★</span>
                       <span style="color: #FFD700; font-size: 14px;">★</span>
                       <span style="color: #FFD700; font-size: 14px;"></span>
@@ -6207,7 +6646,7 @@ margin: 0rem !important;
     // Ensure settings exist on production
     const productionSettingsData = localStorage.getItem('herosSiteSettings');
     if (!productionSettingsData) {
-      console.log('📝 Creating default settings for production domain...');
+      console.log('���� Creating default settings for production domain...');
       const defaultProductionSettings = {
         'menu-weight-loss': true, 'menu-mens-ed': true, 'menu-skin-care': true,
         'menu-hair-regrowth': true, 'menu-nad-plus': true, 'menu-diabetes-care': true,
@@ -6459,7 +6898,7 @@ margin: 0rem !important;
   };
 
   window.displayQuizResults = function() {
-    console.log('��� Displaying quiz results');
+    console.log('���� Displaying quiz results');
     const recommendations = window.analyzeQuizAnswers(window.quizAnswers);
     const quizContent = document.getElementById('quiz-content');
 
