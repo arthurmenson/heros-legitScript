@@ -2022,6 +2022,134 @@
     }
   }
 
+  /* Three Column Service Cards */
+  .service-cards-grid {
+    display: inline-flex;
+    align-items: center;
+    gap: 24px;
+    max-width: 1280px;
+    margin: 28px auto 0;
+    padding: 0 20px;
+  }
+
+  .service-card {
+    align-self: stretch;
+    border-radius: 24px;
+    background: #F9F9F9;
+    position: relative;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease;
+    min-height: 191px;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .service-card-skin {
+    width: 411px;
+    background: url('https://api.builder.io/api/v1/image/assets/TEMP/2e4b9a4358fe2dfea0e70ff72b47024636932a81?width=822') lightgray 140px -3.25px / 65.937% 106.414% no-repeat, #F9F9F9;
+    padding: 24px 286px 24px 24px;
+  }
+
+  .service-card-hair,
+  .service-card-rpm {
+    width: 410px;
+  }
+
+  .service-card-inner {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 143px;
+  }
+
+  .service-card-title {
+    color: #000;
+    font-family: 'Recoleta', serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: -0.72px;
+    margin: 0;
+  }
+
+  .service-card-arrow-btn {
+    display: flex;
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 32px;
+    background: #000;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .service-card-arrow-btn:hover {
+    transform: scale(1.05);
+  }
+
+  .service-card-arrow-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .service-card-image {
+    position: absolute;
+  }
+
+  .hair-image {
+    width: 172px;
+    height: 172px;
+    left: 223px;
+    top: 14px;
+    background-blend-mode: hue, normal, normal;
+  }
+
+  .rpm-image-1 {
+    width: 126px;
+    height: 104px;
+    transform: rotate(45deg);
+    left: 176px;
+    top: 41px;
+  }
+
+  .rpm-image-2 {
+    width: 151px;
+    height: 125px;
+    transform: rotate(-30deg);
+    left: 201px;
+    top: -28px;
+  }
+
+  @media (max-width: 991px) {
+    .service-cards-grid {
+      flex-direction: column;
+      gap: 16px;
+    }
+    .service-card-skin,
+    .service-card-hair,
+    .service-card-rpm {
+      width: 100%;
+      max-width: 600px;
+    }
+    .service-card-skin {
+      padding: 24px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .service-cards-grid {
+      gap: 12px;
+      margin-top: 16px;
+    }
+  }
+
   /* Trust & Social Proof Section */
   .trust-social-proof-section {
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
@@ -4898,7 +5026,7 @@ margin: 0rem !important;
                           <span style="color: rgb(26, 26, 26); font-weight: 500; pointer-events: auto;">Enhanced DNA repair & cellular regeneration</span>
                         </div>
                         <div style="display: flex; align-items: center; font-weight: 400; gap: 12px; margin-bottom: 16px; pointer-events: auto;">
-                          <div style="color: rgb(255, 255, 255); font-size: 12px; font-weight: 400; pointer-events: auto; background-color: rgb(112, 151, 143); border-radius: 50%; height: 20px; width: 20px; display: flex; align-items: center; justify-content: center;">✓</div>
+                          <div style="color: rgb(255, 255, 255); font-size: 12px; font-weight: 400; pointer-events: auto; background-color: rgb(112, 151, 143); border-radius: 50%; height: 20px; width: 20px; display: flex; align-items: center; justify-content: center;">���</div>
                           <span style="color: rgb(26, 26, 26); font-weight: 500; pointer-events: auto;">Supports healthy aging & longevity</span>
                         </div>
                       </div>
