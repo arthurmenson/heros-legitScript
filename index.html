@@ -2165,23 +2165,38 @@
   }
 
   @media (max-width: 991px) {
-    .service-cards-grid {
+    .hero-cards-wrapper {
+      margin-right: 0;
+    }
+
+    .service-cards-row {
       flex-direction: column;
       gap: 16px;
+      width: 100%;
+      padding-right: 0;
     }
+
+    .service-card,
     .service-card-skin,
     .service-card-hair,
     .service-card-rpm {
       width: 100%;
       max-width: 600px;
     }
+
     .service-card-skin {
       padding: 24px;
+      background-position: right center;
     }
   }
 
   @media (max-width: 640px) {
-    .service-cards-grid {
+    .service-cards-outer,
+    .service-cards-section {
+      padding: 16px;
+    }
+
+    .service-cards-row {
       gap: 12px;
       margin-top: 16px;
     }
@@ -7179,7 +7194,7 @@ margin: 0rem !important;
     const trustBadges = [
       { icon: "🏥", text: "Licensed U.S. pharmacies", subtext: "State‑licensed dispensing" },
       { icon: "👨‍⚕️", text: "Board Certified", subtext: "Licensed doctors" },
-      { icon: "🔒", text: "HIPAA Compliant", subtext: "Your privacy protected" },
+      { icon: "��", text: "HIPAA Compliant", subtext: "Your privacy protected" },
       { icon: "📦", text: "Free Shipping", subtext: "Discreet delivery" },
       { icon: "⭐", text: "4.8/5 Rating", subtext: "50k+ reviews" }
     ];
