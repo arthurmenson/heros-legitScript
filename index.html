@@ -1863,15 +1863,21 @@
 
 
   /* Hero Cards Section */
+  .hero-cards-section {
+    padding: 0 0 32px;
+  }
+
+  .hero-cards-container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
   .hero-cards-wrapper {
     display: flex;
     width: 100%;
     align-items: center;
     gap: 24px;
     height: 488px;
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 20px;
   }
 
   .hero-card {
@@ -1982,6 +1988,16 @@
     left: 151px;
     top: 0;
     z-index: 1;
+  }
+
+  .mens-ed-card-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 477px;
+    height: 488px;
+    border-radius: 0 32px 32px 0;
+    object-fit: cover;
   }
 
   @media (max-width: 991px) {
@@ -4608,33 +4624,39 @@ margin: 0rem !important;
       </div>
 
       <!-- Hero Cards Section -->
-      <div class="hero-cards-wrapper">
-        <!-- Weight Loss Card -->
-        <a href="weight-loss.html" class="hero-card hero-card-weight-loss">
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/0e76d1d83bf244ba98ea5b3055137f6b7dd36693?width=1256" alt="" class="hero-card-bg-image">
-          <div class="hero-card-content">
-            <div class="hero-card-text-wrapper">
-              <h3 class="hero-card-title">Weight Loss</h3>
-              <p class="hero-card-subtitle">Starting at $159 first month</p>
-            </div>
-            <span class="hero-card-cta">Get Started</span>
-          </div>
-        </a>
+      <div class="hero-cards-section">
+        <div class="padding-global">
+          <div class="hero-cards-container">
+            <div class="hero-cards-wrapper">
+              <!-- Weight Loss Card -->
+              <a href="weight-loss.html" class="hero-card hero-card-weight-loss">
+                <img src="https://api.builder.io/api/v1/image/assets/TEMP/0e76d1d83bf244ba98ea5b3055137f6b7dd36693?width=1256" alt="" class="hero-card-bg-image">
+                <div class="hero-card-content">
+                  <div class="hero-card-text-wrapper">
+                    <h3 class="hero-card-title">Weight Loss</h3>
+                    <p class="hero-card-subtitle">Starting at $159 first month</p>
+                  </div>
+                  <span class="hero-card-cta">Get Started</span>
+                </div>
+              </a>
 
-        <!-- Men's ED Card -->
-        <a href="mens-ed.html" class="hero-card hero-card-mens-ed">
-          <div class="mens-ed-image-wrapper">
-            <img src="https://api.builder.io/api/v1/image/assets/TEMP/dc5009a1caf09699beafdfd1d0d0dcfd8c642e46?width=954" alt="" style="width: 477px; height: 488px; position: absolute; left: 0; top: 0; border-radius: 0 32px 32px 0;">
-          </div>
-          <div class="mens-ed-gradient-overlay"></div>
-          <div class="hero-card-content">
-            <div class="hero-card-text-wrapper">
-              <h3 class="hero-card-title">Men's ED</h3>
-              <p class="hero-card-subtitle">Starting at $159 first month</p>
+              <!-- Men's ED Card -->
+              <a href="mens-ed.html" class="hero-card hero-card-mens-ed">
+                <div class="mens-ed-image-wrapper">
+                  <img src="https://api.builder.io/api/v1/image/assets/TEMP/dc5009a1caf09699beafdfd1d0d0dcfd8c642e46?width=954" alt="" class="mens-ed-card-image">
+                </div>
+                <div class="mens-ed-gradient-overlay"></div>
+                <div class="hero-card-content">
+                  <div class="hero-card-text-wrapper">
+                    <h3 class="hero-card-title">Men's ED</h3>
+                    <p class="hero-card-subtitle">Starting at $159 first month</p>
+                  </div>
+                  <span class="hero-card-cta">Get Started</span>
+                </div>
+              </a>
             </div>
-            <span class="hero-card-cta">Get Started</span>
           </div>
-        </a>
+        </div>
       </div>
 
       <!-- Three Column Service Cards -->
